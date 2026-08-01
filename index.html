@@ -60,11 +60,25 @@
             text-align: center;
         }
 
+        .sidebar-brand-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .sidebar-logo {
+            width: 36px;
+            height: 36px;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+
         .sidebar-brand {
             margin: 0;
             font-size: 26px;
             color: #0369a1;
-            cursor: pointer;
             letter-spacing: -0.02em;
             font-weight: 800;
             display: inline-block;
@@ -293,7 +307,10 @@
     <div class="dashboard-container">
         <div class="sidebar">
             <div class="sidebar-header">
-                <h2 class="sidebar-brand" onclick="loadDashboard()">Mono Academy</h2>
+                <div class="sidebar-brand-wrapper" onclick="loadDashboard()">
+                    <img src="M.png" alt="Mono Academy Logo" class="sidebar-logo">
+                    <h2 class="sidebar-brand">Mono Academy</h2>
+                </div>
             </div>
             
             <button class="nav-btn active" id="dashboard-nav-btn" onclick="loadDashboard()" style="margin-bottom: 12px; font-weight: 700;">
