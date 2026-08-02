@@ -62,24 +62,25 @@
 
         .sidebar-brand-wrapper {
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
             align-items: center;
             justify-content: center;
             gap: 12px;
             cursor: pointer;
         }
 
-        /* INCREASED LOGO SIZE HERE */
+        /* LOGO PLACED TO THE LEFT & ENLARGED */
         .sidebar-logo {
-            width: 64px;
-            height: 64px;
+            width: 50px;
+            height: 50px;
             object-fit: contain;
             border-radius: 50%;
+            flex-shrink: 0;
         }
 
         .sidebar-brand {
             margin: 0;
-            font-size: 26px;
+            font-size: 24px;
             color: #0369a1;
             letter-spacing: -0.02em;
             font-weight: 800;
