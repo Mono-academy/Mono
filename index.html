@@ -804,6 +804,13 @@
             updateNotesBadge();
             loadNotesPage();
         }
+
+        // Send a heartbeat ping to Umami every 15 seconds to log session duration accurately
+        setInterval(() => {
+            if (document.visibilityState === 'visible' && window.umami) {
+                umami.track('ping');
+            }
+        }, 15000);
     </script>
 </body>
 </html>
