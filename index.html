@@ -586,6 +586,16 @@
 
         function loadDashboard() {
             currentLessonId = null;
+
+            // Track Dashboard Pageview in Umami
+            if (window.umami) {
+                window.umami.track((props) => ({
+                    ...props,
+                    url: '/dashboard',
+                    title: 'Dashboard'
+                }));
+            }
+
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('dashboard-nav-btn').classList.add('active');
             document.getElementById("main-scroll-viewport").scrollTop = 0;
@@ -661,6 +671,16 @@
 
         function loadLessonContent(lessonId) {
             currentLessonId = lessonId;
+
+            // Track Lesson Pageview in Umami
+            if (window.umami) {
+                window.umami.track((props) => ({
+                    ...props,
+                    url: `/lesson/${lessonId}`,
+                    title: `Lesson ${lessonId}`
+                }));
+            }
+
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             const activeBtn = document.getElementById(`nav-${lessonId}`);
             if (activeBtn) activeBtn.classList.add('active');
@@ -775,6 +795,16 @@
 
         function loadNotesPage() {
             currentLessonId = null;
+
+            // Track Notes Pageview in Umami
+            if (window.umami) {
+                window.umami.track((props) => ({
+                    ...props,
+                    url: '/notes',
+                    title: 'Study Notes'
+                }));
+            }
+
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('nav-notes').classList.add('active');
             
@@ -804,13 +834,6 @@
             updateNotesBadge();
             loadNotesPage();
         }
-
-        // Send a heartbeat ping to Umami every 15 seconds to log session duration accurately
-        setInterval(() => {
-            if (document.visibilityState === 'visible' && window.umami) {
-                umami.track('ping');
-            }
-        }, 15000);
     </script>
 </body>
 </html>
