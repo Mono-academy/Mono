@@ -88,12 +88,12 @@
             transition: background 0.3s ease;
         }
 
-        .sidebar-header { margin-bottom: 16px; text-align: center; }
+        .sidebar-header { margin-bottom: 16px; text-align: center; width: 100%; }
         .sidebar-brand-wrapper {
-            display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; width: 100%;
         }
-        .sidebar-logo { width: 44px; height: 44px; object-fit: contain; border-radius: 50%; flex-shrink: 0; }
-        .sidebar-brand { margin: 0; font-size: 22px; color: var(--text-brand); letter-spacing: -0.02em; font-weight: 800; }
+        .sidebar-logo { width: 40px; height: 40px; object-fit: contain; border-radius: 50%; flex-shrink: 0; }
+        .sidebar-brand { margin: 0; font-size: 21px; color: var(--text-brand); letter-spacing: -0.02em; font-weight: 800; }
 
         /* Global Search Bar & Filter */
         .search-box {
@@ -101,11 +101,14 @@
         }
         .search-input {
             width: 100%; background: var(--bg-card); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 8px 12px 8px 32px; border-radius: 8px;
+            color: var(--text-main); padding: 8px 12px 8px 34px; border-radius: 8px;
             font-size: 13px; box-sizing: border-box; outline: none; transition: border 0.2s;
         }
         .search-input:focus { border-color: var(--primary); }
-        .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 13px; opacity: 0.6; }
+        .search-icon { 
+            position: absolute; left: 10px; top: 50%; transform: translateY(-50%); 
+            font-size: 13px; opacity: 0.7; cursor: pointer; border: none; background: transparent; padding: 0;
+        }
 
         .filter-select {
             width: 100%; background: var(--bg-card); border: 1px solid var(--border-color);
@@ -192,17 +195,6 @@
             background-color: #854d0e;
             color: #fef08a;
         }
-
-        /* Interactive T-Account Widget */
-        .t-account-widget {
-            margin: 28px 0; background: var(--bg-card-subtle); border: 1px solid var(--border-color);
-            border-radius: 12px; padding: 20px; box-shadow: var(--shadow-sm);
-        }
-        .t-account-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-        .t-account-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--text-main); position: relative; }
-        .t-account-grid::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: var(--text-main); }
-        .t-account-col { padding: 12px; min-height: 80px; }
-        .t-account-title { text-align: center; font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
 
         /* Modals & Popups */
         .modal-overlay {
@@ -296,7 +288,7 @@
     <div id="welcome-modal" class="modal-overlay" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-desc">
         <div class="modal-card" style="text-align: center;">
             <h2 id="modal-title" class="welcome-title">Welcome to Mono Academy! 👋</h2>
-            <p id="modal-desc" class="welcome-desc">Track your progress across interactive modules, practice ledger entries with live T-Accounts, set focus timers, and build your accounting mastery.</p>
+            <p id="modal-desc" class="welcome-desc">Track your progress across interactive modules, set focus timers, and build your accounting mastery.</p>
             <button class="welcome-btn" onclick="closeWelcomeModal()" aria-label="Get started with Mono Academy">Get Started</button>
         </div>
     </div>
@@ -346,7 +338,7 @@
             </div>
             
             <div class="search-box">
-                <span class="search-icon" aria-hidden="true">🔍</span>
+                <button class="search-icon" onclick="handleSearchAndFilter(); document.getElementById('lesson-search').focus();" aria-label="Search button">🔍</button>
                 <input type="text" id="lesson-search" class="search-input" placeholder="Search topics or modules..." oninput="handleSearchAndFilter()" aria-label="Search lessons and topics">
             </div>
 
@@ -511,11 +503,11 @@
                     </button>
                 </div>
 
-                <button class="accordion-header active" id="btn-mod-final" aria-expanded="true" aria-controls="module-final-content" onclick="toggleAccordion('module-final-content', this)">
-                    <span>Final Milestone</span>
+                <button class="accordion-header" id="btn-mod-final" aria-expanded="false" aria-controls="module-final-content" onclick="toggleAccordion('module-final-content', this)">
+                    <span>Final Exam</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
-                <div id="module-final-content" class="accordion-content open" role="region" aria-labelledby="btn-mod-final">
+                <div id="module-final-content" class="accordion-content" role="region" aria-labelledby="btn-mod-final">
                     <button class="nav-btn" id="nav-final_exam" onclick="loadLessonContent('final_exam')">
                         <span>🎓 Final Examination</span>
                         <span class="status-icon pending" id="status-nav-final_exam" title="Pending">○</span>
@@ -616,7 +608,7 @@
             { id: "5.4", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.4: Revenue Recognition", desc: "IFRS vs. US GAAP standards." },
             { id: "5.5", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.5: Forensic Accounting", desc: "Data investigation and auditing internal controls." },
             
-            { id: "final_exam", module: 6, modName: "Final Milestone", name: "Final Examination", desc: "Comprehensive exam covering all topics." }
+            { id: "final_exam", module: 6, modName: "Final Exam", name: "Final Examination", desc: "Comprehensive exam covering all topics." }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -763,15 +755,44 @@
             const query = document.getElementById('lesson-search').value.trim().toLowerCase();
             const filter = document.getElementById('status-filter').value;
 
+            // Track which modules have matching lessons
+            const activeModules = new Set();
+
             // 1. Sidebar live filtering
             curriculum.forEach(lesson => {
                 const btn = document.getElementById(`nav-${lesson.id}`);
                 if (btn) {
                     const matchesSearch = !query || lesson.name.toLowerCase().includes(query) || lesson.desc.toLowerCase().includes(query);
                     const matchesFilter = checkStatusFilter(lesson, filter);
-                    btn.style.display = (matchesSearch && matchesFilter) ? 'flex' : 'none';
+                    const isVisible = matchesSearch && matchesFilter;
+                    btn.style.display = isVisible ? 'flex' : 'none';
+                    if (isVisible) {
+                        activeModules.add(lesson.module);
+                    }
                 }
             });
+
+            // Auto-expand accordions that contain search results if search query exists
+            if (query.length > 0) {
+                [1, 2, 3, 4, 5, 6].forEach(modId => {
+                    const contentId = modId === 6 ? 'module-final-content' : `module${modId}-content`;
+                    const btnId = modId === 6 ? 'btn-mod-final' : `btn-mod-${modId}`;
+                    const contentEl = document.getElementById(contentId);
+                    const btnEl = document.getElementById(btnId);
+
+                    if (contentEl && btnEl) {
+                        if (activeModules.has(modId)) {
+                            contentEl.classList.add('open');
+                            btnEl.classList.add('active');
+                            btnEl.setAttribute('aria-expanded', 'true');
+                        } else {
+                            contentEl.classList.remove('open');
+                            btnEl.classList.remove('active');
+                            btnEl.setAttribute('aria-expanded', 'false');
+                        }
+                    }
+                });
+            }
 
             // 2. If currently viewing Dashboard, update dashboard cards live
             if (currentLessonId === null) {
@@ -1016,27 +1037,6 @@
                         </div>
                     `;
 
-                    // Interactive T-Account Sandbox Widget
-                    const tAccountWidgetHtml = `
-                        <div class="t-account-widget">
-                            <div class="t-account-header">
-                                <span style="font-size: 13px; font-weight: 800; color: var(--text-main);">🧪 Interactive T-Account Sandbox</span>
-                                <button onclick="resetTAccount()" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer;">Reset</button>
-                            </div>
-                            <div style="text-align: center; font-weight: 800; font-size: 14px; margin-bottom: 8px;">Cash Account</div>
-                            <div class="t-account-grid">
-                                <div class="t-account-col" id="t-debit-col">
-                                    <div class="t-account-title">Debit (DR)</div>
-                                    <div style="font-size: 13px; color: #10b981; font-weight: 600;">+ $5,000 (Initial Capital)</div>
-                                </div>
-                                <div class="t-account-col" id="t-credit-col">
-                                    <div class="t-account-title">Credit (CR)</div>
-                                    <div style="font-size: 13px; color: #ef4444; font-weight: 600;">- $1,200 (Supplies Expense)</div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
-
                     const completeFooterHtml = `
                         <div class="lesson-footer-bar">
                             <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">
@@ -1048,7 +1048,7 @@
                         </div>
                     `;
 
-                    container.innerHTML = lessonHeaderBar + html + tAccountWidgetHtml + completeFooterHtml;
+                    container.innerHTML = lessonHeaderBar + html + completeFooterHtml;
                     updateSidebarVisuals();
                 })
                 .catch(err => {
@@ -1163,10 +1163,6 @@
             localStorage.setItem('mono_study_notes', JSON.stringify(studyNotes));
             updateNotesBadge();
             openNotesModal();
-        }
-
-        function resetTAccount() {
-            alert('T-Account sandbox reset to default template state.');
         }
     </script>
 </body>
