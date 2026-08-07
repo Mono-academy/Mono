@@ -18,7 +18,7 @@
             --border-sidebar: #bae6fd;
             
             --text-main: #0f172a;
-            --text-muted: #475569; /* Higher contrast for WCAG AA */
+            --text-muted: #475569;
             --text-brand: #0369a1;
             
             --primary: #0284c7;
@@ -26,13 +26,15 @@
             --primary-light: rgba(125, 211, 252, 0.3);
             
             --status-success-bg: #dcfce7;
-            --status-success-text: #14532d; /* Enhanced contrast */
+            --status-success-text: #14532d;
             --status-pending-bg: #e2e8f0;
-            --status-pending-text: #334155; /* Enhanced contrast */
+            --status-pending-text: #334155;
+            --status-bookmark-bg: #fef3c7;
+            --status-bookmark-text: #92400e;
             
             --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
             --shadow-md: 0 4px 20px rgba(15, 23, 42, 0.06);
-            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.12);
         }
 
         [data-theme="dark"] {
@@ -57,6 +59,8 @@
             --status-success-text: #f0fdf4;
             --status-pending-bg: #334155;
             --status-pending-text: #f1f5f9;
+            --status-bookmark-bg: #78350f;
+            --status-bookmark-text: #fef3c7;
         }
 
         /* Scrollbars */
@@ -91,9 +95,9 @@
         .sidebar-logo { width: 44px; height: 44px; object-fit: contain; border-radius: 50%; flex-shrink: 0; }
         .sidebar-brand { margin: 0; font-size: 22px; color: var(--text-brand); letter-spacing: -0.02em; font-weight: 800; }
 
-        /* Global Search Bar */
+        /* Global Search Bar & Filter */
         .search-box {
-            position: relative; margin-bottom: 16px; width: 100%; box-sizing: border-box;
+            position: relative; margin-bottom: 8px; width: 100%; box-sizing: border-box;
         }
         .search-input {
             width: 100%; background: var(--bg-card); border: 1px solid var(--border-color);
@@ -102,6 +106,12 @@
         }
         .search-input:focus { border-color: var(--primary); }
         .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 13px; opacity: 0.6; }
+
+        .filter-select {
+            width: 100%; background: var(--bg-card); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 6px 10px; border-radius: 8px;
+            font-size: 12px; margin-bottom: 14px; outline: none; cursor: pointer; font-weight: 500;
+        }
 
         .sidebar-menu { flex-grow: 1; overflow-y: auto; margin-bottom: 16px; padding-right: 4px; }
 
@@ -151,22 +161,36 @@
         .accordion-arrow { transition: transform 0.2s ease; font-size: 10px; color: var(--text-brand); flex-shrink: 0; }
         .accordion-header.active .accordion-arrow { transform: rotate(90deg); }
 
-        /* Header Utility Bar (Theme Toggle + Stats) */
+        /* Header Utility Bar */
         .top-utility-bar {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
         }
-        .theme-toggle-btn {
+        .utility-group-left, .utility-group-right { display: flex; align-items: center; gap: 10px; }
+
+        .theme-toggle-btn, .timer-trigger-btn {
             background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);
             padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer;
-            display: flex; align-items: center; gap: 6px; transition: all 0.2s; shadow: var(--shadow-sm);
+            display: flex; align-items: center; gap: 6px; transition: all 0.2s; box-shadow: var(--shadow-sm);
         }
-        .theme-toggle-btn:hover { border-color: var(--primary); }
+        .theme-toggle-btn:hover, .timer-trigger-btn:hover { border-color: var(--primary); color: var(--primary); }
 
-        .gamification-bar { display: flex; gap: 12px; }
         .stat-badge {
             background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 6px 12px;
             border-radius: 20px; font-size: 12px; font-weight: 700; color: var(--text-main);
             display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow-sm);
+        }
+
+        /* Highlight matching search terms */
+        mark.search-highlight {
+            background-color: #fef08a;
+            color: #854d0e;
+            padding: 1px 3px;
+            border-radius: 3px;
+            font-weight: 700;
+        }
+        [data-theme="dark"] mark.search-highlight {
+            background-color: #854d0e;
+            color: #fef08a;
         }
 
         /* Interactive T-Account Widget */
@@ -188,9 +212,10 @@
             opacity: 0; visibility: hidden; transition: all 0.25s ease;
         }
         .modal-overlay.active { opacity: 1; visibility: visible; }
-        .welcome-card {
-            background: var(--bg-card); width: 90%; max-width: 440px; border-radius: 20px;
-            padding: 32px; box-shadow: var(--shadow-lg); text-align: center; border: 1px solid var(--border-subtle);
+        .modal-card {
+            background: var(--bg-card); width: 90%; max-width: 460px; border-radius: 20px;
+            padding: 28px; box-shadow: var(--shadow-lg); border: 1px solid var(--border-subtle);
+            position: relative;
         }
         .welcome-title { margin: 0 0 10px 0; font-size: 24px; font-weight: 800; color: var(--text-main); }
         .welcome-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px; }
@@ -199,6 +224,35 @@
             border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%; transition: background 0.2s;
         }
         .welcome-btn:hover { background: var(--primary-hover); }
+
+        .modal-close-icon {
+            position: absolute; top: 18px; right: 20px; background: none; border: none;
+            font-size: 20px; cursor: pointer; color: var(--text-muted);
+        }
+
+        /* Focus Timer Controls */
+        .timer-display {
+            font-size: 48px; font-weight: 800; text-align: center; margin: 16px 0;
+            font-family: monospace, monospace; color: var(--primary); letter-spacing: 2px;
+        }
+        .timer-presets { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; }
+        .timer-preset-btn {
+            background: var(--bg-card-subtle); border: 1px solid var(--border-color); color: var(--text-main);
+            padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;
+        }
+        .timer-preset-btn:hover, .timer-preset-btn.active { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
+        .timer-controls { display: flex; gap: 10px; justify-content: center; margin-top: 16px; }
+        .timer-btn {
+            padding: 10px 18px; border-radius: 8px; font-weight: 700; font-size: 13px; border: none; cursor: pointer;
+        }
+        .timer-btn-primary { background: var(--primary); color: white; }
+        .timer-btn-secondary { background: var(--bg-card-subtle); color: var(--text-main); border: 1px solid var(--border-color); }
+
+        .bookmark-btn {
+            background: transparent; border: none; font-size: 18px; cursor: pointer; padding: 4px;
+            transition: transform 0.2s; line-height: 1;
+        }
+        .bookmark-btn:hover { transform: scale(1.2); }
 
         .floating-note-popup {
             position: absolute; background: var(--bg-card); border: 1px solid var(--border-color);
@@ -218,7 +272,19 @@
         
         .lesson-footer-bar { margin-top: 40px; padding-top: 24px; border-top: 2px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; }
 
-        /* Screen Reader Accessibility Utilities */
+        /* Module Card Progress Bar */
+        .mod-progress-container {
+            width: 100%; background: var(--border-subtle); height: 6px; border-radius: 99px; overflow: hidden; margin-top: 8px; margin-bottom: 16px;
+        }
+        .mod-progress-fill { height: 100%; background: var(--primary); transition: width 0.3s ease; }
+
+        /* Empty Search State */
+        .empty-search-state {
+            text-align: center; padding: 48px 16px; background: var(--bg-card-subtle); border-radius: 12px; border: 1px dashed var(--border-color); margin-top: 20px;
+        }
+        .empty-search-state h3 { margin: 10px 0 6px 0; font-size: 18px; }
+        .empty-search-state p { color: var(--text-muted); font-size: 13px; margin: 0; }
+
         .sr-only {
             position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
             overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
@@ -228,10 +294,45 @@
 <body>
 
     <div id="welcome-modal" class="modal-overlay" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-desc">
-        <div class="welcome-card">
+        <div class="modal-card" style="text-align: center;">
             <h2 id="modal-title" class="welcome-title">Welcome to Mono Academy! 👋</h2>
-            <p id="modal-desc" class="welcome-desc">Track your progress across interactive modules, practice ledger entries with live T-Accounts, and build your accounting mastery.</p>
+            <p id="modal-desc" class="welcome-desc">Track your progress across interactive modules, practice ledger entries with live T-Accounts, set focus timers, and build your accounting mastery.</p>
             <button class="welcome-btn" onclick="closeWelcomeModal()" aria-label="Get started with Mono Academy">Get Started</button>
+        </div>
+    </div>
+
+    <div id="timer-modal" class="modal-overlay" role="dialog" aria-labelledby="timer-modal-title">
+        <div class="modal-card">
+            <button class="modal-close-icon" onclick="closeTimerModal()" aria-label="Close Timer">✕</button>
+            <h2 id="timer-modal-title" style="margin: 0 0 6px 0; font-size: 20px; font-weight: 800; text-align: center;">⏱️ Study Focus Timer</h2>
+            <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 0;">Set a timer to keep yourself accountable during learning sessions.</p>
+            
+            <div class="timer-display" id="timer-countdown-display">25:00</div>
+
+            <div class="timer-presets">
+                <button class="timer-preset-btn" onclick="setTimerPreset(15)">15 Min</button>
+                <button class="timer-preset-btn active" onclick="setTimerPreset(25)">25 Min (Pomodoro)</button>
+                <button class="timer-preset-btn" onclick="setTimerPreset(45)">45 Min</button>
+            </div>
+
+            <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 16px;">
+                <label for="custom-timer-input" style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Custom (mins):</label>
+                <input type="number" id="custom-timer-input" min="1" max="180" placeholder="Custom" style="width: 70px; padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); font-size: 12px;" onchange="setCustomTimer(this.value)">
+            </div>
+
+            <div class="timer-controls">
+                <button class="timer-btn timer-btn-primary" id="timer-toggle-btn" onclick="toggleTimer()">Start Focus Session</button>
+                <button class="timer-btn timer-btn-secondary" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="notes-modal" class="modal-overlay" role="dialog" aria-labelledby="notes-modal-title">
+        <div class="modal-card" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
+            <button class="modal-close-icon" onclick="closeNotesModal()" aria-label="Close Notes">✕</button>
+            <h2 id="notes-modal-title" style="margin: 0 0 6px 0; font-size: 20px; font-weight: 800;">📝 My Study Notes</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Review your saved excerpts and personal observations.</p>
+            <div id="notes-modal-container"></div>
         </div>
     </div>
 
@@ -246,8 +347,16 @@
             
             <div class="search-box">
                 <span class="search-icon" aria-hidden="true">🔍</span>
-                <input type="text" id="lesson-search" class="search-input" placeholder="Search topics or modules..." oninput="filterLessons()" aria-label="Search lessons and topics">
+                <input type="text" id="lesson-search" class="search-input" placeholder="Search topics or modules..." oninput="handleSearchAndFilter()" aria-label="Search lessons and topics">
             </div>
+
+            <select id="status-filter" class="filter-select" onchange="handleSearchAndFilter()" aria-label="Filter lessons by status">
+                <option value="all">Filter: All Lessons</option>
+                <option value="in-progress">⏱️ In Progress</option>
+                <option value="completed">✓ Completed</option>
+                <option value="pending">○ Pending</option>
+                <option value="bookmarked">⭐ Bookmarked</option>
+            </select>
 
             <button class="nav-btn active" id="dashboard-nav-btn" onclick="loadDashboard()" style="margin-bottom: 12px; font-weight: 700;">
                 <span>🏠 Dashboard</span>
@@ -415,7 +524,7 @@
             </nav>
 
             <div style="border-top: 1px solid var(--border-sidebar); padding-top: 16px;">
-                <button class="nav-btn" id="nav-notes" onclick="loadNotesPage()">
+                <button class="nav-btn" id="nav-notes" onclick="openNotesModal()">
                     <span style="display: flex; align-items: center; gap: 8px;">📝 My Study Notes</span>
                     <span id="notes-counter-badge" style="background: var(--primary); color: white; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px;">0</span>
                 </button>
@@ -425,11 +534,16 @@
         <main class="main-content" id="main-scroll-viewport" role="main">
             
             <div class="top-utility-bar">
-                <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme">
-                    <span id="theme-toggle-icon">🌙</span> <span id="theme-toggle-label">Dark Mode</span>
-                </button>
+                <div class="utility-group-left">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme">
+                        <span id="theme-toggle-icon">🌙</span> <span id="theme-toggle-label">Dark Mode</span>
+                    </button>
+                    <button class="timer-trigger-btn" onclick="openTimerModal()" aria-label="Open Focus Timer">
+                        ⏱️ <span id="header-timer-label">Focus Session</span>
+                    </button>
+                </div>
 
-                <div class="gamification-bar">
+                <div class="utility-group-right gamification-bar">
                     <div class="stat-badge" title="Daily Learning Streak">
                         <span>🔥</span> <span id="streak-count">1 Day Streak</span>
                     </div>
@@ -440,7 +554,7 @@
             </div>
 
             <div id="workbook-content-area" class="workbook-viewport">
-                </div>
+            </div>
         </main>
     </div>
 
@@ -457,10 +571,16 @@
     <script>
         // Core State Management
         let completedLessons = JSON.parse(localStorage.getItem('mono_completed_lessons')) || [];
+        let bookmarkedLessons = JSON.parse(localStorage.getItem('mono_bookmarked_lessons')) || [];
         let studyNotes = JSON.parse(localStorage.getItem('mono_study_notes')) || [];
         let lastActiveLesson = localStorage.getItem('mono_last_active') || '1.1';
         let selectedQuoteText = ""; 
         let currentLessonId = null;
+
+        // Timer State
+        let timerSeconds = 25 * 60;
+        let timerInterval = null;
+        let isTimerRunning = false;
 
         const curriculum = [
             { id: "1.1", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.1: Introduction", desc: "Foundational concepts and basic accounting principles." },
@@ -538,9 +658,7 @@
             if (lastActiveDate && lastActiveDate !== today) {
                 const yesterday = new Date();
                 yesterday.setDate(yesterday.getDate() - 1);
-                if (lastActiveDate === yesterday.toDateString()) {
-                    // Maintained streak
-                } else {
+                if (lastActiveDate !== yesterday.toDateString()) {
                     streak = 1; // Streak reset
                 }
             }
@@ -549,7 +667,6 @@
 
             document.getElementById('streak-count').textContent = `${streak} Day Streak`;
             
-            // Check daily target
             const dailyCompleted = completedLessons.length > 0 ? 1 : 0;
             document.getElementById('daily-target').textContent = `${dailyCompleted}/1 Target Completed Today`;
         }
@@ -568,16 +685,117 @@
             localStorage.setItem('mono_welcome_seen', 'true');
         }
 
-        /* --- Global Search --- */
-        function filterLessons() {
-            const query = document.getElementById('lesson-search').value.toLowerCase();
+        /* --- Study Session Timer --- */
+        function openTimerModal() {
+            document.getElementById('timer-modal').classList.add('active');
+        }
+
+        function closeTimerModal() {
+            document.getElementById('timer-modal').classList.remove('active');
+        }
+
+        function setTimerPreset(minutes) {
+            pauseTimer();
+            timerSeconds = minutes * 60;
+            updateTimerDisplay();
+            document.querySelectorAll('.timer-preset-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function setCustomTimer(val) {
+            const mins = parseInt(val, 10);
+            if (mins && mins > 0) {
+                pauseTimer();
+                timerSeconds = mins * 60;
+                updateTimerDisplay();
+                document.querySelectorAll('.timer-preset-btn').forEach(btn => btn.classList.remove('active'));
+            }
+        }
+
+        function toggleTimer() {
+            if (isTimerRunning) {
+                pauseTimer();
+            } else {
+                startTimer();
+            }
+        }
+
+        function startTimer() {
+            if (isTimerRunning) return;
+            isTimerRunning = true;
+            document.getElementById('timer-toggle-btn').textContent = "Pause Session";
+            document.getElementById('timer-toggle-btn').style.background = "#e11d48";
+            
+            timerInterval = setInterval(() => {
+                if (timerSeconds > 0) {
+                    timerSeconds--;
+                    updateTimerDisplay();
+                } else {
+                    pauseTimer();
+                    alert("🎉 Focus session completed! Time for a short break.");
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            isTimerRunning = false;
+            clearInterval(timerInterval);
+            document.getElementById('timer-toggle-btn').textContent = "Start Focus Session";
+            document.getElementById('timer-toggle-btn').style.background = "var(--primary)";
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timerSeconds = 25 * 60;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            const formatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+            document.getElementById('timer-countdown-display').textContent = formatted;
+            document.getElementById('header-timer-label').textContent = isTimerRunning ? `Focusing: ${formatted}` : 'Focus Session';
+        }
+
+        /* --- Global Search & Status Filter --- */
+        function handleSearchAndFilter() {
+            const query = document.getElementById('lesson-search').value.trim().toLowerCase();
+            const filter = document.getElementById('status-filter').value;
+
+            // 1. Sidebar live filtering
             curriculum.forEach(lesson => {
                 const btn = document.getElementById(`nav-${lesson.id}`);
                 if (btn) {
-                    const matches = lesson.name.toLowerCase().includes(query) || lesson.desc.toLowerCase().includes(query);
-                    btn.style.display = matches ? 'flex' : 'none';
+                    const matchesSearch = !query || lesson.name.toLowerCase().includes(query) || lesson.desc.toLowerCase().includes(query);
+                    const matchesFilter = checkStatusFilter(lesson, filter);
+                    btn.style.display = (matchesSearch && matchesFilter) ? 'flex' : 'none';
                 }
             });
+
+            // 2. If currently viewing Dashboard, update dashboard cards live
+            if (currentLessonId === null) {
+                renderDashboardContent(query, filter);
+            }
+        }
+
+        function checkStatusFilter(lesson, filter) {
+            const isCompleted = completedLessons.includes(lesson.id);
+            const isBookmarked = bookmarkedLessons.includes(lesson.id);
+            const isCurrent = lesson.id === lastActiveLesson;
+
+            if (filter === 'all') return true;
+            if (filter === 'completed') return isCompleted;
+            if (filter === 'in-progress') return isCurrent && !isCompleted;
+            if (filter === 'pending') return !isCompleted;
+            if (filter === 'bookmarked') return isBookmarked;
+            return true;
+        }
+
+        function highlightMatch(text, query) {
+            if (!query) return text;
+            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            return text.replace(regex, '<mark class="search-highlight">$1</mark>');
         }
 
         /* --- Sidebar & Accordion Logic --- */
@@ -596,6 +814,33 @@
             }
         }
 
+        /* --- Bookmarking System --- */
+        function toggleBookmark(lessonId, event) {
+            if (event) event.stopPropagation();
+            if (bookmarkedLessons.includes(lessonId)) {
+                bookmarkedLessons = bookmarkedLessons.filter(id => id !== lessonId);
+            } else {
+                bookmarkedLessons.push(lessonId);
+            }
+            localStorage.setItem('mono_bookmarked_lessons', JSON.stringify(bookmarkedLessons));
+            
+            // Re-render dashboard or update current UI
+            if (currentLessonId === null) {
+                handleSearchAndFilter();
+            } else {
+                updateBookmarkButtonUI(lessonId);
+            }
+        }
+
+        function updateBookmarkButtonUI(lessonId) {
+            const btn = document.getElementById(`bookmark-btn-${lessonId}`);
+            if (btn) {
+                const isBookmarked = bookmarkedLessons.includes(lessonId);
+                btn.textContent = isBookmarked ? "⭐" : "☆";
+                btn.title = isBookmarked ? "Remove Bookmark" : "Bookmark Lesson";
+            }
+        }
+
         /* --- Dashboard Rendering --- */
         function loadDashboard() {
             currentLessonId = null;
@@ -608,6 +853,12 @@
             document.getElementById('dashboard-nav-btn').classList.add('active');
             document.getElementById("main-scroll-viewport").scrollTop = 0;
 
+            const query = document.getElementById('lesson-search').value.trim().toLowerCase();
+            const filter = document.getElementById('status-filter').value;
+            renderDashboardContent(query, filter);
+        }
+
+        function renderDashboardContent(query = "", filter = "all") {
             const container = document.getElementById("workbook-content-area");
             const totalCount = curriculum.length;
             const completedCount = completedLessons.length;
@@ -617,53 +868,91 @@
             const nextLesson = curriculum.find(l => !completedLessons.includes(l.id)) || curriculum[0];
 
             const modulesMap = {};
+            let totalMatchingLessons = 0;
+
             curriculum.forEach(lesson => {
-                if (!modulesMap[lesson.module]) {
-                    modulesMap[lesson.module] = { title: lesson.modName, lessons: [] };
+                const matchesSearch = !query || lesson.name.toLowerCase().includes(query) || lesson.desc.toLowerCase().includes(query);
+                const matchesFilter = checkStatusFilter(lesson, filter);
+
+                if (matchesSearch && matchesFilter) {
+                    totalMatchingLessons++;
+                    if (!modulesMap[lesson.module]) {
+                        modulesMap[lesson.module] = { title: lesson.modName, lessons: [] };
+                    }
+                    modulesMap[lesson.module].lessons.push(lesson);
                 }
-                modulesMap[lesson.module].lessons.push(lesson);
             });
 
             let modulesContentHtml = '';
-            Object.keys(modulesMap).forEach(modId => {
-                const mod = modulesMap[modId];
-                modulesContentHtml += `
-                    <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
-                        <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-brand); border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px; margin-bottom: 14px;">
-                            ${mod.title}
-                        </div>
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                `;
 
-                mod.lessons.forEach(lesson => {
-                    const isCompleted = completedLessons.includes(lesson.id);
-                    const isCurrent = lesson.id === lastActiveLesson;
-                    let statusTag = `<span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--status-pending-bg); color: var(--status-pending-text);">Pending</span>`;
-                    
-                    if (isCompleted) {
-                        statusTag = `<span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--status-success-bg); color: var(--status-success-text);">✓ Completed</span>`;
-                    } else if (isCurrent) {
-                        statusTag = `<span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--primary-light); color: var(--primary);">⏱️ In Progress</span>`;
-                    }
+            if (totalMatchingLessons === 0) {
+                modulesContentHtml = `
+                    <div class="empty-search-state">
+                        <span style="font-size: 32px;">🔍</span>
+                        <h3>No lessons found</h3>
+                        <p>We couldn't find any lessons matching "${query}". Try adjusting your filters or search keywords.</p>
+                    </div>
+                `;
+            } else {
+                Object.keys(modulesMap).forEach(modId => {
+                    const mod = modulesMap[modId];
+                    // Calculate per-module progress
+                    const allModLessons = curriculum.filter(l => l.module == modId);
+                    const completedModLessons = allModLessons.filter(l => completedLessons.includes(l.id));
+                    const modPercent = Math.round((completedModLessons.length / allModLessons.length) * 100);
 
                     modulesContentHtml += `
-                        <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 14px 18px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-                            <div style="flex: 1;">
-                                <div style="display: flex; align-items: center; gap: 8px;">
-                                    ${statusTag}
-                                    <h3 style="margin: 0; font-size: 14.5px; font-weight: 700; color: var(--text-main);">${lesson.name}</h3>
+                        <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-brand);">
+                                    ${mod.title}
                                 </div>
-                                <p style="margin: 4px 0 0 0; font-size: 13px; color: var(--text-muted); line-height: 1.4;">${lesson.desc}</p>
+                                <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);">${modPercent}% Completed</span>
                             </div>
-                            <button onclick="loadLessonContent('${lesson.id}')" style="background: var(--text-main); color: var(--bg-card); border: none; padding: 8px 16px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; flex-shrink: 0;" aria-label="Open ${lesson.name}">
-                                ${isCompleted ? 'Review' : 'Start'}
-                            </button>
-                        </div>
-                    `;
-                });
+                            <div class="mod-progress-container">
+                                <div class="mod-progress-fill" style="width: ${modPercent}%;"></div>
+                            </div>
 
-                modulesContentHtml += `</div></div>`;
-            });
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                    `;
+
+                    mod.lessons.forEach(lesson => {
+                        const isCompleted = completedLessons.includes(lesson.id);
+                        const isBookmarked = bookmarkedLessons.includes(lesson.id);
+                        const isCurrent = lesson.id === lastActiveLesson;
+                        let statusTag = `<span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--status-pending-bg); color: var(--status-pending-text);">Pending</span>`;
+                        
+                        if (isCompleted) {
+                            statusTag = `<span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--status-success-bg); color: var(--status-success-text);">✓ Completed</span>`;
+                        } else if (isCurrent) {
+                            statusTag = `<span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--primary-light); color: var(--primary);">⏱️ In Progress</span>`;
+                        }
+
+                        const highlightedTitle = highlightMatch(lesson.name, query);
+                        const highlightedDesc = highlightMatch(lesson.desc, query);
+
+                        modulesContentHtml += `
+                            <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 14px 18px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
+                                <div style="flex: 1;">
+                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                                        ${statusTag}
+                                        <button class="bookmark-btn" id="bookmark-btn-${lesson.id}" onclick="toggleBookmark('${lesson.id}', event)" title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark Lesson'}">
+                                            ${isBookmarked ? '⭐' : '☆'}
+                                        </button>
+                                        <h3 style="margin: 0; font-size: 14.5px; font-weight: 700; color: var(--text-main);">${highlightedTitle}</h3>
+                                    </div>
+                                    <p style="margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.4;">${highlightedDesc}</p>
+                                </div>
+                                <button onclick="loadLessonContent('${lesson.id}')" style="background: var(--text-main); color: var(--bg-card); border: none; padding: 8px 16px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; flex-shrink: 0;" aria-label="Open ${lesson.name}">
+                                    ${isCompleted ? 'Review' : 'Start'}
+                                </button>
+                            </div>
+                        `;
+                    });
+
+                    modulesContentHtml += `</div></div>`;
+                });
+            }
 
             container.innerHTML = `
                 <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: var(--text-main);">Dashboard</h1>
@@ -677,7 +966,7 @@
                             <div style="width: 180px; height: 8px; background: rgba(255,255,255,0.25); border-radius: 99px; overflow: hidden;">
                                 <div style="width: ${progressPercent}%; height: 100%; background: white;"></div>
                             </div>
-                            <span style="font-size: 12px; font-weight: 700;">${progressPercent}% Complete</span>
+                            <span style="font-size: 12px; font-weight: 700;">${progressPercent}% Overall Complete</span>
                         </div>
                     </div>
                     <button onclick="loadLessonContent('${nextLesson.id}')" style="background: white; color: var(--primary-hover); border: none; padding: 12px 22px; font-size: 14px; font-weight: 800; border-radius: 10px; cursor: pointer; box-shadow: var(--shadow-sm);" aria-label="Resume learning ${nextLesson.name}">
@@ -716,8 +1005,18 @@
                 })
                 .then(html => {
                     const isCompleted = completedLessons.includes(lessonId);
+                    const isBookmarked = bookmarkedLessons.includes(lessonId);
                     
-                    // Interactive T-Account Practice Sandbox Widget
+                    const lessonHeaderBar = `
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
+                            <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">Module ${lessonId.split('.')[0] || 'Final'}</span>
+                            <button class="bookmark-btn" id="bookmark-btn-${lessonId}" onclick="toggleBookmark('${lessonId}', event)" title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark Lesson'}">
+                                ${isBookmarked ? '⭐ Bookmarked' : '☆ Bookmark Lesson'}
+                            </button>
+                        </div>
+                    `;
+
+                    // Interactive T-Account Sandbox Widget
                     const tAccountWidgetHtml = `
                         <div class="t-account-widget">
                             <div class="t-account-header">
@@ -749,7 +1048,7 @@
                         </div>
                     `;
 
-                    container.innerHTML = html + tAccountWidgetHtml + completeFooterHtml;
+                    container.innerHTML = lessonHeaderBar + html + tAccountWidgetHtml + completeFooterHtml;
                     updateSidebarVisuals();
                 })
                 .catch(err => {
@@ -836,20 +1135,12 @@
             }
         }
 
-        function loadNotesPage() {
-            currentLessonId = null;
+        function openNotesModal() {
+            const modal = document.getElementById("notes-modal");
+            const container = document.getElementById("notes-modal-container");
 
-            if (window.umami) {
-                window.umami.track((props) => ({ ...props, url: '/notes', title: 'Study Notes' }));
-            }
-
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            document.getElementById('nav-notes').classList.add('active');
-            
-            const container = document.getElementById("workbook-content-area");
-            
             let notesHtml = studyNotes.length === 0 
-                ? `<p style="color: var(--text-muted); font-style: italic;">No saved notes yet. Highlight any text inside a lesson to create your first note.</p>`
+                ? `<p style="color: var(--text-muted); font-style: italic;">No saved notes yet. Highlight any text inside a lesson to create your first study note.</p>`
                 : `<div class="notes-grid">` + studyNotes.map(note => `
                     <div class="journal-note-card">
                         <button class="delete-journal-btn" onclick="deleteNote(${note.id})" aria-label="Delete note">Delete</button>
@@ -859,18 +1150,19 @@
                     </div>
                 `).join('') + `</div>`;
 
-            container.innerHTML = `
-                <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: var(--text-main);">📝 My Study Notes</h1>
-                <p style="color: var(--text-muted); margin-top: 0; margin-bottom: 24px;">Your highlighted excerpts and learning notes.</p>
-                ${notesHtml}
-            `;
+            container.innerHTML = notesHtml;
+            modal.classList.add('active');
+        }
+
+        function closeNotesModal() {
+            document.getElementById("notes-modal").classList.remove('active');
         }
 
         function deleteNote(id) {
             studyNotes = studyNotes.filter(n => n.id !== id);
             localStorage.setItem('mono_study_notes', JSON.stringify(studyNotes));
             updateNotesBadge();
-            loadNotesPage();
+            openNotesModal();
         }
 
         function resetTAccount() {
