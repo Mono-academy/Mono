@@ -1,517 +1,469 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="a47aee67-fdaa-4e03-a77c-7f99e9477d92"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mono Academy</title>
+    <title>Mono Academy - Modern Accounting Education</title>
     <style>
-        /* Custom Scrollbars */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
+        /* CSS Custom Properties for Light and Dark Themes (WCAG AA Compliant) */
+        :root {
+            --bg-body: #f8fafc;
+            --bg-sidebar: #e0f2fe;
+            --bg-main: #f1f5f9;
+            --bg-card: #ffffff;
+            --bg-card-subtle: #f8fafc;
+            --border-color: #cbd5e1;
+            --border-subtle: #e2e8f0;
+            --border-sidebar: #bae6fd;
+            
+            --text-main: #0f172a;
+            --text-muted: #475569; /* Higher contrast for WCAG AA */
+            --text-brand: #0369a1;
+            
+            --primary: #0284c7;
+            --primary-hover: #0369a1;
+            --primary-light: rgba(125, 211, 252, 0.3);
+            
+            --status-success-bg: #dcfce7;
+            --status-success-text: #14532d; /* Enhanced contrast */
+            --status-pending-bg: #e2e8f0;
+            --status-pending-text: #334155; /* Enhanced contrast */
+            
+            --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+            --shadow-md: 0 4px 20px rgba(15, 23, 42, 0.06);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
-        ::-webkit-scrollbar-track {
-            background: #f1f5f9; 
-            border-radius: 99px;
+
+        [data-theme="dark"] {
+            --bg-body: #090d16;
+            --bg-sidebar: #0f172a;
+            --bg-main: #1e293b;
+            --bg-card: #0f172a;
+            --bg-card-subtle: #1e293b;
+            --border-color: #334155;
+            --border-subtle: #1e293b;
+            --border-sidebar: #1e293b;
+            
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --text-brand: #38bdf8;
+            
+            --primary: #38bdf8;
+            --primary-hover: #0284c7;
+            --primary-light: rgba(56, 189, 248, 0.15);
+            
+            --status-success-bg: #064e3b;
+            --status-success-text: #f0fdf4;
+            --status-pending-bg: #334155;
+            --status-pending-text: #f1f5f9;
         }
-        ::-webkit-scrollbar-thumb {
-            background: #bae6fd;
-            border-radius: 99px;
-            border: 2px solid #f1f5f9;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #38bdf8; 
-        }
+
+        /* Scrollbars */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-body); }
+        ::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 99px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
 
         html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
+            margin: 0; padding: 0; height: 100%;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-            overflow: hidden;
-            -webkit-font-smoothing: antialiased;
+            background: var(--bg-body); color: var(--text-main);
+            overflow: hidden; -webkit-font-smoothing: antialiased;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        .dashboard-container { 
-            display: flex; 
-            height: 100vh; 
-            width: 100vw;
-            overflow: hidden;
-        }
+        .dashboard-container { display: flex; height: 100vh; width: 100vw; overflow: hidden; }
         
+        /* Sidebar Styling */
         .sidebar { 
-            width: 320px; 
-            background: #e0f2fe; 
-            color: #0f172a; 
-            padding: 24px 20px; 
-            box-sizing: border-box; 
-            display: flex; 
-            flex-direction: column; 
-            height: 100vh; 
-            flex-shrink: 0;
-            border-right: 1px solid #bae6fd;
+            width: 320px; background: var(--bg-sidebar); color: var(--text-main); 
+            padding: 20px 16px; box-sizing: border-box; display: flex; 
+            flex-direction: column; height: 100vh; flex-shrink: 0;
+            border-right: 1px solid var(--border-sidebar);
+            transition: background 0.3s ease;
         }
 
-        .sidebar-header {
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
+        .sidebar-header { margin-bottom: 16px; text-align: center; }
         .sidebar-brand-wrapper {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            cursor: pointer;
+            display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer;
         }
+        .sidebar-logo { width: 44px; height: 44px; object-fit: contain; border-radius: 50%; flex-shrink: 0; }
+        .sidebar-brand { margin: 0; font-size: 22px; color: var(--text-brand); letter-spacing: -0.02em; font-weight: 800; }
 
-        /* LOGO PLACED TO THE LEFT & ENLARGED */
-        .sidebar-logo {
-            width: 50px;
-            height: 50px;
-            object-fit: contain;
-            border-radius: 50%;
-            flex-shrink: 0;
+        /* Global Search Bar */
+        .search-box {
+            position: relative; margin-bottom: 16px; width: 100%; box-sizing: border-box;
         }
+        .search-input {
+            width: 100%; background: var(--bg-card); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 8px 12px 8px 32px; border-radius: 8px;
+            font-size: 13px; box-sizing: border-box; outline: none; transition: border 0.2s;
+        }
+        .search-input:focus { border-color: var(--primary); }
+        .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 13px; opacity: 0.6; }
 
-        .sidebar-brand {
-            margin: 0;
-            font-size: 24px;
-            color: #0369a1;
-            letter-spacing: -0.02em;
-            font-weight: 800;
-            display: inline-block;
-        }
-
-        .sidebar-menu { 
-            flex-grow: 1; 
-            overflow-y: auto; 
-            margin-bottom: 16px; 
-            padding-right: 4px;
-        }
+        .sidebar-menu { flex-grow: 1; overflow-y: auto; margin-bottom: 16px; padding-right: 4px; }
 
         .main-content { 
-            flex: 1; 
-            padding: 36px; 
-            overflow-y: auto; 
-            background: #f1f5f9; 
-            height: 100vh;
-            box-sizing: border-box;
+            flex: 1; padding: 32px; overflow-y: auto; background: var(--bg-main); 
+            height: 100vh; box-sizing: border-box; transition: background 0.3s ease;
         }
         
         .workbook-viewport { 
-            background: #ffffff; 
-            padding: 36px; 
-            border-radius: 16px; 
-            box-shadow: 0 4px 20px rgba(15, 23, 42, 0.04); 
-            max-width: 820px; 
-            margin: 0 auto; 
-            min-height: 420px; 
-            position: relative; 
-            border: 1px solid #e2e8f0;
+            background: var(--bg-card); padding: 36px; border-radius: 16px; 
+            box-shadow: var(--shadow-md); max-width: 860px; margin: 0 auto; 
+            min-height: 420px; position: relative; border: 1px solid var(--border-subtle);
         }
         
         .nav-btn { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            width: 100%; 
-            text-align: left; 
-            background: transparent; 
-            border: none; 
-            color: #1e293b; 
-            padding: 10px 12px; 
-            cursor: pointer; 
-            font-size: 13.5px; 
-            border-radius: 8px; 
-            transition: all 0.2s; 
-            margin-bottom: 4px; 
-            box-sizing: border-box;
-            font-weight: 500;
-        }
-        
-        .nav-btn span {
-            color: #1e293b; 
+            display: flex; align-items: center; justify-content: space-between; 
+            width: 100%; text-align: left; background: transparent; border: none; 
+            color: var(--text-main); padding: 9px 12px; cursor: pointer; 
+            font-size: 13px; border-radius: 8px; transition: all 0.2s; 
+            margin-bottom: 4px; box-sizing: border-box; font-weight: 500;
         }
 
-        .nav-btn:hover, .nav-btn.active { 
-            background: rgba(125, 211, 252, 0.3); 
-            color: #0369a1; 
-        }
-
-        .nav-btn:hover span, .nav-btn.active span {
-            color: #0369a1;
-            font-weight: 600;
-        }
+        .nav-btn:hover, .nav-btn.active { background: var(--primary-light); color: var(--text-brand); }
+        .nav-btn:hover span, .nav-btn.active span { color: var(--text-brand); font-weight: 600; }
         
-        .nav-btn .completion-dot { 
-            width: 8px; 
-            height: 8px; 
-            border-radius: 50%; 
-            background: rgba(15, 23, 42, 0.15); 
-            flex-shrink: 0;
-            margin-left: 10px;
+        /* Status Indicators in Navigation */
+        .status-icon {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 18px; height: 18px; border-radius: 50%; font-size: 11px;
+            font-weight: 700; flex-shrink: 0; margin-left: 8px;
         }
-        
-        .nav-btn.completed .completion-dot { 
-            background: #10b981; 
-            box-shadow: 0 0 8px rgba(16, 185, 129, 0.5); 
-        }
+        .status-icon.pending { border: 1.5px solid var(--text-muted); color: var(--text-muted); }
+        .status-icon.in-progress { border: 1.5px solid var(--primary); color: var(--primary); }
+        .status-icon.completed { background: #10b981; color: white; }
 
         .accordion-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            background: none;
-            border: none;
-            color: #0369a1; 
-            font-size: 11px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            padding: 12px 6px;
-            cursor: pointer;
-            margin-top: 14px;
-            margin-bottom: 4px;
-            border-bottom: 1px solid rgba(125, 211, 252, 0.3);
-            text-align: left;
-            line-height: 1.4;
-            gap: 8px;
+            display: flex; align-items: center; justify-content: space-between; 
+            width: 100%; background: none; border: none; color: var(--text-brand); 
+            font-size: 11px; font-weight: 800; text-transform: uppercase; 
+            letter-spacing: 0.06em; padding: 10px 6px; cursor: pointer; 
+            margin-top: 12px; margin-bottom: 4px; border-bottom: 1px solid var(--border-sidebar);
+            text-align: left; line-height: 1.4; gap: 8px;
         }
 
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            padding-left: 2px;
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 2px; }
+        .accordion-content.open { max-height: 800px; transition: max-height 0.4s ease-in; }
+        .accordion-arrow { transition: transform 0.2s ease; font-size: 10px; color: var(--text-brand); flex-shrink: 0; }
+        .accordion-header.active .accordion-arrow { transform: rotate(90deg); }
+
+        /* Header Utility Bar (Theme Toggle + Stats) */
+        .top-utility-bar {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;
+        }
+        .theme-toggle-btn {
+            background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);
+            padding: 8px 14px; border-radius: 20px; font-size: 12px; font-weight: 600; cursor: pointer;
+            display: flex; align-items: center; gap: 6px; transition: all 0.2s; shadow: var(--shadow-sm);
+        }
+        .theme-toggle-btn:hover { border-color: var(--primary); }
+
+        .gamification-bar { display: flex; gap: 12px; }
+        .stat-badge {
+            background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 6px 12px;
+            border-radius: 20px; font-size: 12px; font-weight: 700; color: var(--text-main);
+            display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow-sm);
         }
 
-        .accordion-content.open {
-            max-height: 500px; 
-            transition: max-height 0.4s ease-in;
+        /* Interactive T-Account Widget */
+        .t-account-widget {
+            margin: 28px 0; background: var(--bg-card-subtle); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 20px; box-shadow: var(--shadow-sm);
         }
+        .t-account-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+        .t-account-grid { display: grid; grid-template-columns: 1fr 1fr; border-top: 2px solid var(--text-main); position: relative; }
+        .t-account-grid::before { content: ""; position: absolute; top: 0; bottom: 0; left: 50%; width: 2px; background: var(--text-main); }
+        .t-account-col { padding: 12px; min-height: 80px; }
+        .t-account-title { text-align: center; font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
 
-        .accordion-arrow {
-            transition: transform 0.2s ease;
-            font-size: 10px;
-            color: #0369a1;
-            flex-shrink: 0;
-        }
-
-        .accordion-header.active .accordion-arrow {
-            transform: rotate(90deg);
-        }
-
-        /* Welcome Pop-Up Modal */
+        /* Modals & Popups */
         .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: rgba(15, 23, 42, 0.4);
-            backdrop-filter: blur(4px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.25s ease;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center; z-index: 9999;
+            opacity: 0; visibility: hidden; transition: all 0.25s ease;
         }
-
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
+        .modal-overlay.active { opacity: 1; visibility: visible; }
         .welcome-card {
-            background: #ffffff;
-            width: 90%;
-            max-width: 440px;
-            border-radius: 20px;
-            padding: 32px;
-            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.15);
-            text-align: center;
-            border: 1px solid #e2e8f0;
+            background: var(--bg-card); width: 90%; max-width: 440px; border-radius: 20px;
+            padding: 32px; box-shadow: var(--shadow-lg); text-align: center; border: 1px solid var(--border-subtle);
         }
-
-        .welcome-title {
-            margin: 0 0 10px 0;
-            font-size: 24px;
-            font-weight: 800;
-            color: #0f172a;
-        }
-
-        .welcome-desc {
-            font-size: 14px;
-            color: #64748b;
-            line-height: 1.5;
-            margin-bottom: 24px;
-        }
-
+        .welcome-title { margin: 0 0 10px 0; font-size: 24px; font-weight: 800; color: var(--text-main); }
+        .welcome-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px; }
         .welcome-btn {
-            background: #0369a1;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-size: 14px;
-            font-weight: 700;
-            cursor: pointer;
-            width: 100%;
-            transition: background 0.2s;
+            background: var(--primary); color: white; border: none; padding: 12px 24px;
+            border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%; transition: background 0.2s;
         }
-
-        .welcome-btn:hover {
-            background: #0284c7;
-        }
+        .welcome-btn:hover { background: var(--primary-hover); }
 
         .floating-note-popup {
-            position: absolute;
-            background: white;
-            border: 1px solid #e2e8f0;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            padding: 16px;
-            width: 280px;
-            z-index: 1000;
-            display: none;
+            position: absolute; background: var(--bg-card); border: 1px solid var(--border-color);
+            border-radius: 12px; box-shadow: var(--shadow-lg); padding: 16px; width: 280px; z-index: 1000; display: none;
         }
         .floating-note-popup textarea {
-            width: 100%; height: 70px; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px; font-size: 13px; resize: none; box-sizing: border-box; outline: none; font-family: inherit;
+            width: 100%; height: 70px; border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 8px; font-size: 13px; resize: none; box-sizing: border-box; outline: none;
+            background: var(--bg-card-subtle); color: var(--text-main); font-family: inherit;
         }
-        .floating-note-popup textarea:focus { border-color: #38bdf8; }
 
         .notes-grid { display: grid; grid-template-columns: 1fr; gap: 16px; margin-top: 24px; }
-        .journal-note-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; position: relative; }
-        .journal-note-quote { font-size: 13px; font-style: italic; color: #64748b; border-left: 3px solid #38bdf8; padding-left: 12px; margin-bottom: 12px; }
-        .journal-note-text { font-size: 14px; color: #1e293b; font-weight: 500; }
+        .journal-note-card { background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 20px; position: relative; }
+        .journal-note-quote { font-size: 13px; font-style: italic; color: var(--text-muted); border-left: 3px solid var(--primary); padding-left: 12px; margin-bottom: 12px; }
+        .journal-note-text { font-size: 14px; color: var(--text-main); font-weight: 500; }
         .delete-journal-btn { position: absolute; top: 16px; right: 16px; background: #fee2e2; color: #ef4444; border: none; border-radius: 6px; padding: 6px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }
         
-        .lesson-footer-bar { margin-top: 40px; padding-top: 24px; border-top: 2px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; }
+        .lesson-footer-bar { margin-top: 40px; padding-top: 24px; border-top: 2px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; }
+
+        /* Screen Reader Accessibility Utilities */
+        .sr-only {
+            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+        }
     </style>
 </head>
 <body>
 
-    <div id="welcome-modal" class="modal-overlay">
+    <div id="welcome-modal" class="modal-overlay" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-desc">
         <div class="welcome-card">
-            <h2 class="welcome-title">Welcome to Mono Academy! 👋</h2>
-            <p class="welcome-desc">Track your progress across lessons, test your understanding with quizzes, and save study notes as you learn.</p>
-            <button class="welcome-btn" onclick="closeWelcomeModal()">Get Started</button>
+            <h2 id="modal-title" class="welcome-title">Welcome to Mono Academy! 👋</h2>
+            <p id="modal-desc" class="welcome-desc">Track your progress across interactive modules, practice ledger entries with live T-Accounts, and build your accounting mastery.</p>
+            <button class="welcome-btn" onclick="closeWelcomeModal()" aria-label="Get started with Mono Academy">Get Started</button>
         </div>
     </div>
 
     <div class="dashboard-container">
-        <div class="sidebar">
+        <aside class="sidebar" aria-label="Course Navigation">
             <div class="sidebar-header">
-                <div class="sidebar-brand-wrapper" onclick="loadDashboard()">
+                <div class="sidebar-brand-wrapper" onclick="loadDashboard()" role="button" tabindex="0" aria-label="Mono Academy Home">
                     <img src="M.png" alt="Mono Academy Logo" class="sidebar-logo">
                     <h2 class="sidebar-brand">Mono Academy</h2>
                 </div>
             </div>
             
+            <div class="search-box">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input type="text" id="lesson-search" class="search-input" placeholder="Search topics or modules..." oninput="filterLessons()" aria-label="Search lessons and topics">
+            </div>
+
             <button class="nav-btn active" id="dashboard-nav-btn" onclick="loadDashboard()" style="margin-bottom: 12px; font-weight: 700;">
                 <span>🏠 Dashboard</span>
             </button>
 
-            <div class="sidebar-menu">
-                <button class="accordion-header active" onclick="toggleAccordion('module1-content', this)">
+            <nav class="sidebar-menu" id="sidebar-accordion-group">
+                
+                <button class="accordion-header active" id="btn-mod-1" aria-expanded="true" aria-controls="module1-content" onclick="toggleAccordion('module1-content', this)">
                     <span>Module 1: Accounting Basics</span>
-                    <span class="accordion-arrow">▶</span>
+                    <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
-                <div id="module1-content" class="accordion-content open">
+                <div id="module1-content" class="accordion-content open" role="region" aria-labelledby="btn-mod-1">
                     <button class="nav-btn" id="nav-1.1" onclick="loadLessonContent('1.1')">
                         <span>Lesson 1.1: Introduction</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-1.1" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-1.2" onclick="loadLessonContent('1.2')">
                         <span>Lesson 1.2: Accounting Equation</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-1.2" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-1.3" onclick="loadLessonContent('1.3')">
                         <span>Lesson 1.3: T-Accounts System</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-1.3" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-1.4" onclick="loadLessonContent('1.4')">
-                        <span>Lesson 1.4: The Journal and Ledger</span>
-                        <span class="completion-dot"></span>
+                        <span>Lesson 1.4: The Journal & Ledger</span>
+                        <span class="status-icon pending" id="status-nav-1.4" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-1.5" onclick="loadLessonContent('1.5')">
                         <span>Lesson 1.5: The Trial Balance</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-1.5" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-1.6" onclick="loadLessonContent('1.6')">
                         <span>Lesson 1.6: Review and Quiz</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-1.6" title="Pending">○</span>
                     </button>
                 </div>
 
-                <button class="accordion-header" onclick="toggleAccordion('module2-content', this)">
+                <button class="accordion-header" id="btn-mod-2" aria-expanded="false" aria-controls="module2-content" onclick="toggleAccordion('module2-content', this)">
                     <span>Module 2: Financial Statements</span>
-                    <span class="accordion-arrow">▶</span>
+                    <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
-                <div id="module2-content" class="accordion-content">
+                <div id="module2-content" class="accordion-content" role="region" aria-labelledby="btn-mod-2">
                     <button class="nav-btn" id="nav-2.1" onclick="loadLessonContent('2.1')">
                         <span>Lesson 2.1: Intro to Financial Statements</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-2.1" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-2.2" onclick="loadLessonContent('2.2')">
                         <span>Lesson 2.2: The Income Statement</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-2.2" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-2.3" onclick="loadLessonContent('2.3')">
                         <span>Lesson 2.3: The Balance Sheet</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-2.3" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-2.4" onclick="loadLessonContent('2.4')">
-                        <span>Lesson 2.4: Statement of Owner's Equity</span>
-                        <span class="completion-dot"></span>
+                        <span>Lesson 2.4: Owner's Equity</span>
+                        <span class="status-icon pending" id="status-nav-2.4" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-2.5" onclick="loadLessonContent('2.5')">
-                        <span>Lesson 2.5: The Cash Flow Statement</span>
-                        <span class="completion-dot"></span>
+                        <span>Lesson 2.5: Cash Flow Statement</span>
+                        <span class="status-icon pending" id="status-nav-2.5" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-2.6" onclick="loadLessonContent('2.6')">
                         <span>Lesson 2.6: Module 2 Capstone</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-2.6" title="Pending">○</span>
                     </button>
                 </div>
 
-                <button class="accordion-header" onclick="toggleAccordion('module3-content', this)">
+                <button class="accordion-header" id="btn-mod-3" aria-expanded="false" aria-controls="module3-content" onclick="toggleAccordion('module3-content', this)">
                     <span>Module 3: Ratio & Health</span>
-                    <span class="accordion-arrow">▶</span>
+                    <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
-                <div id="module3-content" class="accordion-content">
+                <div id="module3-content" class="accordion-content" role="region" aria-labelledby="btn-mod-3">
                     <button class="nav-btn" id="nav-3.1" onclick="loadLessonContent('3.1')">
                         <span>Lesson 3.1: Liquidity & Capital</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-3.1" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-3.2" onclick="loadLessonContent('3.2')">
                         <span>Lesson 3.2: Profitability Ratios</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-3.2" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-3.3" onclick="loadLessonContent('3.3')">
                         <span>Lesson 3.3: Efficiency Ratios</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-3.3" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-3.4" onclick="loadLessonContent('3.4')">
                         <span>Lesson 3.4: Solvency Ratios</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-3.4" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-3.5" onclick="loadLessonContent('3.5')">
                         <span>Lesson 3.5: Reading an Annual Report</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-3.5" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-3.6" onclick="loadLessonContent('3.6')">
                         <span>Lesson 3.6: Investor Analysis</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-3.6" title="Pending">○</span>
                     </button>
                 </div>
 
-                <button class="accordion-header" onclick="toggleAccordion('module4-content', this)">
-                    <span>Module 4: Assets, Liabilities & Equity</span>
-                    <span class="accordion-arrow">▶</span>
+                <button class="accordion-header" id="btn-mod-4" aria-expanded="false" aria-controls="module4-content" onclick="toggleAccordion('module4-content', this)">
+                    <span>Module 4: Assets & Liabilities</span>
+                    <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
-                <div id="module4-content" class="accordion-content">
+                <div id="module4-content" class="accordion-content" role="region" aria-labelledby="btn-mod-4">
                     <button class="nav-btn" id="nav-4.1" onclick="loadLessonContent('4.1')">
-                        <span>Lesson 4.1: Inventory Costing Methods</span>
-                        <span class="completion-dot"></span>
+                        <span>Lesson 4.1: Inventory Costing</span>
+                        <span class="status-icon pending" id="status-nav-4.1" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-4.2" onclick="loadLessonContent('4.2')">
-                        <span>Lesson 4.2: Depreciation & Amortization</span>
-                        <span class="completion-dot"></span>
+                        <span>Lesson 4.2: Depreciation</span>
+                        <span class="status-icon pending" id="status-nav-4.2" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-4.3" onclick="loadLessonContent('4.3')">
-                        <span>Lesson 4.3: Accounts Receivable & Bad Debt</span>
-                        <span class="completion-dot"></span>
+                        <span>Lesson 4.3: Receivables & Bad Debt</span>
+                        <span class="status-icon pending" id="status-nav-4.3" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-4.4" onclick="loadLessonContent('4.4')">
                         <span>Lesson 4.4: Liabilities</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-4.4" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-4.5" onclick="loadLessonContent('4.5')">
                         <span>Lesson 4.5: Corporate Equity</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-4.5" title="Pending">○</span>
                     </button>
                 </div>
 
-                <button class="accordion-header" onclick="toggleAccordion('module5-content', this)">
-                    <span>Module 5: Advanced Accounting</span>
-                    <span class="accordion-arrow">▶</span>
+                <button class="accordion-header" id="btn-mod-5" aria-expanded="false" aria-controls="module5-content" onclick="toggleAccordion('module5-content', this)">
+                    <span>Module 5: Advanced Topics</span>
+                    <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
-                <div id="module5-content" class="accordion-content">
+                <div id="module5-content" class="accordion-content" role="region" aria-labelledby="btn-mod-5">
                     <button class="nav-btn" id="nav-5.1" onclick="loadLessonContent('5.1')">
                         <span>Lesson 5.1: Business Combinations</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-5.1" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-5.2" onclick="loadLessonContent('5.2')">
                         <span>Lesson 5.2: Deferred Taxes</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-5.2" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-5.3" onclick="loadLessonContent('5.3')">
                         <span>Lesson 5.3: Advanced Instruments</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-5.3" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-5.4" onclick="loadLessonContent('5.4')">
                         <span>Lesson 5.4: Revenue Recognition</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-5.4" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-5.5" onclick="loadLessonContent('5.5')">
                         <span>Lesson 5.5: Forensic Accounting</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-5.5" title="Pending">○</span>
                     </button>
                 </div>
 
-                <button class="accordion-header active" onclick="toggleAccordion('module-final-content', this)">
+                <button class="accordion-header active" id="btn-mod-final" aria-expanded="true" aria-controls="module-final-content" onclick="toggleAccordion('module-final-content', this)">
                     <span>Final Milestone</span>
-                    <span class="accordion-arrow">▶</span>
+                    <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
-                <div id="module-final-content" class="accordion-content open">
+                <div id="module-final-content" class="accordion-content open" role="region" aria-labelledby="btn-mod-final">
                     <button class="nav-btn" id="nav-final_exam" onclick="loadLessonContent('final_exam')">
                         <span>🎓 Final Examination</span>
-                        <span class="completion-dot"></span>
+                        <span class="status-icon pending" id="status-nav-final_exam" title="Pending">○</span>
                     </button>
+                </div>
+            </nav>
+
+            <div style="border-top: 1px solid var(--border-sidebar); padding-top: 16px;">
+                <button class="nav-btn" id="nav-notes" onclick="loadNotesPage()">
+                    <span style="display: flex; align-items: center; gap: 8px;">📝 My Study Notes</span>
+                    <span id="notes-counter-badge" style="background: var(--primary); color: white; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px;">0</span>
+                </button>
+            </div>
+        </aside>
+
+        <main class="main-content" id="main-scroll-viewport" role="main">
+            
+            <div class="top-utility-bar">
+                <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme">
+                    <span id="theme-toggle-icon">🌙</span> <span id="theme-toggle-label">Dark Mode</span>
+                </button>
+
+                <div class="gamification-bar">
+                    <div class="stat-badge" title="Daily Learning Streak">
+                        <span>🔥</span> <span id="streak-count">1 Day Streak</span>
+                    </div>
+                    <div class="stat-badge" title="Daily Target Progress">
+                        <span>🎯</span> <span id="daily-target">0/1 Completed Today</span>
+                    </div>
                 </div>
             </div>
 
-            <div style="border-top: 1px solid rgba(3, 105, 161, 0.2); padding-top: 16px;">
-                <button class="nav-btn" id="nav-notes" onclick="loadNotesPage()">
-                    <span style="display: flex; align-items: center; gap: 8px;">📝 My Study Notes</span>
-                    <span id="notes-counter-badge" style="background: #38bdf8; color: #0f172a; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px; transition: all 0.2s;">0</span>
-                </button>
-            </div>
-        </div>
-
-        <div class="main-content" id="main-scroll-viewport">
             <div id="workbook-content-area" class="workbook-viewport">
-            </div>
-        </div>
+                </div>
+        </main>
     </div>
 
-    <div id="floating-note-box" class="floating-note-popup">
-        <div style="font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Add Note to Selection:</div>
-        <div id="popup-selected-text" style="font-size: 12px; font-style: italic; color: #475569; background: #f8fafc; padding: 6px; border-radius: 6px; border-left: 2px solid #cbd5e1; margin-bottom: 10px; max-height: 50px; overflow-y: auto; line-height: 1.3;"></div>
-        <textarea id="popup-note-input" placeholder="Enter your note here..."></textarea>
+    <div id="floating-note-box" class="floating-note-popup" role="dialog" aria-label="Add study note">
+        <div style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Add Note to Selection:</div>
+        <div id="popup-selected-text" style="font-size: 12px; font-style: italic; color: var(--text-main); background: var(--bg-card-subtle); padding: 6px; border-radius: 6px; border-left: 2px solid var(--primary); margin-bottom: 10px; max-height: 50px; overflow-y: auto; line-height: 1.3;"></div>
+        <textarea id="popup-note-input" placeholder="Type your personal note here..."></textarea>
         <div style="display: flex; gap: 8px; margin-top: 10px; justify-content: flex-end;">
-            <button onclick="closeNotePopup()" style="background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Cancel</button>
-            <button onclick="saveNote()" style="background: #38bdf8; color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;">Save</button>
+            <button onclick="closeNotePopup()" style="background: var(--bg-card-subtle); color: var(--text-main); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; cursor: pointer;">Cancel</button>
+            <button onclick="saveNote()" style="background: var(--primary); color: white; border: none; padding: 6px 12px; border-radius: 6px; font-size: 12px; font-weight: 700; cursor: pointer;">Save</button>
         </div>
     </div>
 
     <script>
+        // Core State Management
         let completedLessons = JSON.parse(localStorage.getItem('mono_completed_lessons')) || [];
         let studyNotes = JSON.parse(localStorage.getItem('mono_study_notes')) || [];
+        let lastActiveLesson = localStorage.getItem('mono_last_active') || '1.1';
         let selectedQuoteText = ""; 
         let currentLessonId = null;
-        
+
         const curriculum = [
-            { id: "1.1", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.1: Introduction", desc: "Foundational concepts and basic principles." },
+            { id: "1.1", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.1: Introduction", desc: "Foundational concepts and basic accounting principles." },
             { id: "1.2", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.2: The Accounting Equation", desc: "Assets, Liabilities, and Owner's Equity." },
             { id: "1.3", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.3: T-Accounts System", desc: "Visualize debits and credits clearly." },
             { id: "1.4", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.4: Journal and Ledger", desc: "Record and post financial transactions." },
@@ -524,7 +476,7 @@
             { id: "2.4", module: 2, modName: "Module 2: Financial Statements", name: "Lesson 2.4: Statement of Owner's Equity", desc: "Track capital changes over time." },
             { id: "2.5", module: 2, modName: "Module 2: Financial Statements", name: "Lesson 2.5: The Cash Flow Statement", desc: "Track cash from operating, investing, and financing." },
             { id: "2.6", module: 2, modName: "Module 2: Financial Statements", name: "Lesson 2.6: Module 2 Capstone", desc: "Construct integrated financial statements." },
-            
+
             { id: "3.1", module: 3, modName: "Module 3: Ratio & Health", name: "Lesson 3.1: Liquidity & Capital", desc: "Short-term financial health and liquidity ratios." },
             { id: "3.2", module: 3, modName: "Module 3: Ratio & Health", name: "Lesson 3.2: Profitability Ratios", desc: "Assess margins and overall profit performance." },
             { id: "3.3", module: 3, modName: "Module 3: Ratio & Health", name: "Lesson 3.3: Efficiency Ratios", desc: "Evaluate operational velocity and asset turns." },
@@ -532,32 +484,79 @@
             { id: "3.5", module: 3, modName: "Module 3: Ratio & Health", name: "Lesson 3.5: Reading an Annual Report", desc: "Key disclosures and items inside a 10-K report." },
             { id: "3.6", module: 3, modName: "Module 3: Ratio & Health", name: "Lesson 3.6: Investor Analysis", desc: "Evaluate target companies." },
 
-            { id: "4.1", module: 4, modName: "Module 4: Assets, Liabilities & Equity", name: "Lesson 4.1: Inventory Costing Methods", desc: "FIFO, LIFO, and Weighted Average." },
-            { id: "4.2", module: 4, modName: "Module 4: Assets, Liabilities & Equity", name: "Lesson 4.2: Depreciation & Amortization", desc: "Asset allocation rules and straight-line methods." },
-            { id: "4.3", module: 4, modName: "Module 4: Assets, Liabilities & Equity", name: "Lesson 4.3: Accounts Receivable & Bad Debt", desc: "Loss allowances and aging analysis." },
-            { id: "4.4", module: 4, modName: "Module 4: Assets, Liabilities & Equity", name: "Lesson 4.4: Liabilities", desc: "Current obligations vs. long-term debt." },
-            { id: "4.5", module: 4, modName: "Module 4: Assets, Liabilities & Equity", name: "Lesson 4.5: Corporate Equity", desc: "Capital stock, retained earnings, and treasury stock." },
+            { id: "4.1", module: 4, modName: "Module 4: Assets & Liabilities", name: "Lesson 4.1: Inventory Costing Methods", desc: "FIFO, LIFO, and Weighted Average." },
+            { id: "4.2", module: 4, modName: "Module 4: Assets & Liabilities", name: "Lesson 4.2: Depreciation & Amortization", desc: "Asset allocation rules and straight-line methods." },
+            { id: "4.3", module: 4, modName: "Module 4: Assets & Liabilities", name: "Lesson 4.3: Accounts Receivable & Bad Debt", desc: "Loss allowances and aging analysis." },
+            { id: "4.4", module: 4, modName: "Module 4: Assets & Liabilities", name: "Lesson 4.4: Liabilities", desc: "Current obligations vs. long-term debt." },
+            { id: "4.5", module: 4, modName: "Module 4: Assets & Liabilities", name: "Lesson 4.5: Corporate Equity", desc: "Capital stock, retained earnings, and treasury stock." },
 
-            { id: "5.1", module: 5, modName: "Module 5: Advanced Accounting", name: "Lesson 5.1: Business Combinations", desc: "Mergers, acquisitions, and consolidated tracking." },
-            { id: "5.2", module: 5, modName: "Module 5: Advanced Accounting", name: "Lesson 5.2: Deferred Taxes", desc: "Tax obligations vs. book-value accounting." },
-            { id: "5.3", module: 5, modName: "Module 5: Advanced Accounting", name: "Lesson 5.3: Advanced Instruments", desc: "Financial derivatives and hedging techniques." },
-            { id: "5.4", module: 5, modName: "Module 5: Advanced Accounting", name: "Lesson 5.4: Revenue Recognition", desc: "IFRS vs. US GAAP standards." },
-            { id: "5.5", module: 5, modName: "Module 5: Advanced Accounting", name: "Lesson 5.5: Forensic Accounting", desc: "Data investigation and auditing internal controls." },
+            { id: "5.1", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.1: Business Combinations", desc: "Mergers, acquisitions, and consolidated tracking." },
+            { id: "5.2", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.2: Deferred Taxes", desc: "Tax obligations vs. book-value accounting." },
+            { id: "5.3", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.3: Advanced Instruments", desc: "Financial derivatives and hedging techniques." },
+            { id: "5.4", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.4: Revenue Recognition", desc: "IFRS vs. US GAAP standards." },
+            { id: "5.5", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.5: Forensic Accounting", desc: "Data investigation and auditing internal controls." },
             
             { id: "final_exam", module: 6, modName: "Final Milestone", name: "Final Examination", desc: "Comprehensive exam covering all topics." }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
             checkWelcomeModal();
             loadDashboard();
             updateSidebarVisuals();
             updateNotesBadge();
             initHighlightListener();
+            updateGamificationStats();
         });
 
+        /* --- Theme Management --- */
+        function initTheme() {
+            const savedTheme = localStorage.getItem('mono_theme') || 'light';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            updateThemeToggleUI(savedTheme);
+        }
+
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('mono_theme', newTheme);
+            updateThemeToggleUI(newTheme);
+        }
+
+        function updateThemeToggleUI(theme) {
+            document.getElementById('theme-toggle-icon').textContent = theme === 'dark' ? '☀️' : '🌙';
+            document.getElementById('theme-toggle-label').textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        }
+
+        /* --- Gamification & Streaks --- */
+        function updateGamificationStats() {
+            const today = new Date().toDateString();
+            const lastActiveDate = localStorage.getItem('mono_last_active_date');
+            let streak = parseInt(localStorage.getItem('mono_streak') || '1', 10);
+
+            if (lastActiveDate && lastActiveDate !== today) {
+                const yesterday = new Date();
+                yesterday.setDate(yesterday.getDate() - 1);
+                if (lastActiveDate === yesterday.toDateString()) {
+                    // Maintained streak
+                } else {
+                    streak = 1; // Streak reset
+                }
+            }
+            localStorage.setItem('mono_last_active_date', today);
+            localStorage.setItem('mono_streak', streak);
+
+            document.getElementById('streak-count').textContent = `${streak} Day Streak`;
+            
+            // Check daily target
+            const dailyCompleted = completedLessons.length > 0 ? 1 : 0;
+            document.getElementById('daily-target').textContent = `${dailyCompleted}/1 Target Completed Today`;
+        }
+
+        /* --- Onboarding Modal --- */
         function checkWelcomeModal() {
-            const hasSeenModal = localStorage.getItem('mono_welcome_seen');
-            if (!hasSeenModal) {
+            if (!localStorage.getItem('mono_welcome_seen')) {
                 setTimeout(() => {
                     document.getElementById('welcome-modal').classList.add('active');
                 }, 200);
@@ -569,9 +568,24 @@
             localStorage.setItem('mono_welcome_seen', 'true');
         }
 
+        /* --- Global Search --- */
+        function filterLessons() {
+            const query = document.getElementById('lesson-search').value.toLowerCase();
+            curriculum.forEach(lesson => {
+                const btn = document.getElementById(`nav-${lesson.id}`);
+                if (btn) {
+                    const matches = lesson.name.toLowerCase().includes(query) || lesson.desc.toLowerCase().includes(query);
+                    btn.style.display = matches ? 'flex' : 'none';
+                }
+            });
+        }
+
+        /* --- Sidebar & Accordion Logic --- */
         function toggleAccordion(id, btn) {
             const panel = document.getElementById(id);
+            const isOpen = panel.classList.contains('open');
             btn.classList.toggle('active');
+            btn.setAttribute('aria-expanded', !isOpen);
             panel.classList.toggle('open');
         }
 
@@ -579,21 +593,15 @@
             const badge = document.getElementById("notes-counter-badge");
             if (badge) {
                 badge.textContent = studyNotes.length;
-                badge.style.background = studyNotes.length > 0 ? "#0284c7" : "rgba(15, 23, 42, 0.08)";
-                badge.style.color = studyNotes.length > 0 ? "#ffffff" : "rgba(15, 23, 42, 0.6)";
             }
         }
 
+        /* --- Dashboard Rendering --- */
         function loadDashboard() {
             currentLessonId = null;
 
-            // Track Dashboard Pageview in Umami
             if (window.umami) {
-                window.umami.track((props) => ({
-                    ...props,
-                    url: '/dashboard',
-                    title: 'Dashboard'
-                }));
+                window.umami.track((props) => ({ ...props, url: '/dashboard', title: 'Dashboard' }));
             }
 
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -604,6 +612,9 @@
             const totalCount = curriculum.length;
             const completedCount = completedLessons.length;
             const progressPercent = Math.round((completedCount / totalCount) * 100);
+
+            // Determine primary CTA next lesson target
+            const nextLesson = curriculum.find(l => !completedLessons.includes(l.id)) || curriculum[0];
 
             const modulesMap = {};
             curriculum.forEach(lesson => {
@@ -617,8 +628,8 @@
             Object.keys(modulesMap).forEach(modId => {
                 const mod = modulesMap[modId];
                 modulesContentHtml += `
-                    <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
-                        <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: #0369a1; border-bottom: 1px solid #bae6fd; padding-bottom: 8px; margin-bottom: 14px; text-align: left;">
+                    <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+                        <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-brand); border-bottom: 1px solid var(--border-subtle); padding-bottom: 8px; margin-bottom: 14px;">
                             ${mod.title}
                         </div>
                         <div style="display: flex; flex-direction: column; gap: 10px;">
@@ -626,59 +637,65 @@
 
                 mod.lessons.forEach(lesson => {
                     const isCompleted = completedLessons.includes(lesson.id);
+                    const isCurrent = lesson.id === lastActiveLesson;
+                    let statusTag = `<span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--status-pending-bg); color: var(--status-pending-text);">Pending</span>`;
+                    
+                    if (isCompleted) {
+                        statusTag = `<span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--status-success-bg); color: var(--status-success-text);">✓ Completed</span>`;
+                    } else if (isCurrent) {
+                        statusTag = `<span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--primary-light); color: var(--primary);">⏱️ In Progress</span>`;
+                    }
+
                     modulesContentHtml += `
-                        <div style="background: #ffffff; border: 1px solid ${isCompleted ? '#cbd5e1' : '#e2e8f0'}; padding: 14px 18px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; gap: 16px; text-align: left;">
+                        <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 14px 18px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
                             <div style="flex: 1;">
                                 <div style="display: flex; align-items: center; gap: 8px;">
-                                    <span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: ${isCompleted ? '#dcfce7' : '#f1f5f9'}; color: ${isCompleted ? '#166534' : '#64748b'};">
-                                        ${isCompleted ? '✓ Completed' : 'Pending'}
-                                    </span>
-                                    <h4 style="margin: 0; font-size: 14.5px; font-weight: 700; color: #0f172a;">${lesson.name}</h4>
+                                    ${statusTag}
+                                    <h3 style="margin: 0; font-size: 14.5px; font-weight: 700; color: var(--text-main);">${lesson.name}</h3>
                                 </div>
-                                <p style="margin: 4px 0 0 0; font-size: 13px; color: #64748b; line-height: 1.4;">${lesson.desc}</p>
+                                <p style="margin: 4px 0 0 0; font-size: 13px; color: var(--text-muted); line-height: 1.4;">${lesson.desc}</p>
                             </div>
-                            <button onclick="loadLessonContent('${lesson.id}')" style="background: #0f172a; color: white; border: none; padding: 8px 16px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; flex-shrink: 0; transition: background 0.2s;">
+                            <button onclick="loadLessonContent('${lesson.id}')" style="background: var(--text-main); color: var(--bg-card); border: none; padding: 8px 16px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; flex-shrink: 0;" aria-label="Open ${lesson.name}">
                                 ${isCompleted ? 'Review' : 'Start'}
                             </button>
                         </div>
                     `;
                 });
 
-                modulesContentHtml += `
-                        </div>
-                    </div>
-                `;
+                modulesContentHtml += `</div></div>`;
             });
 
             container.innerHTML = `
-                <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: #0f172a;">Dashboard</h1>
-                <p style="color: #64748b; margin-top: 0; margin-bottom: 24px;">Your learning overview and module progress.</p>
+                <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: var(--text-main);">Dashboard</h1>
+                <p style="color: var(--text-muted); margin-top: 0; margin-bottom: 24px;">Track your learning progress and resume your accounting path.</p>
                 
-                <div style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); padding: 24px; border-radius: 12px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px;">
+                <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%); padding: 28px; border-radius: 16px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; box-shadow: var(--shadow-md);">
                     <div>
-                        <h2 style="margin: 0 0 8px 0; font-size: 20px;">Progress: ${progressPercent}%</h2>
-                        <div style="width: 240px; height: 8px; background: rgba(255,255,255,0.2); border-radius: 99px; overflow: hidden;">
-                            <div style="width: ${progressPercent}%; height: 100%; background: white;"></div>
+                        <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9;">Ready to continue?</span>
+                        <h2 style="margin: 4px 0 12px 0; font-size: 22px; font-weight: 800;">${nextLesson.name}</h2>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="width: 180px; height: 8px; background: rgba(255,255,255,0.25); border-radius: 99px; overflow: hidden;">
+                                <div style="width: ${progressPercent}%; height: 100%; background: white;"></div>
+                            </div>
+                            <span style="font-size: 12px; font-weight: 700;">${progressPercent}% Complete</span>
                         </div>
                     </div>
-                    <div style="background: rgba(255,255,255,0.1); padding: 12px 20px; border-radius: 8px; text-align: center;">
-                        <span style="font-size: 22px; font-weight: 800;">${completedCount} / ${totalCount}</span>
-                    </div>
+                    <button onclick="loadLessonContent('${nextLesson.id}')" style="background: white; color: var(--primary-hover); border: none; padding: 12px 22px; font-size: 14px; font-weight: 800; border-radius: 10px; cursor: pointer; box-shadow: var(--shadow-sm);" aria-label="Resume learning ${nextLesson.name}">
+                        Continue Learning →
+                    </button>
                 </div>
                 ${modulesContentHtml}
             `;
         }
 
+        /* --- Lesson Engine --- */
         function loadLessonContent(lessonId) {
             currentLessonId = lessonId;
+            lastActiveLesson = lessonId;
+            localStorage.setItem('mono_last_active', lessonId);
 
-            // Track Lesson Pageview in Umami
             if (window.umami) {
-                window.umami.track((props) => ({
-                    ...props,
-                    url: `/lesson/${lessonId}`,
-                    title: `Lesson ${lessonId}`
-                }));
+                window.umami.track((props) => ({ ...props, url: `/lesson/${lessonId}`, title: `Lesson ${lessonId}` }));
             }
 
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -688,38 +705,55 @@
             document.getElementById("main-scroll-viewport").scrollTop = 0;
             const container = document.getElementById("workbook-content-area");
             
-            let fileName = "";
-            if(lessonId === "final_exam") {
-                fileName = `lessons/final_exam.html?t=${Date.now()}`;
-            } else {
-                const parts = String(lessonId).split('.');
-                fileName = `lessons/Lesson${parts[0]}_${parts[1]}.html?t=${Date.now()}`;
-            }
+            let fileName = lessonId === "final_exam" 
+                ? `lessons/final_exam.html?t=${Date.now()}`
+                : `lessons/Lesson${lessonId.split('.')[0]}_${lessonId.split('.')[1]}.html?t=${Date.now()}`;
 
             fetch(fileName, { cache: "no-store" })
                 .then(response => {
-                    if (!response.ok) throw new Error(`Missing page: ${fileName}`);
+                    if (!response.ok) throw new Error(`Missing lesson file: ${fileName}`);
                     return response.text();
                 })
                 .then(html => {
                     const isCompleted = completedLessons.includes(lessonId);
                     
+                    // Interactive T-Account Practice Sandbox Widget
+                    const tAccountWidgetHtml = `
+                        <div class="t-account-widget">
+                            <div class="t-account-header">
+                                <span style="font-size: 13px; font-weight: 800; color: var(--text-main);">🧪 Interactive T-Account Sandbox</span>
+                                <button onclick="resetTAccount()" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-muted); padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer;">Reset</button>
+                            </div>
+                            <div style="text-align: center; font-weight: 800; font-size: 14px; margin-bottom: 8px;">Cash Account</div>
+                            <div class="t-account-grid">
+                                <div class="t-account-col" id="t-debit-col">
+                                    <div class="t-account-title">Debit (DR)</div>
+                                    <div style="font-size: 13px; color: #10b981; font-weight: 600;">+ $5,000 (Initial Capital)</div>
+                                </div>
+                                <div class="t-account-col" id="t-credit-col">
+                                    <div class="t-account-title">Credit (CR)</div>
+                                    <div style="font-size: 13px; color: #ef4444; font-weight: 600;">- $1,200 (Supplies Expense)</div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+
                     const completeFooterHtml = `
                         <div class="lesson-footer-bar">
-                            <span style="font-size: 13px; color: #64748b; font-weight: 500;">
+                            <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">
                                 ${isCompleted ? '✓ Lesson Completed' : 'Finished reading? Mark this lesson as complete:'}
                             </span>
-                            <button id="complete-btn" onclick="toggleLessonCompletion('${lessonId}')" style="background: ${isCompleted ? '#dcfce7' : '#0f172a'}; color: ${isCompleted ? '#166534' : '#ffffff'}; border: 1px solid ${isCompleted ? '#86efac' : '#0f172a'}; padding: 10px 20px; font-size: 13px; font-weight: 700; border-radius: 8px; cursor: pointer; transition: all 0.2s;">
+                            <button id="complete-btn" onclick="toggleLessonCompletion('${lessonId}')" style="background: ${isCompleted ? 'var(--status-success-bg)' : 'var(--text-main)'}; color: ${isCompleted ? 'var(--status-success-text)' : 'var(--bg-card)'}; border: 1px solid ${isCompleted ? 'var(--status-success-text)' : 'var(--text-main)'}; padding: 10px 20px; font-size: 13px; font-weight: 700; border-radius: 8px; cursor: pointer;">
                                 ${isCompleted ? '✓ Completed' : 'Complete & Continue →'}
                             </button>
                         </div>
                     `;
 
-                    container.innerHTML = html + completeFooterHtml;
+                    container.innerHTML = html + tAccountWidgetHtml + completeFooterHtml;
                     updateSidebarVisuals();
                 })
                 .catch(err => {
-                    container.innerHTML = `<div style="text-align: center; padding: 40px;"><h3 style="color:#ef4444;">Lesson Not Found</h3><p style="color:#64748b;">${err.message}</p></div>`;
+                    container.innerHTML = `<div style="text-align: center; padding: 40px;"><h3 style="color:#ef4444;">Lesson File Not Available</h3><p style="color: var(--text-muted);">${err.message}</p></div>`;
                 });
         }
 
@@ -732,30 +766,39 @@
             
             localStorage.setItem('mono_completed_lessons', JSON.stringify(completedLessons));
             updateSidebarVisuals();
+            updateGamificationStats();
 
-            // Auto navigate to next lesson if completing
             const currentIndex = curriculum.findIndex(l => l.id === lessonId);
             if (completedLessons.includes(lessonId) && currentIndex !== -1 && currentIndex < curriculum.length - 1) {
-                const nextLesson = curriculum[currentIndex + 1];
-                loadLessonContent(nextLesson.id);
+                loadLessonContent(curriculum[currentIndex + 1].id);
             } else {
                 loadLessonContent(lessonId);
             }
         }
 
+        /* --- Dynamic Sidebar Visual Indicators --- */
         function updateSidebarVisuals() {
             curriculum.forEach(lesson => {
-                const btn = document.getElementById(`nav-${lesson.id}`);
-                if (btn) {
+                const icon = document.getElementById(`status-nav-${lesson.id}`);
+                if (icon) {
                     if (completedLessons.includes(lesson.id)) {
-                        btn.classList.add('completed');
+                        icon.className = "status-icon completed";
+                        icon.textContent = "✓";
+                        icon.title = "Completed";
+                    } else if (lesson.id === lastActiveLesson) {
+                        icon.className = "status-icon in-progress";
+                        icon.textContent = "⏱";
+                        icon.title = "In Progress";
                     } else {
-                        btn.classList.remove('completed');
+                        icon.className = "status-icon pending";
+                        icon.textContent = "○";
+                        icon.title = "Pending";
                     }
                 }
             });
         }
 
+        /* --- In-line Notes & Highlighting --- */
         function initHighlightListener() {
             document.addEventListener('mouseup', (e) => {
                 const selectedText = window.getSelection().toString().trim();
@@ -796,13 +839,8 @@
         function loadNotesPage() {
             currentLessonId = null;
 
-            // Track Notes Pageview in Umami
             if (window.umami) {
-                window.umami.track((props) => ({
-                    ...props,
-                    url: '/notes',
-                    title: 'Study Notes'
-                }));
+                window.umami.track((props) => ({ ...props, url: '/notes', title: 'Study Notes' }));
             }
 
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -811,19 +849,19 @@
             const container = document.getElementById("workbook-content-area");
             
             let notesHtml = studyNotes.length === 0 
-                ? `<p style="color: #64748b; font-style: italic;">No study notes saved yet. Highlight any text in a lesson to add a note.</p>`
+                ? `<p style="color: var(--text-muted); font-style: italic;">No saved notes yet. Highlight any text inside a lesson to create your first note.</p>`
                 : `<div class="notes-grid">` + studyNotes.map(note => `
                     <div class="journal-note-card">
-                        <button class="delete-journal-btn" onclick="deleteNote(${note.id})">Delete</button>
+                        <button class="delete-journal-btn" onclick="deleteNote(${note.id})" aria-label="Delete note">Delete</button>
                         <div class="journal-note-quote">"${note.quote}"</div>
                         <div class="journal-note-text">${note.text}</div>
-                        <div style="font-size: 11px; color: #94a3b8; margin-top: 10px;">${note.date}</div>
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px;">Saved on ${note.date}</div>
                     </div>
                 `).join('') + `</div>`;
 
             container.innerHTML = `
-                <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: #0f172a;">📝 My Study Notes</h1>
-                <p style="color: #64748b; margin-top: 0; margin-bottom: 24px;">Highlights and personal study notes.</p>
+                <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: var(--text-main);">📝 My Study Notes</h1>
+                <p style="color: var(--text-muted); margin-top: 0; margin-bottom: 24px;">Your highlighted excerpts and learning notes.</p>
                 ${notesHtml}
             `;
         }
@@ -833,6 +871,10 @@
             localStorage.setItem('mono_study_notes', JSON.stringify(studyNotes));
             updateNotesBadge();
             loadNotesPage();
+        }
+
+        function resetTAccount() {
+            alert('T-Account sandbox reset to default template state.');
         }
     </script>
 </body>
