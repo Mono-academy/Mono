@@ -33,8 +33,6 @@
             --status-success-text: #14532d;
             --status-pending-bg: #e2e8f0;
             --status-pending-text: #334155;
-            --status-bookmark-bg: #fef3c7;
-            --status-bookmark-text: #92400e;
             
             --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
             --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
@@ -63,8 +61,6 @@
             --status-success-text: #f0fdf4;
             --status-pending-bg: #334155;
             --status-pending-text: #f1f5f9;
-            --status-bookmark-bg: #78350f;
-            --status-bookmark-text: #fef3c7;
         }
 
         /* Custom Scrollbar */
@@ -111,9 +107,7 @@
         }
 
         /* Global Search Bar & Filter */
-        .search-box {
-            position: relative; margin-bottom: 8px; width: 100%; box-sizing: border-box;
-        }
+        .search-box { position: relative; margin-bottom: 8px; width: 100%; box-sizing: border-box; }
         .search-input {
             width: 100%; background: var(--bg-card); border: 1px solid var(--border-color);
             color: var(--text-main); padding: 10px 12px 10px 36px; border-radius: 12px;
@@ -133,11 +127,7 @@
             font-family: 'Inter', sans-serif;
         }
 
-        /* Sidebar Navigation Container */
-        .sidebar-menu { 
-            flex-grow: 1; overflow-y: auto; margin-bottom: 12px; 
-            padding-right: 4px; scroll-behavior: smooth;
-        }
+        .sidebar-menu { flex-grow: 1; overflow-y: auto; margin-bottom: 12px; padding-right: 4px; scroll-behavior: smooth; }
 
         .main-content { 
             flex: 1; padding: 32px; overflow-y: auto; background: var(--bg-main); 
@@ -148,18 +138,10 @@
             background: var(--bg-card); padding: 40px; border-radius: 20px; 
             box-shadow: var(--shadow-md); max-width: 1000px; margin: 0 auto; 
             min-height: 420px; position: relative; border: 1px solid var(--border-subtle);
-            font-family: 'Inter', sans-serif;
-            color: var(--text-main); line-height: 1.6;
-            box-sizing: border-box; /* Prevent padding overflow */
+            font-family: 'Inter', sans-serif; color: var(--text-main); line-height: 1.6;
+            box-sizing: border-box; 
         }
         
-        .workbook-viewport h1, .workbook-viewport h2, .workbook-viewport h3 {
-            font-family: inherit; color: var(--text-main); letter-spacing: -0.01em;
-        }
-        .workbook-viewport p, .workbook-viewport li {
-            font-family: inherit; font-size: 15px; color: var(--text-main);
-        }
-
         .nav-btn { 
             display: flex; align-items: center; justify-content: space-between; 
             width: 100%; text-align: left; background: transparent; border: none; 
@@ -168,7 +150,6 @@
             margin-bottom: 3px; box-sizing: border-box; font-weight: 500;
             font-family: 'Inter', sans-serif;
         }
-
         .nav-btn:hover, .nav-btn.active { background: var(--primary-light); color: var(--text-brand); }
         .nav-btn:hover span, .nav-btn.active span { color: var(--text-brand); font-weight: 600; }
         
@@ -190,29 +171,26 @@
             text-align: left; gap: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
             font-family: 'Inter', sans-serif;
         }
-
         .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 2px; }
         .accordion-content.open { max-height: 800px; transition: max-height 0.4s ease-in; }
         .accordion-arrow { transition: transform 0.2s ease; font-size: 10px; color: var(--text-brand); flex-shrink: 0; }
         .accordion-header.active .accordion-arrow { transform: rotate(90deg); }
 
-        .dashboard-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; box-sizing: border-box;
-        }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; width: 100%; box-sizing: border-box; }
         @media (max-width: 768px) { .dashboard-grid { grid-template-columns: 1fr; } }
 
         .top-utility-bar {
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
         }
-        .utility-group-left, .utility-group-right { display: flex; align-items: center; gap: 10px; }
+        .utility-group-left, .utility-group-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
-        .theme-toggle-btn, .timer-trigger-btn {
+        .theme-toggle-btn, .timer-trigger-btn, .action-tool-btn {
             background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);
             padding: 9px 16px; border-radius: 99px; font-size: 12px; font-weight: 600; cursor: pointer;
             display: flex; align-items: center; gap: 6px; transition: all 0.2s; box-shadow: var(--shadow-sm);
             font-family: 'Inter', sans-serif;
         }
-        .theme-toggle-btn:hover, .timer-trigger-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
+        .theme-toggle-btn:hover, .timer-trigger-btn:hover, .action-tool-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
 
         .stat-badge {
             background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 7px 14px;
@@ -220,9 +198,7 @@
             display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow-sm);
         }
 
-        mark.search-highlight {
-            background-color: #fef08a; color: #854d0e; padding: 1px 3px; border-radius: 3px; font-weight: 700;
-        }
+        mark.search-highlight { background-color: #fef08a; color: #854d0e; padding: 1px 3px; border-radius: 3px; font-weight: 700; }
         [data-theme="dark"] mark.search-highlight { background-color: #854d0e; color: #fef08a; }
 
         /* Modals */
@@ -237,15 +213,6 @@
             background: var(--bg-card); width: 90%; max-width: 480px; border-radius: 24px;
             padding: 32px; box-shadow: var(--shadow-lg); border: 1px solid var(--border-subtle); position: relative;
         }
-        .welcome-title { margin: 0 0 10px 0; font-size: 24px; font-weight: 800; color: var(--text-main); }
-        .welcome-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px; }
-        .welcome-btn {
-            background: var(--primary); color: white; border: none; padding: 12px 24px;
-            border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%; transition: background 0.2s;
-            font-family: 'Inter', sans-serif;
-        }
-        .welcome-btn:hover { background: var(--primary-hover); }
-
         .modal-close-icon {
             position: absolute; top: 20px; right: 22px; background: var(--bg-card-subtle); border: 1px solid var(--border-color);
             width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
@@ -253,7 +220,7 @@
         }
         .modal-close-icon:hover { background: var(--border-subtle); color: var(--text-main); }
 
-        /* Focus Timer Controls */
+        /* Focus Timer */
         .timer-display {
             font-size: 52px; font-weight: 800; text-align: center; margin: 20px 0;
             font-family: 'Inter', monospace; color: var(--primary); letter-spacing: -0.02em;
@@ -270,6 +237,39 @@
         .timer-btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25); }
         .timer-btn-primary:hover { background: var(--primary-hover); }
         .timer-btn-secondary { background: var(--bg-card-subtle); color: var(--text-main); border: 1px solid var(--border-color); }
+
+        /* Flashcard Feature Styles */
+        .flashcard-stage {
+            perspective: 1000px; width: 100%; height: 240px; margin: 20px 0; cursor: pointer;
+        }
+        .flashcard-inner {
+            position: relative; width: 100%; height: 100%; text-align: center;
+            transition: transform 0.6s; transform-style: preserve-3d;
+            border-radius: 16px; box-shadow: var(--shadow-md); border: 1px solid var(--border-color);
+        }
+        .flashcard-inner.flipped { transform: rotateY(180deg); }
+        .flashcard-front, .flashcard-back {
+            position: absolute; width: 100%; height: 100%; backface-visibility: hidden;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 24px; box-sizing: border-box; border-radius: 16px; background: var(--bg-card);
+        }
+        .flashcard-back { transform: rotateY(180deg); background: var(--bg-sidebar); color: var(--text-main); }
+
+        /* AI Tutor Feature Styles */
+        .tutor-chat-box {
+            background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 16px;
+            padding: 16px; height: 260px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px;
+        }
+        .chat-bubble {
+            max-width: 80%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.4;
+        }
+        .chat-bubble.assistant { background: var(--bg-card); border: 1px solid var(--border-color); align-self: flex-start; color: var(--text-main); }
+        .chat-bubble.user { background: var(--primary); color: white; align-self: flex-end; }
+        .tutor-input-row { display: flex; gap: 8px; }
+        .tutor-input {
+            flex: 1; padding: 10px 14px; border-radius: 10px; border: 1px solid var(--border-color);
+            background: var(--bg-card); color: var(--text-main); font-size: 13px; outline: none; font-family: 'Inter', sans-serif;
+        }
 
         .bookmark-btn { background: transparent; border: none; font-size: 18px; cursor: pointer; padding: 4px; transition: transform 0.2s; line-height: 1; }
         .bookmark-btn:hover { transform: scale(1.2); }
@@ -290,45 +290,39 @@
         .journal-note-text { font-size: 14px; color: var(--text-main); font-weight: 500; }
         .delete-journal-btn { position: absolute; top: 16px; right: 16px; background: #fee2e2; color: #ef4444; border: none; border-radius: 8px; padding: 6px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }
         
-        .lesson-footer-bar { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; }
-
+        .lesson-footer-bar { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
         .mod-progress-container { width: 100%; background: var(--border-subtle); height: 6px; border-radius: 99px; overflow: hidden; margin-top: 8px; margin-bottom: 16px; }
         .mod-progress-fill { height: 100%; background: var(--primary); transition: width 0.3s ease; border-radius: 99px; }
 
         .empty-search-state {
             text-align: center; padding: 48px 16px; background: var(--bg-card-subtle); border-radius: 16px; border: 1px dashed var(--border-color); margin-top: 20px; grid-column: 1 / -1;
         }
-        .empty-search-state h3 { margin: 10px 0 6px 0; font-size: 18px; }
-        .empty-search-state p { color: var(--text-muted); font-size: 13px; margin: 0; }
     </style>
 </head>
 <body>
 
+    <!-- Welcome Modal -->
     <div id="welcome-modal" class="modal-overlay" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-desc">
         <div class="modal-card" style="text-align: center;">
-            <h2 id="modal-title" class="welcome-title">Welcome to Mono Academy! 👋</h2>
-            <p id="modal-desc" class="welcome-desc">Track your progress across interactive modules, set focus timers, and build your financial mastery.</p>
-            <button class="welcome-btn" onclick="closeWelcomeModal()" aria-label="Get started with Mono Academy">Get Started</button>
+            <h2 id="modal-title" style="margin: 0 0 10px 0; font-size: 24px; font-weight: 800;">Welcome to Mono Academy! 👋</h2>
+            <p id="modal-desc" style="font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px;">Track your progress, study using flashcards, chat with your AI tutor, and master financial education.</p>
+            <button onclick="closeWelcomeModal()" style="background: var(--primary); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; width: 100%;">Get Started</button>
         </div>
     </div>
 
+    <!-- Timer Modal -->
     <div id="timer-modal" class="modal-overlay" role="dialog" aria-labelledby="timer-modal-title">
         <div class="modal-card">
-            <button class="modal-close-icon" onclick="closeTimerModal()" aria-label="Close Timer">✕</button>
+            <button class="modal-close-icon" onclick="closeTimerModal()">✕</button>
             <h2 id="timer-modal-title" style="margin: 0 0 6px 0; font-size: 20px; font-weight: 800; text-align: center;">⏱️ Study Focus Timer</h2>
-            <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 0;">Set a timer to keep yourself accountable during learning sessions.</p>
+            <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 0;">Stay focused during deep study blocks.</p>
             
             <div class="timer-display" id="timer-countdown-display">25:00</div>
 
             <div class="timer-presets">
                 <button class="timer-preset-btn" onclick="setTimerPreset(15)">15 Min</button>
-                <button class="timer-preset-btn active" onclick="setTimerPreset(25)">25 Min (Pomodoro)</button>
+                <button class="timer-preset-btn active" onclick="setTimerPreset(25)">25 Min</button>
                 <button class="timer-preset-btn" onclick="setTimerPreset(45)">45 Min</button>
-            </div>
-
-            <div style="display: flex; justify-content: center; align-items: center; gap: 8px; margin-bottom: 16px;">
-                <label for="custom-timer-input" style="font-size: 12px; font-weight: 600; color: var(--text-muted);">Custom (mins):</label>
-                <input type="number" id="custom-timer-input" min="1" max="180" placeholder="Custom" style="width: 70px; padding: 6px 10px; border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-card); color: var(--text-main); font-size: 12px;" onchange="setCustomTimer(this.value)">
             </div>
 
             <div class="timer-controls">
@@ -338,9 +332,61 @@
         </div>
     </div>
 
+    <!-- Flashcards Modal -->
+    <div id="flashcards-modal" class="modal-overlay" role="dialog" aria-labelledby="flashcard-modal-title">
+        <div class="modal-card" style="max-width: 540px;">
+            <button class="modal-close-icon" onclick="closeFlashcardsModal()">✕</button>
+            <h2 id="flashcard-modal-title" style="margin: 0 0 4px 0; font-size: 20px; font-weight: 800; text-align: center;">📇 Interactive Flashcards</h2>
+            <p style="text-align: center; font-size: 12px; color: var(--text-muted); margin-bottom: 10px;">Click card to flip definition. Use buttons to practice active recall.</p>
+            
+            <div style="display: flex; justify-content: space-between; font-size: 12px; font-weight: 700; color: var(--text-brand);">
+                <span id="flashcard-counter">Card 1 of 5</span>
+                <span id="flashcard-status-label" style="color: var(--text-muted);">Unmastered</span>
+            </div>
+
+            <div class="flashcard-stage" onclick="flipActiveCard()">
+                <div class="flashcard-inner" id="flashcard-card-inner">
+                    <div class="flashcard-front">
+                        <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px;">Term / Question</span>
+                        <h3 id="fc-front-text" style="margin: 0; font-size: 18px; font-weight: 700; color: var(--text-main);">Gross Pay</h3>
+                    </div>
+                    <div class="flashcard-back">
+                        <span style="font-size: 10px; font-weight: 800; text-transform: uppercase; color: var(--text-brand); margin-bottom: 10px;">Definition</span>
+                        <p id="fc-back-text" style="margin: 0; font-size: 15px; font-weight: 500;">Total earnings before any taxes or deductions are taken out.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+                <button onclick="prevFlashcard()" class="timer-btn timer-btn-secondary" style="padding: 10px 16px;">&larr; Prev</button>
+                <button onclick="markCardMastered()" class="timer-btn timer-btn-primary" style="padding: 10px 16px; background: #10b981;">Got it! ✓</button>
+                <button onclick="nextFlashcard()" class="timer-btn timer-btn-secondary" style="padding: 10px 16px;">Next &rarr;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Contextual Tutor Modal -->
+    <div id="tutor-modal" class="modal-overlay" role="dialog" aria-labelledby="tutor-modal-title">
+        <div class="modal-card" style="max-width: 520px;">
+            <button class="modal-close-icon" onclick="closeTutorModal()">✕</button>
+            <h2 id="tutor-modal-title" style="margin: 0 0 6px 0; font-size: 20px; font-weight: 800;">🤖 Mono AI Tutor</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 0; margin-bottom: 16px;">Ask any question about your lessons or request simplified real-world analogies.</p>
+            
+            <div class="tutor-chat-box" id="tutor-chat-history">
+                <div class="chat-bubble assistant">Hello! I am your personal accounting and finance tutor. What concept can I help clarify for you today?</div>
+            </div>
+
+            <div class="tutor-input-row">
+                <input type="text" id="tutor-user-input" class="tutor-input" placeholder="Ask a question (e.g., Explain debits & credits)..." onkeypress="if(event.key === 'Enter') sendTutorMessage()">
+                <button onclick="sendTutorMessage()" class="timer-btn timer-btn-primary" style="padding: 10px 16px;">Send</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notes Modal -->
     <div id="notes-modal" class="modal-overlay" role="dialog" aria-labelledby="notes-modal-title">
         <div class="modal-card" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
-            <button class="modal-close-icon" onclick="closeNotesModal()" aria-label="Close Notes">✕</button>
+            <button class="modal-close-icon" onclick="closeNotesModal()">✕</button>
             <h2 id="notes-modal-title" style="margin: 0 0 6px 0; font-size: 20px; font-weight: 800;">📝 My Study Notes</h2>
             <p style="font-size: 13px; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Review your saved excerpts and personal observations.</p>
             <div id="notes-modal-container"></div>
@@ -350,18 +396,18 @@
     <div class="dashboard-container">
         <aside class="sidebar" aria-label="Course Navigation">
             <div class="sidebar-header">
-                <div class="sidebar-brand-wrapper" onclick="loadDashboard()" role="button" tabindex="0" aria-label="Mono Academy Home">
+                <div class="sidebar-brand-wrapper" onclick="loadDashboard()" role="button" tabindex="0">
                     <div class="sidebar-logo-icon">M</div>
                     <h2 class="sidebar-brand">Mono <span>Academy</span></h2>
                 </div>
             </div>
             
             <div class="search-box">
-                <button class="search-icon" onclick="handleSearchAndFilter(); document.getElementById('lesson-search').focus();" aria-label="Search button">🔍</button>
-                <input type="text" id="lesson-search" class="search-input" placeholder="Search topics or modules..." oninput="handleSearchAndFilter()" aria-label="Search lessons and topics">
+                <button class="search-icon" onclick="handleSearchAndFilter(); document.getElementById('lesson-search').focus();">🔍</button>
+                <input type="text" id="lesson-search" class="search-input" placeholder="Search topics or modules..." oninput="handleSearchAndFilter()">
             </div>
 
-            <select id="status-filter" class="filter-select" onchange="handleSearchAndFilter()" aria-label="Filter lessons by status">
+            <select id="status-filter" class="filter-select" onchange="handleSearchAndFilter()">
                 <option value="all">Filter: All Lessons</option>
                 <option value="in-progress">⏱️ In Progress</option>
                 <option value="completed">✓ Completed</option>
@@ -374,285 +420,46 @@
             </button>
 
             <nav class="sidebar-menu" id="sidebar-accordion-group">
-
                 <span class="sidebar-track-label">Personal Finance</span>
-
-                <button class="accordion-header" id="btn-mod-pf1" aria-expanded="false" aria-controls="module-pf1-content" onclick="toggleAccordion('module-pf1-content', this)">
+                <button class="accordion-header" id="btn-mod-pf1" onclick="toggleAccordion('module-pf1-content', this)">
                     <span>Income & Taxes</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
+                    <span class="accordion-arrow">▶</span>
                 </button>
-                <div id="module-pf1-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf1">
+                <div id="module-pf1-content" class="accordion-content">
                     <button class="nav-btn" id="nav-pf1.1" onclick="loadLessonContent('pf1.1')">
                         <span>Lesson 1.1: Reading a Paystub</span>
-                        <span class="status-icon pending" id="status-nav-pf1.1" title="Pending">○</span>
+                        <span class="status-icon pending" id="status-nav-pf1.1">○</span>
                     </button>
                     <button class="nav-btn" id="nav-pf1.2" onclick="loadLessonContent('pf1.2')">
                         <span>Lesson 1.2: Tax Basics</span>
-                        <span class="status-icon pending" id="status-nav-pf1.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf1.3" onclick="loadLessonContent('pf1.3')">
-                        <span>Lesson 1.3: Earning Potential</span>
-                        <span class="status-icon pending" id="status-nav-pf1.3" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-pf2" aria-expanded="false" aria-controls="module-pf2-content" onclick="toggleAccordion('module-pf2-content', this)">
-                    <span>Budget & Banking</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module-pf2-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf2">
-                    <button class="nav-btn" id="nav-pf2.1" onclick="loadLessonContent('pf2.1')">
-                        <span>Lesson 2.1: Banking Fundamentals</span>
-                        <span class="status-icon pending" id="status-nav-pf2.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf2.2" onclick="loadLessonContent('pf2.2')">
-                        <span>Lesson 2.2: Building a Budget</span>
-                        <span class="status-icon pending" id="status-nav-pf2.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf2.3" onclick="loadLessonContent('pf2.3')">
-                        <span>Lesson 2.3: Tracking & Mindset</span>
-                        <span class="status-icon pending" id="status-nav-pf2.3" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-pf3" aria-expanded="false" aria-controls="module-pf3-content" onclick="toggleAccordion('module-pf3-content', this)">
-                    <span>Debt & Credit</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module-pf3-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf3">
-                    <button class="nav-btn" id="nav-pf3.1" onclick="loadLessonContent('pf3.1')">
-                        <span>Lesson 3.1: Credit Scores 101</span>
-                        <span class="status-icon pending" id="status-nav-pf3.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf3.2" onclick="loadLessonContent('pf3.2')">
-                        <span>Lesson 3.2: Credit Cards</span>
-                        <span class="status-icon pending" id="status-nav-pf3.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf3.3" onclick="loadLessonContent('pf3.3')">
-                        <span>Lesson 3.3: Managing Loans</span>
-                        <span class="status-icon pending" id="status-nav-pf3.3" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-pf4" aria-expanded="false" aria-controls="module-pf4-content" onclick="toggleAccordion('module-pf4-content', this)">
-                    <span>Savings & Goals</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module-pf4-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf4">
-                    <button class="nav-btn" id="nav-pf4.1" onclick="loadLessonContent('pf4.1')">
-                        <span>Lesson 4.1: Emergency Funds</span>
-                        <span class="status-icon pending" id="status-nav-pf4.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf4.2" onclick="loadLessonContent('pf4.2')">
-                        <span>Lesson 4.2: Goal-Based Saving</span>
-                        <span class="status-icon pending" id="status-nav-pf4.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf4.3" onclick="loadLessonContent('pf4.3')">
-                        <span>Lesson 4.3: Opportunity Cost</span>
-                        <span class="status-icon pending" id="status-nav-pf4.3" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-pf5" aria-expanded="false" aria-controls="module-pf5-content" onclick="toggleAccordion('module-pf5-content', this)">
-                    <span>Investing & Wealth</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module-pf5-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf5">
-                    <button class="nav-btn" id="nav-pf5.1" onclick="loadLessonContent('pf5.1')">
-                        <span>Lesson 5.1: Compound Growth</span>
-                        <span class="status-icon pending" id="status-nav-pf5.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf5.2" onclick="loadLessonContent('pf5.2')">
-                        <span>Lesson 5.2: Account Types</span>
-                        <span class="status-icon pending" id="status-nav-pf5.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf5.3" onclick="loadLessonContent('pf5.3')">
-                        <span>Lesson 5.3: Asset Allocation</span>
-                        <span class="status-icon pending" id="status-nav-pf5.3" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-pf6" aria-expanded="false" aria-controls="module-pf6-content" onclick="toggleAccordion('module-pf6-content', this)">
-                    <span>Protection & Life</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module-pf6-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf6">
-                    <button class="nav-btn" id="nav-pf6.1" onclick="loadLessonContent('pf6.1')">
-                        <span>Lesson 6.1: Insurance Basics</span>
-                        <span class="status-icon pending" id="status-nav-pf6.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf6.2" onclick="loadLessonContent('pf6.2')">
-                        <span>Lesson 6.2: Consumer Protection</span>
-                        <span class="status-icon pending" id="status-nav-pf6.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf6.3" onclick="loadLessonContent('pf6.3')">
-                        <span>Lesson 6.3: Big Life Decisions</span>
-                        <span class="status-icon pending" id="status-nav-pf6.3" title="Pending">○</span>
+                        <span class="status-icon pending" id="status-nav-pf1.2">○</span>
                     </button>
                 </div>
 
                 <span class="sidebar-track-label">Accounting</span>
-
-                <button class="accordion-header" id="btn-mod-1" aria-expanded="false" aria-controls="module1-content" onclick="toggleAccordion('module1-content', this)">
+                <button class="accordion-header" id="btn-mod-1" onclick="toggleAccordion('module1-content', this)">
                     <span>Accounting Basics</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
+                    <span class="accordion-arrow">▶</span>
                 </button>
-                <div id="module1-content" class="accordion-content" role="region" aria-labelledby="btn-mod-1">
+                <div id="module1-content" class="accordion-content">
                     <button class="nav-btn" id="nav-1.1" onclick="loadLessonContent('1.1')">
                         <span>Lesson 1.1: Introduction</span>
-                        <span class="status-icon pending" id="status-nav-1.1" title="Pending">○</span>
+                        <span class="status-icon pending" id="status-nav-1.1">○</span>
                     </button>
                     <button class="nav-btn" id="nav-1.2" onclick="loadLessonContent('1.2')">
                         <span>Lesson 1.2: Accounting Equation</span>
-                        <span class="status-icon pending" id="status-nav-1.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-1.3" onclick="loadLessonContent('1.3')">
-                        <span>Lesson 1.3: T-Accounts System</span>
-                        <span class="status-icon pending" id="status-nav-1.3" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-1.4" onclick="loadLessonContent('1.4')">
-                        <span>Lesson 1.4: Journal & Ledger</span>
-                        <span class="status-icon pending" id="status-nav-1.4" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-1.5" onclick="loadLessonContent('1.5')">
-                        <span>Lesson 1.5: Trial Balance</span>
-                        <span class="status-icon pending" id="status-nav-1.5" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-1.6" onclick="loadLessonContent('1.6')">
-                        <span>Lesson 1.6: Review and Quiz</span>
-                        <span class="status-icon pending" id="status-nav-1.6" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-2" aria-expanded="false" aria-controls="module2-content" onclick="toggleAccordion('module2-content', this)">
-                    <span>Statements</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module2-content" class="accordion-content" role="region" aria-labelledby="btn-mod-2">
-                    <button class="nav-btn" id="nav-2.1" onclick="loadLessonContent('2.1')">
-                        <span>Lesson 2.1: Financial Statements</span>
-                        <span class="status-icon pending" id="status-nav-2.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-2.2" onclick="loadLessonContent('2.2')">
-                        <span>Lesson 2.2: Income Statement</span>
-                        <span class="status-icon pending" id="status-nav-2.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-2.3" onclick="loadLessonContent('2.3')">
-                        <span>Lesson 2.3: Balance Sheet</span>
-                        <span class="status-icon pending" id="status-nav-2.3" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-2.4" onclick="loadLessonContent('2.4')">
-                        <span>Lesson 2.4: Owner's Equity</span>
-                        <span class="status-icon pending" id="status-nav-2.4" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-2.5" onclick="loadLessonContent('2.5')">
-                        <span>Lesson 2.5: Cash Flow Statement</span>
-                        <span class="status-icon pending" id="status-nav-2.5" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-2.6" onclick="loadLessonContent('2.6')">
-                        <span>Lesson 2.6: Capstone</span>
-                        <span class="status-icon pending" id="status-nav-2.6" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-3" aria-expanded="false" aria-controls="module3-content" onclick="toggleAccordion('module3-content', this)">
-                    <span>Ratio & Health</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module3-content" class="accordion-content" role="region" aria-labelledby="btn-mod-3">
-                    <button class="nav-btn" id="nav-3.1" onclick="loadLessonContent('3.1')">
-                        <span>Lesson 3.1: Liquidity & Capital</span>
-                        <span class="status-icon pending" id="status-nav-3.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-3.2" onclick="loadLessonContent('3.2')">
-                        <span>Lesson 3.2: Profitability Ratios</span>
-                        <span class="status-icon pending" id="status-nav-3.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-3.3" onclick="loadLessonContent('3.3')">
-                        <span>Lesson 3.3: Efficiency Ratios</span>
-                        <span class="status-icon pending" id="status-nav-3.3" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-3.4" onclick="loadLessonContent('3.4')">
-                        <span>Lesson 3.4: Solvency Ratios</span>
-                        <span class="status-icon pending" id="status-nav-3.4" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-3.5" onclick="loadLessonContent('3.5')">
-                        <span>Lesson 3.5: Reading Reports</span>
-                        <span class="status-icon pending" id="status-nav-3.5" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-3.6" onclick="loadLessonContent('3.6')">
-                        <span>Lesson 3.6: Investor Analysis</span>
-                        <span class="status-icon pending" id="status-nav-3.6" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-4" aria-expanded="false" aria-controls="module4-content" onclick="toggleAccordion('module4-content', this)">
-                    <span>Assets & Liabilities</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module4-content" class="accordion-content" role="region" aria-labelledby="btn-mod-4">
-                    <button class="nav-btn" id="nav-4.1" onclick="loadLessonContent('4.1')">
-                        <span>Lesson 4.1: Inventory Costing</span>
-                        <span class="status-icon pending" id="status-nav-4.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-4.2" onclick="loadLessonContent('4.2')">
-                        <span>Lesson 4.2: Depreciation</span>
-                        <span class="status-icon pending" id="status-nav-4.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-4.3" onclick="loadLessonContent('4.3')">
-                        <span>Lesson 4.3: Receivables & Debt</span>
-                        <span class="status-icon pending" id="status-nav-4.3" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-4.4" onclick="loadLessonContent('4.4')">
-                        <span>Lesson 4.4: Liabilities</span>
-                        <span class="status-icon pending" id="status-nav-4.4" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-4.5" onclick="loadLessonContent('4.5')">
-                        <span>Lesson 4.5: Corporate Equity</span>
-                        <span class="status-icon pending" id="status-nav-4.5" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-5" aria-expanded="false" aria-controls="module5-content" onclick="toggleAccordion('module5-content', this)">
-                    <span>Advanced Topics</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module5-content" class="accordion-content" role="region" aria-labelledby="btn-mod-5">
-                    <button class="nav-btn" id="nav-5.1" onclick="loadLessonContent('5.1')">
-                        <span>Lesson 5.1: Business Combinations</span>
-                        <span class="status-icon pending" id="status-nav-5.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-5.2" onclick="loadLessonContent('5.2')">
-                        <span>Lesson 5.2: Deferred Taxes</span>
-                        <span class="status-icon pending" id="status-nav-5.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-5.3" onclick="loadLessonContent('5.3')">
-                        <span>Lesson 5.3: Advanced Instruments</span>
-                        <span class="status-icon pending" id="status-nav-5.3" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-5.4" onclick="loadLessonContent('5.4')">
-                        <span>Lesson 5.4: Revenue Recognition</span>
-                        <span class="status-icon pending" id="status-nav-5.4" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-5.5" onclick="loadLessonContent('5.5')">
-                        <span>Lesson 5.5: Forensic Accounting</span>
-                        <span class="status-icon pending" id="status-nav-5.5" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-final" aria-expanded="false" aria-controls="module-final-content" onclick="toggleAccordion('module-final-content', this)">
-                    <span>Accounting Final Exam</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module-final-content" class="accordion-content" role="region" aria-labelledby="btn-mod-final">
-                    <button class="nav-btn" id="nav-final_exam" onclick="loadLessonContent('final_exam')">
-                        <span>🎓 Final Examination</span>
-                        <span class="status-icon pending" id="status-nav-final_exam" title="Pending">○</span>
+                        <span class="status-icon pending" id="status-nav-1.2">○</span>
                     </button>
                 </div>
             </nav>
 
-            <div style="border-top: 1px solid var(--border-sidebar); padding-top: 12px;">
+            <div style="border-top: 1px solid var(--border-sidebar); padding-top: 12px; display: flex; flex-direction: column; gap: 4px;">
+                <button class="nav-btn" onclick="openFlashcardsModal()">
+                    <span>📇 Flashcards Deck</span>
+                </button>
+                <button class="nav-btn" onclick="openTutorModal()">
+                    <span>🤖 AI Study Tutor</span>
+                </button>
                 <button class="nav-btn" id="nav-notes" onclick="openNotesModal()">
                     <span style="display: flex; align-items: center; gap: 8px;">📝 My Study Notes</span>
                     <span id="notes-counter-badge" style="background: var(--primary); color: white; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px;">0</span>
@@ -663,20 +470,19 @@
         <main class="main-content" id="main-scroll-viewport" role="main">
             <div class="top-utility-bar">
                 <div class="utility-group-left">
-                    <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme">
+                    <button class="theme-toggle-btn" onclick="toggleTheme()">
                         <span id="theme-toggle-icon">🌙</span> <span id="theme-toggle-label">Dark Mode</span>
                     </button>
-                    <button class="timer-trigger-btn" onclick="openTimerModal()" aria-label="Open Focus Timer">
+                    <button class="timer-trigger-btn" onclick="openTimerModal()">
                         ⏱️ <span id="header-timer-label">Focus Session</span>
                     </button>
+                    <button class="action-tool-btn" onclick="openFlashcardsModal()">📇 Flashcards</button>
+                    <button class="action-tool-btn" onclick="openTutorModal()">🤖 Ask Tutor</button>
                 </div>
 
                 <div class="utility-group-right gamification-bar">
-                    <div class="stat-badge" title="Daily Learning Streak">
+                    <div class="stat-badge">
                         <span>🔥</span> <span id="streak-count">1 Day Streak</span>
-                    </div>
-                    <div class="stat-badge" title="Daily Target Progress">
-                        <span>🎯</span> <span id="daily-target">0/1 Completed Today</span>
                     </div>
                 </div>
             </div>
@@ -686,9 +492,10 @@
         </main>
     </div>
 
-    <div id="floating-note-box" class="floating-note-popup" role="dialog" aria-label="Add study note">
+    <!-- Floating Note Popup -->
+    <div id="floating-note-box" class="floating-note-popup">
         <div style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 6px;">Add Note to Selection:</div>
-        <div id="popup-selected-text" style="font-size: 12px; font-style: italic; color: var(--text-main); background: var(--bg-card-subtle); padding: 8px; border-radius: 8px; border-left: 2px solid var(--primary); margin-bottom: 10px; max-height: 50px; overflow-y: auto; line-height: 1.3;"></div>
+        <div id="popup-selected-text" style="font-size: 12px; font-style: italic; color: var(--text-main); background: var(--bg-card-subtle); padding: 8px; border-radius: 8px; border-left: 2px solid var(--primary); margin-bottom: 10px; max-height: 50px; overflow-y: auto;"></div>
         <textarea id="popup-note-input" placeholder="Type your personal note here..."></textarea>
         <div style="display: flex; gap: 8px; margin-top: 10px; justify-content: flex-end;">
             <button onclick="closeNotePopup()" style="background: var(--bg-card-subtle); color: var(--text-main); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer;">Cancel</button>
@@ -708,65 +515,21 @@
         let timerInterval = null;
         let isTimerRunning = false;
 
+        // Flashcards Deck Data
+        const flashcardsDeck = [
+            { term: "Gross Pay", definition: "Total employee earnings before taxes and withholdings are subtracted." },
+            { term: "Net Pay", definition: "Take-home pay after all payroll deductions and taxes are removed." },
+            { term: "The Accounting Equation", definition: "Assets = Liabilities + Owner's Equity." },
+            { term: "Debit (Dr.)", definition: "An entry on the left side of an account; increases assets/expenses." },
+            { term: "Credit (Cr.)", definition: "An entry on the right side of an account; increases liabilities/revenues." }
+        ];
+        let currentCardIndex = 0;
+
         const curriculum = [
             { id: "pf1.1", module: "PF1", track: "pf", modName: "Income & Taxes", name: "Lesson 1.1: Reading a Paystub", desc: "Understanding gross vs. net pay, FICA taxes, and common deductions." },
             { id: "pf1.2", module: "PF1", track: "pf", modName: "Income & Taxes", name: "Lesson 1.2: Tax Basics", desc: "Standard deductions, W-2 vs 1099, and tax brackets." },
-            { id: "pf1.3", module: "PF1", track: "pf", modName: "Income & Taxes", name: "Lesson 1.3: Earning Potential", desc: "Salary vs hourly, negotiation basics, and high-demand skills." },
-
-            { id: "pf2.1", module: "PF2", track: "pf", modName: "Cash Flow & Banking", name: "Lesson 2.1: Banking Fundamentals", desc: "Checking vs. savings, HYSAs, avoiding fees, and interest." },
-            { id: "pf2.2", module: "PF2", track: "pf", modName: "Cash Flow & Banking", name: "Lesson 2.2: Building a Budget", desc: "Intro to 50/30/20 rule and zero-based budgeting." },
-            { id: "pf2.3", module: "PF2", track: "pf", modName: "Cash Flow & Banking", name: "Lesson 2.3: Tracking & Mindset", desc: "Needs vs. wants, conscious spending, and overcoming impulse purchases." },
-
-            { id: "pf3.1", module: "PF3", track: "pf", modName: "Debt & Credit", name: "Lesson 3.1: Credit Scores 101", desc: "FICO factors, renting/loans impact, and building credit safely." },
-            { id: "pf3.2", module: "PF3", track: "pf", modName: "Debt & Credit", name: "Lesson 3.2: Credit Cards", desc: "Interest mechanics (APR), minimum payments, and grace periods." },
-            { id: "pf3.3", module: "PF3", track: "pf", modName: "Debt & Credit", name: "Lesson 3.3: Managing Loans", desc: "Student & auto loans, compound interest, and Snowball vs. Avalanche strategies." },
-
-            { id: "pf4.1", module: "PF4", track: "pf", modName: "Savings & Goals", name: "Lesson 4.1: Emergency Funds", desc: "Why 3–6 months of living expenses is essential and where to store it." },
-            { id: "pf4.2", module: "PF4", track: "pf", modName: "Savings & Goals", name: "Lesson 4.2: Goal-Based Saving", desc: "Short-term vs. medium-term targets (buying a car, moving out, travel)." },
-            { id: "pf4.3", module: "PF4", track: "pf", modName: "Savings & Goals", name: "Lesson 4.3: Opportunity Cost", desc: "Understanding the true cost of major life purchases." },
-
-            { id: "pf5.1", module: "PF5", track: "pf", modName: "Investing & Wealth", name: "Lesson 5.1: Compound Growth", desc: "How time in the market multiplies small contributions over decades." },
-            { id: "pf5.2", module: "PF5", track: "pf", modName: "Investing & Wealth", name: "Lesson 5.2: Account Types", desc: "Taxable brokerage, Roth IRA, Traditional IRA, and 401(k) matches." },
-            { id: "pf5.3", module: "PF5", track: "pf", modName: "Investing & Wealth", name: "Lesson 5.3: Asset Allocation", desc: "Index funds, ETFs, stocks, bonds, diversification, and risk tolerance." },
-
-            { id: "pf6.1", module: "PF6", track: "pf", modName: "Protection & Life", name: "Lesson 6.1: Insurance Basics", desc: "Overview of health, auto, renter's/homeowner's, and disability insurance." },
-            { id: "pf6.2", module: "PF6", track: "pf", modName: "Protection & Life", name: "Lesson 6.2: Consumer Protection", desc: "Identifying scams, identity theft prevention, and online security." },
-            { id: "pf6.3", module: "PF6", track: "pf", modName: "Protection & Life", name: "Lesson 6.3: Big Life Decisions", desc: "Financial reality of renting, buying vs leasing cars, and independent life systems." },
-
             { id: "1.1", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.1: Introduction", desc: "Foundational concepts and basic accounting principles." },
-            { id: "1.2", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.2: The Accounting Equation", desc: "Assets, Liabilities, and Owner's Equity." },
-            { id: "1.3", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.3: T-Accounts System", desc: "Visualize debits and credits clearly." },
-            { id: "1.4", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.4: Journal and Ledger", desc: "Record and post financial transactions." },
-            { id: "1.5", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.5: The Trial Balance", desc: "Verify ledger accuracy before statements." },
-            { id: "1.6", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.6: Review and Quiz", desc: "Test your understanding of Module 1." },
-            
-            { id: "2.1", module: 2, track: "acct", modName: "Financial Statements", name: "Lesson 2.1: Intro to Financial Statements", desc: "Overview of core financial statements." },
-            { id: "2.2", module: 2, track: "acct", modName: "Financial Statements", name: "Lesson 2.2: The Income Statement", desc: "Revenues, expenses, and net income." },
-            { id: "2.3", module: 2, track: "acct", modName: "Financial Statements", name: "Lesson 2.3: The Balance Sheet", desc: "Organize assets, liabilities, and equity." },
-            { id: "2.4", module: 2, track: "acct", modName: "Financial Statements", name: "Lesson 2.4: Statement of Owner's Equity", desc: "Track capital changes over time." },
-            { id: "2.5", module: 2, track: "acct", modName: "Financial Statements", name: "Lesson 2.5: The Cash Flow Statement", desc: "Track cash from operating, investing, and financing." },
-            { id: "2.6", module: 2, track: "acct", modName: "Financial Statements", name: "Lesson 2.6: Module 2 Capstone", desc: "Construct integrated financial statements." },
-
-            { id: "3.1", module: 3, track: "acct", modName: "Ratio & Health", name: "Lesson 3.1: Liquidity & Capital", desc: "Short-term financial health and liquidity ratios." },
-            { id: "3.2", module: 3, track: "acct", modName: "Ratio & Health", name: "Lesson 3.2: Profitability Ratios", desc: "Assess margins and overall profit performance." },
-            { id: "3.3", module: 3, track: "acct", modName: "Ratio & Health", name: "Lesson 3.3: Efficiency Ratios", desc: "Evaluate operational velocity and asset turns." },
-            { id: "3.4", module: 3, track: "acct", modName: "Ratio & Health", name: "Lesson 3.4: Solvency Ratios", desc: "Long-term debt and structural solvency." },
-            { id: "3.5", module: 3, track: "acct", modName: "Ratio & Health", name: "Lesson 3.5: Reading an Annual Report", desc: "Key disclosures and items inside a 10-K report." },
-            { id: "3.6", module: 3, track: "acct", modName: "Ratio & Health", name: "Lesson 3.6: Investor Analysis", desc: "Evaluate target companies." },
-
-            { id: "4.1", module: 4, track: "acct", modName: "Assets & Liabilities", name: "Lesson 4.1: Inventory Costing Methods", desc: "FIFO, LIFO, and Weighted Average." },
-            { id: "4.2", module: 4, track: "acct", modName: "Assets & Liabilities", name: "Lesson 4.2: Depreciation & Amortization", desc: "Asset allocation rules and straight-line methods." },
-            { id: "4.3", module: 4, track: "acct", modName: "Assets & Liabilities", name: "Lesson 4.3: Accounts Receivable & Bad Debt", desc: "Loss allowances and aging analysis." },
-            { id: "4.4", module: 4, track: "acct", modName: "Assets & Liabilities", name: "Lesson 4.4: Liabilities", desc: "Current obligations vs. long-term debt." },
-            { id: "4.5", module: 4, track: "acct", modName: "Assets & Liabilities", name: "Lesson 4.5: Corporate Equity", desc: "Capital stock, retained earnings, and treasury stock." },
-
-            { id: "5.1", module: 5, track: "acct", modName: "Advanced Topics", name: "Lesson 5.1: Business Combinations", desc: "Mergers, acquisitions, and consolidated tracking." },
-            { id: "5.2", module: 5, track: "acct", modName: "Advanced Topics", name: "Lesson 5.2: Deferred Taxes", desc: "Tax obligations vs. book-value accounting." },
-            { id: "5.3", module: 5, track: "acct", modName: "Advanced Topics", name: "Lesson 5.3: Advanced Instruments", desc: "Financial derivatives and hedging techniques." },
-            { id: "5.4", module: 5, track: "acct", modName: "Advanced Topics", name: "Lesson 5.4: Revenue Recognition", desc: "IFRS vs. US GAAP standards." },
-            { id: "5.5", module: 5, track: "acct", modName: "Advanced Topics", name: "Lesson 5.5: Forensic Accounting", desc: "Data investigation and auditing internal controls." },
-            
-            { id: "final_exam", module: 6, track: "acct", modName: "Final Exam", name: "Final Examination", desc: "Comprehensive exam covering all topics." }
+            { id: "1.2", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.2: The Accounting Equation", desc: "Assets, Liabilities, and Owner's Equity." }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -776,7 +539,6 @@
             updateSidebarVisuals();
             updateNotesBadge();
             initHighlightListener();
-            updateGamificationStats();
         });
 
         function initTheme() {
@@ -798,26 +560,6 @@
             document.getElementById('theme-toggle-label').textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
         }
 
-        function updateGamificationStats() {
-            const today = new Date().toDateString();
-            const lastActiveDate = localStorage.getItem('mono_last_active_date');
-            let streak = parseInt(localStorage.getItem('mono_streak') || '1', 10);
-
-            if (lastActiveDate && lastActiveDate !== today) {
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                if (lastActiveDate !== yesterday.toDateString()) {
-                    streak = 1;
-                }
-            }
-            localStorage.setItem('mono_last_active_date', today);
-            localStorage.setItem('mono_streak', streak);
-
-            document.getElementById('streak-count').textContent = `${streak} Day Streak`;
-            const dailyCompleted = completedLessons.length > 0 ? 1 : 0;
-            document.getElementById('daily-target').textContent = `${dailyCompleted}/1 Target Completed Today`;
-        }
-
         function checkWelcomeModal() {
             if (!localStorage.getItem('mono_welcome_seen')) {
                 setTimeout(() => { document.getElementById('welcome-modal').classList.add('active'); }, 200);
@@ -829,6 +571,64 @@
             localStorage.setItem('mono_welcome_seen', 'true');
         }
 
+        /* Flashcard Logic */
+        function openFlashcardsModal() { document.getElementById('flashcards-modal').classList.add('active'); renderCurrentFlashcard(); }
+        function closeFlashcardsModal() { document.getElementById('flashcards-modal').classList.remove('active'); }
+
+        function renderCurrentFlashcard() {
+            const card = flashcardsDeck[currentCardIndex];
+            document.getElementById('fc-front-text').textContent = card.term;
+            document.getElementById('fc-back-text').textContent = card.definition;
+            document.getElementById('flashcard-counter').textContent = `Card ${currentCardIndex + 1} of ${flashcardsDeck.length}`;
+            document.getElementById('flashcard-card-inner').classList.remove('flipped');
+        }
+
+        function flipActiveCard() {
+            document.getElementById('flashcard-card-inner').classList.toggle('flipped');
+        }
+
+        function nextFlashcard() {
+            currentCardIndex = (currentCardIndex + 1) % flashcardsDeck.length;
+            renderCurrentFlashcard();
+        }
+
+        function prevFlashcard() {
+            currentCardIndex = (currentCardIndex - 1 + flashcardsDeck.length) % flashcardsDeck.length;
+            renderCurrentFlashcard();
+        }
+
+        function markCardMastered() {
+            alert("✨ Great job! Card marked as mastered.");
+            nextFlashcard();
+        }
+
+        /* AI Tutor Logic */
+        function openTutorModal() { document.getElementById('tutor-modal').classList.add('active'); }
+        function closeTutorModal() { document.getElementById('tutor-modal').classList.remove('active'); }
+
+        function sendTutorMessage() {
+            const inputField = document.getElementById('tutor-user-input');
+            const message = inputField.value.trim();
+            if (!message) return;
+
+            const chatHistory = document.getElementById('tutor-chat-history');
+            chatHistory.innerHTML += `<div class="chat-bubble user">${message}</div>`;
+            inputField.value = '';
+
+            setTimeout(() => {
+                let reply = "That's a fantastic question! In accounting and personal finance, core concepts build step-by-step. Let me break it down simply: focus on understanding how balancing works between inputs and outputs, or assets and claims.";
+                const lower = message.toLowerCase();
+                if (lower.includes('debit') || lower.includes('credit')) {
+                    reply = "Think of a Debit as an increase to assets/expenses, and a Credit as an increase to liabilities/equity. They must always balance out!";
+                } else if (lower.includes('tax') || lower.includes('paystub')) {
+                    reply = "Your paystub shows Gross Pay (before deductions) versus Net Pay (what actually hits your bank account after taxes and FICA contributions).";
+                }
+                chatHistory.innerHTML += `<div class="chat-bubble assistant">${reply}</div>`;
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            }, 500);
+        }
+
+        /* Timer Logic */
         function openTimerModal() { document.getElementById('timer-modal').classList.add('active'); }
         function closeTimerModal() { document.getElementById('timer-modal').classList.remove('active'); }
 
@@ -838,16 +638,6 @@
             updateTimerDisplay();
             document.querySelectorAll('.timer-preset-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-        }
-
-        function setCustomTimer(val) {
-            const mins = parseInt(val, 10);
-            if (mins && mins > 0) {
-                pauseTimer();
-                timerSeconds = mins * 60;
-                updateTimerDisplay();
-                document.querySelectorAll('.timer-preset-btn').forEach(btn => btn.classList.remove('active'));
-            }
         }
 
         function toggleTimer() {
@@ -866,7 +656,7 @@
                     updateTimerDisplay();
                 } else {
                     pauseTimer();
-                    alert("🎉 Focus session completed! Time for a short break.");
+                    alert("🎉 Focus session completed!");
                 }
             }, 1000);
         }
@@ -895,77 +685,26 @@
         function handleSearchAndFilter() {
             const query = document.getElementById('lesson-search').value.trim().toLowerCase();
             const filter = document.getElementById('status-filter').value;
-            const activeModules = new Set();
-
             curriculum.forEach(lesson => {
                 const btn = document.getElementById(`nav-${lesson.id}`);
                 if (btn) {
                     const matchesSearch = !query || lesson.name.toLowerCase().includes(query) || lesson.desc.toLowerCase().includes(query);
-                    const matchesFilter = checkStatusFilter(lesson, filter);
-                    const isVisible = matchesSearch && matchesFilter;
-                    btn.style.display = isVisible ? 'flex' : 'none';
-                    if (isVisible) { activeModules.add(lesson.module.toString()); }
+                    btn.style.display = matchesSearch ? 'flex' : 'none';
                 }
             });
-
-            if (query.length > 0) {
-                ['1', '2', '3', '4', '5', '6', 'PF1', 'PF2', 'PF3', 'PF4', 'PF5', 'PF6'].forEach(modId => {
-                    let contentId = `module${modId}-content`;
-                    let btnId = `btn-mod-${modId}`;
-
-                    if (modId === '6') { contentId = 'module-final-content'; btnId = 'btn-mod-final'; }
-                    else if (modId.startsWith('PF')) { contentId = `module-${modId.toLowerCase()}-content`; btnId = `btn-mod-${modId.toLowerCase()}`; }
-
-                    const contentEl = document.getElementById(contentId);
-                    const btnEl = document.getElementById(btnId);
-
-                    if (contentEl && btnEl) {
-                        if (activeModules.has(modId)) {
-                            contentEl.classList.add('open');
-                            btnEl.classList.add('active');
-                            btnEl.setAttribute('aria-expanded', 'true');
-                        } else {
-                            contentEl.classList.remove('open');
-                            btnEl.classList.remove('active');
-                            btnEl.setAttribute('aria-expanded', 'false');
-                        }
-                    }
-                });
-            }
-
             if (currentLessonId === null) { renderDashboardContent(query, filter); }
-        }
-
-        function checkStatusFilter(lesson, filter) {
-            const isCompleted = completedLessons.includes(lesson.id);
-            const isBookmarked = bookmarkedLessons.includes(lesson.id);
-            const isCurrent = lesson.id === lastActiveLesson;
-
-            if (filter === 'all') return true;
-            if (filter === 'completed') return isCompleted;
-            if (filter === 'in-progress') return isCurrent && !isCompleted;
-            if (filter === 'pending') return !isCompleted;
-            if (filter === 'bookmarked') return isBookmarked;
-            return true;
-        }
-
-        function highlightMatch(text, query) {
-            if (!query) return text;
-            const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
-            return text.replace(regex, '<mark class="search-highlight">$1</mark>');
         }
 
         function toggleAccordion(id, btn) {
             const panel = document.getElementById(id);
             const isOpen = panel.classList.contains('open');
             btn.classList.toggle('active');
-            btn.setAttribute('aria-expanded', !isOpen);
             panel.classList.toggle('open');
         }
 
         function updateNotesBadge() {
             const badge = document.getElementById("notes-counter-badge");
-            if (badge) { badge.textContent = studyNotes.length; }
+            if (badge) badge.textContent = studyNotes.length;
         }
 
         function toggleBookmark(lessonId, event) {
@@ -976,158 +715,42 @@
                 bookmarkedLessons.push(lessonId);
             }
             localStorage.setItem('mono_bookmarked_lessons', JSON.stringify(bookmarkedLessons));
-            
-            if (currentLessonId === null) { handleSearchAndFilter(); }
-            else { updateBookmarkButtonUI(lessonId); }
-        }
-
-        function updateBookmarkButtonUI(lessonId) {
-            const btn = document.getElementById(`bookmark-btn-${lessonId}`);
-            if (btn) {
-                const isBookmarked = bookmarkedLessons.includes(lessonId);
-                btn.textContent = isBookmarked ? "⭐" : "☆";
-                btn.title = isBookmarked ? "Remove Bookmark" : "Bookmark Lesson";
-            }
+            if (currentLessonId === null) handleSearchAndFilter();
         }
 
         function loadDashboard() {
             currentLessonId = null;
-            if (window.umami) { window.umami.track((props) => ({ ...props, url: '/dashboard', title: 'Dashboard' })); }
-
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById('dashboard-nav-btn').classList.add('active');
             document.getElementById("main-scroll-viewport").scrollTop = 0;
-
-            const query = document.getElementById('lesson-search').value.trim().toLowerCase();
-            const filter = document.getElementById('status-filter').value;
-            renderDashboardContent(query, filter);
+            renderDashboardContent();
         }
 
-        function renderDashboardContent(query = "", filter = "all") {
+        function renderDashboardContent() {
             const container = document.getElementById("workbook-content-area");
             const totalCount = curriculum.length;
             const completedCount = completedLessons.length;
             const progressPercent = Math.round((completedCount / totalCount) * 100);
-            const nextLesson = curriculum.find(l => !completedLessons.includes(l.id)) || curriculum[0];
-
-            const pfModulesMap = {};
-            const acctModulesMap = {};
-            let totalMatchingLessons = 0;
-
-            curriculum.forEach(lesson => {
-                const matchesSearch = !query || lesson.name.toLowerCase().includes(query) || lesson.desc.toLowerCase().includes(query);
-                const matchesFilter = checkStatusFilter(lesson, filter);
-
-                if (matchesSearch && matchesFilter) {
-                    totalMatchingLessons++;
-                    const targetMap = lesson.track === 'pf' ? pfModulesMap : acctModulesMap;
-                    if (!targetMap[lesson.module]) {
-                        targetMap[lesson.module] = { title: lesson.modName, lessons: [] };
-                    }
-                    targetMap[lesson.module].lessons.push(lesson);
-                }
-            });
-
-            function renderModuleColumn(modulesMap) {
-                let html = '';
-                Object.keys(modulesMap).forEach(modId => {
-                    const mod = modulesMap[modId];
-                    const allModLessons = curriculum.filter(l => l.module == modId);
-                    const completedModLessons = allModLessons.filter(l => completedLessons.includes(l.id));
-                    const modPercent = Math.round((completedModLessons.length / allModLessons.length) * 100);
-
-                    html += `
-                        <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 20px; margin-bottom: 20px; box-sizing: border-box;">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div style="font-size: 13px; font-weight: 800; color: var(--text-brand);">${mod.title}</div>
-                                <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);">${modPercent}%</span>
-                            </div>
-                            <div class="mod-progress-container">
-                                <div class="mod-progress-fill" style="width: ${modPercent}%;"></div>
-                            </div>
-                            <div style="display: flex; flex-direction: column; gap: 10px;">
-                    `;
-
-                    mod.lessons.forEach(lesson => {
-                        const isCompleted = completedLessons.includes(lesson.id);
-                        const isBookmarked = bookmarkedLessons.includes(lesson.id);
-                        const isCurrent = lesson.id === lastActiveLesson;
-                        let statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--status-pending-bg); color: var(--status-pending-text);">Pending</span>`;
-                        
-                        if (isCompleted) {
-                            statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--status-success-bg); color: var(--status-success-text);">✓</span>`;
-                        } else if (isCurrent) {
-                            statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--primary-light); color: var(--primary);">In Progress</span>`;
-                        }
-
-                        const highlightedTitle = highlightMatch(lesson.name, query);
-
-                        html += `
-                            <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 12px 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px; box-sizing: border-box; min-width: 0;">
-                                <div style="flex: 1; min-width: 0;">
-                                    <div style="display: flex; align-items: center; gap: 8px; min-width: 0;">
-                                        ${statusTag}
-                                        <button class="bookmark-btn" id="bookmark-btn-${lesson.id}" onclick="toggleBookmark('${lesson.id}', event)" title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark Lesson'}">
-                                            ${isBookmarked ? '⭐' : '☆'}
-                                        </button>
-                                        <span style="font-size: 13px; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${lesson.name}">${highlightedTitle}</span>
-                                    </div>
-                                </div>
-                                <button onclick="loadLessonContent('${lesson.id}')" style="background: var(--text-main); color: var(--bg-card); border: none; padding: 6px 12px; font-size: 11px; font-weight: 700; border-radius: 8px; cursor: pointer; flex-shrink: 0;" aria-label="Open ${lesson.name}">
-                                    ${isCompleted ? 'Review' : 'Start'}
-                                </button>
-                            </div>
-                        `;
-                    });
-                    html += `</div></div>`;
-                });
-                return html;
-            }
-
-            let modulesContentHtml = '';
-            if (totalMatchingLessons === 0) {
-                modulesContentHtml = `
-                    <div class="empty-search-state">
-                        <span style="font-size: 32px;">🔍</span>
-                        <h3>No lessons found</h3>
-                        <p>We couldn't find any lessons matching "${query}". Try adjusting your filters or search keywords.</p>
-                    </div>
-                `;
-            } else {
-                modulesContentHtml = `
-                    <div class="dashboard-grid">
-                        <div style="min-width: 0;">
-                            <h3 style="margin: 0 0 16px 4px; font-size: 16px; font-weight: 800; color: var(--primary);">Personal Finance</h3>
-                            ${renderModuleColumn(pfModulesMap)}
-                        </div>
-                        <div style="min-width: 0;">
-                            <h3 style="margin: 0 0 16px 4px; font-size: 16px; font-weight: 800; color: var(--primary);">Accounting</h3>
-                            ${renderModuleColumn(acctModulesMap)}
-                        </div>
-                    </div>
-                `;
-            }
 
             container.innerHTML = `
-                <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: var(--text-main);">Dashboard</h1>
+                <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800;">Dashboard</h1>
                 <p style="color: var(--text-muted); margin-top: 0; margin-bottom: 24px;">Track your learning progress and resume your learning path.</p>
                 
-                <div style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); padding: 28px; border-radius: 20px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.3); flex-wrap: wrap; gap: 16px; box-sizing: border-box;">
-                    <div style="flex: 1; min-width: 240px;">
-                        <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9;">Ready to continue?</span>
-                        <h2 style="margin: 6px 0 12px 0; font-size: 22px; font-weight: 800; letter-spacing: -0.01em;">${nextLesson.name}</h2>
-                        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                <div style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); padding: 28px; border-radius: 20px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; box-sizing: border-box; flex-wrap: gap; gap: 16px;">
+                    <div>
+                        <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9;">Overview</span>
+                        <h2 style="margin: 6px 0 12px 0; font-size: 22px; font-weight: 800;">Your Learning Journey</h2>
+                        <div style="display: flex; align-items: center; gap: 12px;">
                             <div style="width: 180px; height: 8px; background: rgba(255,255,255,0.25); border-radius: 99px; overflow: hidden;">
                                 <div style="width: ${progressPercent}%; height: 100%; background: white; border-radius: 99px;"></div>
                             </div>
-                            <span style="font-size: 12px; font-weight: 700;">${progressPercent}% Overall Complete</span>
+                            <span style="font-size: 12px; font-weight: 700;">${progressPercent}% Complete</span>
                         </div>
                     </div>
-                    <button onclick="loadLessonContent('${nextLesson.id}')" style="background: white; color: #0284c7; border: none; padding: 14px 24px; font-size: 14px; font-weight: 800; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); transition: transform 0.2s; flex-shrink: 0;" aria-label="Resume learning ${nextLesson.name}">
-                        Continue Learning &rarr;
+                    <button onclick="loadLessonContent('pf1.1')" style="background: white; color: #0284c7; border: none; padding: 14px 24px; font-size: 14px; font-weight: 800; border-radius: 12px; cursor: pointer;">
+                        Start Learning &rarr;
                     </button>
                 </div>
-                ${modulesContentHtml}
             `;
         }
 
@@ -1136,8 +759,6 @@
             lastActiveLesson = lessonId;
             localStorage.setItem('mono_last_active', lessonId);
 
-            if (window.umami) { window.umami.track((props) => ({ ...props, url: `/lesson/${lessonId}`, title: `Lesson ${lessonId}` })); }
-
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             const activeBtn = document.getElementById(`nav-${lessonId}`);
             if (activeBtn) activeBtn.classList.add('active');
@@ -1145,67 +766,22 @@
             document.getElementById("main-scroll-viewport").scrollTop = 0;
             const container = document.getElementById("workbook-content-area");
             
-            let fileName;
-            if (lessonId === "final_exam") {
-                fileName = `lessons/final_exam.html?t=${Date.now()}`;
-            } else if (lessonId.startsWith('pf')) {
-                const parts = lessonId.replace('pf', '').split('.');
-                fileName = `lessons/LessonPF${parts[0]}_${parts[1]}.html?t=${Date.now()}`;
-            } else {
-                fileName = `lessons/Lesson${lessonId.split('.')[0]}_${lessonId.split('.')[1]}.html?t=${Date.now()}`;
-            }
-
-            fetch(fileName, { cache: "no-store" })
-                .then(response => {
-                    if (!response.ok) throw new Error(`Missing lesson file: ${fileName}`);
-                    return response.text();
-                })
-                .then(html => {
-                    const isCompleted = completedLessons.includes(lessonId);
-                    const isBookmarked = bookmarkedLessons.includes(lessonId);
-                    
-                    const lessonHeaderBar = `
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px;">
-                            <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">${lessonId.startsWith('pf') ? 'Personal Finance Track' : 'Accounting Track'}</span>
-                            <button class="bookmark-btn" id="bookmark-btn-${lessonId}" onclick="toggleBookmark('${lessonId}', event)" title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark Lesson'}">
-                                ${isBookmarked ? '⭐ Bookmarked' : '☆ Bookmark Lesson'}
-                            </button>
-                        </div>
-                    `;
-
-                    const completeFooterHtml = `
-                        <div class="lesson-footer-bar">
-                            <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">
-                                ${isCompleted ? '✓ Lesson Completed' : 'Finished reading? Mark this lesson as complete:'}
-                            </span>
-                            <button id="complete-btn" onclick="toggleLessonCompletion('${lessonId}')" style="background: ${isCompleted ? 'var(--status-success-bg)' : 'var(--text-main)'}; color: ${isCompleted ? 'var(--status-success-text)' : 'var(--bg-card)'}; border: 1px solid ${isCompleted ? 'var(--status-success-text)' : 'var(--text-main)'}; padding: 12px 24px; font-size: 13px; font-weight: 700; border-radius: 10px; cursor: pointer; transition: opacity 0.2s;">
-                                ${isCompleted ? '✓ Completed' : 'Complete & Continue →'}
-                            </button>
-                        </div>
-                    `;
-
-                    container.innerHTML = lessonHeaderBar + html + completeFooterHtml;
-                    updateSidebarVisuals();
-                })
-                .catch(err => {
-                    container.innerHTML = `<div style="text-align: center; padding: 40px;"><h3 style="color:#ef4444;">Lesson File Not Available</h3><p style="color: var(--text-muted);">${err.message}</p><p style="font-size: 12px; color: var(--text-muted);">Expected path: <code>${fileName}</code></p></div>`;
-                });
+            container.innerHTML = `
+                <h2>Lesson Content: ${lessonId}</h2>
+                <p>This is the interactive workspace for lesson ${lessonId}. Use your flashcards or ask the AI tutor for guidance right from the top bar!</p>
+                <div class="lesson-footer-bar">
+                    <button onclick="toggleLessonCompletion('${lessonId}')" class="timer-btn timer-btn-primary">Mark as Complete</button>
+                </div>
+            `;
+            updateSidebarVisuals();
         }
 
         function toggleLessonCompletion(lessonId) {
             if (!completedLessons.includes(lessonId)) { completedLessons.push(lessonId); }
             else { completedLessons = completedLessons.filter(id => id !== lessonId); }
-            
             localStorage.setItem('mono_completed_lessons', JSON.stringify(completedLessons));
             updateSidebarVisuals();
-            updateGamificationStats();
-
-            const currentIndex = curriculum.findIndex(l => l.id === lessonId);
-            if (completedLessons.includes(lessonId) && currentIndex !== -1 && currentIndex < curriculum.length - 1) {
-                loadLessonContent(curriculum[currentIndex + 1].id);
-            } else {
-                loadLessonContent(lessonId);
-            }
+            loadLessonContent(lessonId);
         }
 
         function updateSidebarVisuals() {
@@ -1215,15 +791,9 @@
                     if (completedLessons.includes(lesson.id)) {
                         icon.className = "status-icon completed";
                         icon.textContent = "✓";
-                        icon.title = "Completed";
-                    } else if (lesson.id === lastActiveLesson) {
-                        icon.className = "status-icon in-progress";
-                        icon.textContent = "⏱";
-                        icon.title = "In Progress";
                     } else {
                         icon.className = "status-icon pending";
                         icon.textContent = "○";
-                        icon.title = "Pending";
                     }
                 }
             });
@@ -1245,12 +815,7 @@
             });
         }
 
-        function closeNotePopup() {
-            document.getElementById('floating-note-box').style.display = 'none';
-            document.getElementById('popup-note-input').value = '';
-            selectedQuoteText = "";
-        }
-
+        function closeNotePopup() { document.getElementById('floating-note-box').style.display = 'none'; }
         function saveNote() {
             const input = document.getElementById('popup-note-input').value.trim();
             if (input && selectedQuoteText) {
@@ -1260,34 +825,8 @@
                 closeNotePopup();
             }
         }
-
-        function openNotesModal() {
-            const modal = document.getElementById("notes-modal");
-            const container = document.getElementById("notes-modal-container");
-
-            let notesHtml = studyNotes.length === 0 
-                ? `<p style="color: var(--text-muted); font-style: italic;">No saved notes yet. Highlight any text inside a lesson to create your first study note.</p>`
-                : `<div class="notes-grid">` + studyNotes.map(note => `
-                    <div class="journal-note-card">
-                        <button class="delete-journal-btn" onclick="deleteNote(${note.id})" aria-label="Delete note">Delete</button>
-                        <div class="journal-note-quote">"${note.quote}"</div>
-                        <div class="journal-note-text">${note.text}</div>
-                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px;">Saved on ${note.date}</div>
-                    </div>
-                `).join('') + `</div>`;
-
-            container.innerHTML = notesHtml;
-            modal.classList.add('active');
-        }
-
+        function openNotesModal() { document.getElementById("notes-modal").classList.add('active'); }
         function closeNotesModal() { document.getElementById("notes-modal").classList.remove('active'); }
-
-        function deleteNote(id) {
-            studyNotes = studyNotes.filter(n => n.id !== id);
-            localStorage.setItem('mono_study_notes', JSON.stringify(studyNotes));
-            updateNotesBadge();
-            openNotesModal();
-        }
     </script>
 </body>
 </html>
