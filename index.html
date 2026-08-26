@@ -81,7 +81,7 @@
             transition: background 0.3s ease, color 0.3s ease;
         }
 
-        .dashboard-container { display: flex; height: 100vh; width: 100vw; overflow: hidden; }
+        .dashboard-container { display: flex; height: 100vh; width: 100vw; overflow: hidden; position: relative; }
         
         /* Sidebar Styling */
         .sidebar { 
@@ -89,7 +89,7 @@
             padding: 20px 16px; box-sizing: border-box; display: flex; 
             flex-direction: column; height: 100vh; flex-shrink: 0;
             border-right: 1px solid var(--border-sidebar);
-            transition: transform 0.3s ease, background 0.3s ease;
+            transition: background 0.3s ease, left 0.3s ease;
         }
 
         .sidebar-header { margin-bottom: 20px; width: 100%; }
@@ -198,18 +198,12 @@
         .dashboard-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
         }
+        @media (max-width: 768px) { .dashboard-grid { grid-template-columns: 1fr; } }
 
         .top-utility-bar {
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
         }
-        .utility-group-left, .utility-group-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-
-        .mobile-menu-btn {
-            background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);
-            padding: 9px 12px; border-radius: 99px; font-size: 14px; cursor: pointer;
-            box-shadow: var(--shadow-sm); display: none; align-items: center; justify-content: center;
-        }
-        .mobile-menu-btn:hover { border-color: var(--primary); color: var(--primary); }
+        .utility-group-left, .utility-group-right { display: flex; align-items: center; gap: 10px; }
 
         .theme-toggle-btn, .timer-trigger-btn {
             background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);
@@ -218,6 +212,46 @@
             font-family: 'Inter', sans-serif;
         }
         .theme-toggle-btn:hover, .timer-trigger-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
+
+        /* Mobile Menu Hamburger Button & Overlay */
+        .hamburger-btn {
+            display: none;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 8px 12px;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.2s;
+        }
+        .hamburger-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(2px);
+            z-index: 998;
+        }
+
+        /* Responsive Breakpoint for Mobile and Tablets */
+        @media (max-width: 768px) {
+            .hamburger-btn { display: inline-flex; align-items: center; justify-content: center; }
+            .sidebar {
+                position: fixed;
+                left: -300px;
+                z-index: 999;
+                height: 100vh;
+                box-shadow: var(--shadow-lg);
+            }
+            .sidebar.mobile-open { left: 0; }
+            .sidebar-overlay.active { display: block; }
+            .main-content { padding: 16px; }
+            .workbook-viewport { padding: 20px; }
+        }
 
         .stat-badge {
             background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 7px 14px;
@@ -263,14 +297,14 @@
             font-size: 52px; font-weight: 800; text-align: center; margin: 20px 0;
             font-family: 'Inter', monospace; color: var(--primary); letter-spacing: -0.02em;
         }
-        .timer-presets { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+        .timer-presets { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
         .timer-preset-btn {
             background: var(--bg-card-subtle); border: 1px solid var(--border-color); color: var(--text-main);
             padding: 8px 14px; border-radius: 10px; font-size: 12px; font-weight: 600; cursor: pointer;
             font-family: 'Inter', sans-serif; transition: all 0.2s;
         }
         .timer-preset-btn:hover, .timer-preset-btn.active { background: var(--primary-light); color: var(--primary); border-color: var(--primary); }
-        .timer-controls { display: flex; gap: 10px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+        .timer-controls { display: flex; gap: 10px; justify-content: center; margin-top: 20px; }
         .timer-btn { padding: 12px 20px; border-radius: 12px; font-weight: 700; font-size: 13px; border: none; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; }
         .timer-btn-primary { background: var(--primary); color: white; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25); }
         .timer-btn-primary:hover { background: var(--primary-hover); }
@@ -295,7 +329,7 @@
         .journal-note-text { font-size: 14px; color: var(--text-main); font-weight: 500; }
         .delete-journal-btn { position: absolute; top: 16px; right: 16px; background: #fee2e2; color: #ef4444; border: none; border-radius: 8px; padding: 6px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }
         
-        .lesson-footer-bar { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
+        .lesson-footer-bar { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; }
 
         .mod-progress-container { width: 100%; background: var(--border-subtle); height: 6px; border-radius: 99px; overflow: hidden; margin-top: 8px; margin-bottom: 16px; }
         .mod-progress-fill { height: 100%; background: var(--primary); transition: width 0.3s ease; border-radius: 99px; }
@@ -305,45 +339,6 @@
         }
         .empty-search-state h3 { margin: 10px 0 6px 0; font-size: 18px; }
         .empty-search-state p { color: var(--text-muted); font-size: 13px; margin: 0; }
-
-        /* Responsive Styles */
-        @media (max-width: 900px) {
-            .mobile-menu-btn { display: flex; }
-            .sidebar {
-                position: fixed;
-                left: 0;
-                top: 0;
-                bottom: 0;
-                z-index: 1000;
-                transform: translateX(-100%);
-                width: 280px;
-                box-shadow: var(--shadow-lg);
-            }
-            .sidebar.mobile-open {
-                transform: translateX(0);
-            }
-            .main-content {
-                padding: 16px;
-            }
-            .workbook-viewport {
-                padding: 20px;
-                min-height: auto;
-            }
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-            .timer-display {
-                font-size: 40px;
-            }
-            .floating-note-popup {
-                width: 90%;
-                left: 5% !important;
-            }
-            .utility-group-right {
-                width: 100%;
-                justify-content: flex-start;
-            }
-        }
     </style>
 </head>
 <body>
@@ -392,9 +387,12 @@
     </div>
 
     <div class="dashboard-container">
+        <!-- Backdrop overlay for mobile sidebar menu -->
+        <div id="mobile-overlay" class="sidebar-overlay" onclick="toggleMobileMenu()"></div>
+
         <aside class="sidebar" aria-label="Course Navigation">
             <div class="sidebar-header">
-                <div class="sidebar-brand-wrapper" onclick="loadDashboard()" role="button" tabindex="0" aria-label="Mono Academy Home">
+                <div class="sidebar-brand-wrapper" onclick="loadDashboard(); toggleMobileMenuIfActive();" role="button" tabindex="0" aria-label="Mono Academy Home">
                     <div class="sidebar-logo-icon">M</div>
                     <h2 class="sidebar-brand">Mono <span>Academy</span></h2>
                 </div>
@@ -413,7 +411,7 @@
                 <option value="bookmarked">⭐ Bookmarked</option>
             </select>
 
-            <button class="nav-btn active" id="dashboard-nav-btn" onclick="loadDashboard()" style="margin-bottom: 10px; font-weight: 700;">
+            <button class="nav-btn active" id="dashboard-nav-btn" onclick="loadDashboard(); toggleMobileMenuIfActive();" style="margin-bottom: 10px; font-weight: 700;">
                 <span>🏠 Dashboard</span>
             </button>
 
@@ -426,15 +424,15 @@
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-pf1-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf1">
-                    <button class="nav-btn" id="nav-pf1.1" onclick="loadLessonContent('pf1.1')">
+                    <button class="nav-btn" id="nav-pf1.1" onclick="loadLessonContent('pf1.1'); toggleMobileMenuIfActive();">
                         <span>Lesson 1.1: Reading a Paystub</span>
                         <span class="status-icon pending" id="status-nav-pf1.1" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-pf1.2" onclick="loadLessonContent('pf1.2')">
+                    <button class="nav-btn" id="nav-pf1.2" onclick="loadLessonContent('pf1.2'); toggleMobileMenuIfActive();">
                         <span>Lesson 1.2: Tax Basics</span>
                         <span class="status-icon pending" id="status-nav-pf1.2" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-pf1.3" onclick="loadLessonContent('pf1.3')">
+                    <button class="nav-btn" id="nav-pf1.3" onclick="loadLessonContent('pf1.3'); toggleMobileMenuIfActive();">
                         <span>Lesson 1.3: Earning Potential</span>
                         <span class="status-icon pending" id="status-nav-pf1.3" title="Pending">○</span>
                     </button>
@@ -445,15 +443,15 @@
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-pf2-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf2">
-                    <button class="nav-btn" id="nav-pf2.1" onclick="loadLessonContent('pf2.1')">
+                    <button class="nav-btn" id="nav-pf2.1" onclick="loadLessonContent('pf2.1'); toggleMobileMenuIfActive();">
                         <span>Lesson 2.1: Banking Fundamentals</span>
                         <span class="status-icon pending" id="status-nav-pf2.1" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-pf2.2" onclick="loadLessonContent('pf2.2')">
+                    <button class="nav-btn" id="nav-pf2.2" onclick="loadLessonContent('pf2.2'); toggleMobileMenuIfActive();">
                         <span>Lesson 2.2: Building a Budget</span>
                         <span class="status-icon pending" id="status-nav-pf2.2" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-pf2.3" onclick="loadLessonContent('pf2.3')">
+                    <button class="nav-btn" id="nav-pf2.3" onclick="loadLessonContent('pf2.3'); toggleMobileMenuIfActive();">
                         <span>Lesson 2.3: Tracking & Mindset</span>
                         <span class="status-icon pending" id="status-nav-pf2.3" title="Pending">○</span>
                     </button>
@@ -464,15 +462,15 @@
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-pf3-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf3">
-                    <button class="nav-btn" id="nav-pf3.1" onclick="loadLessonContent('pf3.1')">
+                    <button class="nav-btn" id="nav-pf3.1" onclick="loadLessonContent('pf3.1'); toggleMobileMenuIfActive();">
                         <span>Lesson 3.1: Credit Scores 101</span>
                         <span class="status-icon pending" id="status-nav-pf3.1" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-pf3.2" onclick="loadLessonContent('pf3.2')">
+                    <button class="nav-btn" id="nav-pf3.2" onclick="loadLessonContent('pf3.2'); toggleMobileMenuIfActive();">
                         <span>Lesson 3.2: Credit Cards</span>
                         <span class="status-icon pending" id="status-nav-pf3.2" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-pf3.3" onclick="loadLessonContent('pf3.3')">
+                    <button class="nav-btn" id="nav-pf3.3" onclick="loadLessonContent('pf3.3'); toggleMobileMenuIfActive();">
                         <span>Lesson 3.3: Managing Loans</span>
                         <span class="status-icon pending" id="status-nav-pf3.3" title="Pending">○</span>
                     </button>
@@ -483,15 +481,15 @@
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-pf4-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf4">
-                    <button class="nav-btn" id="nav-pf4.1" onclick="loadLessonContent('pf4.1')">
+                    <button class="nav-btn" id="nav-pf4.1" onclick="loadLessonContent('pf4.1'); toggleMobileMenuIfActive();">
                         <span>Lesson 4.1: Emergency Funds</span>
                         <span class="status-icon pending" id="status-nav-pf4.1" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-pf4.2" onclick="loadLessonContent('pf4.2')">
+                    <button class="nav-btn" id="nav-pf4.2" onclick="loadLessonContent('pf4.2'); toggleMobileMenuIfActive();">
                         <span>Lesson 4.2: Goal-Based Saving</span>
                         <span class="status-icon pending" id="status-nav-pf4.2" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-pf4.3" onclick="loadLessonContent('pf4.3')">
+                    <button class="nav-btn" id="nav-pf4.3" onclick="loadLessonContent('pf4.3'); toggleMobileMenuIfActive();">
                         <span>Lesson 4.3: Opportunity Cost</span>
                         <span class="status-icon pending" id="status-nav-pf4.3" title="Pending">○</span>
                     </button>
@@ -502,15 +500,15 @@
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-pf5-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf5">
-                    <button class="nav-btn" id="nav-pf5.1" onclick="loadLessonContent('pf5.1')">
+                    <button class="nav-btn" id="nav-pf5.1" onclick="loadLessonContent('pf5.1'); toggleMobileMenuIfActive();">
                         <span>Lesson 5.1: Compound Growth</span>
                         <span class="status-icon pending" id="status-nav-pf5.1" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-pf5.2" onclick="loadLessonContent('pf5.2')">
+                    <button class="nav-btn" id="nav-pf5.2" onclick="loadLessonContent('pf5.2'); toggleMobileMenuIfActive();">
                         <span>Lesson 5.2: Account Types</span>
                         <span class="status-icon pending" id="status-nav-pf5.2" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-pf5.3" onclick="loadLessonContent('pf5.3')">
+                    <button class="nav-btn" id="nav-pf5.3" onclick="loadLessonContent('pf5.3'); toggleMobileMenuIfActive();">
                         <span>Lesson 5.3: Asset Allocation</span>
                         <span class="status-icon pending" id="status-nav-pf5.3" title="Pending">○</span>
                     </button>
@@ -521,15 +519,15 @@
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-pf6-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf6">
-                    <button class="nav-btn" id="nav-pf6.1" onclick="loadLessonContent('pf6.1')">
+                    <button class="nav-btn" id="nav-pf6.1" onclick="loadLessonContent('pf6.1'); toggleMobileMenuIfActive();">
                         <span>Lesson 6.1: Insurance Basics</span>
                         <span class="status-icon pending" id="status-nav-pf6.1" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-pf6.2" onclick="loadLessonContent('pf6.2')">
+                    <button class="nav-btn" id="nav-pf6.2" onclick="loadLessonContent('pf6.2'); toggleMobileMenuIfActive();">
                         <span>Lesson 6.2: Consumer Protection</span>
                         <span class="status-icon pending" id="status-nav-pf6.2" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-pf6.3" onclick="loadLessonContent('pf6.3')">
+                    <button class="nav-btn" id="nav-pf6.3" onclick="loadLessonContent('pf6.3'); toggleMobileMenuIfActive();">
                         <span>Lesson 6.3: Big Life Decisions</span>
                         <span class="status-icon pending" id="status-nav-pf6.3" title="Pending">○</span>
                     </button>
@@ -542,27 +540,27 @@
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module1-content" class="accordion-content" role="region" aria-labelledby="btn-mod-1">
-                    <button class="nav-btn" id="nav-1.1" onclick="loadLessonContent('1.1')">
+                    <button class="nav-btn" id="nav-1.1" onclick="loadLessonContent('1.1'); toggleMobileMenuIfActive();">
                         <span>Lesson 1.1: Introduction</span>
                         <span class="status-icon pending" id="status-nav-1.1" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-1.2" onclick="loadLessonContent('1.2')">
+                    <button class="nav-btn" id="nav-1.2" onclick="loadLessonContent('1.2'); toggleMobileMenuIfActive();">
                         <span>Lesson 1.2: Accounting Equation</span>
                         <span class="status-icon pending" id="status-nav-1.2" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-1.3" onclick="loadLessonContent('1.3')">
+                    <button class="nav-btn" id="nav-1.3" onclick="loadLessonContent('1.3'); toggleMobileMenuIfActive();">
                         <span>Lesson 1.3: T-Accounts System</span>
                         <span class="status-icon pending" id="status-nav-1.3" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-1.4" onclick="loadLessonContent('1.4')">
+                    <button class="nav-btn" id="nav-1.4" onclick="loadLessonContent('1.4'); toggleMobileMenuIfActive();">
                         <span>Lesson 1.4: Journal & Ledger</span>
                         <span class="status-icon pending" id="status-nav-1.4" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-1.5" onclick="loadLessonContent('1.5')">
+                    <button class="nav-btn" id="nav-1.5" onclick="loadLessonContent('1.5'); toggleMobileMenuIfActive();">
                         <span>Lesson 1.5: Trial Balance</span>
                         <span class="status-icon pending" id="status-nav-1.5" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-1.6" onclick="loadLessonContent('1.6')">
+                    <button class="nav-btn" id="nav-1.6" onclick="loadLessonContent('1.6'); toggleMobileMenuIfActive();">
                         <span>Lesson 1.6: Review and Quiz</span>
                         <span class="status-icon pending" id="status-nav-1.6" title="Pending">○</span>
                     </button>
@@ -573,27 +571,27 @@
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module2-content" class="accordion-content" role="region" aria-labelledby="btn-mod-2">
-                    <button class="nav-btn" id="nav-2.1" onclick="loadLessonContent('2.1')">
+                    <button class="nav-btn" id="nav-2.1" onclick="loadLessonContent('2.1'); toggleMobileMenuIfActive();">
                         <span>Lesson 2.1: Financial Statements</span>
                         <span class="status-icon pending" id="status-nav-2.1" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-2.2" onclick="loadLessonContent('2.2')">
+                    <button class="nav-btn" id="nav-2.2" onclick="loadLessonContent('2.2'); toggleMobileMenuIfActive();">
                         <span>Lesson 2.2: Income Statement</span>
                         <span class="status-icon pending" id="status-nav-2.2" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-2.3" onclick="loadLessonContent('2.3')">
+                    <button class="nav-btn" id="nav-2.3" onclick="loadLessonContent('2.3'); toggleMobileMenuIfActive();">
                         <span>Lesson 2.3: Balance Sheet</span>
                         <span class="status-icon pending" id="status-nav-2.3" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-2.4" onclick="loadLessonContent('2.4')">
+                    <button class="nav-btn" id="nav-2.4" onclick="loadLessonContent('2.4'); toggleMobileMenuIfActive();">
                         <span>Lesson 2.4: Owner's Equity</span>
                         <span class="status-icon pending" id="status-nav-2.4" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-2.5" onclick="loadLessonContent('2.5')">
+                    <button class="nav-btn" id="nav-2.5" onclick="loadLessonContent('2.5'); toggleMobileMenuIfActive();">
                         <span>Lesson 2.5: Cash Flow Statement</span>
                         <span class="status-icon pending" id="status-nav-2.5" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-2.6" onclick="loadLessonContent('2.6')">
+                    <button class="nav-btn" id="nav-2.6" onclick="loadLessonContent('2.6'); toggleMobileMenuIfActive();">
                         <span>Lesson 2.6: Capstone</span>
                         <span class="status-icon pending" id="status-nav-2.6" title="Pending">○</span>
                     </button>
@@ -604,27 +602,27 @@
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module3-content" class="accordion-content" role="region" aria-labelledby="btn-mod-3">
-                    <button class="nav-btn" id="nav-3.1" onclick="loadLessonContent('3.1')">
+                    <button class="nav-btn" id="nav-3.1" onclick="loadLessonContent('3.1'); toggleMobileMenuIfActive();">
                         <span>Lesson 3.1: Liquidity & Capital</span>
                         <span class="status-icon pending" id="status-nav-3.1" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-3.2" onclick="loadLessonContent('3.2')">
+                    <button class="nav-btn" id="nav-3.2" onclick="loadLessonContent('3.2'); toggleMobileMenuIfActive();">
                         <span>Lesson 3.2: Profitability Ratios</span>
                         <span class="status-icon pending" id="status-nav-3.2" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-3.3" onclick="loadLessonContent('3.3')">
+                    <button class="nav-btn" id="nav-3.3" onclick="loadLessonContent('3.3'); toggleMobileMenuIfActive();">
                         <span>Lesson 3.3: Efficiency Ratios</span>
                         <span class="status-icon pending" id="status-nav-3.3" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-3.4" onclick="loadLessonContent('3.4')">
+                    <button class="nav-btn" id="nav-3.4" onclick="loadLessonContent('3.4'); toggleMobileMenuIfActive();">
                         <span>Lesson 3.4: Solvency Ratios</span>
                         <span class="status-icon pending" id="status-nav-3.4" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-3.5" onclick="loadLessonContent('3.5')">
+                    <button class="nav-btn" id="nav-3.5" onclick="loadLessonContent('3.5'); toggleMobileMenuIfActive();">
                         <span>Lesson 3.5: Reading Reports</span>
                         <span class="status-icon pending" id="status-nav-3.5" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-3.6" onclick="loadLessonContent('3.6')">
+                    <button class="nav-btn" id="nav-3.6" onclick="loadLessonContent('3.6'); toggleMobileMenuIfActive();">
                         <span>Lesson 3.6: Investor Analysis</span>
                         <span class="status-icon pending" id="status-nav-3.6" title="Pending">○</span>
                     </button>
@@ -635,23 +633,23 @@
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module4-content" class="accordion-content" role="region" aria-labelledby="btn-mod-4">
-                    <button class="nav-btn" id="nav-4.1" onclick="loadLessonContent('4.1')">
+                    <button class="nav-btn" id="nav-4.1" onclick="loadLessonContent('4.1'); toggleMobileMenuIfActive();">
                         <span>Lesson 4.1: Inventory Costing</span>
                         <span class="status-icon pending" id="status-nav-4.1" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-4.2" onclick="loadLessonContent('4.2')">
+                    <button class="nav-btn" id="nav-4.2" onclick="loadLessonContent('4.2'); toggleMobileMenuIfActive();">
                         <span>Lesson 4.2: Depreciation</span>
                         <span class="status-icon pending" id="status-nav-4.2" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-4.3" onclick="loadLessonContent('4.3')">
+                    <button class="nav-btn" id="nav-4.3" onclick="loadLessonContent('4.3'); toggleMobileMenuIfActive();">
                         <span>Lesson 4.3: Receivables & Debt</span>
                         <span class="status-icon pending" id="status-nav-4.3" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-4.4" onclick="loadLessonContent('4.4')">
+                    <button class="nav-btn" id="nav-4.4" onclick="loadLessonContent('4.4'); toggleMobileMenuIfActive();">
                         <span>Lesson 4.4: Liabilities</span>
                         <span class="status-icon pending" id="status-nav-4.4" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-4.5" onclick="loadLessonContent('4.5')">
+                    <button class="nav-btn" id="nav-4.5" onclick="loadLessonContent('4.5'); toggleMobileMenuIfActive();">
                         <span>Lesson 4.5: Corporate Equity</span>
                         <span class="status-icon pending" id="status-nav-4.5" title="Pending">○</span>
                     </button>
@@ -662,23 +660,23 @@
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module5-content" class="accordion-content" role="region" aria-labelledby="btn-mod-5">
-                    <button class="nav-btn" id="nav-5.1" onclick="loadLessonContent('5.1')">
+                    <button class="nav-btn" id="nav-5.1" onclick="loadLessonContent('5.1'); toggleMobileMenuIfActive();">
                         <span>Lesson 5.1: Business Combinations</span>
                         <span class="status-icon pending" id="status-nav-5.1" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-5.2" onclick="loadLessonContent('5.2')">
+                    <button class="nav-btn" id="nav-5.2" onclick="loadLessonContent('5.2'); toggleMobileMenuIfActive();">
                         <span>Lesson 5.2: Deferred Taxes</span>
                         <span class="status-icon pending" id="status-nav-5.2" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-5.3" onclick="loadLessonContent('5.3')">
+                    <button class="nav-btn" id="nav-5.3" onclick="loadLessonContent('5.3'); toggleMobileMenuIfActive();">
                         <span>Lesson 5.3: Advanced Instruments</span>
                         <span class="status-icon pending" id="status-nav-5.3" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-5.4" onclick="loadLessonContent('5.4')">
+                    <button class="nav-btn" id="nav-5.4" onclick="loadLessonContent('5.4'); toggleMobileMenuIfActive();">
                         <span>Lesson 5.4: Revenue Recognition</span>
                         <span class="status-icon pending" id="status-nav-5.4" title="Pending">○</span>
                     </button>
-                    <button class="nav-btn" id="nav-5.5" onclick="loadLessonContent('5.5')">
+                    <button class="nav-btn" id="nav-5.5" onclick="loadLessonContent('5.5'); toggleMobileMenuIfActive();">
                         <span>Lesson 5.5: Forensic Accounting</span>
                         <span class="status-icon pending" id="status-nav-5.5" title="Pending">○</span>
                     </button>
@@ -689,7 +687,7 @@
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-final-content" class="accordion-content" role="region" aria-labelledby="btn-mod-final">
-                    <button class="nav-btn" id="nav-final_exam" onclick="loadLessonContent('final_exam')">
+                    <button class="nav-btn" id="nav-final_exam" onclick="loadLessonContent('final_exam'); toggleMobileMenuIfActive();">
                         <span>🎓 Final Examination</span>
                         <span class="status-icon pending" id="status-nav-final_exam" title="Pending">○</span>
                     </button>
@@ -697,7 +695,7 @@
             </nav>
 
             <div style="border-top: 1px solid var(--border-sidebar); padding-top: 12px;">
-                <button class="nav-btn" id="nav-notes" onclick="openNotesModal()">
+                <button class="nav-btn" id="nav-notes" onclick="openNotesModal(); toggleMobileMenuIfActive();">
                     <span style="display: flex; align-items: center; gap: 8px;">📝 My Study Notes</span>
                     <span id="notes-counter-badge" style="background: var(--primary); color: white; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px;">0</span>
                 </button>
@@ -707,8 +705,8 @@
         <main class="main-content" id="main-scroll-viewport" role="main">
             <div class="top-utility-bar">
                 <div class="utility-group-left">
-                    <button class="mobile-menu-btn" onclick="toggleSidebar()" aria-label="Toggle Sidebar Navigation">
-                        ☰ 
+                    <button id="mobile-menu-btn" class="hamburger-btn" onclick="toggleMobileMenu()" aria-label="Open Navigation Menu">
+                        ☰ Menu
                     </button>
                     <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme">
                         <span id="theme-toggle-icon">🌙</span> <span id="theme-toggle-label">Dark Mode</span>
@@ -826,10 +824,6 @@
             updateGamificationStats();
         });
 
-        function toggleSidebar() {
-            document.querySelector('.sidebar').classList.toggle('mobile-open');
-        }
-
         function initTheme() {
             const savedTheme = localStorage.getItem('mono_theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
@@ -847,6 +841,18 @@
         function updateThemeToggleUI(theme) {
             document.getElementById('theme-toggle-icon').textContent = theme === 'dark' ? '☀️' : '🌙';
             document.getElementById('theme-toggle-label').textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
+        }
+
+        /* Mobile Menu Handlers */
+        function toggleMobileMenu() {
+            document.querySelector('.sidebar').classList.toggle('mobile-open');
+            document.getElementById('mobile-overlay').classList.toggle('active');
+        }
+
+        function toggleMobileMenuIfActive() {
+            if (window.innerWidth <= 768) {
+                toggleMobileMenu();
+            }
         }
 
         function updateGamificationStats() {
@@ -1043,8 +1049,6 @@
 
         function loadDashboard() {
             currentLessonId = null;
-            document.querySelector('.sidebar').classList.remove('mobile-open');
-
             if (window.umami) { window.umami.track((props) => ({ ...props, url: '/dashboard', title: 'Dashboard' })); }
 
             document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
@@ -1126,7 +1130,7 @@
                                         <span style="font-size: 13px; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${highlightedTitle}</span>
                                     </div>
                                 </div>
-                                <button onclick="loadLessonContent('${lesson.id}')" style="background: var(--text-main); color: var(--bg-card); border: none; padding: 6px 12px; font-size: 11px; font-weight: 700; border-radius: 8px; cursor: pointer; flex-shrink: 0;" aria-label="Open ${lesson.name}">
+                                <button onclick="loadLessonContent('${lesson.id}'); toggleMobileMenuIfActive();" style="background: var(--text-main); color: var(--bg-card); border: none; padding: 6px 12px; font-size: 11px; font-weight: 700; border-radius: 8px; cursor: pointer; flex-shrink: 0;" aria-label="Open ${lesson.name}">
                                     ${isCompleted ? 'Review' : 'Start'}
                                 </button>
                             </div>
@@ -1165,11 +1169,11 @@
                 <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: var(--text-main);">Dashboard</h1>
                 <p style="color: var(--text-muted); margin-top: 0; margin-bottom: 24px;">Track your learning progress and resume your learning path.</p>
                 
-                <div style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); padding: 28px; border-radius: 20px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.3); flex-wrap: wrap; gap: 20px;">
+                <div style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); padding: 28px; border-radius: 20px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.3);">
                     <div>
                         <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9;">Ready to continue?</span>
                         <h2 style="margin: 6px 0 12px 0; font-size: 22px; font-weight: 800; letter-spacing: -0.01em;">${nextLesson.name}</h2>
-                        <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap;">
+                        <div style="display: flex; align-items: center; gap: 12px;">
                             <div style="width: 180px; height: 8px; background: rgba(255,255,255,0.25); border-radius: 99px; overflow: hidden;">
                                 <div style="width: ${progressPercent}%; height: 100%; background: white; border-radius: 99px;"></div>
                             </div>
@@ -1188,7 +1192,6 @@
             currentLessonId = lessonId;
             lastActiveLesson = lessonId;
             localStorage.setItem('mono_last_active', lessonId);
-            document.querySelector('.sidebar').classList.remove('mobile-open');
 
             if (window.umami) { window.umami.track((props) => ({ ...props, url: `/lesson/${lessonId}`, title: `Lesson ${lessonId}` })); }
 
