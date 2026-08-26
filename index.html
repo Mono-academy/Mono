@@ -4,7 +4,7 @@
     <script defer src="https://cloud.umami.is/script.js" data-website-id="a47aee67-fdaa-4e03-a77c-7f99e9477d92"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mono Academy - Modern Accounting & Personal Finance Education</title>
+    <title>Mono Academy - Modern Personal Finance & Accounting Education</title>
     <style>
         /* CSS Custom Properties for Light and Dark Themes (WCAG AA Compliant) */
         :root {
@@ -63,11 +63,11 @@
             --status-bookmark-text: #fef3c7;
         }
 
-        /* Scrollbars */
+        /* Custom Scrollbar for visual hint */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-body); }
-        ::-webkit-scrollbar-thumb { background: var(--primary-light); border-radius: 99px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 99px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--primary-hover); }
 
         html, body {
             margin: 0; padding: 0; height: 100%;
@@ -116,7 +116,14 @@
             font-size: 12px; margin-bottom: 14px; outline: none; cursor: pointer; font-weight: 500;
         }
 
-        .sidebar-menu { flex-grow: 1; overflow-y: auto; margin-bottom: 16px; padding-right: 4px; }
+        /* Sidebar Navigation Container */
+        .sidebar-menu { 
+            flex-grow: 1; 
+            overflow-y: auto; 
+            margin-bottom: 16px; 
+            padding-right: 6px; 
+            scroll-behavior: smooth;
+        }
 
         .main-content { 
             flex: 1; padding: 32px; overflow-y: auto; background: var(--bg-main); 
@@ -132,8 +139,8 @@
         .nav-btn { 
             display: flex; align-items: center; justify-content: space-between; 
             width: 100%; text-align: left; background: transparent; border: none; 
-            color: var(--text-main); padding: 9px 12px; cursor: pointer; 
-            font-size: 13px; border-radius: 8px; transition: all 0.2s; 
+            color: var(--text-main); padding: 8px 10px; cursor: pointer; 
+            font-size: 12.5px; border-radius: 8px; transition: all 0.2s; 
             margin-bottom: 4px; box-sizing: border-box; font-weight: 500;
         }
 
@@ -154,9 +161,9 @@
             display: flex; align-items: center; justify-content: space-between; 
             width: 100%; background: none; border: none; color: var(--text-brand); 
             font-size: 11px; font-weight: 800; text-transform: uppercase; 
-            letter-spacing: 0.06em; padding: 10px 6px; cursor: pointer; 
-            margin-top: 12px; margin-bottom: 4px; border-bottom: 1px solid var(--border-sidebar);
-            text-align: left; line-height: 1.4; gap: 8px;
+            letter-spacing: 0.04em; padding: 8px 6px; cursor: pointer; 
+            margin-top: 8px; margin-bottom: 4px; border-bottom: 1px solid var(--border-sidebar);
+            text-align: left; line-height: 1.3; gap: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
 
         .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 2px; }
@@ -164,11 +171,12 @@
         .accordion-arrow { transition: transform 0.2s ease; font-size: 10px; color: var(--text-brand); flex-shrink: 0; }
         .accordion-header.active .accordion-arrow { transform: rotate(90deg); }
 
-        /* Track Dividers in Sidebar */
+        /* Track Headers in Sidebar */
         .track-header {
-            font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em;
-            color: var(--primary); margin-top: 20px; margin-bottom: 6px; padding: 4px 6px;
-            border-bottom: 2px solid var(--primary-light); display: flex; align-items: center; gap: 6px;
+            font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em;
+            color: var(--primary); margin-top: 16px; margin-bottom: 6px; padding: 6px 8px;
+            background: rgba(2, 132, 199, 0.08); border-radius: 6px; display: flex; align-items: center; justify-content: space-between;
+            border-left: 3px solid var(--primary);
         }
 
         /* Header Utility Bar */
@@ -283,11 +291,6 @@
         }
         .empty-search-state h3 { margin: 10px 0 6px 0; font-size: 18px; }
         .empty-search-state p { color: var(--text-muted); font-size: 13px; margin: 0; }
-
-        .sr-only {
-            position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-            overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
-        }
     </style>
 </head>
 <body>
@@ -295,7 +298,7 @@
     <div id="welcome-modal" class="modal-overlay" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-desc">
         <div class="modal-card" style="text-align: center;">
             <h2 id="modal-title" class="welcome-title">Welcome to Mono Academy! 👋</h2>
-            <p id="modal-desc" class="welcome-desc">Track your progress across interactive modules, set focus timers, and build your accounting and financial mastery.</p>
+            <p id="modal-desc" class="welcome-desc">Track your progress across interactive modules, set focus timers, and build your financial mastery.</p>
             <button class="welcome-btn" onclick="closeWelcomeModal()" aria-label="Get started with Mono Academy">Get Started</button>
         </div>
     </div>
@@ -363,13 +366,138 @@
 
             <nav class="sidebar-menu" id="sidebar-accordion-group">
                 
-                <div class="track-header">📊 Accounting Track</div>
+                <!-- PERSONAL FINANCE TRACK (TOP) -->
+                <div class="track-header">
+                    <span>💡 Personal Finance</span>
+                    <span style="font-size: 9px; opacity: 0.8;">Track 1</span>
+                </div>
 
-                <button class="accordion-header active" id="btn-mod-1" aria-expanded="true" aria-controls="module1-content" onclick="toggleAccordion('module1-content', this)">
+                <button class="accordion-header active" id="btn-mod-pf1" aria-expanded="true" aria-controls="module-pf1-content" onclick="toggleAccordion('module-pf1-content', this)">
+                    <span>PF Mod 1: Income & Taxes</span>
+                    <span class="accordion-arrow" aria-hidden="true">▶</span>
+                </button>
+                <div id="module-pf1-content" class="accordion-content open" role="region" aria-labelledby="btn-mod-pf1">
+                    <button class="nav-btn" id="nav-pf1.1" onclick="loadLessonContent('pf1.1')">
+                        <span>Lesson 1.1: Reading a Paystub</span>
+                        <span class="status-icon pending" id="status-nav-pf1.1" title="Pending">○</span>
+                    </button>
+                    <button class="nav-btn" id="nav-pf1.2" onclick="loadLessonContent('pf1.2')">
+                        <span>Lesson 1.2: Tax Basics</span>
+                        <span class="status-icon pending" id="status-nav-pf1.2" title="Pending">○</span>
+                    </button>
+                    <button class="nav-btn" id="nav-pf1.3" onclick="loadLessonContent('pf1.3')">
+                        <span>Lesson 1.3: Earning Potential</span>
+                        <span class="status-icon pending" id="status-nav-pf1.3" title="Pending">○</span>
+                    </button>
+                </div>
+
+                <button class="accordion-header" id="btn-mod-pf2" aria-expanded="false" aria-controls="module-pf2-content" onclick="toggleAccordion('module-pf2-content', this)">
+                    <span>PF Mod 2: Budget & Banking</span>
+                    <span class="accordion-arrow" aria-hidden="true">▶</span>
+                </button>
+                <div id="module-pf2-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf2">
+                    <button class="nav-btn" id="nav-pf2.1" onclick="loadLessonContent('pf2.1')">
+                        <span>Lesson 2.1: Banking Fundamentals</span>
+                        <span class="status-icon pending" id="status-nav-pf2.1" title="Pending">○</span>
+                    </button>
+                    <button class="nav-btn" id="nav-pf2.2" onclick="loadLessonContent('pf2.2')">
+                        <span>Lesson 2.2: Building a Budget</span>
+                        <span class="status-icon pending" id="status-nav-pf2.2" title="Pending">○</span>
+                    </button>
+                    <button class="nav-btn" id="nav-pf2.3" onclick="loadLessonContent('pf2.3')">
+                        <span>Lesson 2.3: Tracking & Mindset</span>
+                        <span class="status-icon pending" id="status-nav-pf2.3" title="Pending">○</span>
+                    </button>
+                </div>
+
+                <button class="accordion-header" id="btn-mod-pf3" aria-expanded="false" aria-controls="module-pf3-content" onclick="toggleAccordion('module-pf3-content', this)">
+                    <span>PF Mod 3: Debt & Credit</span>
+                    <span class="accordion-arrow" aria-hidden="true">▶</span>
+                </button>
+                <div id="module-pf3-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf3">
+                    <button class="nav-btn" id="nav-pf3.1" onclick="loadLessonContent('pf3.1')">
+                        <span>Lesson 3.1: Credit Scores 101</span>
+                        <span class="status-icon pending" id="status-nav-pf3.1" title="Pending">○</span>
+                    </button>
+                    <button class="nav-btn" id="nav-pf3.2" onclick="loadLessonContent('pf3.2')">
+                        <span>Lesson 3.2: Credit Cards</span>
+                        <span class="status-icon pending" id="status-nav-pf3.2" title="Pending">○</span>
+                    </button>
+                    <button class="nav-btn" id="nav-pf3.3" onclick="loadLessonContent('pf3.3')">
+                        <span>Lesson 3.3: Managing Loans</span>
+                        <span class="status-icon pending" id="status-nav-pf3.3" title="Pending">○</span>
+                    </button>
+                </div>
+
+                <!-- Shortened title here to ensure neat single-line rendering -->
+                <button class="accordion-header" id="btn-mod-pf4" aria-expanded="false" aria-controls="module-pf4-content" onclick="toggleAccordion('module-pf4-content', this)" title="PF Mod 4: Saving & Preparedness">
+                    <span>PF Mod 4: Savings & Goals</span>
+                    <span class="accordion-arrow" aria-hidden="true">▶</span>
+                </button>
+                <div id="module-pf4-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf4">
+                    <button class="nav-btn" id="nav-pf4.1" onclick="loadLessonContent('pf4.1')">
+                        <span>Lesson 4.1: Emergency Funds</span>
+                        <span class="status-icon pending" id="status-nav-pf4.1" title="Pending">○</span>
+                    </button>
+                    <button class="nav-btn" id="nav-pf4.2" onclick="loadLessonContent('pf4.2')">
+                        <span>Lesson 4.2: Goal-Based Saving</span>
+                        <span class="status-icon pending" id="status-nav-pf4.2" title="Pending">○</span>
+                    </button>
+                    <button class="nav-btn" id="nav-pf4.3" onclick="loadLessonContent('pf4.3')">
+                        <span>Lesson 4.3: Opportunity Cost</span>
+                        <span class="status-icon pending" id="status-nav-pf4.3" title="Pending">○</span>
+                    </button>
+                </div>
+
+                <button class="accordion-header" id="btn-mod-pf5" aria-expanded="false" aria-controls="module-pf5-content" onclick="toggleAccordion('module-pf5-content', this)">
+                    <span>PF Mod 5: Investing & Wealth</span>
+                    <span class="accordion-arrow" aria-hidden="true">▶</span>
+                </button>
+                <div id="module-pf5-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf5">
+                    <button class="nav-btn" id="nav-pf5.1" onclick="loadLessonContent('pf5.1')">
+                        <span>Lesson 5.1: Compound Growth</span>
+                        <span class="status-icon pending" id="status-nav-pf5.1" title="Pending">○</span>
+                    </button>
+                    <button class="nav-btn" id="nav-pf5.2" onclick="loadLessonContent('pf5.2')">
+                        <span>Lesson 5.2: Account Types</span>
+                        <span class="status-icon pending" id="status-nav-pf5.2" title="Pending">○</span>
+                    </button>
+                    <button class="nav-btn" id="nav-pf5.3" onclick="loadLessonContent('pf5.3')">
+                        <span>Lesson 5.3: Asset Allocation</span>
+                        <span class="status-icon pending" id="status-nav-pf5.3" title="Pending">○</span>
+                    </button>
+                </div>
+
+                <button class="accordion-header" id="btn-mod-pf6" aria-expanded="false" aria-controls="module-pf6-content" onclick="toggleAccordion('module-pf6-content', this)">
+                    <span>PF Mod 6: Protection & Life</span>
+                    <span class="accordion-arrow" aria-hidden="true">▶</span>
+                </button>
+                <div id="module-pf6-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf6">
+                    <button class="nav-btn" id="nav-pf6.1" onclick="loadLessonContent('pf6.1')">
+                        <span>Lesson 6.1: Insurance Basics</span>
+                        <span class="status-icon pending" id="status-nav-pf6.1" title="Pending">○</span>
+                    </button>
+                    <button class="nav-btn" id="nav-pf6.2" onclick="loadLessonContent('pf6.2')">
+                        <span>Lesson 6.2: Consumer Protection</span>
+                        <span class="status-icon pending" id="status-nav-pf6.2" title="Pending">○</span>
+                    </button>
+                    <button class="nav-btn" id="nav-pf6.3" onclick="loadLessonContent('pf6.3')">
+                        <span>Lesson 6.3: Big Life Decisions</span>
+                        <span class="status-icon pending" id="status-nav-pf6.3" title="Pending">○</span>
+                    </button>
+                </div>
+
+                <!-- ACCOUNTING TRACK (BOTTOM) WITH VISUAL INDICATOR -->
+                <div class="track-header" style="margin-top: 24px;">
+                    <span>📊 Accounting Track</span>
+                    <span style="font-size: 9px; opacity: 0.8;">Track 2 ↓</span>
+                </div>
+
+                <button class="accordion-header" id="btn-mod-1" aria-expanded="false" aria-controls="module1-content" onclick="toggleAccordion('module1-content', this)">
                     <span>Module 1: Accounting Basics</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
-                <div id="module1-content" class="accordion-content open" role="region" aria-labelledby="btn-mod-1">
+                <div id="module1-content" class="accordion-content" role="region" aria-labelledby="btn-mod-1">
                     <button class="nav-btn" id="nav-1.1" onclick="loadLessonContent('1.1')">
                         <span>Lesson 1.1: Introduction</span>
                         <span class="status-icon pending" id="status-nav-1.1" title="Pending">○</span>
@@ -383,11 +511,11 @@
                         <span class="status-icon pending" id="status-nav-1.3" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-1.4" onclick="loadLessonContent('1.4')">
-                        <span>Lesson 1.4: The Journal & Ledger</span>
+                        <span>Lesson 1.4: Journal & Ledger</span>
                         <span class="status-icon pending" id="status-nav-1.4" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-1.5" onclick="loadLessonContent('1.5')">
-                        <span>Lesson 1.5: The Trial Balance</span>
+                        <span>Lesson 1.5: Trial Balance</span>
                         <span class="status-icon pending" id="status-nav-1.5" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-1.6" onclick="loadLessonContent('1.6')">
@@ -397,20 +525,20 @@
                 </div>
 
                 <button class="accordion-header" id="btn-mod-2" aria-expanded="false" aria-controls="module2-content" onclick="toggleAccordion('module2-content', this)">
-                    <span>Module 2: Financial Statements</span>
+                    <span>Module 2: Statements</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module2-content" class="accordion-content" role="region" aria-labelledby="btn-mod-2">
                     <button class="nav-btn" id="nav-2.1" onclick="loadLessonContent('2.1')">
-                        <span>Lesson 2.1: Intro to Financial Statements</span>
+                        <span>Lesson 2.1: Financial Statements</span>
                         <span class="status-icon pending" id="status-nav-2.1" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-2.2" onclick="loadLessonContent('2.2')">
-                        <span>Lesson 2.2: The Income Statement</span>
+                        <span>Lesson 2.2: Income Statement</span>
                         <span class="status-icon pending" id="status-nav-2.2" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-2.3" onclick="loadLessonContent('2.3')">
-                        <span>Lesson 2.3: The Balance Sheet</span>
+                        <span>Lesson 2.3: Balance Sheet</span>
                         <span class="status-icon pending" id="status-nav-2.3" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-2.4" onclick="loadLessonContent('2.4')">
@@ -422,7 +550,7 @@
                         <span class="status-icon pending" id="status-nav-2.5" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-2.6" onclick="loadLessonContent('2.6')">
-                        <span>Lesson 2.6: Module 2 Capstone</span>
+                        <span>Lesson 2.6: Capstone</span>
                         <span class="status-icon pending" id="status-nav-2.6" title="Pending">○</span>
                     </button>
                 </div>
@@ -449,7 +577,7 @@
                         <span class="status-icon pending" id="status-nav-3.4" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-3.5" onclick="loadLessonContent('3.5')">
-                        <span>Lesson 3.5: Reading an Annual Report</span>
+                        <span>Lesson 3.5: Reading Reports</span>
                         <span class="status-icon pending" id="status-nav-3.5" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-3.6" onclick="loadLessonContent('3.6')">
@@ -472,7 +600,7 @@
                         <span class="status-icon pending" id="status-nav-4.2" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-4.3" onclick="loadLessonContent('4.3')">
-                        <span>Lesson 4.3: Receivables & Bad Debt</span>
+                        <span>Lesson 4.3: Receivables & Debt</span>
                         <span class="status-icon pending" id="status-nav-4.3" title="Pending">○</span>
                     </button>
                     <button class="nav-btn" id="nav-4.4" onclick="loadLessonContent('4.4')">
@@ -513,7 +641,7 @@
                 </div>
 
                 <button class="accordion-header" id="btn-mod-final" aria-expanded="false" aria-controls="module-final-content" onclick="toggleAccordion('module-final-content', this)">
-                    <span>Final Exam</span>
+                    <span>Accounting Final Exam</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-final-content" class="accordion-content" role="region" aria-labelledby="btn-mod-final">
@@ -522,126 +650,9 @@
                         <span class="status-icon pending" id="status-nav-final_exam" title="Pending">○</span>
                     </button>
                 </div>
-
-                <!-- PERSONAL FINANCE TRACK -->
-                <div class="track-header">💡 Personal Finance Track</div>
-
-                <button class="accordion-header" id="btn-mod-pf1" aria-expanded="false" aria-controls="module-pf1-content" onclick="toggleAccordion('module-pf1-content', this)">
-                    <span>PF Mod 1: Income & Taxes</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module-pf1-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf1">
-                    <button class="nav-btn" id="nav-pf1.1" onclick="loadLessonContent('pf1.1')">
-                        <span>Lesson 1.1: Reading a Paystub</span>
-                        <span class="status-icon pending" id="status-nav-pf1.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf1.2" onclick="loadLessonContent('pf1.2')">
-                        <span>Lesson 1.2: Tax Basics</span>
-                        <span class="status-icon pending" id="status-nav-pf1.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf1.3" onclick="loadLessonContent('pf1.3')">
-                        <span>Lesson 1.3: Career & Earning Potential</span>
-                        <span class="status-icon pending" id="status-nav-pf1.3" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-pf2" aria-expanded="false" aria-controls="module-pf2-content" onclick="toggleAccordion('module-pf2-content', this)">
-                    <span>PF Mod 2: Budgeting & Banking</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module-pf2-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf2">
-                    <button class="nav-btn" id="nav-pf2.1" onclick="loadLessonContent('pf2.1')">
-                        <span>Lesson 2.1: Banking Fundamentals</span>
-                        <span class="status-icon pending" id="status-nav-pf2.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf2.2" onclick="loadLessonContent('pf2.2')">
-                        <span>Lesson 2.2: Building a Budget</span>
-                        <span class="status-icon pending" id="status-nav-pf2.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf2.3" onclick="loadLessonContent('pf2.3')">
-                        <span>Lesson 2.3: Tracking & Mindset</span>
-                        <span class="status-icon pending" id="status-nav-pf2.3" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-pf3" aria-expanded="false" aria-controls="module-pf3-content" onclick="toggleAccordion('module-pf3-content', this)">
-                    <span>PF Mod 3: Debt & Credit</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module-pf3-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf3">
-                    <button class="nav-btn" id="nav-pf3.1" onclick="loadLessonContent('pf3.1')">
-                        <span>Lesson 3.1: Credit Scores 101</span>
-                        <span class="status-icon pending" id="status-nav-pf3.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf3.2" onclick="loadLessonContent('pf3.2')">
-                        <span>Lesson 3.2: Credit Cards</span>
-                        <span class="status-icon pending" id="status-nav-pf3.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf3.3" onclick="loadLessonContent('pf3.3')">
-                        <span>Lesson 3.3: Managing Loans</span>
-                        <span class="status-icon pending" id="status-nav-pf3.3" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-pf4" aria-expanded="false" aria-controls="module-pf4-content" onclick="toggleAccordion('module-pf4-content', this)">
-                    <span>PF Mod 4: Saving & Preparedness</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module-pf4-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf4">
-                    <button class="nav-btn" id="nav-pf4.1" onclick="loadLessonContent('pf4.1')">
-                        <span>Lesson 4.1: The Emergency Fund</span>
-                        <span class="status-icon pending" id="status-nav-pf4.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf4.2" onclick="loadLessonContent('pf4.2')">
-                        <span>Lesson 4.2: Goal-Based Saving</span>
-                        <span class="status-icon pending" id="status-nav-pf4.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf4.3" onclick="loadLessonContent('pf4.3')">
-                        <span>Lesson 4.3: Opportunity Cost</span>
-                        <span class="status-icon pending" id="status-nav-pf4.3" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-pf5" aria-expanded="false" aria-controls="module-pf5-content" onclick="toggleAccordion('module-pf5-content', this)">
-                    <span>PF Mod 5: Investing & Wealth</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module-pf5-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf5">
-                    <button class="nav-btn" id="nav-pf5.1" onclick="loadLessonContent('pf5.1')">
-                        <span>Lesson 5.1: Power of Compound Growth</span>
-                        <span class="status-icon pending" id="status-nav-pf5.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf5.2" onclick="loadLessonContent('pf5.2')">
-                        <span>Lesson 5.2: Account Types</span>
-                        <span class="status-icon pending" id="status-nav-pf5.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf5.3" onclick="loadLessonContent('pf5.3')">
-                        <span>Lesson 5.3: Asset Allocation</span>
-                        <span class="status-icon pending" id="status-nav-pf5.3" title="Pending">○</span>
-                    </button>
-                </div>
-
-                <button class="accordion-header" id="btn-mod-pf6" aria-expanded="false" aria-controls="module-pf6-content" onclick="toggleAccordion('module-pf6-content', this)">
-                    <span>PF Mod 6: Protection & Life</span>
-                    <span class="accordion-arrow" aria-hidden="true">▶</span>
-                </button>
-                <div id="module-pf6-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf6">
-                    <button class="nav-btn" id="nav-pf6.1" onclick="loadLessonContent('pf6.1')">
-                        <span>Lesson 6.1: Insurance Basics</span>
-                        <span class="status-icon pending" id="status-nav-pf6.1" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf6.2" onclick="loadLessonContent('pf6.2')">
-                        <span>Lesson 6.2: Consumer Protection</span>
-                        <span class="status-icon pending" id="status-nav-pf6.2" title="Pending">○</span>
-                    </button>
-                    <button class="nav-btn" id="nav-pf6.3" onclick="loadLessonContent('pf6.3')">
-                        <span>Lesson 6.3: Big Life Decisions</span>
-                        <span class="status-icon pending" id="status-nav-pf6.3" title="Pending">○</span>
-                    </button>
-                </div>
             </nav>
 
-            <div style="border-top: 1px solid var(--border-sidebar); padding-top: 16px;">
+            <div style="border-top: 1px solid var(--border-sidebar); padding-top: 14px;">
                 <button class="nav-btn" id="nav-notes" onclick="openNotesModal()">
                     <span style="display: flex; align-items: center; gap: 8px;">📝 My Study Notes</span>
                     <span id="notes-counter-badge" style="background: var(--primary); color: white; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px;">0</span>
@@ -650,7 +661,6 @@
         </aside>
 
         <main class="main-content" id="main-scroll-viewport" role="main">
-            
             <div class="top-utility-bar">
                 <div class="utility-group-left">
                     <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme">
@@ -691,7 +701,7 @@
         let completedLessons = JSON.parse(localStorage.getItem('mono_completed_lessons')) || [];
         let bookmarkedLessons = JSON.parse(localStorage.getItem('mono_bookmarked_lessons')) || [];
         let studyNotes = JSON.parse(localStorage.getItem('mono_study_notes')) || [];
-        let lastActiveLesson = localStorage.getItem('mono_last_active') || '1.1';
+        let lastActiveLesson = localStorage.getItem('mono_last_active') || 'pf1.1';
         let selectedQuoteText = ""; 
         let currentLessonId = null;
 
@@ -701,7 +711,32 @@
         let isTimerRunning = false;
 
         const curriculum = [
-            // --- ACCOUNTING TRACK ---
+            // --- PERSONAL FINANCE TRACK (FIRST) ---
+            { id: "pf1.1", module: "PF1", modName: "PF Module 1: Income & Taxes", name: "Lesson 1.1: Reading a Paystub", desc: "Understanding gross vs. net pay, FICA taxes, and common deductions." },
+            { id: "pf1.2", module: "PF1", modName: "PF Module 1: Income & Taxes", name: "Lesson 1.2: Tax Basics", desc: "Standard deductions, W-2 vs 1099, and tax brackets." },
+            { id: "pf1.3", module: "PF1", modName: "PF Module 1: Income & Taxes", name: "Lesson 1.3: Earning Potential", desc: "Salary vs hourly, negotiation basics, and high-demand skills." },
+
+            { id: "pf2.1", module: "PF2", modName: "PF Module 2: Cash Flow & Banking", name: "Lesson 2.1: Banking Fundamentals", desc: "Checking vs. savings, HYSAs, avoiding fees, and interest." },
+            { id: "pf2.2", module: "PF2", modName: "PF Module 2: Cash Flow & Banking", name: "Lesson 2.2: Building a Budget", desc: "Intro to 50/30/20 rule and zero-based budgeting." },
+            { id: "pf2.3", module: "PF2", modName: "PF Module 2: Cash Flow & Banking", name: "Lesson 2.3: Tracking & Mindset", desc: "Needs vs. wants, conscious spending, and overcoming impulse purchases." },
+
+            { id: "pf3.1", module: "PF3", modName: "PF Module 3: Debt & Credit", name: "Lesson 3.1: Credit Scores 101", desc: "FICO factors, renting/loans impact, and building credit safely." },
+            { id: "pf3.2", module: "PF3", modName: "PF Module 3: Debt & Credit", name: "Lesson 3.2: Credit Cards", desc: "Interest mechanics (APR), minimum payments, and grace periods." },
+            { id: "pf3.3", module: "PF3", modName: "PF Module 3: Debt & Credit", name: "Lesson 3.3: Managing Loans", desc: "Student & auto loans, compound interest, and Snowball vs. Avalanche strategies." },
+
+            { id: "pf4.1", module: "PF4", modName: "PF Module 4: Savings & Goals", name: "Lesson 4.1: Emergency Funds", desc: "Why 3–6 months of living expenses is essential and where to store it." },
+            { id: "pf4.2", module: "PF4", modName: "PF Module 4: Savings & Goals", name: "Lesson 4.2: Goal-Based Saving", desc: "Short-term vs. medium-term targets (buying a car, moving out, travel)." },
+            { id: "pf4.3", module: "PF4", modName: "PF Module 4: Savings & Goals", name: "Lesson 4.3: Opportunity Cost", desc: "Understanding the true cost of major life purchases." },
+
+            { id: "pf5.1", module: "PF5", modName: "PF Module 5: Investing & Wealth", name: "Lesson 5.1: Compound Growth", desc: "How time in the market multiplies small contributions over decades." },
+            { id: "pf5.2", module: "PF5", modName: "PF Module 5: Investing & Wealth", name: "Lesson 5.2: Account Types", desc: "Taxable brokerage, Roth IRA, Traditional IRA, and 401(k) matches." },
+            { id: "pf5.3", module: "PF5", modName: "PF Module 5: Investing & Wealth", name: "Lesson 5.3: Asset Allocation", desc: "Index funds, ETFs, stocks, bonds, diversification, and risk tolerance." },
+
+            { id: "pf6.1", module: "PF6", modName: "PF Module 6: Protection & Life", name: "Lesson 6.1: Insurance Basics", desc: "Overview of health, auto, renter's/homeowner's, and disability insurance." },
+            { id: "pf6.2", module: "PF6", modName: "PF Module 6: Protection & Life", name: "Lesson 6.2: Consumer Protection", desc: "Identifying scams, identity theft prevention, and online security." },
+            { id: "pf6.3", module: "PF6", modName: "PF Module 6: Protection & Life", name: "Lesson 6.3: Big Life Decisions", desc: "Financial reality of renting, buying vs leasing cars, and independent life systems." },
+
+            // --- ACCOUNTING TRACK (SECOND) ---
             { id: "1.1", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.1: Introduction", desc: "Foundational concepts and basic accounting principles." },
             { id: "1.2", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.2: The Accounting Equation", desc: "Assets, Liabilities, and Owner's Equity." },
             { id: "1.3", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.3: T-Accounts System", desc: "Visualize debits and credits clearly." },
@@ -735,32 +770,7 @@
             { id: "5.4", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.4: Revenue Recognition", desc: "IFRS vs. US GAAP standards." },
             { id: "5.5", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.5: Forensic Accounting", desc: "Data investigation and auditing internal controls." },
             
-            { id: "final_exam", module: 6, modName: "Final Exam", name: "Final Examination", desc: "Comprehensive exam covering all topics." },
-
-            // --- PERSONAL FINANCE TRACK ---
-            { id: "pf1.1", module: "PF1", modName: "PF Module 1: Income & Taxes", name: "Lesson 1.1: Reading a Paystub", desc: "Understanding gross vs. net pay, FICA taxes, and common deductions." },
-            { id: "pf1.2", module: "PF1", modName: "PF Module 1: Income & Taxes", name: "Lesson 1.2: Tax Basics", desc: "Standard deductions, W-2 vs 1099, and tax brackets." },
-            { id: "pf1.3", module: "PF1", modName: "PF Module 1: Income & Taxes", name: "Lesson 1.3: Career & Earning Potential", desc: "Salary vs hourly, negotiation basics, and high-demand skills." },
-
-            { id: "pf2.1", module: "PF2", modName: "PF Module 2: Cash Flow & Banking", name: "Lesson 2.1: Banking Fundamentals", desc: "Checking vs. savings, HYSAs, avoiding fees, and interest." },
-            { id: "pf2.2", module: "PF2", modName: "PF Module 2: Cash Flow & Banking", name: "Lesson 2.2: Building a Budget", desc: "Intro to 50/30/20 rule and zero-based budgeting." },
-            { id: "pf2.3", module: "PF2", modName: "PF Module 2: Cash Flow & Banking", name: "Lesson 2.3: Tracking & Mindset", desc: "Needs vs. wants, conscious spending, and overcoming impulse purchases." },
-
-            { id: "pf3.1", module: "PF3", modName: "PF Module 3: Debt & Credit", name: "Lesson 3.1: Credit Scores 101", desc: "FICO factors, renting/loans impact, and building credit safely." },
-            { id: "pf3.2", module: "PF3", modName: "PF Module 3: Debt & Credit", name: "Lesson 3.2: Credit Cards", desc: "Interest mechanics (APR), minimum payments, and grace periods." },
-            { id: "pf3.3", module: "PF3", modName: "PF Module 3: Debt & Credit", name: "Lesson 3.3: Managing Loans", desc: "Student & auto loans, compound interest, and Snowball vs. Avalanche strategies." },
-
-            { id: "pf4.1", module: "PF4", modName: "PF Module 4: Saving & Preparedness", name: "Lesson 4.1: The Emergency Fund", desc: "Why 3–6 months of living expenses is essential and where to store it." },
-            { id: "pf4.2", module: "PF4", modName: "PF Module 4: Saving & Preparedness", name: "Lesson 4.2: Goal-Based Saving", desc: "Short-term vs. medium-term targets (buying a car, moving out, travel)." },
-            { id: "pf4.3", module: "PF4", modName: "PF Module 4: Saving & Preparedness", name: "Lesson 4.3: Opportunity Cost", desc: "Understanding the true cost of major life purchases." },
-
-            { id: "pf5.1", module: "PF5", modName: "PF Module 5: Investing & Wealth", name: "Lesson 5.1: Power of Compound Growth", desc: "How time in the market multiplies small contributions over decades." },
-            { id: "pf5.2", module: "PF5", modName: "PF Module 5: Investing & Wealth", name: "Lesson 5.2: Account Types", desc: "Taxable brokerage, Roth IRA, Traditional IRA, and 401(k) matches." },
-            { id: "pf5.3", module: "PF5", modName: "PF Module 5: Investing & Wealth", name: "Lesson 5.3: Asset Allocation", desc: "Index funds, ETFs, stocks, bonds, diversification, and risk tolerance." },
-
-            { id: "pf6.1", module: "PF6", modName: "PF Module 6: Protection & Life", name: "Lesson 6.1: Insurance Basics", desc: "Overview of health, auto, renter's/homeowner's, and disability insurance." },
-            { id: "pf6.2", module: "PF6", modName: "PF Module 6: Protection & Life", name: "Lesson 6.2: Consumer Protection", desc: "Identifying scams, identity theft prevention, and online security." },
-            { id: "pf6.3", module: "PF6", modName: "PF Module 6: Protection & Life", name: "Lesson 6.3: Big Life Decisions", desc: "Financial reality of renting, buying vs leasing cars, and independent life systems." }
+            { id: "final_exam", module: 6, modName: "Final Exam", name: "Final Examination", desc: "Comprehensive exam covering all topics." }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -803,7 +813,7 @@
                 const yesterday = new Date();
                 yesterday.setDate(yesterday.getDate() - 1);
                 if (lastActiveDate !== yesterday.toDateString()) {
-                    streak = 1; // Streak reset
+                    streak = 1;
                 }
             }
             localStorage.setItem('mono_last_active_date', today);
@@ -907,10 +917,8 @@
             const query = document.getElementById('lesson-search').value.trim().toLowerCase();
             const filter = document.getElementById('status-filter').value;
 
-            // Track which modules have matching lessons
             const activeModules = new Set();
 
-            // 1. Sidebar live filtering
             curriculum.forEach(lesson => {
                 const btn = document.getElementById(`nav-${lesson.id}`);
                 if (btn) {
@@ -924,7 +932,6 @@
                 }
             });
 
-            // Auto-expand accordions that contain search results if search query exists
             if (query.length > 0) {
                 ['1', '2', '3', '4', '5', '6', 'PF1', 'PF2', 'PF3', 'PF4', 'PF5', 'PF6'].forEach(modId => {
                     let contentId = `module${modId}-content`;
@@ -955,7 +962,6 @@
                 });
             }
 
-            // 2. If currently viewing Dashboard, update dashboard cards live
             if (currentLessonId === null) {
                 renderDashboardContent(query, filter);
             }
@@ -1006,7 +1012,6 @@
             }
             localStorage.setItem('mono_bookmarked_lessons', JSON.stringify(bookmarkedLessons));
             
-            // Re-render dashboard or update current UI
             if (currentLessonId === null) {
                 handleSearchAndFilter();
             } else {
@@ -1046,7 +1051,6 @@
             const completedCount = completedLessons.length;
             const progressPercent = Math.round((completedCount / totalCount) * 100);
 
-            // Determine primary CTA next lesson target
             const nextLesson = curriculum.find(l => !completedLessons.includes(l.id)) || curriculum[0];
 
             const modulesMap = {};
@@ -1078,7 +1082,6 @@
             } else {
                 Object.keys(modulesMap).forEach(modId => {
                     const mod = modulesMap[modId];
-                    // Calculate per-module progress
                     const allModLessons = curriculum.filter(l => l.module == modId);
                     const completedModLessons = allModLessons.filter(l => completedLessons.includes(l.id));
                     const modPercent = Math.round((completedModLessons.length / allModLessons.length) * 100);
@@ -1176,7 +1179,6 @@
             document.getElementById("main-scroll-viewport").scrollTop = 0;
             const container = document.getElementById("workbook-content-area");
             
-            // Map file names dynamically (e.g., pf1.1 -> LessonPF1_1.html, 1.1 -> Lesson1_1.html)
             let fileName;
             if (lessonId === "final_exam") {
                 fileName = `lessons/final_exam.html?t=${Date.now()}`;
@@ -1198,7 +1200,7 @@
                     
                     const lessonHeaderBar = `
                         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 12px;">
-                            <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">${lessonId.startsWith('pf') ? 'Personal Finance' : 'Accounting'}</span>
+                            <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">${lessonId.startsWith('pf') ? 'Personal Finance Track' : 'Accounting Track'}</span>
                             <button class="bookmark-btn" id="bookmark-btn-${lessonId}" onclick="toggleBookmark('${lessonId}', event)" title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark Lesson'}">
                                 ${isBookmarked ? '⭐ Bookmarked' : '☆ Bookmark Lesson'}
                             </button>
