@@ -1,56 +1,60 @@
-<div class="lesson-container">
-  <div class="track-badge">PERSONAL FINANCE TRACK</div>
-  <h1 class="lesson-title">Lesson 1.1: Reading a Paystub</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Personal Finance - Coming Soon</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  <!-- Announcement Banner -->
-  <div class="announcement-banner">
-    <p>Personal Finance lessons coming soon! Explore Accounting while you wait!</p>
-  </div>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-  <!-- Paystub Card -->
-  <div class="paystub-card">
-    <header class="paystub-header">
-      <div>
-        <strong>Acme Corp LLC</strong><br>
-        <span class="text-muted">Pay Period: 01/01/2026 – 01/15/2026</span>
-      </div>
-      <div>
-        <strong>Employee:</strong> Alex Morgan
-      </div>
-    </header>
+    .announcement-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 40px 32px;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+    }
 
-    <div class="paystub-grid">
-      <!-- Earnings -->
-      <div class="paystub-section">
-        <h3>Earnings</h3>
-        <p><span>Gross Pay:</span> <strong>$2,000.00</strong></p>
-      </div>
+    .announcement-card h1 {
+      color: #1e3a8a;
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
 
-      <!-- Taxes & Withholdings -->
-      <div class="paystub-section">
-        <h3>Taxes & Withholdings</h3>
-        <p><span>Fed Income Tax:</span> <span>$240.00</span></p>
-        <p><span>FICA:</span> <span>$153.00</span></p>
-      </div>
+    .announcement-card p {
+      color: #475569;
+      font-size: 1.1rem;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
 
-      <!-- Pre-Tax Deductions -->
-      <div class="paystub-section">
-        <h3>Pre-Tax Deductions</h3>
-        <p><span>401(k):</span> <span>$100.00</span></p>
-        <p><span>Health:</span> <span>$50.00</span></p>
-      </div>
-    </div>
+  <main class="announcement-card">
+    <h1>Personal Finance lessons coming soon!</h1>
+    <p>Explore Accounting while you wait!</p>
+  </main>
 
-    <!-- Summary / Net Pay -->
-    <div class="paystub-summary">
-      <h3>Summary</h3>
-      <p class="net-pay"><span>Net Pay:</span> <strong>$1,457.00</strong></p>
-    </div>
-  </div>
-
-  <!-- Lesson Action -->
-  <div class="lesson-footer">
-    <span>Finished reading? Mark this lesson as complete:</span>
-    <button class="btn-complete">Complete & Continue →</button>
-  </div>
-</div>
+</body>
+</html>
