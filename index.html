@@ -90,14 +90,14 @@
 
         .sidebar-header { margin-bottom: 20px; width: 100%; }
         .sidebar-brand-wrapper {
-            display: flex; align-items: center; gap: 10px; width: 100%; cursor: pointer; padding: 4px;
+            display: flex; align-items: center; gap: 12px; width: 100%; cursor: pointer; padding: 4px;
         }
         .sidebar-logo-icon {
-            width: 32px; height: 32px; background: linear-gradient(135deg, var(--primary), var(--primary-hover));
-            border-radius: 8px; display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: 800; font-size: 16px; box-shadow: var(--shadow-sm); flex-shrink: 0;
+            width: 38px; height: 38px; background: linear-gradient(135deg, var(--primary), var(--primary-hover));
+            border-radius: 10px; display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 800; font-size: 20px; box-shadow: var(--shadow-sm); flex-shrink: 0;
         }
-        .sidebar-brand { margin: 0; font-size: 18px; color: var(--text-main); letter-spacing: -0.02em; font-weight: 800; }
+        .sidebar-brand { margin: 0; font-size: 21px; color: var(--text-main); letter-spacing: -0.02em; font-weight: 800; line-height: 1.1; }
         .sidebar-brand span { color: var(--text-brand); }
 
         .sidebar-track-label {
@@ -142,8 +142,18 @@
             background: var(--bg-card); padding: 36px; border-radius: 16px; 
             box-shadow: var(--shadow-md); max-width: 1000px; margin: 0 auto; 
             min-height: 420px; position: relative; border: 1px solid var(--border-subtle);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: var(--text-main); line-height: 1.6;
         }
         
+        /* Ensure clean typographic scaling inside injected lesson content */
+        .workbook-viewport h1, .workbook-viewport h2, .workbook-viewport h3 {
+            font-family: inherit; color: var(--text-main); letter-spacing: -0.01em;
+        }
+        .workbook-viewport p, .workbook-viewport li {
+            font-family: inherit; font-size: 15px; color: var(--text-main);
+        }
+
         .nav-btn { 
             display: flex; align-items: center; justify-content: space-between; 
             width: 100%; text-align: left; background: transparent; border: none; 
@@ -355,11 +365,11 @@
 
                 <span class="sidebar-track-label">Personal Finance</span>
 
-                <button class="accordion-header active" id="btn-mod-pf1" aria-expanded="true" aria-controls="module-pf1-content" onclick="toggleAccordion('module-pf1-content', this)">
+                <button class="accordion-header" id="btn-mod-pf1" aria-expanded="false" aria-controls="module-pf1-content" onclick="toggleAccordion('module-pf1-content', this)">
                     <span>Income & Taxes</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
-                <div id="module-pf1-content" class="accordion-content open" role="region" aria-labelledby="btn-mod-pf1">
+                <div id="module-pf1-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf1">
                     <button class="nav-btn" id="nav-pf1.1" onclick="loadLessonContent('pf1.1')">
                         <span>Lesson 1.1: Reading a Paystub</span>
                         <span class="status-icon pending" id="status-nav-pf1.1" title="Pending">○</span>
