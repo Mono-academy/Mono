@@ -103,6 +103,10 @@
       user-select: none;
     }
 
+    .click-target * {
+      pointer-events: none;
+    }
+
     .click-target.active-step {
       cursor: pointer !important;
       border-color: var(--accent);
@@ -241,6 +245,26 @@
       font-weight: bold;
       color: var(--text-muted);
     }
+
+    .coming-soon-card {
+      background-color: var(--accent-light);
+      border: 2px dashed var(--accent);
+      border-radius: 8px;
+      padding: 28px;
+      text-align: center;
+      margin-top: 24px;
+      display: none;
+    }
+
+    .coming-soon-card h3 {
+      margin: 0 0 8px 0;
+      color: var(--accent);
+    }
+
+    .coming-soon-card p {
+      margin: 0;
+      color: var(--text-muted);
+    }
   </style>
 </head>
 <body>
@@ -330,7 +354,12 @@
         </div>
       </div>
     </div>
-    <div id="quiz-status" style="font-weight: bold; color: var(--success);"></div>
+    <div id="quiz-status" style="font-weight: bold; color: var(--success); margin-bottom: 12px;"></div>
+
+    <div id="coming-soon-card" class="coming-soon-card">
+      <h3>🚀 Lesson 1.2: Advanced Tax Deductions</h3>
+      <p>Coming Soon!</p>
+    </div>
   </div>
 </div>
 
@@ -440,6 +469,7 @@
 
       if (correctMatches === 3) {
         document.getElementById('quiz-status').innerText = "\u2713 Quiz Complete: All terms matched!";
+        document.getElementById('coming-soon-card').style.display = 'block';
       }
     } else {
       alert("Incorrect match. Select a different definition!");
