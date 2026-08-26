@@ -3,7 +3,7 @@
 <head>
     <script defer src="https://cloud.umami.is/script.js" data-website-id="a47aee67-fdaa-4e03-a77c-7f99e9477d92"></script>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mono Academy - Modern Personal Finance & Accounting Education</title>
     <!-- Importing Inter font for a refined, premium feel -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -81,28 +81,15 @@
             transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* Base Dashboard layout for desktops */
-        .dashboard-container { 
-            display: flex; 
-            height: 100vh; 
-            width: 100vw; 
-            overflow: hidden; 
-            position: relative;
-        }
+        .dashboard-container { display: flex; height: 100vh; width: 100vw; overflow: hidden; }
         
-        /* Responsive Sidebar for Desktops and Mobile */
+        /* Sidebar Styling */
         .sidebar { 
-            width: 300px; 
-            background: var(--bg-sidebar); 
-            color: var(--text-main); 
-            padding: 20px 16px; 
-            box-sizing: border-box; 
-            display: flex; 
-            flex-direction: column; 
-            height: 100vh; 
-            flex-shrink: 0;
+            width: 300px; background: var(--bg-sidebar); color: var(--text-main); 
+            padding: 20px 16px; box-sizing: border-box; display: flex; 
+            flex-direction: column; height: 100vh; flex-shrink: 0;
             border-right: 1px solid var(--border-sidebar);
-            transition: transform 0.3s ease, background 0.3s ease;
+            transition: background 0.3s ease;
         }
 
         .sidebar-header { margin-bottom: 20px; width: 100%; }
@@ -153,13 +140,8 @@
         }
 
         .main-content { 
-            flex: 1; 
-            padding: 32px; 
-            overflow-y: auto; 
-            background: var(--bg-main); 
-            height: 100vh; 
-            box-sizing: border-box; 
-            transition: background 0.3s ease;
+            flex: 1; padding: 32px; overflow-y: auto; background: var(--bg-main); 
+            height: 100vh; box-sizing: border-box; transition: background 0.3s ease;
         }
         
         .workbook-viewport { 
@@ -216,24 +198,12 @@
         .dashboard-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
         }
+        @media (max-width: 768px) { .dashboard-grid { grid-template-columns: 1fr; } }
 
         .top-utility-bar {
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
         }
         .utility-group-left, .utility-group-right { display: flex; align-items: center; gap: 10px; }
-
-        /* Mobile Menu Toggle - Hidden by default on desktop */
-        .mobile-menu-toggle {
-            display: none;
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 13px;
-            font-weight: 600;
-            cursor: pointer;
-        }
 
         .theme-toggle-btn, .timer-trigger-btn {
             background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);
@@ -329,56 +299,6 @@
         }
         .empty-search-state h3 { margin: 10px 0 6px 0; font-size: 18px; }
         .empty-search-state p { color: var(--text-muted); font-size: 13px; margin: 0; }
-
-        /* Mobile & Tablet Breakpoint (Screens under 768px) */
-        @media (max-width: 768px) {
-            html, body {
-                overflow: auto; /* Allow natural body scroll on mobile */
-            }
-
-            .dashboard-container {
-                flex-direction: column;
-                height: auto;
-                min-height: 100vh;
-                overflow: visible;
-            }
-
-            .sidebar {
-                position: fixed;
-                top: 0;
-                left: 0;
-                height: 100vh;
-                z-index: 1005;
-                transform: translateX(-100%); /* Hide sidebar off-screen by default */
-                width: 280px;
-                box-shadow: var(--shadow-lg);
-            }
-
-            .sidebar.mobile-open {
-                transform: translateX(0); /* Slide in when toggled */
-            }
-
-            .main-content {
-                height: auto;
-                padding: 16px;
-                overflow-y: visible;
-            }
-
-            .mobile-menu-toggle {
-                display: flex;
-                align-items: center;
-                gap: 6px;
-            }
-
-            .workbook-viewport {
-                padding: 20px;
-                min-height: auto;
-            }
-
-            .dashboard-grid {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
@@ -742,9 +662,6 @@
         <main class="main-content" id="main-scroll-viewport" role="main">
             <div class="top-utility-bar">
                 <div class="utility-group-left">
-                    <button class="mobile-menu-toggle" onclick="toggleMobileSidebar()" aria-label="Toggle Menu">
-                        ☰ Menu
-                    </button>
                     <button class="theme-toggle-btn" onclick="toggleTheme()" aria-label="Toggle Light and Dark Theme">
                         <span id="theme-toggle-icon">🌙</span> <span id="theme-toggle-label">Dark Mode</span>
                     </button>
@@ -859,21 +776,6 @@
             updateNotesBadge();
             initHighlightListener();
             updateGamificationStats();
-        });
-
-        // Mobile Sidebar Toggle Function
-        function toggleMobileSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            sidebar.classList.toggle('mobile-open');
-        }
-
-        // Close Mobile Sidebar when a link is clicked
-        document.querySelectorAll('.sidebar-menu .nav-btn, .sidebar-brand-wrapper').forEach(element => {
-            element.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    document.querySelector('.sidebar').classList.remove('mobile-open');
-                }
-            });
         });
 
         function initTheme() {
@@ -1052,369 +954,338 @@
             return text.replace(regex, '<mark class="search-highlight">$1</mark>');
         }
 
-        function toggleAccordion(contentId, headerElement) {
-            const content = document.getElementById(contentId);
-            const isOpen = content.classList.contains('open');
-
-            document.querySelectorAll('.accordion-content').forEach(c => {
-                c.classList.remove('open');
-                c.previousElementSibling.setAttribute('aria-expanded', 'false');
-                c.previousElementSibling.classList.remove('active');
-            });
-
-            if (!isOpen) {
-                content.classList.add('open');
-                headerElement.setAttribute('aria-expanded', 'true');
-                headerElement.classList.add('active');
-            }
+        function toggleAccordion(id, btn) {
+            const panel = document.getElementById(id);
+            const isOpen = panel.classList.contains('open');
+            btn.classList.toggle('active');
+            btn.setAttribute('aria-expanded', !isOpen);
+            panel.classList.toggle('open');
         }
 
-        function setActiveNav(id) {
-            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
-            if (id === 'dashboard') {
-                document.getElementById('dashboard-nav-btn').classList.add('active');
+        function updateNotesBadge() {
+            const badge = document.getElementById("notes-counter-badge");
+            if (badge) { badge.textContent = studyNotes.length; }
+        }
+
+        function toggleBookmark(lessonId, event) {
+            if (event) event.stopPropagation();
+            if (bookmarkedLessons.includes(lessonId)) {
+                bookmarkedLessons = bookmarkedLessons.filter(id => id !== lessonId);
             } else {
-                const navItem = document.getElementById(`nav-${id}`);
-                if (navItem) navItem.classList.add('active');
+                bookmarkedLessons.push(lessonId);
             }
-            if (window.innerWidth <= 768) {
-                document.querySelector('.sidebar').classList.remove('mobile-open');
+            localStorage.setItem('mono_bookmarked_lessons', JSON.stringify(bookmarkedLessons));
+            
+            if (currentLessonId === null) { handleSearchAndFilter(); }
+            else { updateBookmarkButtonUI(lessonId); }
+        }
+
+        function updateBookmarkButtonUI(lessonId) {
+            const btn = document.getElementById(`bookmark-btn-${lessonId}`);
+            if (btn) {
+                const isBookmarked = bookmarkedLessons.includes(lessonId);
+                btn.textContent = isBookmarked ? "⭐" : "☆";
+                btn.title = isBookmarked ? "Remove Bookmark" : "Bookmark Lesson";
             }
         }
 
         function loadDashboard() {
             currentLessonId = null;
-            setActiveNav('dashboard');
-            document.getElementById('lesson-search').value = '';
-            document.getElementById('status-filter').value = 'all';
-            handleSearchAndFilter();
+            if (window.umami) { window.umami.track((props) => ({ ...props, url: '/dashboard', title: 'Dashboard' })); }
+
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('dashboard-nav-btn').classList.add('active');
+            document.getElementById("main-scroll-viewport").scrollTop = 0;
+
+            const query = document.getElementById('lesson-search').value.trim().toLowerCase();
+            const filter = document.getElementById('status-filter').value;
+            renderDashboardContent(query, filter);
         }
 
-        function renderDashboardContent(searchQuery = '', filter = 'all') {
-            const mainContent = document.getElementById('workbook-content-area');
+        function renderDashboardContent(query = "", filter = "all") {
+            const container = document.getElementById("workbook-content-area");
             const totalCount = curriculum.length;
             const completedCount = completedLessons.length;
-            const progressPercent = totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
+            const progressPercent = Math.round((completedCount / totalCount) * 100);
+            const nextLesson = curriculum.find(l => !completedLessons.includes(l.id)) || curriculum[0];
 
-            let html = `
-                <h1 style="font-size: 28px; font-weight: 800; margin-bottom: 8px;">Academy Overview</h1>
-                <p style="color: var(--text-muted); font-size: 15px; margin-bottom: 24px;">Welcome back. Resume your learning or explore topics.</p>
-                
-                <div style="background: var(--bg-card-subtle); padding: 20px; border-radius: 16px; border: 1px solid var(--border-subtle); margin-bottom: 32px;">
-                    <div style="display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; color: var(--text-muted);">
-                        <span>Overall Progress</span>
-                        <span style="color: var(--primary);">${progressPercent}%</span>
-                    </div>
-                    <div class="mod-progress-container" style="height: 10px; margin-bottom: 0;">
-                        <div class="mod-progress-fill" style="width: ${progressPercent}%;"></div>
-                    </div>
-                    <div style="font-size: 12px; color: var(--text-muted); margin-top: 8px; text-align: right;">${completedCount} of ${totalCount} Lessons Complete</div>
-                </div>
+            const pfModulesMap = {};
+            const acctModulesMap = {};
+            let totalMatchingLessons = 0;
 
-                <div class="dashboard-grid">
-            `;
-
-            let hasResults = false;
             curriculum.forEach(lesson => {
-                const matchesSearch = !searchQuery || lesson.name.toLowerCase().includes(searchQuery) || lesson.desc.toLowerCase().includes(searchQuery);
+                const matchesSearch = !query || lesson.name.toLowerCase().includes(query) || lesson.desc.toLowerCase().includes(query);
                 const matchesFilter = checkStatusFilter(lesson, filter);
 
                 if (matchesSearch && matchesFilter) {
-                    hasResults = true;
-                    const isComp = completedLessons.includes(lesson.id);
-                    const isBookmark = bookmarkedLessons.includes(lesson.id);
-                    
-                    let statusLabel = `<span style="font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: var(--status-pending-bg); color: var(--status-pending-text);">Pending</span>`;
-                    if (isComp) {
-                        statusLabel = `<span style="font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: var(--status-success-bg); color: var(--status-success-text);">Completed</span>`;
+                    totalMatchingLessons++;
+                    const targetMap = lesson.track === 'pf' ? pfModulesMap : acctModulesMap;
+                    if (!targetMap[lesson.module]) {
+                        targetMap[lesson.module] = { title: lesson.modName, lessons: [] };
                     }
-                    if (isBookmark) {
-                        statusLabel += ` <span style="font-size: 11px; font-weight: 700; padding: 4px 8px; border-radius: 6px; background: var(--status-bookmark-bg); color: var(--status-bookmark-text);">⭐ Saved</span>`;
-                    }
-
-                    const hlName = highlightMatch(lesson.name, searchQuery);
-                    const hlDesc = highlightMatch(lesson.desc, searchQuery);
-                    const trackBadgeColor = lesson.track === 'pf' ? '#10b981' : '#8b5cf6';
-                    const trackBadgeLabel = lesson.track === 'pf' ? 'Pers. Finance' : 'Accounting';
-
-                    html += `
-                        <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 24px; cursor: pointer; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'; this.style.transform='translateY(-2px)';" onmouseout="this.style.borderColor='var(--border-color)'; this.style.transform='translateY(0)';" onclick="loadLessonContent('${lesson.id}')">
-                            <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
-                                <div>
-                                    <span style="font-size: 10px; font-weight: 800; background: ${trackBadgeColor}; color: white; padding: 3px 8px; border-radius: 99px; text-transform: uppercase;">${trackBadgeLabel}</span>
-                                </div>
-                                ${statusLabel}
-                            </div>
-                            <h3 style="margin: 0 0 8px 0; font-size: 16px; font-weight: 700;">${hlName}</h3>
-                            <p style="margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.5;">${hlDesc}</p>
-                        </div>
-                    `;
+                    targetMap[lesson.module].lessons.push(lesson);
                 }
             });
 
-            if (!hasResults) {
-                html += `<div class="empty-search-state">
-                    <h3>No lessons found</h3>
-                    <p>Try adjusting your search or filters.</p>
-                </div>`;
+            function renderModuleColumn(modulesMap) {
+                let html = '';
+                Object.keys(modulesMap).forEach(modId => {
+                    const mod = modulesMap[modId];
+                    const allModLessons = curriculum.filter(l => l.module == modId);
+                    const completedModLessons = allModLessons.filter(l => completedLessons.includes(l.id));
+                    const modPercent = Math.round((completedModLessons.length / allModLessons.length) * 100);
+
+                    html += `
+                        <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 20px; margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="font-size: 13px; font-weight: 800; color: var(--text-brand);">${mod.title}</div>
+                                <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);">${modPercent}%</span>
+                            </div>
+                            <div class="mod-progress-container">
+                                <div class="mod-progress-fill" style="width: ${modPercent}%;"></div>
+                            </div>
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                    `;
+
+                    mod.lessons.forEach(lesson => {
+                        const isCompleted = completedLessons.includes(lesson.id);
+                        const isBookmarked = bookmarkedLessons.includes(lesson.id);
+                        const isCurrent = lesson.id === lastActiveLesson;
+                        let statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--status-pending-bg); color: var(--status-pending-text);">Pending</span>`;
+                        
+                        if (isCompleted) {
+                            statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--status-success-bg); color: var(--status-success-text);">✓</span>`;
+                        } else if (isCurrent) {
+                            statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--primary-light); color: var(--primary);">In Progress</span>`;
+                        }
+
+                        const highlightedTitle = highlightMatch(lesson.name, query);
+
+                        html += `
+                            <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 12px 14px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                        ${statusTag}
+                                        <button class="bookmark-btn" id="bookmark-btn-${lesson.id}" onclick="toggleBookmark('${lesson.id}', event)" title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark Lesson'}">
+                                            ${isBookmarked ? '⭐' : '☆'}
+                                        </button>
+                                        <span style="font-size: 13px; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${highlightedTitle}</span>
+                                    </div>
+                                </div>
+                                <button onclick="loadLessonContent('${lesson.id}')" style="background: var(--text-main); color: var(--bg-card); border: none; padding: 6px 12px; font-size: 11px; font-weight: 700; border-radius: 8px; cursor: pointer; flex-shrink: 0;" aria-label="Open ${lesson.name}">
+                                    ${isCompleted ? 'Review' : 'Start'}
+                                </button>
+                            </div>
+                        `;
+                    });
+                    html += `</div></div>`;
+                });
+                return html;
             }
 
-            html += `</div>`;
-            mainContent.innerHTML = html;
-        }
-
-        function loadLessonContent(id) {
-            currentLessonId = id;
-            lastActiveLesson = id;
-            localStorage.setItem('mono_last_active', id);
-            
-            const lesson = curriculum.find(l => l.id === id);
-            if (!lesson) return;
-
-            setActiveNav(id);
-            const isCompleted = completedLessons.includes(id);
-            const isBookmarked = bookmarkedLessons.includes(id);
-
-            let contentId = `module${lesson.module}-content`;
-            if (lesson.track === 'pf') contentId = `module-${lesson.module.toLowerCase()}-content`;
-            if (id === 'final_exam') contentId = `module-final-content`;
-            
-            const contentEl = document.getElementById(contentId);
-            if (contentEl && !contentEl.classList.contains('open')) {
-                toggleAccordion(contentId, contentEl.previousElementSibling);
-            }
-
-            const mainContent = document.getElementById('workbook-content-area');
-            const modLabel = lesson.track === 'pf' ? 'Personal Finance' : 'Accounting';
-
-            let html = `
-                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px;">
-                    <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--primary);">
-                        ${modLabel} Module ${lesson.module}: ${lesson.modName}
+            let modulesContentHtml = '';
+            if (totalMatchingLessons === 0) {
+                modulesContentHtml = `
+                    <div class="empty-search-state">
+                        <span style="font-size: 32px;">🔍</span>
+                        <h3>No lessons found</h3>
+                        <p>We couldn't find any lessons matching "${query}". Try adjusting your filters or search keywords.</p>
                     </div>
-                    <button class="bookmark-btn" onclick="toggleBookmark('${id}')" title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark Lesson'}">
-                        ${isBookmarked ? '⭐' : '☆'}
-                    </button>
-                </div>
+                `;
+            } else {
+                modulesContentHtml = `
+                    <div class="dashboard-grid">
+                        <div>
+                            <h3 style="margin: 0 0 16px 4px; font-size: 16px; font-weight: 800; color: var(--primary);">Personal Finance</h3>
+                            ${renderModuleColumn(pfModulesMap)}
+                        </div>
+                        <div>
+                            <h3 style="margin: 0 0 16px 4px; font-size: 16px; font-weight: 800; color: var(--primary);">Accounting</h3>
+                            ${renderModuleColumn(acctModulesMap)}
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: var(--text-main);">Dashboard</h1>
+                <p style="color: var(--text-muted); margin-top: 0; margin-bottom: 24px;">Track your learning progress and resume your learning path.</p>
                 
-                <h1 style="margin-top: 0; font-size: 32px; font-weight: 800; line-height: 1.2;">${lesson.name}</h1>
-                <p style="font-size: 16px; color: var(--text-muted); border-left: 3px solid var(--border-color); padding-left: 14px; font-style: italic;">
-                    Select any text while reading to add a personal study note.
-                </p>
-
-                <div class="lesson-body-content" style="margin-top: 32px;">
-            `;
-
-            if (lesson.track === 'pf') {
-                html += `
-                    <h2>Core Concepts</h2>
-                    <p>Welcome to <strong>${lesson.name}</strong>. Here we explore practical systems for wealth building and financial security. This module focuses on making informed choices with income, expenses, and asset growth.</p>
-                    <div style="background: var(--bg-card-subtle); border-left: 4px solid var(--primary); padding: 16px; margin: 20px 0; border-radius: 0 12px 12px 0;">
-                        <strong>Key Takeaway:</strong> ${lesson.desc}
+                <div style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); padding: 28px; border-radius: 20px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.3);">
+                    <div>
+                        <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9;">Ready to continue?</span>
+                        <h2 style="margin: 6px 0 12px 0; font-size: 22px; font-weight: 800; letter-spacing: -0.01em;">${nextLesson.name}</h2>
+                        <div style="display: flex; align-items: center; gap: 12px;">
+                            <div style="width: 180px; height: 8px; background: rgba(255,255,255,0.25); border-radius: 99px; overflow: hidden;">
+                                <div style="width: ${progressPercent}%; height: 100%; background: white; border-radius: 99px;"></div>
+                            </div>
+                            <span style="font-size: 12px; font-weight: 700;">${progressPercent}% Overall Complete</span>
+                        </div>
                     </div>
-                    <h3>Implementation Strategy</h3>
-                    <p>To master this topic, try implementing a tracking system for 30 days. Observe the shifts in behavior when you apply conscious decision-making to your finances.</p>
-                `;
-            } else if (id === 'final_exam') {
-                html += `
-                    <h2>Final Assessment</h2>
-                    <p>This comprehensive exam tests your understanding of foundational accounting principles, financial statements, ratio analysis, and asset tracking.</p>
-                    <div style="background: var(--status-bookmark-bg); color: var(--status-bookmark-text); padding: 16px; border-radius: 12px; margin: 24px 0; font-weight: 600;">
-                        Note: Ensure you have reviewed all 5 modules before attempting the final exam.
-                    </div>
-                `;
-            } else {
-                html += `
-                    <h2>Understanding the Mechanics</h2>
-                    <p>In <strong>${lesson.name}</strong>, we look at how financial data is structured and reported. Accuracy and compliance are critical.</p>
-                    <div style="background: var(--bg-card-subtle); border-left: 4px solid var(--primary); padding: 16px; margin: 20px 0; border-radius: 0 12px 12px 0;">
-                        <strong>Definition Focus:</strong> ${lesson.desc}
-                    </div>
-                    <h3>Case Study Example</h3>
-                    <p>Consider a small business making its first major equipment purchase. How does this affect the balance sheet? It increases an asset (Equipment) while either decreasing Cash or increasing a Liability (Notes Payable). The fundamental equation remains balanced.</p>
-                `;
-            }
-
-            html += `
-                </div>
-                <div class="lesson-footer-bar">
-                    <button style="background: ${isCompleted ? 'var(--status-success-bg)' : 'var(--primary)'}; color: ${isCompleted ? 'var(--status-success-text)' : 'white'}; border: none; padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.2s;" onclick="toggleComplete('${id}')">
-                        ${isCompleted ? '✓ Lesson Completed' : 'Mark as Complete'}
+                    <button onclick="loadLessonContent('${nextLesson.id}')" style="background: white; color: #0284c7; border: none; padding: 14px 24px; font-size: 14px; font-weight: 800; border-radius: 12px; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); transition: transform 0.2s;" aria-label="Resume learning ${nextLesson.name}">
+                        Continue Learning &rarr;
                     </button>
-                    <button style="background: transparent; color: var(--text-muted); border: 1px solid var(--border-color); padding: 10px 20px; border-radius: 12px; font-size: 13px; font-weight: 600; cursor: pointer;" onclick="loadDashboard()">Back to Dashboard</button>
                 </div>
+                ${modulesContentHtml}
             `;
-
-            mainContent.innerHTML = html;
-            updateSidebarVisuals();
-            document.getElementById('main-scroll-viewport').scrollTop = 0;
         }
 
-        function toggleComplete(id) {
-            if (completedLessons.includes(id)) {
-                completedLessons = completedLessons.filter(lId => lId !== id);
+        function loadLessonContent(lessonId) {
+            currentLessonId = lessonId;
+            lastActiveLesson = lessonId;
+            localStorage.setItem('mono_last_active', lessonId);
+
+            if (window.umami) { window.umami.track((props) => ({ ...props, url: `/lesson/${lessonId}`, title: `Lesson ${lessonId}` })); }
+
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            const activeBtn = document.getElementById(`nav-${lessonId}`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            document.getElementById("main-scroll-viewport").scrollTop = 0;
+            const container = document.getElementById("workbook-content-area");
+            
+            let fileName;
+            if (lessonId === "final_exam") {
+                fileName = `lessons/final_exam.html?t=${Date.now()}`;
+            } else if (lessonId.startsWith('pf')) {
+                const parts = lessonId.replace('pf', '').split('.');
+                fileName = `lessons/LessonPF${parts[0]}_${parts[1]}.html?t=${Date.now()}`;
             } else {
-                completedLessons.push(id);
-                // Trigger simple celebration if completing
-                if (currentLessonId === id) {
-                    const btn = document.querySelector('.lesson-footer-bar button:first-child');
-                    if(btn) { btn.innerHTML = "🎉 Done!"; }
-                }
+                fileName = `lessons/Lesson${lessonId.split('.')[0]}_${lessonId.split('.')[1]}.html?t=${Date.now()}`;
             }
+
+            fetch(fileName, { cache: "no-store" })
+                .then(response => {
+                    if (!response.ok) throw new Error(`Missing lesson file: ${fileName}`);
+                    return response.text();
+                })
+                .then(html => {
+                    const isCompleted = completedLessons.includes(lessonId);
+                    const isBookmarked = bookmarkedLessons.includes(lessonId);
+                    
+                    const lessonHeaderBar = `
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 16px;">
+                            <span style="font-size: 12px; font-weight: 700; color: var(--text-muted); text-transform: uppercase;">${lessonId.startsWith('pf') ? 'Personal Finance Track' : 'Accounting Track'}</span>
+                            <button class="bookmark-btn" id="bookmark-btn-${lessonId}" onclick="toggleBookmark('${lessonId}', event)" title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark Lesson'}">
+                                ${isBookmarked ? '⭐ Bookmarked' : '☆ Bookmark Lesson'}
+                            </button>
+                        </div>
+                    `;
+
+                    const completeFooterHtml = `
+                        <div class="lesson-footer-bar">
+                            <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">
+                                ${isCompleted ? '✓ Lesson Completed' : 'Finished reading? Mark this lesson as complete:'}
+                            </span>
+                            <button id="complete-btn" onclick="toggleLessonCompletion('${lessonId}')" style="background: ${isCompleted ? 'var(--status-success-bg)' : 'var(--text-main)'}; color: ${isCompleted ? 'var(--status-success-text)' : 'var(--bg-card)'}; border: 1px solid ${isCompleted ? 'var(--status-success-text)' : 'var(--text-main)'}; padding: 12px 24px; font-size: 13px; font-weight: 700; border-radius: 10px; cursor: pointer; transition: opacity 0.2s;">
+                                ${isCompleted ? '✓ Completed' : 'Complete & Continue →'}
+                            </button>
+                        </div>
+                    `;
+
+                    container.innerHTML = lessonHeaderBar + html + completeFooterHtml;
+                    updateSidebarVisuals();
+                })
+                .catch(err => {
+                    container.innerHTML = `<div style="text-align: center; padding: 40px;"><h3 style="color:#ef4444;">Lesson File Not Available</h3><p style="color: var(--text-muted);">${err.message}</p><p style="font-size: 12px; color: var(--text-muted);">Expected path: <code>${fileName}</code></p></div>`;
+                });
+        }
+
+        function toggleLessonCompletion(lessonId) {
+            if (!completedLessons.includes(lessonId)) { completedLessons.push(lessonId); }
+            else { completedLessons = completedLessons.filter(id => id !== lessonId); }
+            
             localStorage.setItem('mono_completed_lessons', JSON.stringify(completedLessons));
             updateSidebarVisuals();
-            if (currentLessonId === id) {
-                setTimeout(() => loadLessonContent(id), 600); // Reload to reflect state
-            }
-        }
+            updateGamificationStats();
 
-        function toggleBookmark(id) {
-            if (bookmarkedLessons.includes(id)) {
-                bookmarkedLessons = bookmarkedLessons.filter(lId => lId !== id);
+            const currentIndex = curriculum.findIndex(l => l.id === lessonId);
+            if (completedLessons.includes(lessonId) && currentIndex !== -1 && currentIndex < curriculum.length - 1) {
+                loadLessonContent(curriculum[currentIndex + 1].id);
             } else {
-                bookmarkedLessons.push(id);
+                loadLessonContent(lessonId);
             }
-            localStorage.setItem('mono_bookmarked_lessons', JSON.stringify(bookmarkedLessons));
-            if (currentLessonId === id) { loadLessonContent(id); }
         }
 
         function updateSidebarVisuals() {
             curriculum.forEach(lesson => {
-                const navItem = document.getElementById(`nav-${lesson.id}`);
-                const statusIcon = document.getElementById(`status-nav-${lesson.id}`);
-                
-                if (navItem && statusIcon) {
+                const icon = document.getElementById(`status-nav-${lesson.id}`);
+                if (icon) {
                     if (completedLessons.includes(lesson.id)) {
-                        statusIcon.className = 'status-icon completed';
-                        statusIcon.textContent = '✓';
-                        statusIcon.title = "Completed";
+                        icon.className = "status-icon completed";
+                        icon.textContent = "✓";
+                        icon.title = "Completed";
                     } else if (lesson.id === lastActiveLesson) {
-                        statusIcon.className = 'status-icon in-progress';
-                        statusIcon.textContent = '●';
-                        statusIcon.title = "In Progress";
+                        icon.className = "status-icon in-progress";
+                        icon.textContent = "⏱";
+                        icon.title = "In Progress";
                     } else {
-                        statusIcon.className = 'status-icon pending';
-                        statusIcon.textContent = '○';
-                        statusIcon.title = "Pending";
+                        icon.className = "status-icon pending";
+                        icon.textContent = "○";
+                        icon.title = "Pending";
                     }
                 }
             });
-            updateGamificationStats();
         }
 
-        /* --- Personal Notes & Highlights Feature --- */
         function initHighlightListener() {
-            const viewport = document.getElementById('main-scroll-viewport');
-            viewport.addEventListener('mouseup', handleTextSelection);
-            viewport.addEventListener('touchend', handleTextSelection); // Mobile support
-        }
-
-        function handleTextSelection(e) {
-            if (!currentLessonId) return; // Only allow notes in lessons
-            const selection = window.getSelection();
-            const text = selection.toString().trim();
-            const popup = document.getElementById('floating-note-box');
-
-            if (text.length > 10) {
-                selectedQuoteText = text;
-                document.getElementById('popup-selected-text').textContent = `"${text}"`;
-                document.getElementById('popup-note-input').value = "";
+            document.addEventListener('mouseup', (e) => {
+                const workbookArea = document.getElementById('workbook-content-area');
+                const selectedText = window.getSelection().toString().trim();
+                const popup = document.getElementById('floating-note-box');
                 
-                // Position popup near cursor/selection
-                let x = e.clientX || (e.changedTouches && e.changedTouches[0].clientX);
-                let y = e.clientY || (e.changedTouches && e.changedTouches[0].clientY);
-                
-                // Adjust for viewport boundaries
-                if (x + 320 > window.innerWidth) x = window.innerWidth - 320;
-                if (y + 200 > window.innerHeight) y = window.innerHeight - 200;
-
-                popup.style.left = `${x}px`;
-                popup.style.top = `${y + 15}px`;
-                popup.style.display = 'block';
-            }
+                if (currentLessonId !== null && workbookArea && workbookArea.contains(e.target) && selectedText.length > 3 && !popup.contains(e.target)) {
+                    selectedQuoteText = selectedText;
+                    document.getElementById('popup-selected-text').textContent = `"${selectedText}"`;
+                    popup.style.left = `${Math.min(e.pageX, window.innerWidth - 320)}px`;
+                    popup.style.top = `${e.pageY + 10}px`;
+                    popup.style.display = 'block';
+                }
+            });
         }
 
         function closeNotePopup() {
             document.getElementById('floating-note-box').style.display = 'none';
-            window.getSelection().removeAllRanges();
+            document.getElementById('popup-note-input').value = '';
+            selectedQuoteText = "";
         }
 
         function saveNote() {
-            const myNote = document.getElementById('popup-note-input').value.trim();
-            if (selectedQuoteText && myNote) {
-                const lesson = curriculum.find(l => l.id === currentLessonId);
-                const newNote = {
-                    id: Date.now().toString(),
-                    lessonId: currentLessonId,
-                    lessonName: lesson.name,
-                    quote: selectedQuoteText,
-                    note: myNote,
-                    date: new Date().toLocaleDateString()
-                };
-                studyNotes.unshift(newNote); // Add to beginning
+            const input = document.getElementById('popup-note-input').value.trim();
+            if (input && selectedQuoteText) {
+                studyNotes.push({ id: Date.now(), quote: selectedQuoteText, text: input, date: new Date().toLocaleDateString() });
                 localStorage.setItem('mono_study_notes', JSON.stringify(studyNotes));
                 updateNotesBadge();
                 closeNotePopup();
-                
-                // Temporary visual feedback
-                const btn = document.getElementById('nav-notes');
-                btn.style.transform = 'scale(1.05)';
-                setTimeout(() => btn.style.transform = 'scale(1)', 200);
-            } else {
-                alert("Please type a note to save with your highlight.");
             }
-        }
-
-        function updateNotesBadge() {
-            const badge = document.getElementById('notes-counter-badge');
-            badge.textContent = studyNotes.length;
-            badge.style.display = studyNotes.length > 0 ? 'inline-block' : 'none';
         }
 
         function openNotesModal() {
-            renderNotesModal();
-            document.getElementById('notes-modal').classList.add('active');
-        }
-        function closeNotesModal() {
-            document.getElementById('notes-modal').classList.remove('active');
-        }
+            const modal = document.getElementById("notes-modal");
+            const container = document.getElementById("notes-modal-container");
 
-        function renderNotesModal() {
-            const container = document.getElementById('notes-modal-container');
-            if (studyNotes.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 40px 20px; background: var(--bg-card-subtle); border-radius: 12px; border: 1px dashed var(--border-color);">
-                        <p style="margin: 0; color: var(--text-muted); font-size: 14px;">You haven't saved any notes yet.</p>
-                        <p style="margin: 8px 0 0 0; color: var(--text-muted); font-size: 13px;">To add a note, highlight any text while reading a lesson.</p>
-                    </div>`;
-                return;
-            }
-
-            let html = `<div class="notes-grid">`;
-            studyNotes.forEach(note => {
-                html += `
+            let notesHtml = studyNotes.length === 0 
+                ? `<p style="color: var(--text-muted); font-style: italic;">No saved notes yet. Highlight any text inside a lesson to create your first study note.</p>`
+                : `<div class="notes-grid">` + studyNotes.map(note => `
                     <div class="journal-note-card">
-                        <button class="delete-journal-btn" onclick="deleteNote('${note.id}')" aria-label="Delete note">Delete</button>
-                        <div style="font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; margin-bottom: 8px;">
-                            ${note.lessonName} • ${note.date}
-                        </div>
+                        <button class="delete-journal-btn" onclick="deleteNote(${note.id})" aria-label="Delete note">Delete</button>
                         <div class="journal-note-quote">"${note.quote}"</div>
-                        <div class="journal-note-text">${note.note}</div>
-                        <button style="margin-top: 12px; background: transparent; border: none; color: var(--text-muted); font-size: 12px; font-weight: 600; cursor: pointer; padding: 0; text-decoration: underline;" onclick="closeNotesModal(); loadLessonContent('${note.lessonId}')">Go to Lesson</button>
+                        <div class="journal-note-text">${note.text}</div>
+                        <div style="font-size: 11px; color: var(--text-muted); margin-top: 10px;">Saved on ${note.date}</div>
                     </div>
-                `;
-            });
-            html += `</div>`;
-            container.innerHTML = html;
+                `).join('') + `</div>`;
+
+            container.innerHTML = notesHtml;
+            modal.classList.add('active');
         }
 
-        function deleteNote(noteId) {
-            if(confirm("Are you sure you want to delete this note?")) {
-                studyNotes = studyNotes.filter(n => n.id !== noteId);
-                localStorage.setItem('mono_study_notes', JSON.stringify(studyNotes));
-                updateNotesBadge();
-                renderNotesModal();
-            }
+        function closeNotesModal() { document.getElementById("notes-modal").classList.remove('active'); }
+
+        function deleteNote(id) {
+            studyNotes = studyNotes.filter(n => n.id !== id);
+            localStorage.setItem('mono_study_notes', JSON.stringify(studyNotes));
+            updateNotesBadge();
+            openNotesModal();
         }
     </script>
 </body>
