@@ -69,7 +69,6 @@
       color: #3b4856;
     }
 
-    /* Paystub Graphic */
     .paystub {
       border: 2px dashed var(--border-color);
       border-radius: 8px;
@@ -97,7 +96,6 @@
       border: 1px solid var(--border-color);
       padding: 12px;
       border-radius: 6px;
-      position: relative;
     }
 
     .stub-title {
@@ -113,14 +111,18 @@
       cursor: default;
       border: 2px solid transparent;
       border-radius: 4px;
-      padding: 8px;
+      padding: 10px;
       transition: all 0.2s;
+    }
+
+    .click-target * {
+      pointer-events: none;
     }
 
     .click-target.active-step {
       cursor: pointer;
       border-color: var(--accent);
-      background-color: rgba(74, 144, 226, 0.1);
+      background-color: rgba(74, 144, 226, 0.12);
       animation: pulse 1.5s infinite;
     }
 
@@ -141,14 +143,12 @@
       font-weight: bold;
       padding: 2px 6px;
       border-radius: 10px;
-      pointer-events: none;
     }
 
     .active-step .click-badge {
       display: inline-block;
     }
 
-    /* Explanation Box */
     .info-card {
       background: #fff;
       border: 1px solid var(--accent);
@@ -156,7 +156,6 @@
       padding: 16px;
       border-radius: 4px;
       margin-bottom: 24px;
-      min-height: 80px;
       display: none;
     }
 
@@ -182,10 +181,11 @@
       background-color: var(--accent);
       color: #fff;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border-radius: 6px;
       font-weight: 600;
       cursor: pointer;
+      font-size: 0.95rem;
       transition: background 0.2s;
     }
 
@@ -193,7 +193,6 @@
       background-color: var(--accent-hover);
     }
 
-    /* Select and Drop Quiz */
     .quiz-section {
       border-top: 2px solid var(--border-color);
       padding-top: 24px;
@@ -240,7 +239,7 @@
       border: 2px dashed var(--border-color);
       padding: 10px 14px;
       border-radius: 6px;
-      min-height: 42px;
+      min-height: 44px;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -268,7 +267,6 @@
     <p>A paystub details your total earnings and all deductions for a given pay period. Interactive baseline guide: Select highlighted elements to analyze specific line items.</p>
   </div>
 
-  <!-- Interactive Paystub Graphic -->
   <div class="paystub">
     <div class="paystub-header">
       <div>
@@ -281,60 +279,52 @@
     </div>
 
     <div class="paystub-grid">
-      <!-- Target 1: Gross Pay -->
       <div class="stub-section">
         <div class="stub-title">Earnings</div>
         <div id="target-1" class="click-target active-step">
           <span class="click-badge">Click Here</span>
-          <strong>Gross Pay:</strong> $2,000.00
+          <span><strong>Gross Pay:</strong> $2,000.00</span>
         </div>
       </div>
 
-      <!-- Target 2: Deductions -->
       <div class="stub-section">
         <div class="stub-title">Taxes & Withholdings</div>
         <div id="target-2" class="click-target">
           <span class="click-badge">Click Here</span>
-          <strong>Fed Income Tax:</strong> $240.00<br>
-          <strong>FICA (Social Security/Med):</strong> $153.00
+          <span><strong>Fed Income Tax:</strong> $240.00<br><strong>FICA:</strong> $153.00</span>
         </div>
       </div>
 
-      <!-- Target 3: Benefits -->
       <div class="stub-section">
         <div class="stub-title">Pre-Tax Deductions</div>
         <div id="target-3" class="click-target">
           <span class="click-badge">Click Here</span>
-          <strong>401(k) Contribution:</strong> $100.00<br>
-          <strong>Health Insurance:</strong> $50.00
+          <span><strong>401(k):</strong> $100.00<br><strong>Health:</strong> $50.00</span>
         </div>
       </div>
 
-      <!-- Target 4: Net Pay -->
       <div class="stub-section">
         <div class="stub-title">Summary</div>
         <div id="target-4" class="click-target">
           <span class="click-badge">Click Here</span>
-          <strong>Net Pay:</strong> $1,457.00
+          <span><strong>Net Pay:</strong> $1,457.00</span>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Dynamic Detail Card -->
   <div class="info-card" id="info-box">
     <h3 id="info-title"></h3>
     <p id="info-text"></p>
   </div>
 
   <div class="controls">
-    <button id="next-btn" onclick="nextStep()" style="display: none;">Next Step &rarr;</button>
+    <button id="next-btn" style="display: none;">Next Step &rarr;</button>
   </div>
 
-  <!-- Match Quiz Section -->
   <div class="quiz-section" id="quiz-section">
     <h2>📝 Module 1.1 Assessment</h2>
-    <p style="color: var(--text-muted); margin-bottom: 16px;">Select a term on the left, then click its corresponding definition on the right.</p>
+    <p style="color: var(--text-muted); margin-bottom: 16px;">Select a term on the left, then click its matching definition on the right.</p>
 
     <div class="quiz-grid">
       <div class="source-items">
@@ -345,15 +335,15 @@
 
       <div class="target-slots">
         <div class="slot" id="slot-fica" onclick="dropTarget('fica')">
-          <span class="slot-label">Mandatory payroll tax for Social Security and Medicare.</span>
+          <span class="slot-label">Mandatory tax for Social Security & Medicare.</span>
           <span class="slot-value"></span>
         </div>
         <div class="slot" id="slot-gross" onclick="dropTarget('gross')">
-          <span class="slot-label">Total money earned before any tax or benefit deductions.</span>
+          <span class="slot-label">Total money earned before any tax deductions.</span>
           <span class="slot-value"></span>
         </div>
         <div class="slot" id="slot-net" onclick="dropTarget('net')">
-          <span class="slot-label">Take-home money remaining after all deductions.</span>
+          <span class="slot-label">Take-home money after all deductions.</span>
           <span class="slot-value"></span>
         </div>
       </div>
@@ -363,80 +353,73 @@
 </div>
 
 <script>
-  const stepData = {
-    1: {
-      title: "Gross Pay",
-      text: "Gross Pay is the total money earned during the pay period BEFORE any taxes, contributions, or voluntary withholdings are deducted.",
-      next: 2
-    },
-    2: {
-      title: "Taxes & Withholdings",
-      text: "Mandatory tax deductions automatically withheld by employers to pay federal income tax along with FICA (Social Security and Medicare allocations).",
-      next: 3
-    },
-    3: {
-      title: "Pre-Tax Deductions",
-      text: "Elective deductions like 401(k) retirement options or health insurance premiums subtracted from income before taxes are calculated.",
-      next: 4
-    },
-    4: {
-      title: "Net Pay",
-      text: "Net Pay (or 'take-home pay') represents the final amount deposited into your bank account after all deductions have been subtracted.",
-      next: null
-    }
-  };
+  document.addEventListener('DOMContentLoaded', () => {
+    const stepData = {
+      1: {
+        title: "Gross Pay",
+        text: "Gross Pay is the complete amount earned during the period BEFORE taxes or contributions are deducted.",
+        next: 2
+      },
+      2: {
+        title: "Taxes & Withholdings",
+        text: "Mandatory tax deductions automatically withheld by employers to pay federal income tax along with FICA.",
+        next: 3
+      },
+      3: {
+        title: "Pre-Tax Deductions",
+        text: "Elective deductions like 401(k) retirement contributions or health insurance subtracted prior to tax calculations.",
+        next: 4
+      },
+      4: {
+        title: "Net Pay",
+        text: "Net Pay (take-home pay) represents the actual balance deposited into your account after all deductions.",
+        next: null
+      }
+    };
 
-  let currentStep = 1;
-  let hasClickedCurrentTarget = false;
+    let currentStep = 1;
+    let hasClickedCurrentTarget = false;
 
-  // Bind click handlers to target elements directly
-  for (let i = 1; i <= 4; i++) {
-    const el = document.getElementById(`target-${i}`);
-    if (el) {
-      el.addEventListener('click', function() {
-        handleTargetClick(i);
+    const nextBtn = document.getElementById('next-btn');
+
+    // Attach listener to targets
+    [1, 2, 3, 4].forEach(step => {
+      const target = document.getElementById(`target-${step}`);
+      target.addEventListener('click', () => {
+        if (step === currentStep) {
+          hasClickedCurrentTarget = true;
+          const data = stepData[step];
+
+          document.getElementById('info-box').style.display = 'block';
+          document.getElementById('info-title').innerText = `Step ${step}: ${data.title}`;
+          document.getElementById('info-text').innerText = data.text;
+
+          nextBtn.style.display = 'inline-block';
+          nextBtn.innerText = data.next ? "Next Step \u2192" : "Take Assessment \u2192";
+        }
       });
-    }
-  }
+    });
 
-  function handleTargetClick(step) {
-    if (step === currentStep) {
-      hasClickedCurrentTarget = true;
-      const data = stepData[step];
+    // Attach listener to next button
+    nextBtn.addEventListener('click', () => {
+      if (!hasClickedCurrentTarget) return;
 
-      // Show and update explanation box
-      const infoBox = document.getElementById('info-box');
-      infoBox.style.display = 'block';
-      document.getElementById('info-title').innerText = `Step ${step}: ${data.title}`;
-      document.getElementById('info-text').innerText = data.text;
-      
-      // Show next button
-      const nextBtn = document.getElementById('next-btn');
-      nextBtn.style.display = 'inline-block';
-      nextBtn.innerText = data.next ? "Next Step \u2192" : "Take Assessment \u2192";
-    }
-  }
+      const next = stepData[currentStep].next;
+      document.getElementById(`target-${currentStep}`).classList.remove('active-step');
 
-  function nextStep() {
-    if (!hasClickedCurrentTarget) return;
-
-    const next = stepData[currentStep].next;
-    document.getElementById(`target-${currentStep}`).classList.remove('active-step');
-
-    if (next) {
-      currentStep = next;
-      hasClickedCurrentTarget = false;
-      document.getElementById(`target-${currentStep}`).classList.add('active-step');
-      
-      // Reset details and hide button until user clicks the next area
-      document.getElementById('info-box').style.display = 'none';
-      document.getElementById('next-btn').style.display = 'none';
-    } else {
-      document.getElementById('info-box').style.display = 'none';
-      document.getElementById('next-btn').style.display = 'none';
-      document.getElementById('quiz-section').style.display = 'block';
-    }
-  }
+      if (next) {
+        currentStep = next;
+        hasClickedCurrentTarget = false;
+        document.getElementById(`target-${currentStep}`).classList.add('active-step');
+        document.getElementById('info-box').style.display = 'none';
+        nextBtn.style.display = 'none';
+      } else {
+        document.getElementById('info-box').style.display = 'none';
+        nextBtn.style.display = 'none';
+        document.getElementById('quiz-section').style.display = 'block';
+      }
+    });
+  });
 
   /* Select and Drop Quiz Logic */
   let selectedSourceKey = null;
@@ -447,11 +430,9 @@
     if (document.getElementById(`src-${key}`).classList.contains('matched')) return;
 
     document.querySelectorAll('.source-items .quiz-item').forEach(el => el.classList.remove('selected'));
-
     selectedSourceKey = key;
     selectedSourceLabel = label;
     document.getElementById(`src-${key}`).classList.add('selected');
-    
     document.querySelectorAll('.slot').forEach(el => el.classList.add('active-slot'));
   }
 
@@ -472,10 +453,10 @@
       correctMatches++;
 
       if (correctMatches === 3) {
-        document.getElementById('quiz-status').innerText = "\u2713 Quiz Complete: All terms correctly matched!";
+        document.getElementById('quiz-status').innerText = "\u2713 Quiz Complete: All terms matched!";
       }
     } else {
-      alert("Incorrect match. Try selecting a different definition!");
+      alert("Incorrect match. Select a different definition!");
     }
   }
 </script>
