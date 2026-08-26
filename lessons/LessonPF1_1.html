@@ -52,21 +52,8 @@
 
     h1 {
       font-size: 1.8rem;
-      margin: 0 0 16px 0;
+      margin: 0 0 24px 0;
       color: var(--text-main);
-    }
-
-    .hero-card {
-      background-color: var(--accent-light);
-      border-radius: 8px;
-      padding: 20px;
-      margin-bottom: 28px;
-    }
-
-    .hero-card p {
-      margin: 0;
-      line-height: 1.5;
-      color: #3b4856;
     }
 
     .paystub {
@@ -110,9 +97,10 @@
       position: relative;
       cursor: default;
       border: 2px solid transparent;
-      border-radius: 4px;
-      padding: 10px;
+      border-radius: 6px;
+      padding: 12px;
       transition: all 0.2s;
+      user-select: none;
     }
 
     .click-target * {
@@ -120,14 +108,16 @@
     }
 
     .click-target.active-step {
-      cursor: pointer;
+      cursor: pointer !important;
       border-color: var(--accent);
-      background-color: rgba(74, 144, 226, 0.12);
+      background-color: rgba(74, 144, 226, 0.15);
       animation: pulse 1.5s infinite;
+      z-index: 10;
+      isolation: isolate;
     }
 
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.4); }
+      0% { box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.5); }
       70% { box-shadow: 0 0 0 8px rgba(74, 144, 226, 0); }
       100% { box-shadow: 0 0 0 0 rgba(74, 144, 226, 0); }
     }
@@ -139,10 +129,10 @@
       right: -10px;
       background: var(--accent);
       color: #fff;
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       font-weight: bold;
-      padding: 2px 6px;
-      border-radius: 10px;
+      padding: 3px 8px;
+      border-radius: 12px;
     }
 
     .active-step .click-badge {
@@ -263,10 +253,6 @@
   <div class="track-badge">Income & Taxes Track</div>
   <h1>Lesson 1.1: Reading a Paystub</h1>
 
-  <div class="hero-card">
-    <p>A paystub details your total earnings and all deductions for a given pay period. Interactive baseline guide: Select highlighted elements to analyze specific line items.</p>
-  </div>
-
   <div class="paystub">
     <div class="paystub-header">
       <div>
@@ -328,21 +314,21 @@
 
     <div class="quiz-grid">
       <div class="source-items">
-        <div class="quiz-item" id="src-gross" onclick="selectSource('gross', 'Gross Pay')">Gross Pay</div>
-        <div class="quiz-item" id="src-net" onclick="selectSource('net', 'Net Pay')">Net Pay</div>
-        <div class="quiz-item" id="src-fica" onclick="selectSource('fica', 'FICA Tax')">FICA Tax</div>
+        <div class="quiz-item" id="src-gross" onclick="selectSource('gross', 'Gross Pay', event)">Gross Pay</div>
+        <div class="quiz-item" id="src-net" onclick="selectSource('net', 'Net Pay', event)">Net Pay</div>
+        <div class="quiz-item" id="src-fica" onclick="selectSource('fica', 'FICA Tax', event)">FICA Tax</div>
       </div>
 
       <div class="target-slots">
-        <div class="slot" id="slot-fica" onclick="dropTarget('fica')">
+        <div class="slot" id="slot-fica" onclick="dropTarget('fica', event)">
           <span class="slot-label">Mandatory tax for Social Security & Medicare.</span>
           <span class="slot-value"></span>
         </div>
-        <div class="slot" id="slot-gross" onclick="dropTarget('gross')">
+        <div class="slot" id="slot-gross" onclick="dropTarget('gross', event)">
           <span class="slot-label">Total money earned before any tax deductions.</span>
           <span class="slot-value"></span>
         </div>
-        <div class="slot" id="slot-net" onclick="dropTarget('net')">
+        <div class="slot" id="slot-net" onclick="dropTarget('net', event)">
           <span class="slot-label">Take-home money after all deductions.</span>
           <span class="slot-value"></span>
         </div>
@@ -357,22 +343,22 @@
     const stepData = {
       1: {
         title: "Gross Pay",
-        text: "Gross Pay is the complete amount earned during the period BEFORE taxes or contributions are deducted.",
+        text: "Gross Pay is the total amount earned during the pay period BEFORE taxes or voluntary contributions are deducted.",
         next: 2
       },
       2: {
         title: "Taxes & Withholdings",
-        text: "Mandatory tax deductions automatically withheld by employers to pay federal income tax along with FICA.",
+        text: "Mandatory tax deductions automatically withheld by employers to pay federal income tax along with FICA (Social Security & Medicare).",
         next: 3
       },
       3: {
         title: "Pre-Tax Deductions",
-        text: "Elective deductions like 401(k) retirement contributions or health insurance subtracted prior to tax calculations.",
+        text: "Elective deductions like 401(k) retirement contributions or health insurance subtracted prior to calculating tax withholdings.",
         next: 4
       },
       4: {
         title: "Net Pay",
-        text: "Net Pay (take-home pay) represents the actual balance deposited into your account after all deductions.",
+        text: "Net Pay (take-home pay) represents the actual remaining amount directly deposited into your bank account.",
         next: null
       }
     };
@@ -382,10 +368,12 @@
 
     const nextBtn = document.getElementById('next-btn');
 
-    // Attach listener to targets
     [1, 2, 3, 4].forEach(step => {
       const target = document.getElementById(`target-${step}`);
-      target.addEventListener('click', () => {
+      
+      target.addEventListener('click', (e) => {
+        e.stopPropagation();
+        
         if (step === currentStep) {
           hasClickedCurrentTarget = true;
           const data = stepData[step];
@@ -400,8 +388,8 @@
       });
     });
 
-    // Attach listener to next button
-    nextBtn.addEventListener('click', () => {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
       if (!hasClickedCurrentTarget) return;
 
       const next = stepData[currentStep].next;
@@ -426,7 +414,8 @@
   let selectedSourceLabel = null;
   let correctMatches = 0;
 
-  function selectSource(key, label) {
+  function selectSource(key, label, e) {
+    if (e) e.stopPropagation();
     if (document.getElementById(`src-${key}`).classList.contains('matched')) return;
 
     document.querySelectorAll('.source-items .quiz-item').forEach(el => el.classList.remove('selected'));
@@ -436,7 +425,8 @@
     document.querySelectorAll('.slot').forEach(el => el.classList.add('active-slot'));
   }
 
-  function dropTarget(slotKey) {
+  function dropTarget(slotKey, e) {
+    if (e) e.stopPropagation();
     if (!selectedSourceKey) return;
 
     if (selectedSourceKey === slotKey) {
