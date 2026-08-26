@@ -29,6 +29,8 @@
             --status-success-text: #14532d;
             --status-pending-bg: #e2e8f0;
             --status-pending-text: #334155;
+            --status-bookmark-bg: #fef3c7;
+            --status-bookmark-text: #92400e;
             
             --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
             --shadow-md: 0 4px 20px rgba(15, 23, 42, 0.06);
@@ -57,8 +59,11 @@
             --status-success-text: #f0fdf4;
             --status-pending-bg: #334155;
             --status-pending-text: #f1f5f9;
+            --status-bookmark-bg: #78350f;
+            --status-bookmark-text: #fef3c7;
         }
 
+        /* Custom Scrollbar for visual hint */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: var(--bg-body); }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 99px; }
@@ -74,58 +79,59 @@
 
         .dashboard-container { display: flex; height: 100vh; width: 100vw; overflow: hidden; }
         
-        /* Modernized Sidebar Styling */
+        /* Sidebar Styling */
         .sidebar { 
             width: 320px; background: var(--bg-sidebar); color: var(--text-main); 
-            padding: 24px 18px; box-sizing: border-box; display: flex; 
+            padding: 20px 16px; box-sizing: border-box; display: flex; 
             flex-direction: column; height: 100vh; flex-shrink: 0;
             border-right: 1px solid var(--border-sidebar);
             transition: background 0.3s ease;
         }
 
-        .sidebar-header { margin-bottom: 18px; width: 100%; }
+        .sidebar-header { margin-bottom: 16px; text-align: left; width: 100%; }
         .sidebar-brand-wrapper {
-            display: flex; align-items: center; gap: 10px; width: 100%; cursor: pointer;
-            padding: 8px 10px; border-radius: 10px; background: var(--bg-card);
-            border: 1px solid var(--border-color); box-shadow: var(--shadow-sm);
-            transition: transform 0.2s ease, border-color 0.2s ease;
+            display: flex; align-items: center; justify-content: flex-start; width: 100%; cursor: pointer; padding-left: 4px;
         }
-        .sidebar-brand-wrapper:hover { border-color: var(--primary); transform: translateY(-1px); }
-        .sidebar-brand-icon {
-            width: 30px; height: 30px; background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
-            border-radius: 8px; display: flex; align-items: center; justify-content: center;
-            color: white; font-weight: 800; font-size: 14px; flex-shrink: 0;
-        }
-        .sidebar-brand { margin: 0; font-size: 16px; color: var(--text-main); letter-spacing: -0.01em; font-weight: 800; }
+        .sidebar-brand { margin: 0; font-size: 21px; color: var(--text-brand); letter-spacing: -0.02em; font-weight: 800; text-align: left; }
 
         .sidebar-track-label {
-            font-size: 11px; font-weight: 800; text-transform: uppercase;
-            letter-spacing: 0.08em; color: var(--text-muted);
-            margin: 18px 0 6px 6px; display: block;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin: 16px 0 6px 4px;
+            display: block;
         }
 
-        .search-box { position: relative; margin-bottom: 10px; width: 100%; box-sizing: border-box; }
+        /* Global Search Bar & Filter */
+        .search-box {
+            position: relative; margin-bottom: 8px; width: 100%; box-sizing: border-box;
+        }
         .search-input {
             width: 100%; background: var(--bg-card); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 9px 12px 9px 36px; border-radius: 9px;
+            color: var(--text-main); padding: 8px 12px 8px 34px; border-radius: 8px;
             font-size: 13px; box-sizing: border-box; outline: none; transition: border 0.2s;
-            box-shadow: var(--shadow-sm);
         }
         .search-input:focus { border-color: var(--primary); }
         .search-icon { 
-            position: absolute; left: 11px; top: 50%; transform: translateY(-50%); 
+            position: absolute; left: 10px; top: 50%; transform: translateY(-50%); 
             font-size: 13px; opacity: 0.7; cursor: pointer; border: none; background: transparent; padding: 0;
         }
 
         .filter-select {
             width: 100%; background: var(--bg-card); border: 1px solid var(--border-color);
-            color: var(--text-main); padding: 7px 12px; border-radius: 9px;
-            font-size: 12px; margin-bottom: 14px; outline: none; cursor: pointer; font-weight: 600;
-            box-shadow: var(--shadow-sm);
+            color: var(--text-main); padding: 6px 10px; border-radius: 8px;
+            font-size: 12px; margin-bottom: 14px; outline: none; cursor: pointer; font-weight: 500;
         }
 
+        /* Sidebar Navigation Container */
         .sidebar-menu { 
-            flex-grow: 1; overflow-y: auto; margin-bottom: 12px; padding-right: 4px; scroll-behavior: smooth; 
+            flex-grow: 1; 
+            overflow-y: auto; 
+            margin-bottom: 16px; 
+            padding-right: 6px; 
+            scroll-behavior: smooth;
         }
 
         .main-content { 
@@ -134,9 +140,9 @@
         }
         
         .workbook-viewport { 
-            background: var(--bg-card); padding: 40px; border-radius: 20px; 
-            box-shadow: var(--shadow-md); max-width: 1020px; margin: 0 auto; 
-            min-height: 440px; position: relative; border: 1px solid var(--border-subtle);
+            background: var(--bg-card); padding: 36px; border-radius: 16px; 
+            box-shadow: var(--shadow-md); max-width: 1000px; margin: 0 auto; 
+            min-height: 420px; position: relative; border: 1px solid var(--border-subtle);
         }
         
         .nav-btn { 
@@ -150,6 +156,7 @@
         .nav-btn:hover, .nav-btn.active { background: var(--primary-light); color: var(--text-brand); }
         .nav-btn:hover span, .nav-btn.active span { color: var(--text-brand); font-weight: 600; }
         
+        /* Status Indicators in Navigation */
         .status-icon {
             display: inline-flex; align-items: center; justify-content: center;
             width: 18px; height: 18px; border-radius: 50%; font-size: 11px;
@@ -163,30 +170,32 @@
             display: flex; align-items: center; justify-content: space-between; 
             width: 100%; background: none; border: none; color: var(--text-brand); 
             font-size: 11px; font-weight: 800; text-transform: uppercase; 
-            letter-spacing: 0.04em; padding: 8px 8px; cursor: pointer; 
-            margin-top: 6px; margin-bottom: 4px; border-bottom: 1px solid var(--border-sidebar);
+            letter-spacing: 0.04em; padding: 8px 6px; cursor: pointer; 
+            margin-top: 8px; margin-bottom: 4px; border-bottom: 1px solid var(--border-sidebar);
             text-align: left; line-height: 1.3; gap: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-            border-radius: 6px; transition: background 0.2s;
         }
-        .accordion-header:hover { background: rgba(2, 132, 199, 0.05); }
 
-        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 4px; }
+        .accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; padding-left: 2px; }
         .accordion-content.open { max-height: 800px; transition: max-height 0.4s ease-in; }
         .accordion-arrow { transition: transform 0.2s ease; font-size: 10px; color: var(--text-brand); flex-shrink: 0; }
         .accordion-header.active .accordion-arrow { transform: rotate(90deg); }
 
+        /* Side-by-side Dashboard Grid */
         .dashboard-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 28px;
+            gap: 24px;
         }
 
-        @media (max-width: 900px) {
-            .dashboard-grid { grid-template-columns: 1fr; }
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
+        /* Header Utility Bar */
         .top-utility-bar {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; flex-wrap: wrap; gap: 14px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
         }
         .utility-group-left, .utility-group-right { display: flex; align-items: center; gap: 10px; }
 
@@ -198,18 +207,25 @@
         .theme-toggle-btn:hover, .timer-trigger-btn:hover { border-color: var(--primary); color: var(--primary); }
 
         .stat-badge {
-            background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 7px 14px;
+            background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 6px 12px;
             border-radius: 20px; font-size: 12px; font-weight: 700; color: var(--text-main);
             display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow-sm);
         }
 
+        /* Highlight matching search terms */
         mark.search-highlight {
-            background-color: #fef08a; color: #854d0e; padding: 1px 3px; border-radius: 3px; font-weight: 700;
+            background-color: #fef08a;
+            color: #854d0e;
+            padding: 1px 3px;
+            border-radius: 3px;
+            font-weight: 700;
         }
         [data-theme="dark"] mark.search-highlight {
-            background-color: #854d0e; color: #fef08a;
+            background-color: #854d0e;
+            color: #fef08a;
         }
 
+        /* Modals & Popups */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(15, 23, 42, 0.5); backdrop-filter: blur(4px);
@@ -219,7 +235,7 @@
         .modal-overlay.active { opacity: 1; visibility: visible; }
         .modal-card {
             background: var(--bg-card); width: 90%; max-width: 460px; border-radius: 20px;
-            padding: 32px; box-shadow: var(--shadow-lg); border: 1px solid var(--border-subtle);
+            padding: 28px; box-shadow: var(--shadow-lg); border: 1px solid var(--border-subtle);
             position: relative;
         }
         .welcome-title { margin: 0 0 10px 0; font-size: 24px; font-weight: 800; color: var(--text-main); }
@@ -235,6 +251,7 @@
             font-size: 20px; cursor: pointer; color: var(--text-muted);
         }
 
+        /* Focus Timer Controls */
         .timer-display {
             font-size: 48px; font-weight: 800; text-align: center; margin: 16px 0;
             font-family: monospace, monospace; color: var(--primary); letter-spacing: 2px;
@@ -253,7 +270,7 @@
         .timer-btn-secondary { background: var(--bg-card-subtle); color: var(--text-main); border: 1px solid var(--border-color); }
 
         .bookmark-btn {
-            background: transparent; border: none; font-size: 16px; cursor: pointer; padding: 4px;
+            background: transparent; border: none; font-size: 18px; cursor: pointer; padding: 4px;
             transition: transform 0.2s; line-height: 1;
         }
         .bookmark-btn:hover { transform: scale(1.2); }
@@ -276,11 +293,13 @@
         
         .lesson-footer-bar { margin-top: 40px; padding-top: 24px; border-top: 2px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center; }
 
+        /* Module Card Progress Bar */
         .mod-progress-container {
             width: 100%; background: var(--border-subtle); height: 6px; border-radius: 99px; overflow: hidden; margin-top: 8px; margin-bottom: 16px;
         }
         .mod-progress-fill { height: 100%; background: var(--primary); transition: width 0.3s ease; }
 
+        /* Empty Search State */
         .empty-search-state {
             text-align: center; padding: 48px 16px; background: var(--bg-card-subtle); border-radius: 12px; border: 1px dashed var(--border-color); margin-top: 20px; grid-column: 1 / -1;
         }
@@ -337,7 +356,6 @@
         <aside class="sidebar" aria-label="Course Navigation">
             <div class="sidebar-header">
                 <div class="sidebar-brand-wrapper" onclick="loadDashboard()" role="button" tabindex="0" aria-label="Mono Academy Home">
-                    <div class="sidebar-brand-icon">M</div>
                     <h2 class="sidebar-brand">Mono Academy</h2>
                 </div>
             </div>
@@ -363,11 +381,11 @@
 
                 <span class="sidebar-track-label">Personal Finance</span>
 
-                <button class="accordion-header" id="btn-mod-pf1" aria-expanded="false" aria-controls="module-pf1-content" onclick="toggleAccordion('module-pf1-content', this)">
+                <button class="accordion-header active" id="btn-mod-pf1" aria-expanded="true" aria-controls="module-pf1-content" onclick="toggleAccordion('module-pf1-content', this)">
                     <span>Income & Taxes</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
-                <div id="module-pf1-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf1">
+                <div id="module-pf1-content" class="accordion-content open" role="region" aria-labelledby="btn-mod-pf1">
                     <button class="nav-btn" id="nav-pf1.1" onclick="loadLessonContent('pf1.1')">
                         <span>Lesson 1.1: Reading a Paystub</span>
                         <span class="status-icon pending" id="status-nav-pf1.1" title="Pending">○</span>
@@ -638,7 +656,7 @@
                 </div>
             </nav>
 
-            <div style="border-top: 1px solid var(--border-sidebar); padding-top: 12px;">
+            <div style="border-top: 1px solid var(--border-sidebar); padding-top: 14px;">
                 <button class="nav-btn" id="nav-notes" onclick="openNotesModal()">
                     <span style="display: flex; align-items: center; gap: 8px;">📝 My Study Notes</span>
                     <span id="notes-counter-badge" style="background: var(--primary); color: white; font-size: 10px; font-weight: 800; padding: 2px 8px; border-radius: 99px;">0</span>
@@ -683,6 +701,7 @@
     </div>
 
     <script>
+        // Core State Management
         let completedLessons = JSON.parse(localStorage.getItem('mono_completed_lessons')) || [];
         let bookmarkedLessons = JSON.parse(localStorage.getItem('mono_bookmarked_lessons')) || [];
         let studyNotes = JSON.parse(localStorage.getItem('mono_study_notes')) || [];
@@ -690,6 +709,7 @@
         let selectedQuoteText = ""; 
         let currentLessonId = null;
 
+        // Timer State
         let timerSeconds = 25 * 60;
         let timerInterval = null;
         let isTimerRunning = false;
@@ -765,6 +785,7 @@
             updateGamificationStats();
         });
 
+        /* --- Theme Management --- */
         function initTheme() {
             const savedTheme = localStorage.getItem('mono_theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
@@ -784,6 +805,7 @@
             document.getElementById('theme-toggle-label').textContent = theme === 'dark' ? 'Light Mode' : 'Dark Mode';
         }
 
+        /* --- Gamification & Streaks --- */
         function updateGamificationStats() {
             const today = new Date().toDateString();
             const lastActiveDate = localStorage.getItem('mono_last_active_date');
@@ -805,6 +827,7 @@
             document.getElementById('daily-target').textContent = `${dailyCompleted}/1 Target Completed Today`;
         }
 
+        /* --- Onboarding Modal --- */
         function checkWelcomeModal() {
             if (!localStorage.getItem('mono_welcome_seen')) {
                 setTimeout(() => {
@@ -818,6 +841,7 @@
             localStorage.setItem('mono_welcome_seen', 'true');
         }
 
+        /* --- Study Session Timer --- */
         function openTimerModal() {
             document.getElementById('timer-modal').classList.add('active');
         }
@@ -890,6 +914,7 @@
             document.getElementById('header-timer-label').textContent = isTimerRunning ? `Focusing: ${formatted}` : 'Focus Session';
         }
 
+        /* --- Global Search & Status Filter --- */
         function handleSearchAndFilter() {
             const query = document.getElementById('lesson-search').value.trim().toLowerCase();
             const filter = document.getElementById('status-filter').value;
@@ -963,6 +988,7 @@
             return text.replace(regex, '<mark class="search-highlight">$1</mark>');
         }
 
+        /* --- Sidebar & Accordion Logic --- */
         function toggleAccordion(id, btn) {
             const panel = document.getElementById(id);
             const isOpen = panel.classList.contains('open');
@@ -978,6 +1004,7 @@
             }
         }
 
+        /* --- Bookmarking System --- */
         function toggleBookmark(lessonId, event) {
             if (event) event.stopPropagation();
             if (bookmarkedLessons.includes(lessonId)) {
@@ -1003,6 +1030,7 @@
             }
         }
 
+        /* --- Dashboard Rendering --- */
         function loadDashboard() {
             currentLessonId = null;
 
@@ -1054,9 +1082,9 @@
                     const modPercent = Math.round((completedModLessons.length / allModLessons.length) * 100);
 
                     html += `
-                        <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 20px; margin-bottom: 22px;">
+                        <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 18px; margin-bottom: 20px;">
                             <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div style="font-size: 13.5px; font-weight: 800; color: var(--text-brand);">
+                                <div style="font-size: 13px; font-weight: 800; color: var(--text-brand);">
                                     ${mod.title}
                                 </div>
                                 <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);">${modPercent}%</span>
@@ -1065,35 +1093,35 @@
                                 <div class="mod-progress-fill" style="width: ${modPercent}%;"></div>
                             </div>
 
-                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
                     `;
 
                     mod.lessons.forEach(lesson => {
                         const isCompleted = completedLessons.includes(lesson.id);
                         const isBookmarked = bookmarkedLessons.includes(lesson.id);
                         const isCurrent = lesson.id === lastActiveLesson;
-                        let statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 7px; border-radius: 99px; background: var(--status-pending-bg); color: var(--status-pending-text);">Pending</span>`;
+                        let statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 99px; background: var(--status-pending-bg); color: var(--status-pending-text);">Pending</span>`;
                         
                         if (isCompleted) {
-                            statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 7px; border-radius: 99px; background: var(--status-success-bg); color: var(--status-success-text);">✓</span>`;
+                            statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 99px; background: var(--status-success-bg); color: var(--status-success-text);">✓</span>`;
                         } else if (isCurrent) {
-                            statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 7px; border-radius: 99px; background: var(--primary-light); color: var(--primary);">In Progress</span>`;
+                            statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 99px; background: var(--primary-light); color: var(--primary);">In Progress</span>`;
                         }
 
                         const highlightedTitle = highlightMatch(lesson.name, query);
 
                         html += `
-                            <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 11px 14px; border-radius: 10px; display: flex; justify-content: space-between; align-items: center; gap: 10px; box-shadow: var(--shadow-sm);">
+                            <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; gap: 8px;">
                                 <div style="flex: 1; min-width: 0;">
-                                    <div style="display: flex; align-items: center; gap: 8px;">
+                                    <div style="display: flex; align-items: center; gap: 6px;">
                                         ${statusTag}
                                         <button class="bookmark-btn" id="bookmark-btn-${lesson.id}" onclick="toggleBookmark('${lesson.id}', event)" title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark Lesson'}">
                                             ${isBookmarked ? '⭐' : '☆'}
                                         </button>
-                                        <span style="font-size: 13px; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${highlightedTitle}</span>
+                                        <span style="font-size: 12.5px; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${highlightedTitle}</span>
                                     </div>
                                 </div>
-                                <button onclick="loadLessonContent('${lesson.id}')" style="background: var(--text-main); color: var(--bg-card); border: none; padding: 6px 12px; font-size: 11.5px; font-weight: 700; border-radius: 7px; cursor: pointer; flex-shrink: 0;" aria-label="Open ${lesson.name}">
+                                <button onclick="loadLessonContent('${lesson.id}')" style="background: var(--text-main); color: var(--bg-card); border: none; padding: 5px 10px; font-size: 11px; font-weight: 700; border-radius: 6px; cursor: pointer; flex-shrink: 0;" aria-label="Open ${lesson.name}">
                                     ${isCompleted ? 'Review' : 'Start'}
                                 </button>
                             </div>
@@ -1119,11 +1147,11 @@
                 modulesContentHtml = `
                     <div class="dashboard-grid">
                         <div>
-                            <h3 style="margin: 0 0 16px 2px; font-size: 16px; font-weight: 800; color: var(--text-main);">Personal Finance</h3>
+                            <h3 style="margin: 0 0 16px 4px; font-size: 16px; font-weight: 800; color: var(--primary);">Personal Finance</h3>
                             ${renderModuleColumn(pfModulesMap)}
                         </div>
                         <div>
-                            <h3 style="margin: 0 0 16px 2px; font-size: 16px; font-weight: 800; color: var(--text-main);">Accounting</h3>
+                            <h3 style="margin: 0 0 16px 4px; font-size: 16px; font-weight: 800; color: var(--primary);">Accounting</h3>
                             ${renderModuleColumn(acctModulesMap)}
                         </div>
                     </div>
@@ -1134,7 +1162,7 @@
                 <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: var(--text-main);">Dashboard</h1>
                 <p style="color: var(--text-muted); margin-top: 0; margin-bottom: 24px;">Track your learning progress and resume your learning path.</p>
                 
-                <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%); padding: 26px; border-radius: 16px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; box-shadow: var(--shadow-md); flex-wrap: wrap; gap: 16px;">
+                <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%); padding: 24px; border-radius: 16px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; box-shadow: var(--shadow-md);">
                     <div>
                         <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9;">Ready to continue?</span>
                         <h2 style="margin: 4px 0 12px 0; font-size: 20px; font-weight: 800;">${nextLesson.name}</h2>
@@ -1153,6 +1181,7 @@
             `;
         }
 
+        /* --- Lesson Engine --- */
         function loadLessonContent(lessonId) {
             currentLessonId = lessonId;
             lastActiveLesson = lessonId;
@@ -1235,6 +1264,7 @@
             }
         }
 
+        /* --- Dynamic Sidebar Visual Indicators --- */
         function updateSidebarVisuals() {
             curriculum.forEach(lesson => {
                 const icon = document.getElementById(`status-nav-${lesson.id}`);
@@ -1256,12 +1286,14 @@
             });
         }
 
+        /* --- In-line Notes & Highlighting --- */
         function initHighlightListener() {
             document.addEventListener('mouseup', (e) => {
                 const workbookArea = document.getElementById('workbook-content-area');
                 const selectedText = window.getSelection().toString().trim();
                 const popup = document.getElementById('floating-note-box');
                 
+                // Ensure text is selected inside a loaded lesson workbook and not on the dashboard/sidebar
                 if (currentLessonId !== null && workbookArea && workbookArea.contains(e.target) && selectedText.length > 3 && !popup.contains(e.target)) {
                     selectedQuoteText = selectedText;
                     document.getElementById('popup-selected-text').textContent = `"${selectedText}"`;
