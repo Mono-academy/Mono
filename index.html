@@ -90,10 +90,9 @@
 
         .sidebar-header { margin-bottom: 16px; text-align: center; width: 100%; }
         .sidebar-brand-wrapper {
-            display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer; width: 100%;
+            display: flex; align-items: center; justify-content: center; width: 100%; cursor: pointer;
         }
-        .sidebar-logo { width: 40px; height: 40px; object-fit: contain; border-radius: 50%; flex-shrink: 0; }
-        .sidebar-brand { margin: 0; font-size: 21px; color: var(--text-brand); letter-spacing: -0.02em; font-weight: 800; }
+        .sidebar-brand { margin: 0; font-size: 21px; color: var(--text-brand); letter-spacing: -0.02em; font-weight: 800; text-align: center; }
 
         /* Global Search Bar & Filter */
         .search-box {
@@ -347,7 +346,6 @@
         <aside class="sidebar" aria-label="Course Navigation">
             <div class="sidebar-header">
                 <div class="sidebar-brand-wrapper" onclick="loadDashboard()" role="button" tabindex="0" aria-label="Mono Academy Home">
-                    <img src="M.png" alt="Mono Academy Logo" class="sidebar-logo">
                     <h2 class="sidebar-brand">Mono Academy</h2>
                 </div>
             </div>
