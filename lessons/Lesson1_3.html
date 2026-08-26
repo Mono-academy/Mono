@@ -477,28 +477,15 @@
     let currentSlideIndex = 1;
     const totalSlides = 6;
     let draggedElement = null;
-    let selectedChip = null;
 
-    (function initDragAndDrop() {
-        // Register click/tap and drag events on chips
+    function initDragAndDrop() {
         document.querySelectorAll('.drag-chip').forEach(chip => {
-            chip.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (selectedChip === chip) {
-                    chip.classList.remove('selected');
-                    selectedChip = null;
-                } else {
-                    document.querySelectorAll('.drag-chip').forEach(c => c.classList.remove('selected'));
-                    selectedChip = chip;
-                    chip.classList.add('selected');
-                }
-            });
-
+            chip.setAttribute('draggable', 'true');
             chip.addEventListener('dragstart', (e) => {
                 draggedElement = chip;
                 e.dataTransfer.setData('text/plain', chip.id);
                 e.dataTransfer.effectAllowed = 'move';
-                chip.style.opacity = '0.5';
+                setTimeout(() => chip.style.opacity = '0.5', 0);
             });
 
             chip.addEventListener('dragend', () => {
@@ -507,18 +494,10 @@
             });
         });
 
-        // Register target slot configurations
         document.querySelectorAll('.target-slot').forEach(slot => {
-            slot.addEventListener('click', () => {
-                if (selectedChip) {
-                    placeChipIntoSlot(slot, selectedChip);
-                    selectedChip.classList.remove('selected');
-                    selectedChip = null;
-                }
-            });
-
             slot.addEventListener('dragover', (e) => {
                 e.preventDefault();
+                e.dataTransfer.dropEffect = 'move';
                 slot.classList.add('dragover');
             });
 
@@ -530,40 +509,38 @@
                 e.preventDefault();
                 slot.classList.remove('dragover');
 
-                if (draggedElement) {
-                    placeChipIntoSlot(slot, draggedElement);
+                const draggedId = e.dataTransfer.getData('text/plain') || (draggedElement ? draggedElement.id : null);
+                const sourceChip = document.getElementById(draggedId) || draggedElement;
+
+                if (sourceChip) {
+                    const existingChip = slot.querySelector('.drag-chip');
+                    if (existingChip) {
+                        existingChip.remove();
+                    }
+
+                    slot.innerHTML = '';
+                    const clone = sourceChip.cloneNode(true);
+                    clone.style.opacity = '1';
+                    
+                    clone.addEventListener('click', () => {
+                        clone.remove();
+                        slot.classList.remove('filled');
+                        slot.innerHTML = slot.getAttribute('data-placeholder');
+                        slot.style.borderStyle = 'dashed';
+                        slot.style.borderColor = '#cbd5e1';
+                        slot.style.backgroundColor = '#fafafb';
+                    });
+
+                    slot.appendChild(clone);
+                    slot.classList.add('filled');
+                    slot.style.borderStyle = 'solid';
+                    slot.style.borderColor = '#3b82f6';
+                    slot.style.backgroundColor = 'white';
                 }
             });
         });
-    })();
-
-    function placeChipIntoSlot(slot, chipSource) {
-        const existingChip = slot.querySelector('.drag-chip');
-        if (existingChip) {
-            existingChip.remove();
-        }
-
-        slot.innerHTML = '';
-        const clone = chipSource.cloneNode(true);
-        clone.classList.remove('selected');
-        
-        clone.addEventListener('click', (e) => {
-            e.stopPropagation();
-            clone.remove();
-            slot.classList.remove('filled');
-            slot.innerHTML = slot.getAttribute('data-placeholder');
-            slot.style.borderColor = '#cbd5e1';
-            slot.style.backgroundColor = '#fafafb';
-        });
-
-        slot.appendChild(clone);
-        slot.classList.add('filled');
-        slot.style.borderStyle = 'solid';
-        slot.style.borderColor = '#3b82f6';
-        slot.style.backgroundColor = 'white';
     }
 
-    // Check Answers of current visible slide only
     function checkCurrentSlide() {
         const activeSlide = document.getElementById(`slide_${currentSlideIndex}`);
         const slots = activeSlide.querySelectorAll('.target-slot');
@@ -604,7 +581,7 @@
                 resultPanel.innerHTML = `
                     <span style="font-size: 32px;">🏆</span>
                     <h4 style="margin: 6px 0; font-size: 16px; font-weight: 800;">All Scenarios Complete!</h4>
-                    <p style="margin: 0; font-size: 13px;">You have masterfully finished all double-entry ledger transactions! Close this dialog to continue.</p>
+                    <p style="margin: 0; font-size: 13px;">You have masterfully finished all double-entry ledger transactions!</p>
                 `;
             }
         } else {
@@ -619,7 +596,6 @@
         }
     }
 
-    // Advance Slide
     function nextSlide() {
         if (currentSlideIndex < totalSlides) {
             document.getElementById(`slide_${currentSlideIndex}`).classList.remove('active');
@@ -636,7 +612,6 @@
         }
     }
 
-    // Reset whole quiz sequence to Scenario 1
     function resetL13Quiz() {
         document.querySelectorAll('.target-slot').forEach(slot => {
             slot.classList.remove('filled');
@@ -649,13 +624,19 @@
         document.getElementById(`slide_${currentSlideIndex}`).classList.remove('active');
         currentSlideIndex = 1;
         document.getElementById(`slide_${currentSlideIndex}`).classList.add('active');
-        
         document.getElementById('quiz_progress_bar').style.width = '16.66%';
+
         document.getElementById('btn_check_answer').style.display = 'inline-block';
         document.getElementById('btn_next_question').style.display = 'none';
         
         const resultPanel = document.getElementById('quiz_result_panel');
         resultPanel.style.display = 'none';
         resultPanel.innerHTML = '';
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initDragAndDrop);
+    } else {
+        initDragAndDrop();
     }
 </script>
