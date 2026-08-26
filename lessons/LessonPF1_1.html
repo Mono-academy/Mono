@@ -110,7 +110,7 @@
 
     .click-target {
       position: relative;
-      cursor: pointer;
+      cursor: default;
       border: 2px solid transparent;
       border-radius: 4px;
       padding: 4px;
@@ -118,6 +118,7 @@
     }
 
     .click-target.active-step {
+      cursor: pointer;
       border-color: var(--accent);
       background-color: rgba(74, 144, 226, 0.1);
       animation: pulse 1.5s infinite;
@@ -190,12 +191,7 @@
       background-color: var(--accent-hover);
     }
 
-    button:disabled {
-      background-color: var(--border-color);
-      cursor: not-allowed;
-    }
-
-    /* Match Assessment (Click-to-Place Quiz) */
+    /* Select and Drop Quiz */
     .quiz-section {
       border-top: 2px solid var(--border-color);
       padding-top: 24px;
@@ -267,7 +263,7 @@
   <h1>Lesson 1.1: Reading a Paystub</h1>
 
   <div class="hero-card">
-    <p>A paystub details your total earnings and all deductions for a given pay period. Interactive baseline guide: Select highlit elements to analyze specific line items.</p>
+    <p>A paystub details your total earnings and all deductions for a given pay period. Interactive baseline guide: Select highlighted elements to analyze specific line items.</p>
   </div>
 
   <!-- Interactive Paystub Graphic -->
@@ -325,12 +321,12 @@
 
   <!-- Dynamic Detail Card -->
   <div class="info-card" id="info-box">
-    <h3 id="info-title">Step 1: Gross Pay</h3>
-    <p id="info-text">Click the highlighted "Gross Pay" section on the paystub above to inspect total calculated earnings before tax reductions.</p>
+    <h3 id="info-title">Instruction</h3>
+    <p id="info-text">Please click the blinking <strong>"Click Here"</strong> label on the paystub above to reveal information about Gross Pay.</p>
   </div>
 
   <div class="controls">
-    <button id="next-btn" onclick="nextStep()" disabled>Next Section</button>
+    <button id="next-btn" onclick="nextStep()" style="display: none;">Next Step &rarr;</button>
   </div>
 
   <!-- Match Quiz Section -->
@@ -368,7 +364,7 @@
   const stepData = {
     1: {
       title: "Gross Pay",
-      text: "Gross Pay is the complete amount of wage compensation earned during the period before any taxes, contributions, or voluntary withholdings are subtracted.",
+      text: "Gross Pay is the total money earned during the pay period BEFORE any taxes, contributions, or voluntary withholdings are deducted.",
       next: 2
     },
     2: {
@@ -378,48 +374,57 @@
     },
     3: {
       title: "Pre-Tax Deductions",
-      text: "Elective deductions like 401(k) retirement options or health premiums subtracted from income before taxes are calculated, lowering taxable gross fields.",
+      text: "Elective deductions like 401(k) retirement options or health insurance premiums subtracted from income before taxes are calculated.",
       next: 4
     },
     4: {
       title: "Net Pay",
-      text: "Net Pay (or 'take-home pay') represents the final cleared numerical value deposited directly into your bank balance after every deduction has been written off.",
+      text: "Net Pay (or 'take-home pay') represents the final amount deposited into your bank account after all deductions have been subtracted.",
       next: null
     }
   };
 
   let currentStep = 1;
-  let clickedSteps = new Set();
+  let hasClickedCurrentTarget = false;
 
   function handleTargetClick(step) {
     if (step === currentStep) {
-      clickedSteps.add(step);
+      hasClickedCurrentTarget = true;
       const data = stepData[step];
       document.getElementById('info-title').innerText = `Step ${step}: ${data.title}`;
       document.getElementById('info-text').innerText = data.text;
-      document.getElementById('next-btn').disabled = false;
+      
+      // Show the next button after valid click
+      const nextBtn = document.getElementById('next-btn');
+      nextBtn.style.display = 'inline-block';
+      nextBtn.innerText = data.next ? "Next Step \u2192" : "Take Assessment \u2192";
     }
   }
 
   function nextStep() {
+    if (!hasClickedCurrentTarget) return;
+
     const next = stepData[currentStep].next;
     document.getElementById(`target-${currentStep}`).classList.remove('active-step');
 
     if (next) {
       currentStep = next;
+      hasClickedCurrentTarget = false;
       document.getElementById(`target-${currentStep}`).classList.add('active-step');
-      document.getElementById('info-title').innerText = `Step ${currentStep}: ${stepData[currentStep].title}`;
-      document.getElementById('info-text').innerText = `Click "Click Here" on the paystub to learn about ${stepData[currentStep].title}.`;
-      document.getElementById('next-btn').disabled = true;
+      
+      // Reset info box and hide button until target clicked
+      document.getElementById('info-title').innerText = `Step ${currentStep}: Find ${stepData[currentStep].title}`;
+      document.getElementById('info-text').innerHTML = `Click the blinking <strong>"Click Here"</strong> tag on the paystub to learn about ${stepData[currentStep].title}.`;
+      document.getElementById('next-btn').style.display = 'none';
     } else {
       document.getElementById('info-title').innerText = "Interactive Exploration Complete";
-      document.getElementById('info-text').innerText = "You have reviewed all standard parts of the paystub. Proceed to the knowledge assessment below.";
+      document.getElementById('info-text').innerText = "You have reviewed all standard parts of the paystub. Complete the quiz below.";
       document.getElementById('next-btn').style.display = 'none';
       document.getElementById('quiz-section').style.display = 'block';
     }
   }
 
-  /* Click-to-Place Quiz Logic */
+  /* Select and Drop Quiz Logic */
   let selectedSourceKey = null;
   let selectedSourceLabel = null;
   let correctMatches = 0;
@@ -427,14 +432,12 @@
   function selectSource(key, label) {
     if (document.getElementById(`src-${key}`).classList.contains('matched')) return;
 
-    // Reset selection styling
     document.querySelectorAll('.source-items .quiz-item').forEach(el => el.classList.remove('selected'));
 
     selectedSourceKey = key;
     selectedSourceLabel = label;
     document.getElementById(`src-${key}`).classList.add('selected');
     
-    // Highlight available slots
     document.querySelectorAll('.slot').forEach(el => el.classList.add('active-slot'));
   }
 
@@ -447,7 +450,7 @@
 
       srcEl.classList.remove('selected');
       srcEl.classList.add('matched');
-      slotEl.querySelector('.slot-value').innerHTML = `<strong>: ${selectedSourceLabel} ✓</strong>`;
+      slotEl.querySelector('.slot-value').innerHTML = `<strong>: ${selectedSourceLabel} &#10003;</strong>`;
       slotEl.classList.remove('active-slot');
 
       selectedSourceKey = null;
@@ -455,10 +458,10 @@
       correctMatches++;
 
       if (correctMatches === 3) {
-        document.getElementById('quiz-status').innerText = "✓ Quiz Complete: All terms correctly matched!";
+        document.getElementById('quiz-status').innerText = "\u2713 Quiz Complete: All terms correctly matched!";
       }
     } else {
-      alert("Incorrect match, try again!");
+      alert("Incorrect match. Try selecting a different definition!");
     }
   }
 </script>
