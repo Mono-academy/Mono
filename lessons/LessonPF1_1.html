@@ -113,7 +113,7 @@
       cursor: default;
       border: 2px solid transparent;
       border-radius: 4px;
-      padding: 4px;
+      padding: 8px;
       transition: all 0.2s;
     }
 
@@ -141,6 +141,7 @@
       font-weight: bold;
       padding: 2px 6px;
       border-radius: 10px;
+      pointer-events: none;
     }
 
     .active-step .click-badge {
@@ -156,6 +157,7 @@
       border-radius: 4px;
       margin-bottom: 24px;
       min-height: 80px;
+      display: none;
     }
 
     .info-card h3 {
@@ -282,7 +284,7 @@
       <!-- Target 1: Gross Pay -->
       <div class="stub-section">
         <div class="stub-title">Earnings</div>
-        <div id="target-1" class="click-target active-step" onclick="handleTargetClick(1)">
+        <div id="target-1" class="click-target active-step">
           <span class="click-badge">Click Here</span>
           <strong>Gross Pay:</strong> $2,000.00
         </div>
@@ -291,7 +293,7 @@
       <!-- Target 2: Deductions -->
       <div class="stub-section">
         <div class="stub-title">Taxes & Withholdings</div>
-        <div id="target-2" class="click-target" onclick="handleTargetClick(2)">
+        <div id="target-2" class="click-target">
           <span class="click-badge">Click Here</span>
           <strong>Fed Income Tax:</strong> $240.00<br>
           <strong>FICA (Social Security/Med):</strong> $153.00
@@ -301,7 +303,7 @@
       <!-- Target 3: Benefits -->
       <div class="stub-section">
         <div class="stub-title">Pre-Tax Deductions</div>
-        <div id="target-3" class="click-target" onclick="handleTargetClick(3)">
+        <div id="target-3" class="click-target">
           <span class="click-badge">Click Here</span>
           <strong>401(k) Contribution:</strong> $100.00<br>
           <strong>Health Insurance:</strong> $50.00
@@ -311,7 +313,7 @@
       <!-- Target 4: Net Pay -->
       <div class="stub-section">
         <div class="stub-title">Summary</div>
-        <div id="target-4" class="click-target" onclick="handleTargetClick(4)">
+        <div id="target-4" class="click-target">
           <span class="click-badge">Click Here</span>
           <strong>Net Pay:</strong> $1,457.00
         </div>
@@ -321,8 +323,8 @@
 
   <!-- Dynamic Detail Card -->
   <div class="info-card" id="info-box">
-    <h3 id="info-title">Instruction</h3>
-    <p id="info-text">Please click the blinking <strong>"Click Here"</strong> label on the paystub above to reveal information about Gross Pay.</p>
+    <h3 id="info-title"></h3>
+    <p id="info-text"></p>
   </div>
 
   <div class="controls">
@@ -387,14 +389,28 @@
   let currentStep = 1;
   let hasClickedCurrentTarget = false;
 
+  // Bind click handlers to target elements directly
+  for (let i = 1; i <= 4; i++) {
+    const el = document.getElementById(`target-${i}`);
+    if (el) {
+      el.addEventListener('click', function() {
+        handleTargetClick(i);
+      });
+    }
+  }
+
   function handleTargetClick(step) {
     if (step === currentStep) {
       hasClickedCurrentTarget = true;
       const data = stepData[step];
+
+      // Show and update explanation box
+      const infoBox = document.getElementById('info-box');
+      infoBox.style.display = 'block';
       document.getElementById('info-title').innerText = `Step ${step}: ${data.title}`;
       document.getElementById('info-text').innerText = data.text;
       
-      // Show the next button after valid click
+      // Show next button
       const nextBtn = document.getElementById('next-btn');
       nextBtn.style.display = 'inline-block';
       nextBtn.innerText = data.next ? "Next Step \u2192" : "Take Assessment \u2192";
@@ -412,13 +428,11 @@
       hasClickedCurrentTarget = false;
       document.getElementById(`target-${currentStep}`).classList.add('active-step');
       
-      // Reset info box and hide button until target clicked
-      document.getElementById('info-title').innerText = `Step ${currentStep}: Find ${stepData[currentStep].title}`;
-      document.getElementById('info-text').innerHTML = `Click the blinking <strong>"Click Here"</strong> tag on the paystub to learn about ${stepData[currentStep].title}.`;
+      // Reset details and hide button until user clicks the next area
+      document.getElementById('info-box').style.display = 'none';
       document.getElementById('next-btn').style.display = 'none';
     } else {
-      document.getElementById('info-title').innerText = "Interactive Exploration Complete";
-      document.getElementById('info-text').innerText = "You have reviewed all standard parts of the paystub. Complete the quiz below.";
+      document.getElementById('info-box').style.display = 'none';
       document.getElementById('next-btn').style.display = 'none';
       document.getElementById('quiz-section').style.display = 'block';
     }
