@@ -88,11 +88,21 @@
             transition: background 0.3s ease;
         }
 
-        .sidebar-header { margin-bottom: 16px; text-align: center; width: 100%; }
+        .sidebar-header { margin-bottom: 16px; text-align: left; width: 100%; }
         .sidebar-brand-wrapper {
-            display: flex; align-items: center; justify-content: center; width: 100%; cursor: pointer;
+            display: flex; align-items: center; justify-content: flex-start; width: 100%; cursor: pointer; padding-left: 4px;
         }
-        .sidebar-brand { margin: 0; font-size: 21px; color: var(--text-brand); letter-spacing: -0.02em; font-weight: 800; text-align: center; }
+        .sidebar-brand { margin: 0; font-size: 21px; color: var(--text-brand); letter-spacing: -0.02em; font-weight: 800; text-align: left; }
+
+        .sidebar-track-label {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin: 16px 0 6px 4px;
+            display: block;
+        }
 
         /* Global Search Bar & Filter */
         .search-box {
@@ -369,6 +379,8 @@
 
             <nav class="sidebar-menu" id="sidebar-accordion-group">
 
+                <span class="sidebar-track-label">Personal Finance</span>
+
                 <button class="accordion-header active" id="btn-mod-pf1" aria-expanded="true" aria-controls="module-pf1-content" onclick="toggleAccordion('module-pf1-content', this)">
                     <span>Income & Taxes</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
@@ -482,6 +494,8 @@
                         <span class="status-icon pending" id="status-nav-pf6.3" title="Pending">○</span>
                     </button>
                 </div>
+
+                <span class="sidebar-track-label">Accounting</span>
 
                 <button class="accordion-header" id="btn-mod-1" aria-expanded="false" aria-controls="module1-content" onclick="toggleAccordion('module1-content', this)">
                     <span>Accounting Basics</span>
@@ -1133,11 +1147,11 @@
                 modulesContentHtml = `
                     <div class="dashboard-grid">
                         <div>
-                            <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 800; color: var(--primary);">Personal Finance</h3>
+                            <h3 style="margin: 0 0 16px 4px; font-size: 16px; font-weight: 800; color: var(--primary);">Personal Finance</h3>
                             ${renderModuleColumn(pfModulesMap)}
                         </div>
                         <div>
-                            <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 800; color: var(--primary);">Accounting</h3>
+                            <h3 style="margin: 0 0 16px 4px; font-size: 16px; font-weight: 800; color: var(--primary);">Accounting</h3>
                             ${renderModuleColumn(acctModulesMap)}
                         </div>
                     </div>
