@@ -1,481 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Lesson 1.1: Reading a Paystub</title>
-  <style>
-    :root {
-      --bg-color: #f4f6f9;
-      --card-bg: #ffffff;
-      --text-main: #2c3e50;
-      --text-muted: #6c757d;
-      --accent: #4a90e2;
-      --accent-hover: #357abd;
-      --accent-light: #f0f4f9;
-      --border-color: #e2e8f0;
-      --success: #2ea44f;
-    }
-
-    * {
-      box-sizing: border-box;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    }
-
-    body {
-      background-color: var(--bg-color);
-      color: var(--text-main);
-      margin: 0;
-      padding: 24px;
-      display: flex;
-      justify-content: center;
-    }
-
-    .lesson-container {
-      background: var(--card-bg);
-      max-width: 800px;
-      width: 100%;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      padding: 32px;
-      border: 1px solid var(--border-color);
-    }
-
-    .track-badge {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      margin: 0 0 24px 0;
-      color: var(--text-main);
-    }
-
-    .paystub {
-      border: 2px dashed var(--border-color);
-      border-radius: 8px;
-      padding: 20px;
-      background: #fafafa;
-      margin-bottom: 24px;
-    }
-
-    .paystub-header {
-      border-bottom: 2px solid var(--border-color);
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .paystub-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .stub-section {
-      background: #fff;
-      border: 1px solid var(--border-color);
-      padding: 12px;
-      border-radius: 6px;
-    }
-
-    .stub-title {
-      font-size: 0.8rem;
-      font-weight: bold;
-      color: var(--text-muted);
-      margin-bottom: 8px;
-      text-transform: uppercase;
-    }
-
-    .click-target {
-      position: relative;
-      cursor: default;
-      border: 2px solid transparent;
-      border-radius: 6px;
-      padding: 12px;
-      transition: all 0.2s;
-      user-select: none;
-    }
-
-    .click-target * {
-      pointer-events: none;
-    }
-
-    .click-target.active-step {
-      cursor: pointer !important;
-      border-color: var(--accent);
-      background-color: rgba(74, 144, 226, 0.15);
-      animation: pulse 1.5s infinite;
-      z-index: 10;
-      isolation: isolate;
-    }
-
-    @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(74, 144, 226, 0.5); }
-      70% { box-shadow: 0 0 0 8px rgba(74, 144, 226, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(74, 144, 226, 0); }
-    }
-
-    .click-badge {
-      display: none;
-      position: absolute;
-      top: -10px;
-      right: -10px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: bold;
-      padding: 3px 8px;
-      border-radius: 12px;
-    }
-
-    .active-step .click-badge {
-      display: inline-block;
-    }
-
-    .info-card {
-      background: #fff;
-      border: 1px solid var(--accent);
-      border-left: 4px solid var(--accent);
-      padding: 16px;
-      border-radius: 4px;
-      margin-bottom: 24px;
-      display: none;
-    }
-
-    .info-card h3 {
-      margin: 0 0 6px 0;
-      font-size: 1rem;
-      color: var(--accent);
-    }
-
-    .info-card p {
-      margin: 0;
-      font-size: 0.95rem;
-      line-height: 1.4;
-    }
-
-    .controls {
-      display: flex;
-      justify-content: flex-end;
-      margin-bottom: 32px;
-    }
-
-    button {
-      background-color: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 6px;
-      font-weight: 600;
-      cursor: pointer;
-      font-size: 0.95rem;
-      transition: background 0.2s;
-    }
-
-    button:hover {
-      background-color: var(--accent-hover);
-    }
-
-    .quiz-section {
-      border-top: 2px solid var(--border-color);
-      padding-top: 24px;
-      display: none;
-    }
-
-    .quiz-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 16px;
-    }
-
-    .source-items, .target-slots {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .quiz-item {
-      background: #fff;
-      border: 1px solid var(--border-color);
-      padding: 10px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      user-select: none;
-      font-size: 0.9rem;
-    }
-
-    .quiz-item.selected {
-      border-color: var(--accent);
-      background: var(--accent-light);
-      font-weight: bold;
-    }
-
-    .quiz-item.matched {
-      background: #e6ffed;
-      border-color: var(--success);
-      cursor: default;
-    }
-
-    .slot {
-      background: #fafafa;
-      border: 2px dashed var(--border-color);
-      padding: 10px 14px;
-      border-radius: 6px;
-      min-height: 44px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-size: 0.9rem;
-    }
-
-    .slot.active-slot {
-      border-color: var(--accent);
-      cursor: pointer;
-    }
-
-    .slot-label {
-      font-weight: bold;
-      color: var(--text-muted);
-    }
-
-    .coming-soon-card {
-      background-color: var(--accent-light);
-      border: 2px dashed var(--accent);
-      border-radius: 8px;
-      padding: 28px;
-      text-align: center;
-      margin-top: 24px;
-      display: none;
-    }
-
-    .coming-soon-card h3 {
-      margin: 0 0 8px 0;
-      color: var(--accent);
-    }
-
-    .coming-soon-card p {
-      margin: 0;
-      color: var(--text-muted);
-    }
-  </style>
-</head>
-<body>
-
 <div class="lesson-container">
-  <div class="track-badge">Income & Taxes Track</div>
-  <h1>Lesson 1.1: Reading a Paystub</h1>
+  <div class="track-badge">PERSONAL FINANCE TRACK</div>
+  <h1 class="lesson-title">Lesson 1.1: Reading a Paystub</h1>
 
-  <div class="paystub">
-    <div class="paystub-header">
+  <!-- Announcement Banner -->
+  <div class="announcement-banner">
+    <p>Personal Finance lessons coming soon! Explore Accounting while you wait!</p>
+  </div>
+
+  <!-- Paystub Card -->
+  <div class="paystub-card">
+    <header class="paystub-header">
       <div>
         <strong>Acme Corp LLC</strong><br>
-        <small style="color: var(--text-muted)">Pay Period: 01/01/2026 - 01/15/2026</small>
+        <span class="text-muted">Pay Period: 01/01/2026 – 01/15/2026</span>
       </div>
       <div>
         <strong>Employee:</strong> Alex Morgan
       </div>
-    </div>
+    </header>
 
     <div class="paystub-grid">
-      <div class="stub-section">
-        <div class="stub-title">Earnings</div>
-        <div id="target-1" class="click-target active-step">
-          <span class="click-badge">Click Here</span>
-          <span><strong>Gross Pay:</strong> $2,000.00</span>
-        </div>
+      <!-- Earnings -->
+      <div class="paystub-section">
+        <h3>Earnings</h3>
+        <p><span>Gross Pay:</span> <strong>$2,000.00</strong></p>
       </div>
 
-      <div class="stub-section">
-        <div class="stub-title">Taxes & Withholdings</div>
-        <div id="target-2" class="click-target">
-          <span class="click-badge">Click Here</span>
-          <span><strong>Fed Income Tax:</strong> $240.00<br><strong>FICA:</strong> $153.00</span>
-        </div>
+      <!-- Taxes & Withholdings -->
+      <div class="paystub-section">
+        <h3>Taxes & Withholdings</h3>
+        <p><span>Fed Income Tax:</span> <span>$240.00</span></p>
+        <p><span>FICA:</span> <span>$153.00</span></p>
       </div>
 
-      <div class="stub-section">
-        <div class="stub-title">Pre-Tax Deductions</div>
-        <div id="target-3" class="click-target">
-          <span class="click-badge">Click Here</span>
-          <span><strong>401(k):</strong> $100.00<br><strong>Health:</strong> $50.00</span>
-        </div>
+      <!-- Pre-Tax Deductions -->
+      <div class="paystub-section">
+        <h3>Pre-Tax Deductions</h3>
+        <p><span>401(k):</span> <span>$100.00</span></p>
+        <p><span>Health:</span> <span>$50.00</span></p>
       </div>
+    </div>
 
-      <div class="stub-section">
-        <div class="stub-title">Summary</div>
-        <div id="target-4" class="click-target">
-          <span class="click-badge">Click Here</span>
-          <span><strong>Net Pay:</strong> $1,457.00</span>
-        </div>
-      </div>
+    <!-- Summary / Net Pay -->
+    <div class="paystub-summary">
+      <h3>Summary</h3>
+      <p class="net-pay"><span>Net Pay:</span> <strong>$1,457.00</strong></p>
     </div>
   </div>
 
-  <div class="info-card" id="info-box">
-    <h3 id="info-title"></h3>
-    <p id="info-text"></p>
-  </div>
-
-  <div class="controls">
-    <button id="next-btn" style="display: none;">Next Step &rarr;</button>
-  </div>
-
-  <div class="quiz-section" id="quiz-section">
-    <h2>📝 Module 1.1 Assessment</h2>
-    <p style="color: var(--text-muted); margin-bottom: 16px;">Select a term on the left, then click its matching definition on the right.</p>
-
-    <div class="quiz-grid">
-      <div class="source-items">
-        <div class="quiz-item" id="src-gross" onclick="selectSource('gross', 'Gross Pay', event)">Gross Pay</div>
-        <div class="quiz-item" id="src-net" onclick="selectSource('net', 'Net Pay', event)">Net Pay</div>
-        <div class="quiz-item" id="src-fica" onclick="selectSource('fica', 'FICA Tax', event)">FICA Tax</div>
-      </div>
-
-      <div class="target-slots">
-        <div class="slot" id="slot-fica" onclick="dropTarget('fica', event)">
-          <span class="slot-label">Mandatory tax for Social Security & Medicare.</span>
-          <span class="slot-value"></span>
-        </div>
-        <div class="slot" id="slot-gross" onclick="dropTarget('gross', event)">
-          <span class="slot-label">Total money earned before any tax deductions.</span>
-          <span class="slot-value"></span>
-        </div>
-        <div class="slot" id="slot-net" onclick="dropTarget('net', event)">
-          <span class="slot-label">Take-home money after all deductions.</span>
-          <span class="slot-value"></span>
-        </div>
-      </div>
-    </div>
-    <div id="quiz-status" style="font-weight: bold; color: var(--success); margin-bottom: 12px;"></div>
-
-    <div id="coming-soon-card" class="coming-soon-card">
-      <h3>🚀 Lesson 1.2: Advanced Tax Deductions</h3>
-      <p>Coming Soon!</p>
-    </div>
+  <!-- Lesson Action -->
+  <div class="lesson-footer">
+    <span>Finished reading? Mark this lesson as complete:</span>
+    <button class="btn-complete">Complete & Continue →</button>
   </div>
 </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const stepData = {
-      1: {
-        title: "Gross Pay",
-        text: "Gross Pay is the total amount earned during the pay period BEFORE taxes or voluntary contributions are deducted.",
-        next: 2
-      },
-      2: {
-        title: "Taxes & Withholdings",
-        text: "Mandatory tax deductions automatically withheld by employers to pay federal income tax along with FICA (Social Security & Medicare).",
-        next: 3
-      },
-      3: {
-        title: "Pre-Tax Deductions",
-        text: "Elective deductions like 401(k) retirement contributions or health insurance subtracted prior to calculating tax withholdings.",
-        next: 4
-      },
-      4: {
-        title: "Net Pay",
-        text: "Net Pay (take-home pay) represents the actual remaining amount directly deposited into your bank account.",
-        next: null
-      }
-    };
-
-    let currentStep = 1;
-    let hasClickedCurrentTarget = false;
-
-    const nextBtn = document.getElementById('next-btn');
-
-    [1, 2, 3, 4].forEach(step => {
-      const target = document.getElementById(`target-${step}`);
-      
-      target.addEventListener('click', (e) => {
-        e.stopPropagation();
-        
-        if (step === currentStep) {
-          hasClickedCurrentTarget = true;
-          const data = stepData[step];
-
-          document.getElementById('info-box').style.display = 'block';
-          document.getElementById('info-title').innerText = `Step ${step}: ${data.title}`;
-          document.getElementById('info-text').innerText = data.text;
-
-          nextBtn.style.display = 'inline-block';
-          nextBtn.innerText = data.next ? "Next Step \u2192" : "Take Assessment \u2192";
-        }
-      });
-    });
-
-    nextBtn.addEventListener('click', (e) => {
-      e.stopPropagation();
-      if (!hasClickedCurrentTarget) return;
-
-      const next = stepData[currentStep].next;
-      document.getElementById(`target-${currentStep}`).classList.remove('active-step');
-
-      if (next) {
-        currentStep = next;
-        hasClickedCurrentTarget = false;
-        document.getElementById(`target-${currentStep}`).classList.add('active-step');
-        document.getElementById('info-box').style.display = 'none';
-        nextBtn.style.display = 'none';
-      } else {
-        document.getElementById('info-box').style.display = 'none';
-        nextBtn.style.display = 'none';
-        document.getElementById('quiz-section').style.display = 'block';
-      }
-    });
-  });
-
-  /* Select and Drop Quiz Logic */
-  let selectedSourceKey = null;
-  let selectedSourceLabel = null;
-  let correctMatches = 0;
-
-  function selectSource(key, label, e) {
-    if (e) e.stopPropagation();
-    if (document.getElementById(`src-${key}`).classList.contains('matched')) return;
-
-    document.querySelectorAll('.source-items .quiz-item').forEach(el => el.classList.remove('selected'));
-    selectedSourceKey = key;
-    selectedSourceLabel = label;
-    document.getElementById(`src-${key}`).classList.add('selected');
-    document.querySelectorAll('.slot').forEach(el => el.classList.add('active-slot'));
-  }
-
-  function dropTarget(slotKey, e) {
-    if (e) e.stopPropagation();
-    if (!selectedSourceKey) return;
-
-    if (selectedSourceKey === slotKey) {
-      const srcEl = document.getElementById(`src-${selectedSourceKey}`);
-      const slotEl = document.getElementById(`slot-${slotKey}`);
-
-      srcEl.classList.remove('selected');
-      srcEl.classList.add('matched');
-      slotEl.querySelector('.slot-value').innerHTML = `<strong>: ${selectedSourceLabel} &#10003;</strong>`;
-      slotEl.classList.remove('active-slot');
-
-      selectedSourceKey = null;
-      selectedSourceLabel = null;
-      correctMatches++;
-
-      if (correctMatches === 3) {
-        document.getElementById('quiz-status').innerText = "\u2713 Quiz Complete: All terms matched!";
-        document.getElementById('coming-soon-card').style.display = 'block';
-      }
-    } else {
-      alert("Incorrect match. Select a different definition!");
-    }
-  }
-</script>
-
-</body>
-</html>
