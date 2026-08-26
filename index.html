@@ -150,7 +150,7 @@
             min-height: 420px; position: relative; border: 1px solid var(--border-subtle);
             font-family: 'Inter', sans-serif;
             color: var(--text-main); line-height: 1.6;
-            box-sizing: border-box; /* Prevent padding overflow */
+            box-sizing: border-box;
         }
         
         .workbook-viewport h1, .workbook-viewport h2, .workbook-viewport h3 {
@@ -204,15 +204,15 @@
         .top-utility-bar {
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
         }
-        .utility-group-left, .utility-group-right { display: flex; align-items: center; gap: 10px; }
+        .utility-group-left, .utility-group-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
-        .theme-toggle-btn, .timer-trigger-btn {
+        .theme-toggle-btn, .timer-trigger-btn, .flashcard-trigger-btn, .ai-tutor-trigger-btn {
             background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);
             padding: 9px 16px; border-radius: 99px; font-size: 12px; font-weight: 600; cursor: pointer;
             display: flex; align-items: center; gap: 6px; transition: all 0.2s; box-shadow: var(--shadow-sm);
             font-family: 'Inter', sans-serif;
         }
-        .theme-toggle-btn:hover, .timer-trigger-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
+        .theme-toggle-btn:hover, .timer-trigger-btn:hover, .flashcard-trigger-btn:hover, .ai-tutor-trigger-btn:hover { border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
 
         .stat-badge {
             background: var(--bg-card); border: 1px solid var(--border-subtle); padding: 7px 14px;
@@ -271,6 +271,30 @@
         .timer-btn-primary:hover { background: var(--primary-hover); }
         .timer-btn-secondary { background: var(--bg-card-subtle); color: var(--text-main); border: 1px solid var(--border-color); }
 
+        /* Flashcard Styles */
+        .flashcard-card-box {
+            background: var(--bg-card-subtle); border: 1px solid var(--border-color); border-radius: 16px;
+            min-height: 180px; padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; cursor: pointer; margin: 16px 0; position: relative; transition: all 0.2s;
+        }
+        .flashcard-card-box:hover { border-color: var(--primary); }
+        .flashcard-track-indicator { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+        .flashcard-text { font-size: 16px; font-weight: 600; color: var(--text-main); }
+
+        /* AI Tutor Chat Styles */
+        .chat-container {
+            display: flex; flex-direction: column; height: 360px; border: 1px solid var(--border-color);
+            border-radius: 16px; background: var(--bg-card-subtle); margin: 12px 0; overflow: hidden;
+        }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+        .chat-bubble { max-width: 80%; padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.4; }
+        .chat-bubble.ai { background: var(--bg-card); color: var(--text-main); align-self: flex-start; border: 1px solid var(--border-subtle); }
+        .chat-bubble.user { background: var(--primary); color: white; align-self: flex-end; }
+        .chat-input-area { display: flex; padding: 10px; background: var(--bg-card); border-top: 1px solid var(--border-color); gap: 8px; }
+        .chat-input { flex: 1; border: 1px solid var(--border-color); background: var(--bg-card-subtle); color: var(--text-main); padding: 8px 12px; border-radius: 10px; font-size: 13px; outline: none; font-family: 'Inter', sans-serif; }
+        .chat-send-btn { background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 10px; font-weight: 700; font-size: 13px; cursor: pointer; }
+        .chat-send-btn:hover { background: var(--primary-hover); }
+
         .bookmark-btn { background: transparent; border: none; font-size: 18px; cursor: pointer; padding: 4px; transition: transform 0.2s; line-height: 1; }
         .bookmark-btn:hover { transform: scale(1.2); }
 
@@ -307,11 +331,12 @@
     <div id="welcome-modal" class="modal-overlay" role="dialog" aria-labelledby="modal-title" aria-describedby="modal-desc">
         <div class="modal-card" style="text-align: center;">
             <h2 id="modal-title" class="welcome-title">Welcome to Mono Academy! 👋</h2>
-            <p id="modal-desc" class="welcome-desc">Track your progress across interactive modules, set focus timers, and build your financial mastery.</p>
+            <p id="modal-desc" class="welcome-desc">Track your progress across interactive modules, set focus timers, practice flashcards, and chat with your AI tutor.</p>
             <button class="welcome-btn" onclick="closeWelcomeModal()" aria-label="Get started with Mono Academy">Get Started</button>
         </div>
     </div>
 
+    <!-- Focus Timer Modal -->
     <div id="timer-modal" class="modal-overlay" role="dialog" aria-labelledby="timer-modal-title">
         <div class="modal-card">
             <button class="modal-close-icon" onclick="closeTimerModal()" aria-label="Close Timer">✕</button>
@@ -338,6 +363,46 @@
         </div>
     </div>
 
+    <!-- Flashcard System Modal -->
+    <div id="flashcard-modal" class="modal-overlay" role="dialog" aria-labelledby="flashcard-modal-title">
+        <div class="modal-card" style="max-width: 520px;">
+            <button class="modal-close-icon" onclick="closeFlashcardModal()" aria-label="Close Flashcards">✕</button>
+            <h2 id="flashcard-modal-title" style="margin: 0 0 4px 0; font-size: 20px; font-weight: 800; text-align: center;">🃏 Quick Flashcards</h2>
+            <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 0;">Click card to flip between Question and Answer.</p>
+
+            <div class="flashcard-card-box" onclick="flipCurrentCard()">
+                <div class="flashcard-track-indicator" id="flashcard-counter">Card 1 of 5</div>
+                <div class="flashcard-text" id="flashcard-content-display">What is the fundamental accounting equation?</div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px;">
+                <button class="timer-btn timer-btn-secondary" onclick="prevFlashcard()">← Previous</button>
+                <span style="font-size: 12px; color: var(--text-muted); font-weight: 600;" id="flashcard-state-hint">Click card to flip</span>
+                <button class="timer-btn timer-btn-primary" onclick="nextFlashcard()">Next →</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Tutor Chat Modal -->
+    <div id="ai-tutor-modal" class="modal-overlay" role="dialog" aria-labelledby="ai-tutor-modal-title">
+        <div class="modal-card" style="max-width: 560px;">
+            <button class="modal-close-icon" onclick="closeAiTutorModal()" aria-label="Close AI Tutor">✕</button>
+            <h2 id="ai-tutor-modal-title" style="margin: 0 0 4px 0; font-size: 20px; font-weight: 800;">🤖 Mono AI Tutor</h2>
+            <p style="font-size: 13px; color: var(--text-muted); margin-top: 0;">Ask questions about accounting concepts, taxes, or personal finance!</p>
+
+            <div class="chat-container">
+                <div class="chat-messages" id="chat-messages-list">
+                    <div class="chat-bubble ai">Hello! I'm your Mono Academy AI Tutor. What financial or accounting topic can I help explain today?</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" id="chat-user-input" class="chat-input" placeholder="Type your question here..." onkeydown="if(event.key==='Enter') sendChatMessage()">
+                    <button class="chat-send-btn" onclick="sendChatMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notes Modal -->
     <div id="notes-modal" class="modal-overlay" role="dialog" aria-labelledby="notes-modal-title">
         <div class="modal-card" style="max-width: 600px; max-height: 80vh; overflow-y: auto;">
             <button class="modal-close-icon" onclick="closeNotesModal()" aria-label="Close Notes">✕</button>
@@ -669,6 +734,12 @@
                     <button class="timer-trigger-btn" onclick="openTimerModal()" aria-label="Open Focus Timer">
                         ⏱️ <span id="header-timer-label">Focus Session</span>
                     </button>
+                    <button class="flashcard-trigger-btn" onclick="openFlashcardModal()" aria-label="Open Flashcards">
+                        🃏 Flashcards
+                    </button>
+                    <button class="ai-tutor-trigger-btn" onclick="openAiTutorModal()" aria-label="Open AI Tutor">
+                        🤖 AI Tutor
+                    </button>
                 </div>
 
                 <div class="utility-group-right gamification-bar">
@@ -707,6 +778,17 @@
         let timerSeconds = 25 * 60;
         let timerInterval = null;
         let isTimerRunning = false;
+
+        // Flashcards state
+        const flashcardsList = [
+            { front: "What is the fundamental accounting equation?", back: "Assets = Liabilities + Owner's Equity" },
+            { front: "What is gross pay vs. net pay?", back: "Gross pay is total earnings before deductions; net pay is 'take-home' pay after taxes and deductions." },
+            { front: "What is an emergency fund?", back: "Savings set aside (typically 3-6 months of expenses) to cover unexpected financial emergencies." },
+            { front: "What is compound growth?", back: "Earning returns on both your initial principal and the accumulated interest/gains over time." },
+            { front: "What does FICA stand for on a paystub?", back: "Federal Insurance Contributions Act (funds Social Security and Medicare)." }
+        ];
+        let currentCardIndex = 0;
+        let isCardFlipped = false;
 
         const curriculum = [
             { id: "pf1.1", module: "PF1", track: "pf", modName: "Income & Taxes", name: "Lesson 1.1: Reading a Paystub", desc: "Understanding gross vs. net pay, FICA taxes, and common deductions." },
@@ -829,6 +911,7 @@
             localStorage.setItem('mono_welcome_seen', 'true');
         }
 
+        /* Timer Modal & Logic */
         function openTimerModal() { document.getElementById('timer-modal').classList.add('active'); }
         function closeTimerModal() { document.getElementById('timer-modal').classList.remove('active'); }
 
@@ -890,6 +973,80 @@
             const formatted = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
             document.getElementById('timer-countdown-display').textContent = formatted;
             document.getElementById('header-timer-label').textContent = isTimerRunning ? `Focusing: ${formatted}` : 'Focus Session';
+        }
+
+        /* Flashcard System Logic */
+        function openFlashcardModal() {
+            currentCardIndex = 0;
+            isCardFlipped = false;
+            updateFlashcardUI();
+            document.getElementById('flashcard-modal').classList.add('active');
+        }
+        function closeFlashcardModal() { document.getElementById('flashcard-modal').classList.remove('active'); }
+
+        function updateFlashcardUI() {
+            const card = flashcardsList[currentCardIndex];
+            document.getElementById('flashcard-counter').textContent = `Card ${currentCardIndex + 1} of ${flashcardsList.length}`;
+            document.getElementById('flashcard-content-display').textContent = isCardFlipped ? card.back : card.front;
+            document.getElementById('flashcard-state-hint').textContent = isCardFlipped ? "Showing Answer (Click to see Question)" : "Showing Question (Click to see Answer)";
+        }
+
+        function flipCurrentCard() {
+            isCardFlipped = !isCardFlipped;
+            updateFlashcardUI();
+        }
+
+        function nextFlashcard() {
+            isCardFlipped = false;
+            currentCardIndex = (currentCardIndex + 1) % flashcardsList.length;
+            updateFlashcardUI();
+        }
+
+        function prevFlashcard() {
+            isCardFlipped = false;
+            currentCardIndex = (currentCardIndex - 1 + flashcardsList.length) % flashcardsList.length;
+            updateFlashcardUI();
+        }
+
+        /* AI Tutor Chat Logic */
+        function openAiTutorModal() { document.getElementById('ai-tutor-modal').classList.add('active'); }
+        function closeAiTutorModal() { document.getElementById('ai-tutor-modal').classList.remove('active'); }
+
+        function sendChatMessage() {
+            const inputField = document.getElementById('chat-user-input');
+            const messageList = document.getElementById('chat-messages-list');
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            // Append user bubble
+            const userBubble = document.createElement('div');
+            userBubble.className = 'chat-bubble user';
+            userBubble.textContent = text;
+            messageList.appendChild(userBubble);
+            inputField.value = '';
+            messageList.scrollTop = messageList.scrollHeight;
+
+            // Simulated AI response
+            setTimeout(() => {
+                const aiBubble = document.createElement('div');
+                aiBubble.className = 'chat-bubble ai';
+                aiBubble.textContent = getAiTutorResponse(text);
+                messageList.appendChild(aiBubble);
+                messageList.scrollTop = messageList.scrollHeight;
+            }, 600);
+        }
+
+        function getAiTutorResponse(query) {
+            const q = query.toLowerCase();
+            if (q.includes('budget') || q.includes('50/30/20')) {
+                return "The 50/30/20 rule is a popular budgeting method: 50% of your income goes to needs, 30% to wants, and 20% to savings and debt repayment!";
+            } else if (q.includes('asset') || q.includes('liability')) {
+                return "Assets are resources with economic value that you own (like cash or equipment), while liabilities are obligations or debts you owe to others.";
+            } else if (q.includes('credit') || q.includes('score')) {
+                return "A credit score represents your creditworthiness. Factors include payment history, amounts owed, length of credit history, and new credit.";
+            } else {
+                return `That's a great question about "${query}"! Remember to review your current module lessons for a deeper breakdown, or keep practicing with our flashcards.`;
+            }
         }
 
         function handleSearchAndFilter() {
