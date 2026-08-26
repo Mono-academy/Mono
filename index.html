@@ -132,7 +132,7 @@
         
         .workbook-viewport { 
             background: var(--bg-card); padding: 36px; border-radius: 16px; 
-            box-shadow: var(--shadow-md); max-width: 860px; margin: 0 auto; 
+            box-shadow: var(--shadow-md); max-width: 1000px; margin: 0 auto; 
             min-height: 420px; position: relative; border: 1px solid var(--border-subtle);
         }
         
@@ -171,12 +171,17 @@
         .accordion-arrow { transition: transform 0.2s ease; font-size: 10px; color: var(--text-brand); flex-shrink: 0; }
         .accordion-header.active .accordion-arrow { transform: rotate(90deg); }
 
-        /* Track Headers in Sidebar */
-        .track-header {
-            font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.08em;
-            color: var(--primary); margin-top: 16px; margin-bottom: 6px; padding: 6px 8px;
-            background: rgba(2, 132, 199, 0.08); border-radius: 6px; display: flex; align-items: center; justify-content: space-between;
-            border-left: 3px solid var(--primary);
+        /* Side-by-side Dashboard Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Header Utility Bar */
@@ -287,7 +292,7 @@
 
         /* Empty Search State */
         .empty-search-state {
-            text-align: center; padding: 48px 16px; background: var(--bg-card-subtle); border-radius: 12px; border: 1px dashed var(--border-color); margin-top: 20px;
+            text-align: center; padding: 48px 16px; background: var(--bg-card-subtle); border-radius: 12px; border: 1px dashed var(--border-color); margin-top: 20px; grid-column: 1 / -1;
         }
         .empty-search-state h3 { margin: 10px 0 6px 0; font-size: 18px; }
         .empty-search-state p { color: var(--text-muted); font-size: 13px; margin: 0; }
@@ -365,15 +370,9 @@
             </button>
 
             <nav class="sidebar-menu" id="sidebar-accordion-group">
-                
-                <!-- PERSONAL FINANCE TRACK (TOP) -->
-                <div class="track-header">
-                    <span>💡 Personal Finance</span>
-                    <span style="font-size: 9px; opacity: 0.8;">Track 1</span>
-                </div>
 
                 <button class="accordion-header active" id="btn-mod-pf1" aria-expanded="true" aria-controls="module-pf1-content" onclick="toggleAccordion('module-pf1-content', this)">
-                    <span>PF Mod 1: Income & Taxes</span>
+                    <span>Income & Taxes</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-pf1-content" class="accordion-content open" role="region" aria-labelledby="btn-mod-pf1">
@@ -392,7 +391,7 @@
                 </div>
 
                 <button class="accordion-header" id="btn-mod-pf2" aria-expanded="false" aria-controls="module-pf2-content" onclick="toggleAccordion('module-pf2-content', this)">
-                    <span>PF Mod 2: Budget & Banking</span>
+                    <span>Budget & Banking</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-pf2-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf2">
@@ -411,7 +410,7 @@
                 </div>
 
                 <button class="accordion-header" id="btn-mod-pf3" aria-expanded="false" aria-controls="module-pf3-content" onclick="toggleAccordion('module-pf3-content', this)">
-                    <span>PF Mod 3: Debt & Credit</span>
+                    <span>Debt & Credit</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-pf3-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf3">
@@ -429,9 +428,8 @@
                     </button>
                 </div>
 
-                <!-- Shortened title here to ensure neat single-line rendering -->
-                <button class="accordion-header" id="btn-mod-pf4" aria-expanded="false" aria-controls="module-pf4-content" onclick="toggleAccordion('module-pf4-content', this)" title="PF Mod 4: Saving & Preparedness">
-                    <span>PF Mod 4: Savings & Goals</span>
+                <button class="accordion-header" id="btn-mod-pf4" aria-expanded="false" aria-controls="module-pf4-content" onclick="toggleAccordion('module-pf4-content', this)">
+                    <span>Savings & Goals</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-pf4-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf4">
@@ -450,7 +448,7 @@
                 </div>
 
                 <button class="accordion-header" id="btn-mod-pf5" aria-expanded="false" aria-controls="module-pf5-content" onclick="toggleAccordion('module-pf5-content', this)">
-                    <span>PF Mod 5: Investing & Wealth</span>
+                    <span>Investing & Wealth</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-pf5-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf5">
@@ -469,7 +467,7 @@
                 </div>
 
                 <button class="accordion-header" id="btn-mod-pf6" aria-expanded="false" aria-controls="module-pf6-content" onclick="toggleAccordion('module-pf6-content', this)">
-                    <span>PF Mod 6: Protection & Life</span>
+                    <span>Protection & Life</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module-pf6-content" class="accordion-content" role="region" aria-labelledby="btn-mod-pf6">
@@ -487,14 +485,8 @@
                     </button>
                 </div>
 
-                <!-- ACCOUNTING TRACK (BOTTOM) WITH VISUAL INDICATOR -->
-                <div class="track-header" style="margin-top: 24px;">
-                    <span>📊 Accounting Track</span>
-                    <span style="font-size: 9px; opacity: 0.8;">Track 2 ↓</span>
-                </div>
-
                 <button class="accordion-header" id="btn-mod-1" aria-expanded="false" aria-controls="module1-content" onclick="toggleAccordion('module1-content', this)">
-                    <span>Module 1: Accounting Basics</span>
+                    <span>Accounting Basics</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module1-content" class="accordion-content" role="region" aria-labelledby="btn-mod-1">
@@ -525,7 +517,7 @@
                 </div>
 
                 <button class="accordion-header" id="btn-mod-2" aria-expanded="false" aria-controls="module2-content" onclick="toggleAccordion('module2-content', this)">
-                    <span>Module 2: Statements</span>
+                    <span>Statements</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module2-content" class="accordion-content" role="region" aria-labelledby="btn-mod-2">
@@ -556,7 +548,7 @@
                 </div>
 
                 <button class="accordion-header" id="btn-mod-3" aria-expanded="false" aria-controls="module3-content" onclick="toggleAccordion('module3-content', this)">
-                    <span>Module 3: Ratio & Health</span>
+                    <span>Ratio & Health</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module3-content" class="accordion-content" role="region" aria-labelledby="btn-mod-3">
@@ -587,7 +579,7 @@
                 </div>
 
                 <button class="accordion-header" id="btn-mod-4" aria-expanded="false" aria-controls="module4-content" onclick="toggleAccordion('module4-content', this)">
-                    <span>Module 4: Assets & Liabilities</span>
+                    <span>Assets & Liabilities</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module4-content" class="accordion-content" role="region" aria-labelledby="btn-mod-4">
@@ -614,7 +606,7 @@
                 </div>
 
                 <button class="accordion-header" id="btn-mod-5" aria-expanded="false" aria-controls="module5-content" onclick="toggleAccordion('module5-content', this)">
-                    <span>Module 5: Advanced Topics</span>
+                    <span>Advanced Topics</span>
                     <span class="accordion-arrow" aria-hidden="true">▶</span>
                 </button>
                 <div id="module5-content" class="accordion-content" role="region" aria-labelledby="btn-mod-5">
@@ -711,66 +703,64 @@
         let isTimerRunning = false;
 
         const curriculum = [
-            // --- PERSONAL FINANCE TRACK (FIRST) ---
-            { id: "pf1.1", module: "PF1", modName: "PF Module 1: Income & Taxes", name: "Lesson 1.1: Reading a Paystub", desc: "Understanding gross vs. net pay, FICA taxes, and common deductions." },
-            { id: "pf1.2", module: "PF1", modName: "PF Module 1: Income & Taxes", name: "Lesson 1.2: Tax Basics", desc: "Standard deductions, W-2 vs 1099, and tax brackets." },
-            { id: "pf1.3", module: "PF1", modName: "PF Module 1: Income & Taxes", name: "Lesson 1.3: Earning Potential", desc: "Salary vs hourly, negotiation basics, and high-demand skills." },
+            { id: "pf1.1", module: "PF1", track: "pf", modName: "Income & Taxes", name: "Lesson 1.1: Reading a Paystub", desc: "Understanding gross vs. net pay, FICA taxes, and common deductions." },
+            { id: "pf1.2", module: "PF1", track: "pf", modName: "Income & Taxes", name: "Lesson 1.2: Tax Basics", desc: "Standard deductions, W-2 vs 1099, and tax brackets." },
+            { id: "pf1.3", module: "PF1", track: "pf", modName: "Income & Taxes", name: "Lesson 1.3: Earning Potential", desc: "Salary vs hourly, negotiation basics, and high-demand skills." },
 
-            { id: "pf2.1", module: "PF2", modName: "PF Module 2: Cash Flow & Banking", name: "Lesson 2.1: Banking Fundamentals", desc: "Checking vs. savings, HYSAs, avoiding fees, and interest." },
-            { id: "pf2.2", module: "PF2", modName: "PF Module 2: Cash Flow & Banking", name: "Lesson 2.2: Building a Budget", desc: "Intro to 50/30/20 rule and zero-based budgeting." },
-            { id: "pf2.3", module: "PF2", modName: "PF Module 2: Cash Flow & Banking", name: "Lesson 2.3: Tracking & Mindset", desc: "Needs vs. wants, conscious spending, and overcoming impulse purchases." },
+            { id: "pf2.1", module: "PF2", track: "pf", modName: "Cash Flow & Banking", name: "Lesson 2.1: Banking Fundamentals", desc: "Checking vs. savings, HYSAs, avoiding fees, and interest." },
+            { id: "pf2.2", module: "PF2", track: "pf", modName: "Cash Flow & Banking", name: "Lesson 2.2: Building a Budget", desc: "Intro to 50/30/20 rule and zero-based budgeting." },
+            { id: "pf2.3", module: "PF2", track: "pf", modName: "Cash Flow & Banking", name: "Lesson 2.3: Tracking & Mindset", desc: "Needs vs. wants, conscious spending, and overcoming impulse purchases." },
 
-            { id: "pf3.1", module: "PF3", modName: "PF Module 3: Debt & Credit", name: "Lesson 3.1: Credit Scores 101", desc: "FICO factors, renting/loans impact, and building credit safely." },
-            { id: "pf3.2", module: "PF3", modName: "PF Module 3: Debt & Credit", name: "Lesson 3.2: Credit Cards", desc: "Interest mechanics (APR), minimum payments, and grace periods." },
-            { id: "pf3.3", module: "PF3", modName: "PF Module 3: Debt & Credit", name: "Lesson 3.3: Managing Loans", desc: "Student & auto loans, compound interest, and Snowball vs. Avalanche strategies." },
+            { id: "pf3.1", module: "PF3", track: "pf", modName: "Debt & Credit", name: "Lesson 3.1: Credit Scores 101", desc: "FICO factors, renting/loans impact, and building credit safely." },
+            { id: "pf3.2", module: "PF3", track: "pf", modName: "Debt & Credit", name: "Lesson 3.2: Credit Cards", desc: "Interest mechanics (APR), minimum payments, and grace periods." },
+            { id: "pf3.3", module: "PF3", track: "pf", modName: "Debt & Credit", name: "Lesson 3.3: Managing Loans", desc: "Student & auto loans, compound interest, and Snowball vs. Avalanche strategies." },
 
-            { id: "pf4.1", module: "PF4", modName: "PF Module 4: Savings & Goals", name: "Lesson 4.1: Emergency Funds", desc: "Why 3–6 months of living expenses is essential and where to store it." },
-            { id: "pf4.2", module: "PF4", modName: "PF Module 4: Savings & Goals", name: "Lesson 4.2: Goal-Based Saving", desc: "Short-term vs. medium-term targets (buying a car, moving out, travel)." },
-            { id: "pf4.3", module: "PF4", modName: "PF Module 4: Savings & Goals", name: "Lesson 4.3: Opportunity Cost", desc: "Understanding the true cost of major life purchases." },
+            { id: "pf4.1", module: "PF4", track: "pf", modName: "Savings & Goals", name: "Lesson 4.1: Emergency Funds", desc: "Why 3–6 months of living expenses is essential and where to store it." },
+            { id: "pf4.2", module: "PF4", track: "pf", modName: "Savings & Goals", name: "Lesson 4.2: Goal-Based Saving", desc: "Short-term vs. medium-term targets (buying a car, moving out, travel)." },
+            { id: "pf4.3", module: "PF4", track: "pf", modName: "Savings & Goals", name: "Lesson 4.3: Opportunity Cost", desc: "Understanding the true cost of major life purchases." },
 
-            { id: "pf5.1", module: "PF5", modName: "PF Module 5: Investing & Wealth", name: "Lesson 5.1: Compound Growth", desc: "How time in the market multiplies small contributions over decades." },
-            { id: "pf5.2", module: "PF5", modName: "PF Module 5: Investing & Wealth", name: "Lesson 5.2: Account Types", desc: "Taxable brokerage, Roth IRA, Traditional IRA, and 401(k) matches." },
-            { id: "pf5.3", module: "PF5", modName: "PF Module 5: Investing & Wealth", name: "Lesson 5.3: Asset Allocation", desc: "Index funds, ETFs, stocks, bonds, diversification, and risk tolerance." },
+            { id: "pf5.1", module: "PF5", track: "pf", modName: "Investing & Wealth", name: "Lesson 5.1: Compound Growth", desc: "How time in the market multiplies small contributions over decades." },
+            { id: "pf5.2", module: "PF5", track: "pf", modName: "Investing & Wealth", name: "Lesson 5.2: Account Types", desc: "Taxable brokerage, Roth IRA, Traditional IRA, and 401(k) matches." },
+            { id: "pf5.3", module: "PF5", track: "pf", modName: "Investing & Wealth", name: "Lesson 5.3: Asset Allocation", desc: "Index funds, ETFs, stocks, bonds, diversification, and risk tolerance." },
 
-            { id: "pf6.1", module: "PF6", modName: "PF Module 6: Protection & Life", name: "Lesson 6.1: Insurance Basics", desc: "Overview of health, auto, renter's/homeowner's, and disability insurance." },
-            { id: "pf6.2", module: "PF6", modName: "PF Module 6: Protection & Life", name: "Lesson 6.2: Consumer Protection", desc: "Identifying scams, identity theft prevention, and online security." },
-            { id: "pf6.3", module: "PF6", modName: "PF Module 6: Protection & Life", name: "Lesson 6.3: Big Life Decisions", desc: "Financial reality of renting, buying vs leasing cars, and independent life systems." },
+            { id: "pf6.1", module: "PF6", track: "pf", modName: "Protection & Life", name: "Lesson 6.1: Insurance Basics", desc: "Overview of health, auto, renter's/homeowner's, and disability insurance." },
+            { id: "pf6.2", module: "PF6", track: "pf", modName: "Protection & Life", name: "Lesson 6.2: Consumer Protection", desc: "Identifying scams, identity theft prevention, and online security." },
+            { id: "pf6.3", module: "PF6", track: "pf", modName: "Protection & Life", name: "Lesson 6.3: Big Life Decisions", desc: "Financial reality of renting, buying vs leasing cars, and independent life systems." },
 
-            // --- ACCOUNTING TRACK (SECOND) ---
-            { id: "1.1", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.1: Introduction", desc: "Foundational concepts and basic accounting principles." },
-            { id: "1.2", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.2: The Accounting Equation", desc: "Assets, Liabilities, and Owner's Equity." },
-            { id: "1.3", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.3: T-Accounts System", desc: "Visualize debits and credits clearly." },
-            { id: "1.4", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.4: Journal and Ledger", desc: "Record and post financial transactions." },
-            { id: "1.5", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.5: The Trial Balance", desc: "Verify ledger accuracy before statements." },
-            { id: "1.6", module: 1, modName: "Module 1: Accounting Basics", name: "Lesson 1.6: Review and Quiz", desc: "Test your understanding of Module 1." },
+            { id: "1.1", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.1: Introduction", desc: "Foundational concepts and basic accounting principles." },
+            { id: "1.2", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.2: The Accounting Equation", desc: "Assets, Liabilities, and Owner's Equity." },
+            { id: "1.3", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.3: T-Accounts System", desc: "Visualize debits and credits clearly." },
+            { id: "1.4", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.4: Journal and Ledger", desc: "Record and post financial transactions." },
+            { id: "1.5", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.5: The Trial Balance", desc: "Verify ledger accuracy before statements." },
+            { id: "1.6", module: 1, track: "acct", modName: "Accounting Basics", name: "Lesson 1.6: Review and Quiz", desc: "Test your understanding of Module 1." },
             
-            { id: "2.1", module: 2, modName: "Module 2: Financial Statements", name: "Lesson 2.1: Intro to Financial Statements", desc: "Overview of core financial statements." },
-            { id: "2.2", module: 2, modName: "Module 2: Financial Statements", name: "Lesson 2.2: The Income Statement", desc: "Revenues, expenses, and net income." },
-            { id: "2.3", module: 2, modName: "Module 2: Financial Statements", name: "Lesson 2.3: The Balance Sheet", desc: "Organize assets, liabilities, and equity." },
-            { id: "2.4", module: 2, modName: "Module 2: Financial Statements", name: "Lesson 2.4: Statement of Owner's Equity", desc: "Track capital changes over time." },
-            { id: "2.5", module: 2, modName: "Module 2: Financial Statements", name: "Lesson 2.5: The Cash Flow Statement", desc: "Track cash from operating, investing, and financing." },
-            { id: "2.6", module: 2, modName: "Module 2: Financial Statements", name: "Lesson 2.6: Module 2 Capstone", desc: "Construct integrated financial statements." },
+            { id: "2.1", module: 2, track: "acct", modName: "Financial Statements", name: "Lesson 2.1: Intro to Financial Statements", desc: "Overview of core financial statements." },
+            { id: "2.2", module: 2, track: "acct", modName: "Financial Statements", name: "Lesson 2.2: The Income Statement", desc: "Revenues, expenses, and net income." },
+            { id: "2.3", module: 2, track: "acct", modName: "Financial Statements", name: "Lesson 2.3: The Balance Sheet", desc: "Organize assets, liabilities, and equity." },
+            { id: "2.4", module: 2, track: "acct", modName: "Financial Statements", name: "Lesson 2.4: Statement of Owner's Equity", desc: "Track capital changes over time." },
+            { id: "2.5", module: 2, track: "acct", modName: "Financial Statements", name: "Lesson 2.5: The Cash Flow Statement", desc: "Track cash from operating, investing, and financing." },
+            { id: "2.6", module: 2, track: "acct", modName: "Financial Statements", name: "Lesson 2.6: Module 2 Capstone", desc: "Construct integrated financial statements." },
 
-            { id: "3.1", module: 3, modName: "Module 3: Ratio & Health", name: "Lesson 3.1: Liquidity & Capital", desc: "Short-term financial health and liquidity ratios." },
-            { id: "3.2", module: 3, modName: "Module 3: Ratio & Health", name: "Lesson 3.2: Profitability Ratios", desc: "Assess margins and overall profit performance." },
-            { id: "3.3", module: 3, modName: "Module 3: Ratio & Health", name: "Lesson 3.3: Efficiency Ratios", desc: "Evaluate operational velocity and asset turns." },
-            { id: "3.4", module: 3, modName: "Module 3: Ratio & Health", name: "Lesson 3.4: Solvency Ratios", desc: "Long-term debt and structural solvency." },
-            { id: "3.5", module: 3, modName: "Module 3: Ratio & Health", name: "Lesson 3.5: Reading an Annual Report", desc: "Key disclosures and items inside a 10-K report." },
-            { id: "3.6", module: 3, modName: "Module 3: Ratio & Health", name: "Lesson 3.6: Investor Analysis", desc: "Evaluate target companies." },
+            { id: "3.1", module: 3, track: "acct", modName: "Ratio & Health", name: "Lesson 3.1: Liquidity & Capital", desc: "Short-term financial health and liquidity ratios." },
+            { id: "3.2", module: 3, track: "acct", modName: "Ratio & Health", name: "Lesson 3.2: Profitability Ratios", desc: "Assess margins and overall profit performance." },
+            { id: "3.3", module: 3, track: "acct", modName: "Ratio & Health", name: "Lesson 3.3: Efficiency Ratios", desc: "Evaluate operational velocity and asset turns." },
+            { id: "3.4", module: 3, track: "acct", modName: "Ratio & Health", name: "Lesson 3.4: Solvency Ratios", desc: "Long-term debt and structural solvency." },
+            { id: "3.5", module: 3, track: "acct", modName: "Ratio & Health", name: "Lesson 3.5: Reading an Annual Report", desc: "Key disclosures and items inside a 10-K report." },
+            { id: "3.6", module: 3, track: "acct", modName: "Ratio & Health", name: "Lesson 3.6: Investor Analysis", desc: "Evaluate target companies." },
 
-            { id: "4.1", module: 4, modName: "Module 4: Assets & Liabilities", name: "Lesson 4.1: Inventory Costing Methods", desc: "FIFO, LIFO, and Weighted Average." },
-            { id: "4.2", module: 4, modName: "Module 4: Assets & Liabilities", name: "Lesson 4.2: Depreciation & Amortization", desc: "Asset allocation rules and straight-line methods." },
-            { id: "4.3", module: 4, modName: "Module 4: Assets & Liabilities", name: "Lesson 4.3: Accounts Receivable & Bad Debt", desc: "Loss allowances and aging analysis." },
-            { id: "4.4", module: 4, modName: "Module 4: Assets & Liabilities", name: "Lesson 4.4: Liabilities", desc: "Current obligations vs. long-term debt." },
-            { id: "4.5", module: 4, modName: "Module 4: Assets & Liabilities", name: "Lesson 4.5: Corporate Equity", desc: "Capital stock, retained earnings, and treasury stock." },
+            { id: "4.1", module: 4, track: "acct", modName: "Assets & Liabilities", name: "Lesson 4.1: Inventory Costing Methods", desc: "FIFO, LIFO, and Weighted Average." },
+            { id: "4.2", module: 4, track: "acct", modName: "Assets & Liabilities", name: "Lesson 4.2: Depreciation & Amortization", desc: "Asset allocation rules and straight-line methods." },
+            { id: "4.3", module: 4, track: "acct", modName: "Assets & Liabilities", name: "Lesson 4.3: Accounts Receivable & Bad Debt", desc: "Loss allowances and aging analysis." },
+            { id: "4.4", module: 4, track: "acct", modName: "Assets & Liabilities", name: "Lesson 4.4: Liabilities", desc: "Current obligations vs. long-term debt." },
+            { id: "4.5", module: 4, track: "acct", modName: "Assets & Liabilities", name: "Lesson 4.5: Corporate Equity", desc: "Capital stock, retained earnings, and treasury stock." },
 
-            { id: "5.1", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.1: Business Combinations", desc: "Mergers, acquisitions, and consolidated tracking." },
-            { id: "5.2", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.2: Deferred Taxes", desc: "Tax obligations vs. book-value accounting." },
-            { id: "5.3", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.3: Advanced Instruments", desc: "Financial derivatives and hedging techniques." },
-            { id: "5.4", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.4: Revenue Recognition", desc: "IFRS vs. US GAAP standards." },
-            { id: "5.5", module: 5, modName: "Module 5: Advanced Topics", name: "Lesson 5.5: Forensic Accounting", desc: "Data investigation and auditing internal controls." },
+            { id: "5.1", module: 5, track: "acct", modName: "Advanced Topics", name: "Lesson 5.1: Business Combinations", desc: "Mergers, acquisitions, and consolidated tracking." },
+            { id: "5.2", module: 5, track: "acct", modName: "Advanced Topics", name: "Lesson 5.2: Deferred Taxes", desc: "Tax obligations vs. book-value accounting." },
+            { id: "5.3", module: 5, track: "acct", modName: "Advanced Topics", name: "Lesson 5.3: Advanced Instruments", desc: "Financial derivatives and hedging techniques." },
+            { id: "5.4", module: 5, track: "acct", modName: "Advanced Topics", name: "Lesson 5.4: Revenue Recognition", desc: "IFRS vs. US GAAP standards." },
+            { id: "5.5", module: 5, track: "acct", modName: "Advanced Topics", name: "Lesson 5.5: Forensic Accounting", desc: "Data investigation and auditing internal controls." },
             
-            { id: "final_exam", module: 6, modName: "Final Exam", name: "Final Examination", desc: "Comprehensive exam covering all topics." }
+            { id: "final_exam", module: 6, track: "acct", modName: "Final Exam", name: "Final Examination", desc: "Comprehensive exam covering all topics." }
         ];
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1053,7 +1043,8 @@
 
             const nextLesson = curriculum.find(l => !completedLessons.includes(l.id)) || curriculum[0];
 
-            const modulesMap = {};
+            const pfModulesMap = {};
+            const acctModulesMap = {};
             let totalMatchingLessons = 0;
 
             curriculum.forEach(lesson => {
@@ -1062,12 +1053,73 @@
 
                 if (matchesSearch && matchesFilter) {
                     totalMatchingLessons++;
-                    if (!modulesMap[lesson.module]) {
-                        modulesMap[lesson.module] = { title: lesson.modName, lessons: [] };
+                    const targetMap = lesson.track === 'pf' ? pfModulesMap : acctModulesMap;
+                    if (!targetMap[lesson.module]) {
+                        targetMap[lesson.module] = { title: lesson.modName, lessons: [] };
                     }
-                    modulesMap[lesson.module].lessons.push(lesson);
+                    targetMap[lesson.module].lessons.push(lesson);
                 }
             });
+
+            function renderModuleColumn(modulesMap) {
+                let html = '';
+                Object.keys(modulesMap).forEach(modId => {
+                    const mod = modulesMap[modId];
+                    const allModLessons = curriculum.filter(l => l.module == modId);
+                    const completedModLessons = allModLessons.filter(l => completedLessons.includes(l.id));
+                    const modPercent = Math.round((completedModLessons.length / allModLessons.length) * 100);
+
+                    html += `
+                        <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 18px; margin-bottom: 20px;">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="font-size: 13px; font-weight: 800; color: var(--text-brand);">
+                                    ${mod.title}
+                                </div>
+                                <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);">${modPercent}%</span>
+                            </div>
+                            <div class="mod-progress-container">
+                                <div class="mod-progress-fill" style="width: ${modPercent}%;"></div>
+                            </div>
+
+                            <div style="display: flex; flex-direction: column; gap: 8px;">
+                    `;
+
+                    mod.lessons.forEach(lesson => {
+                        const isCompleted = completedLessons.includes(lesson.id);
+                        const isBookmarked = bookmarkedLessons.includes(lesson.id);
+                        const isCurrent = lesson.id === lastActiveLesson;
+                        let statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 99px; background: var(--status-pending-bg); color: var(--status-pending-text);">Pending</span>`;
+                        
+                        if (isCompleted) {
+                            statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 99px; background: var(--status-success-bg); color: var(--status-success-text);">✓</span>`;
+                        } else if (isCurrent) {
+                            statusTag = `<span style="font-size: 9px; font-weight: 700; text-transform: uppercase; padding: 2px 6px; border-radius: 99px; background: var(--primary-light); color: var(--primary);">In Progress</span>`;
+                        }
+
+                        const highlightedTitle = highlightMatch(lesson.name, query);
+
+                        html += `
+                            <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 10px 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; gap: 8px;">
+                                <div style="flex: 1; min-width: 0;">
+                                    <div style="display: flex; align-items: center; gap: 6px;">
+                                        ${statusTag}
+                                        <button class="bookmark-btn" id="bookmark-btn-${lesson.id}" onclick="toggleBookmark('${lesson.id}', event)" title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark Lesson'}">
+                                            ${isBookmarked ? '⭐' : '☆'}
+                                        </button>
+                                        <span style="font-size: 12.5px; font-weight: 600; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${highlightedTitle}</span>
+                                    </div>
+                                </div>
+                                <button onclick="loadLessonContent('${lesson.id}')" style="background: var(--text-main); color: var(--bg-card); border: none; padding: 5px 10px; font-size: 11px; font-weight: 700; border-radius: 6px; cursor: pointer; flex-shrink: 0;" aria-label="Open ${lesson.name}">
+                                    ${isCompleted ? 'Review' : 'Start'}
+                                </button>
+                            </div>
+                        `;
+                    });
+
+                    html += `</div></div>`;
+                });
+                return html;
+            }
 
             let modulesContentHtml = '';
 
@@ -1080,73 +1132,28 @@
                     </div>
                 `;
             } else {
-                Object.keys(modulesMap).forEach(modId => {
-                    const mod = modulesMap[modId];
-                    const allModLessons = curriculum.filter(l => l.module == modId);
-                    const completedModLessons = allModLessons.filter(l => completedLessons.includes(l.id));
-                    const modPercent = Math.round((completedModLessons.length / allModLessons.length) * 100);
-
-                    modulesContentHtml += `
-                        <div style="background: var(--bg-card-subtle); border: 1px solid var(--border-subtle); border-radius: 12px; padding: 20px; margin-bottom: 24px;">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div style="font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-brand);">
-                                    ${mod.title}
-                                </div>
-                                <span style="font-size: 11px; font-weight: 700; color: var(--text-muted);">${modPercent}% Completed</span>
-                            </div>
-                            <div class="mod-progress-container">
-                                <div class="mod-progress-fill" style="width: ${modPercent}%;"></div>
-                            </div>
-
-                            <div style="display: flex; flex-direction: column; gap: 10px;">
-                    `;
-
-                    mod.lessons.forEach(lesson => {
-                        const isCompleted = completedLessons.includes(lesson.id);
-                        const isBookmarked = bookmarkedLessons.includes(lesson.id);
-                        const isCurrent = lesson.id === lastActiveLesson;
-                        let statusTag = `<span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--status-pending-bg); color: var(--status-pending-text);">Pending</span>`;
-                        
-                        if (isCompleted) {
-                            statusTag = `<span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--status-success-bg); color: var(--status-success-text);">✓ Completed</span>`;
-                        } else if (isCurrent) {
-                            statusTag = `<span style="font-size: 10px; font-weight: 700; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; background: var(--primary-light); color: var(--primary);">⏱️ In Progress</span>`;
-                        }
-
-                        const highlightedTitle = highlightMatch(lesson.name, query);
-                        const highlightedDesc = highlightMatch(lesson.desc, query);
-
-                        modulesContentHtml += `
-                            <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 14px 18px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; gap: 16px;">
-                                <div style="flex: 1;">
-                                    <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                                        ${statusTag}
-                                        <button class="bookmark-btn" id="bookmark-btn-${lesson.id}" onclick="toggleBookmark('${lesson.id}', event)" title="${isBookmarked ? 'Remove Bookmark' : 'Bookmark Lesson'}">
-                                            ${isBookmarked ? '⭐' : '☆'}
-                                        </button>
-                                        <h3 style="margin: 0; font-size: 14.5px; font-weight: 700; color: var(--text-main);">${highlightedTitle}</h3>
-                                    </div>
-                                    <p style="margin: 0; font-size: 13px; color: var(--text-muted); line-height: 1.4;">${highlightedDesc}</p>
-                                </div>
-                                <button onclick="loadLessonContent('${lesson.id}')" style="background: var(--text-main); color: var(--bg-card); border: none; padding: 8px 16px; font-size: 13px; font-weight: 600; border-radius: 6px; cursor: pointer; flex-shrink: 0;" aria-label="Open ${lesson.name}">
-                                    ${isCompleted ? 'Review' : 'Start'}
-                                </button>
-                            </div>
-                        `;
-                    });
-
-                    modulesContentHtml += `</div></div>`;
-                });
+                modulesContentHtml = `
+                    <div class="dashboard-grid">
+                        <div>
+                            <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 800; color: var(--primary);">Personal Finance</h3>
+                            ${renderModuleColumn(pfModulesMap)}
+                        </div>
+                        <div>
+                            <h3 style="margin: 0 0 16px 0; font-size: 16px; font-weight: 800; color: var(--primary);">Accounting</h3>
+                            ${renderModuleColumn(acctModulesMap)}
+                        </div>
+                    </div>
+                `;
             }
 
             container.innerHTML = `
                 <h1 style="margin: 0 0 6px 0; font-size: 26px; font-weight: 800; color: var(--text-main);">Dashboard</h1>
                 <p style="color: var(--text-muted); margin-top: 0; margin-bottom: 24px;">Track your learning progress and resume your learning path.</p>
                 
-                <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%); padding: 28px; border-radius: 16px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; box-shadow: var(--shadow-md);">
+                <div style="background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%); padding: 24px; border-radius: 16px; color: white; display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; box-shadow: var(--shadow-md);">
                     <div>
                         <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.9;">Ready to continue?</span>
-                        <h2 style="margin: 4px 0 12px 0; font-size: 22px; font-weight: 800;">${nextLesson.name}</h2>
+                        <h2 style="margin: 4px 0 12px 0; font-size: 20px; font-weight: 800;">${nextLesson.name}</h2>
                         <div style="display: flex; align-items: center; gap: 12px;">
                             <div style="width: 180px; height: 8px; background: rgba(255,255,255,0.25); border-radius: 99px; overflow: hidden;">
                                 <div style="width: ${progressPercent}%; height: 100%; background: white;"></div>
@@ -1270,10 +1277,12 @@
         /* --- In-line Notes & Highlighting --- */
         function initHighlightListener() {
             document.addEventListener('mouseup', (e) => {
+                const workbookArea = document.getElementById('workbook-content-area');
                 const selectedText = window.getSelection().toString().trim();
                 const popup = document.getElementById('floating-note-box');
                 
-                if (selectedText.length > 3 && !popup.contains(e.target)) {
+                // Ensure text is selected inside a loaded lesson workbook and not on the dashboard/sidebar
+                if (currentLessonId !== null && workbookArea && workbookArea.contains(e.target) && selectedText.length > 3 && !popup.contains(e.target)) {
                     selectedQuoteText = selectedText;
                     document.getElementById('popup-selected-text').textContent = `"${selectedText}"`;
                     
