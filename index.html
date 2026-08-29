@@ -1185,6 +1185,21 @@
                     `;
 
                     container.innerHTML = lessonHeaderBar + html + completeFooterHtml;
+
+                    // Execute scripts from dynamically loaded lesson files.
+                    // innerHTML inserts <script> elements without executing them.
+                    const lessonScripts = Array.from(container.querySelectorAll('script'));
+                    lessonScripts.forEach((oldScript) => {
+                        const newScript = document.createElement('script');
+
+                        Array.from(oldScript.attributes).forEach((attr) => {
+                            newScript.setAttribute(attr.name, attr.value);
+                        });
+
+                        newScript.textContent = oldScript.textContent;
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
+
                     updateSidebarVisuals();
                 })
                 .catch(err => {
