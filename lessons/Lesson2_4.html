@@ -1,184 +1,261 @@
-<div class="lesson26-root"><div class="scroll-reveal-card" style="margin-top:0;"><span style="background:#ede9fe; color:#6d28d9; font-size:11px; font-weight:700; padding:4px 10px; border-radius:99px; text-transform:uppercase; letter-spacing:0.05em;">Lesson 2.6</span><h2 style="margin:12px 0 8px 0; font-size:26px; color:#0f172a; font-weight:800;">Financial Statement Challenge</h2><p style="line-height:1.6; color:#475569; font-size:15px; margin:0;">Review and apply what you learned by building the core financial statements step by step.</p></div><div class="scroll-reveal-card" style="background:#fff; border:1px solid #f1f5f9; border-radius:20px; padding:28px; box-shadow:0 10px 25px -5px rgba(0,0,0,0.02); margin-top:24px; position:relative; overflow:hidden;"><div class="progress-dots">
-<span class="dot active" id="dot-1"></span>
-<span class="dot" id="dot-2"></span>
-<span class="dot" id="dot-3"></span>
-<span class="dot" id="dot-4"></span>
-</div><div class="card">
-<h2 id="stage-title">Stage 1: Build the Income Statement</h2>
-<p id="stage-desc">Place the appropriate items to finish the Income Statement framework.</p>
-</div></div><div class="scroll-reveal-card" style="background:#fff; border:1px solid #f1f5f9; border-radius:20px; padding:28px; box-shadow:0 10px 25px -5px rgba(0,0,0,0.02); margin-top:24px; position:relative; overflow:hidden;"><div class="bank-area" id="options-bank" style="background:#f8fafc; border:2px dashed #cbd5e1; border-radius:12px; padding:15px; margin-bottom:20px; text-align:center;"></div><div class="scroll-reveal-card" style="overflow-x:auto; margin:0; padding:0; box-shadow:none; border:0;">
-<table class="interactive-table" id="statement-table"></table>
-</div><div style="text-align:center; margin-top:24px;">
-<button class="btn-action" onclick="verifyStage()" style="background:#6d28d9; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:700; margin:4px;">Verify Structure</button>
-<button class="btn-action" id="next-stage-btn" onclick="advanceStage()" style="background:#6d28d9; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:700; margin:4px;">Next Statement →</button>
-<p class="feedback" id="stage-feedback"></p>
-</div></div><style>.lesson26-root .progress-dots{display:flex;justify-content:center;gap:8px;margin-bottom:20px}.lesson26-root .dot{width:10px;height:10px;border-radius:50%;background:#cbd5e1;display:block}.lesson26-root .dot.active{background:#6d28d9}.lesson26-root .dot.completed{background:#16a34a}.lesson26-root .bank-item{display:inline-block;padding:8px 16px;margin:5px;background:#ede9fe;border:2px solid #ddd6fe;color:#6d28d9;border-radius:8px;cursor:pointer;font-weight:700}.lesson26-root .bank-item.selected{transform:scale(.95);opacity:.6;border-style:dashed}.lesson26-root .drop-zone{display:inline-block;width:160px;min-height:35px;border:2px dashed #cbd5e1;border-radius:6px;vertical-align:middle;text-align:center;line-height:35px;background:#fff;cursor:pointer;font-weight:700;color:#6d28d9;padding:0 6px}.lesson26-root .drop-zone.filled{border-style:solid}.lesson26-root .feedback{font-weight:700;margin-top:15px}</style><script>
-    const stages = [
+<style>
+.term-hl{cursor:pointer;padding:3px 7px;border-radius:6px;font-weight:700;background:#fdf2f8;color:#9d174d;transition:all .2s;}
+.term-hl:hover{opacity:.8;}
+.interactive-table{width:100%;border-collapse:collapse;margin-top:16px;background:#fff;border-radius:12px;overflow:hidden;}
+.interactive-table th{background:#db2777;color:#fff;padding:14px 15px;text-align:left;}
+.interactive-table td{padding:12px 15px;border:1px solid #f1f5f9;}
+.step-box{border-left:4px solid #db2777;padding-left:20px;margin:20px 0;display:none;}
+.step-box.active{display:block;animation:slideIn .3s ease-out;}
+.btn-next{background:#db2777;color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;font-weight:700;margin-top:12px;}
+.option-btn{display:block;width:100%;text-align:left;padding:12px;margin:8px 0;border:1px solid #cbd5e1;border-radius:8px;background:#fff;cursor:pointer;}
+.option-btn:hover{background:#f8fafc;}
+.bank-item{display:inline-block;padding:8px 16px;margin:5px;background:#fdf2f8;border:2px solid #fbcfe8;color:#9d174d;border-radius:8px;cursor:pointer;font-weight:700;}
+.bank-item.selected{transform:scale(.95);opacity:.6;border-style:dashed;}
+.drop-zone{display:inline-block;width:120px;height:35px;border:2px dashed #cbd5e1;border-radius:6px;text-align:center;line-height:35px;background:#fff;cursor:pointer;font-weight:700;color:#db2777;}
+.review-box{margin-top:20px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:15px;}
+@keyframes slideIn{from{transform:translateX(12px);opacity:0}to{transform:translateX(0);opacity:1}}
+</style>
+<div class="scroll-reveal-card" style="margin-top:0;">
+<span style="background:#fdf2f8;color:#9d174d;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.05em;">Lesson 2.4</span>
+<h2 style="margin:12px 0 8px 0;font-size:26px;color:#0f172a;font-weight:800;">Statement of Owner's Equity</h2>
+<p>
+        The Statement of Owner's Equity documents exactly how the business owner's investment stake has changed over a specific operating cycle.
+      </p>
+</div>
+<div class="scroll-reveal-card" style="background:#fff;border:1px solid #f1f5f9;border-radius:20px;padding:28px;box-shadow:0 10px 25px -5px rgba(0,0,0,.02);margin-top:24px;position:relative;overflow:hidden;">
+<div style="display:flex;justify-content:space-between;align-items:center;border-bottom:2px dashed #f1f5f9;padding-bottom:16px;margin-bottom:20px;gap:12px;flex-wrap:wrap;">
+<div style="display:flex;align-items:center;gap:8px;"><span style="font-size:24px;">💰</span><h3 style="margin:0;font-size:18px;color:#0f172a;font-weight:800;">Key Parts of the Statement</h3></div>
+<div style="background:#fdf2f8;color:#9d174d;font-weight:700;font-size:12px;padding:6px 14px;border-radius:99px;">Interactive</div>
+</div>
+<p style="line-height:1.6;color:#475569;font-size:14px;margin:0 0 16px 0;">Click the <strong>pink highlighted terms</strong> to inspect their definitions.</p>
+<div id="def-display" style="min-height:24px;padding:14px;margin:0 0 20px 0;background:#fefce8;border:1px solid #fde047;border-radius:12px;display:none;color:#475569;"></div>
+<table class="interactive-table">
+<thead>
+<tr><th colspan="2">Elite Designs | Statement of Owner's Equity | For the Month Ended July 31, 2026</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="term-hl" onclick="showDef('beg')">Beginning Capital, July 1</span></td>
+<td style="text-align: right;">$20,000</td>
+</tr>
+<tr>
+<td><span class="term-hl" onclick="showDef('inv')">Owner Investments</span></td>
+<td style="text-align: right;">+ $5,000</td>
+</tr>
+<tr>
+<td><span class="term-hl" onclick="showDef('ni')">Net Income for July</span></td>
+<td style="text-align: right;">+ $8,000</td>
+</tr>
+<tr style="color: #c53030;">
+<td><span class="term-hl" onclick="showDef('draw')">Less: Owner Withdrawals</span></td>
+<td style="text-align: right;">- $2,000</td>
+</tr>
+<tr style="font-weight: bold; font-size: 1.1em; background: var(--equity-bg); color: var(--equity-text);">
+<td>Ending Capital, July 31</td>
+<td style="text-align: right; border-bottom: 4px double var(--accent);">$31,000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="scroll-reveal-card" style="margin-top:32px;">
+<h3 style="font-size:22px;color:#0f172a;font-weight:800;margin:0 0 12px 0;">2. How to Make the Statement (Step-by-Step)</h3>
+<div class="step-box active" id="step1">
+<h4>Step 1: Write the Heading</h4>
+<p>Draft a three-line header consisting of the Business Name, the Statement Title, and the exact operating timeframe.</p>
+<button class="btn-next" onclick="nextStep(2)">Next: Identify Beginning Balance →</button>
+</div><div class="step-box" id="step2">
+<h4>Step 2: Determine Beginning Equity</h4>
+<p>Locate the starting equity at day one of your timeline. If the business is brand new, this balance is $0.</p>
+<button class="btn-next" onclick="nextStep(3)">Next: Calculate Additions →</button>
+</div><div class="step-box" id="step3">
+<h4>Step 3: Add Investments and Net Income</h4>
+<p>Combine newly added capital contributions from the owner with Net Income derived directly from the Income Statement.</p>
+<button class="btn-next" onclick="nextStep(4)">Next: Deduct Withdrawals &amp; Conclude →</button>
+</div><div class="step-box" id="step4">
+<h4>Step 4: Subtract Withdrawals &amp; Calculate Ending Equity</h4>
+<p>Subtract personal owner withdrawals to calculate the final Ending Capital, which is then carried over to the Balance Sheet.</p>
+<button class="btn-next" onclick="nextStep(1)">Restart Guide ↺</button>
+</div>
+</div>
+<div class="scroll-reveal-card" style="background:#fff;border:1px solid #fbcfe8;border-radius:20px;padding:28px;box-shadow:0 10px 25px -5px rgba(0,0,0,.02);margin-top:32px;">
+<div style="display:flex;align-items:center;gap:8px;border-bottom:2px dashed #f1f5f9;padding-bottom:16px;margin-bottom:20px;"><span style="font-size:24px;">🏁</span><h3 style="margin:0;font-size:20px;color:#0f172a;font-weight:800;">🏁 Lesson 2.4 Quiz Challenge</h3></div>
+
+
+<div id="quiz-container"></div>
+<div id="build-area" style="display:none; border-top: 2px dashed #cbd5e1; padding-top: 25px; margin-top: 20px;">
+<h3>Practical: Build the Statement of Owner's Equity</h3>
+<p>Fill out the complete equity calculation flow. Select a card from the bank below, then click the correct <b>"?"</b> target slot.</p>
+<div style="margin-bottom: 20px; text-align: center;">
+<div class="bank-item" onclick="selectValue('$10,000', this)">$10,000</div>
+<div class="bank-item" onclick="selectValue('$7,000', this)">$7,000</div>
+<div class="bank-item" onclick="selectValue('$1,000', this)">$1,000</div>
+<div class="bank-item" onclick="selectValue('$16,000', this)">$16,000</div>
+</div>
+<table class="interactive-table" style="max-width: 500px; margin: 0 auto 20px auto;">
+<tr>
+<td><strong>Beginning Capital:</strong></td>
+<td><div class="drop-zone" id="beg-slot" onclick="placeValue('beg-slot')">?</div></td>
+</tr>
+<tr>
+<td><strong>Additions (Inv + Net Inc):</strong></td>
+<td><div class="drop-zone" id="add-slot" onclick="placeValue('add-slot')">?</div></td>
+</tr>
+<tr>
+<td><strong>Less: Withdrawals:</strong></td>
+<td><div class="drop-zone" id="draw-slot" onclick="placeValue('draw-slot')">?</div></td>
+</tr>
+<tr style="background: var(--equity-bg); font-weight: bold; color: var(--equity-text);">
+<td><strong>Ending Capital:</strong></td>
+<td><div class="drop-zone" id="end-slot" onclick="placeValue('end-slot')">?</div></td>
+</tr>
+</table>
+<button class="btn-next" onclick="checkPractical()" style="background: var(--accent); display: block; margin: 25px auto 0 auto;">Submit Statement</button>
+<p id="practical-feedback" style="text-align: center; font-weight: bold; margin-top: 15px;"></p>
+</div>
+<div id="post-quiz-options" style="display:none; text-align:center; margin-top: 20px;">
+<button class="btn-next" onclick="toggleReview()" style="background: #475569;">Review Quiz Answers</button>
+<div id="review-panel" style="display:none; text-align:left; margin-top: 20px;"></div>
+</div>
+
+</div>
+<script>
+    const definitions = {
+      beg: "<strong>Beginning Capital:</strong> The total equity value at day one of the period, brought forward from the previous period's ending report.",
+      inv: "<strong>Owner Investments:</strong> Additional cash or physical assets the owner adds to the business.",
+      ni: "<strong>Net Income or Loss:</strong> Operating profits or losses pulled directly from your Income Statement.",
+      draw: "<strong>Owner Withdrawals:</strong> Assets or cash taken from company accounts for personal use."
+    };
+
+    function showDef(term) {
+      const display = document.getElementById('def-display');
+      display.innerHTML = definitions[term];
+      display.style.display = 'block';
+    }
+
+    function nextStep(num) {
+      document.querySelectorAll('.step-box').forEach(sb => sb.classList.remove('active'));
+      document.getElementById('step' + num).classList.add('active');
+    }
+
+    const mcqs = [
       {
-        title: "Stage 1: Build the Income Statement",
-        desc: "Build the Income Statement from the top line to the bottom line.",
-        headers: ["Line Item Description", "Amount / Type"],
-        bank: ["Gross Revenue / Sales", "Cost of Goods Sold (COGS)", "Gross Profit", "Operating Expenses (OpEx)", "Operating Income", "Interest & Taxes", "Net Income"],
-        rows: [
-          { label: "1. Revenue Header:", target: "Gross Revenue / Sales" },
-          { label: "2. Cost subtracted directly from revenue:", target: "Cost of Goods Sold (COGS)" },
-          { label: "3. First intermediate profit margin:", target: "Gross Profit" },
-          { label: "4. Day-to-day administrative overhead:", target: "Operating Expenses (OpEx)" },
-          { label: "5. Profit generated from core operations:", target: "Operating Income" },
-          { label: "6. Non-operating costs:", target: "Interest & Taxes" },
-          { label: "7. The bottom line profit value:", target: "Net Income" }
-        ]
+        q: "Where is the Net Income figure imported from on the Statement of Owner's Equity?",
+        options: ["The Balance Sheet", "The Income Statement", "Bank Accounts", "Capital Investments"],
+        correct: 1,
+        explanation: "Net Income measures current operational profits, which originate on the Income Statement."
       },
       {
-        title: "Stage 2: Build the Balance Sheet",
-        desc: "Construct the central elements of the Accounting Equation.",
-        headers: ["Accounting Block", "Target Placement Group"],
-        bank: ["Current Assets", "Fixed Assets", "Total Assets", "Current Liabilities", "Long-Term Liabilities", "Total Liabilities", "Shareholders' Equity"],
-        rows: [
-          { label: "1. Liquid assets (cash, receivables):", target: "Current Assets" },
-          { label: "2. Long-lived property & equipment:", target: "Fixed Assets" },
-          { label: "3. Left side of the accounting equation:", target: "Total Assets" },
-          { label: "4. Debts due in under 12 months:", target: "Current Liabilities" },
-          { label: "5. Multi-year loan obligations:", target: "Long-Term Liabilities" },
-          { label: "6. All creditors' claims:", target: "Total Liabilities" },
-          { label: "7. Owners' net interest inside the firm:", target: "Shareholders' Equity" }
-        ]
+        q: "What impact do Owner Withdrawals have on the company's Equity?",
+        options: ["They double it", "They have no effect", "They decrease it", "They increase it"],
+        correct: 2,
+        explanation: "Withdrawals mean the owner is removing assets, which reduces their overall equity stake."
       },
       {
-        title: "Stage 3: Build the Statement of Owner's Equity",
-        desc: "Detail the chronological changes in the owner's net worth.",
-        headers: ["Equity Event Transaction", "Target Category"],
-        bank: ["Beginning Capital", "Additions", "Net Income", "Less: Owner Withdrawals", "Ending Capital"],
-        rows: [
-          { label: "1. Asset value of ownership on day 1:", target: "Beginning Capital" },
-          { label: "2. Fresh owner investments:", target: "Additions" },
-          { label: "3. Income brought from income statement:", target: "Net Income" },
-          { label: "4. Assets extracted for personal use:", target: "Less: Owner Withdrawals" },
-          { label: "5. Final equity carried to balance sheet:", target: "Ending Capital" }
-        ]
+        q: "If a business starts with $5,000 in Capital and incurs a Net Loss of $1,000, what is the new ending capital (assuming zero withdrawals)?",
+        options: ["$6,000", "$4,000", "$5,000", "$0"],
+        correct: 1,
+        explanation: "Net Losses reduce owner's equity. $5,000 - $1,000 = $4,000."
       },
       {
-        title: "Stage 4: Build the Cash Flow Statement",
-        desc: "Assemble the foundational segments that track actual liquidity flow.",
-        headers: ["Transaction Channel", "Category Group"],
-        bank: ["Operating Activities", "Investing Activities", "Financing Activities", "Net Cash Reconciliation"],
-        rows: [
-          { label: "1. Core transactional customer revenue:", target: "Operating Activities" },
-          { label: "2. Buying long-term warehouse properties:", target: "Investing Activities" },
-          { label: "3. Issuing equity shares to general public:", target: "Financing Activities" },
-          { label: "4. Final verification against balance sheet cash:", target: "Net Cash Reconciliation" }
-        ]
+        q: "What is another name for additional cash or resources contributed by owners to a business?",
+        options: ["Operating Expense", "Net Income", "Contributed Capital / Investment", "Accounts Payable"],
+        correct: 2,
+        explanation: "When an owner infuses personal money, it is termed Owner Investment or Contributed Capital."
+      },
+      {
+        q: "To which of the following statements is Ending Capital carried over?",
+        options: ["Income Statement", "The Balance Sheet", "Corporate Tax Filings", "None of these"],
+        correct: 1,
+        explanation: "Ending Capital represents the final owner's net worth, which is recorded in the Equity section of the Balance Sheet."
       }
     ];
 
-    let currentStage = 0;
+    let currentQIdx = 0;
     let selectedVal = "";
     let selectedEl = null;
+    let userAnswers = [];
 
-    function initStage() {
-      const stage = stages[currentStage];
+    function loadQuestion() {
+      const data = mcqs[currentQIdx];
+      let html = `<h4>Question ${currentQIdx + 1} of 5</h4><p style="font-weight: 500;">${data.q}</p>`;
       
-      document.getElementById('stage-title').innerText = stage.title;
-      document.getElementById('stage-desc').innerText = stage.desc;
-      document.getElementById('stage-feedback').innerText = "";
-      document.getElementById('next-stage-btn').style.display = 'none';
+      let mapped = data.options.map((opt, idx) => ({ text: opt, originalIndex: idx }));
+      mapped.sort(() => Math.random() - 0.5);
 
-      // Load Bank
-      const bankDiv = document.getElementById('options-bank');
-      let randomizedBank = [...stage.bank].sort(() => Math.random() - 0.5);
-      bankDiv.innerHTML = randomizedBank.map(item => `
-        <div class="bank-item" onclick="selectItem('${item.replace(/'/g, "\\'")}', this)">${item}</div>
-      `).join('');
-
-      // Load Table
-      const table = document.getElementById('statement-table');
-      let tableHtml = `
-        <thead>
-          <tr>
-            <th>${stage.headers[0]}</th>
-            <th>${stage.headers[1]}</th>
-          </tr>
-        </thead>
-        <tbody>
-      `;
-
-      stage.rows.forEach((row, i) => {
-        tableHtml += `
-          <tr>
-            <td><strong>${row.label}</strong></td>
-            <td><div class="drop-zone" id="slot-${i}" onclick="placeItem('slot-${i}')">?</div></td>
-          </tr>
-        `;
+      mapped.forEach(opt => {
+        html += `<button class="option-btn" onclick="checkAnswer(${opt.originalIndex}, '${opt.text.replace(/'/g, "\\'")}')">${opt.text}</button>`;
       });
-
-      tableHtml += `</tbody>`;
-      table.innerHTML = tableHtml;
-      
-      selectedVal = "";
-      selectedEl = null;
+      document.getElementById('quiz-container').innerHTML = html;
     }
 
-    function selectItem(val, el) {
+    function checkAnswer(idx, text) {
+      userAnswers.push({ q: mcqs[currentQIdx].q, selected: text, correctOpt: mcqs[currentQIdx].options[mcqs[currentQIdx].correct], exp: mcqs[currentQIdx].explanation });
+      if (idx === mcqs[currentQIdx].correct) {
+        currentQIdx++;
+        if (currentQIdx < mcqs.length) {
+          loadQuestion();
+        } else {
+          document.getElementById('quiz-container').innerHTML = "<h3 style='color: var(--accent); text-align:center;'>🎉 Multiple Choice Questions Passed!</h3>";
+          document.getElementById('build-area').style.display = 'block';
+        }
+      } else {
+        alert("Incorrect answer. Let's try this question again!");
+        userAnswers.pop();
+      }
+    }
+
+    function selectValue(val, el) {
       if (selectedEl) selectedEl.classList.remove('selected');
       selectedVal = val;
       selectedEl = el;
       el.classList.add('selected');
     }
 
-    function placeItem(slotId) {
+    function placeValue(targetId) {
       if (!selectedVal) {
-        alert("Select a block from the bank first!");
+        alert("Please click a value from the bank first!");
         return;
       }
-      const slot = document.getElementById(slotId);
-      slot.innerText = selectedVal;
-      slot.classList.add('filled');
-      
-      if (selectedEl) {
-        selectedEl.classList.remove('selected');
-        selectedEl = null;
-        selectedVal = "";
-      }
+      const target = document.getElementById(targetId);
+      target.innerText = selectedVal;
+      target.style.borderColor = "var(--accent)";
     }
 
-    function verifyStage() {
-      const stage = stages[currentStage];
-      let allCorrect = true;
-
-      stage.rows.forEach((row, i) => {
-        const value = document.getElementById(`slot-${i}`).innerText;
-        if (value !== row.target) {
-          allCorrect = false;
-        }
-      });
-
-      const feedback = document.getElementById('stage-feedback');
-      if (allCorrect) {
-        feedback.style.color = "var(--success)";
-        feedback.innerText = "Excellent Work! That statement is structurally perfect.";
-        document.getElementById('next-stage-btn').style.display = 'inline-block';
-        document.getElementById(`dot-${currentStage + 1}`).className = "dot completed";
+    function checkPractical() {
+      const b = document.getElementById('beg-slot').innerText;
+      const a = document.getElementById('add-slot').innerText;
+      const d = document.getElementById('draw-slot').innerText;
+      const end = document.getElementById('end-slot').innerText;
+      const feedback = document.getElementById('practical-feedback');
+      
+      if (b === '$10,000' && a === '$7,000' && d === '$1,000' && end === '$16,000') {
+        feedback.style.color = "green";
+        feedback.innerHTML = "Success! That statement flow is beautifully complete! $10,000 + $7,000 - $1,000 = $16,000.";
+        document.getElementById('post-quiz-options').style.display = 'block';
       } else {
         feedback.style.color = "red";
-        feedback.innerText = "Error detected! Double check your logical arrangement.";
+        feedback.innerHTML = "The logic is out of order. Ensure you start with Beginning Capital, add investments/income, subtract withdrawals, and arrive at Ending Capital.";
       }
     }
 
-    function advanceStage() {
-      currentStage++;
-      if (currentStage < stages.length) {
-        document.getElementById(`dot-${currentStage + 1}`).className = "dot active";
-        initStage();
-      } else {
-        document.getElementById('options-bank').style.display = 'none';
-        document.getElementById('statement-table').style.display = 'none';
-        document.getElementById('next-stage-btn').style.display = 'none';
-        
-        document.getElementById('stage-title').innerText = "🏆 Masterclass Finished!";
-        document.getElementById('stage-desc').innerText = "You have perfectly built all four core financial statements from scratch. Outstanding work!";
-        document.getElementById('stage-feedback').innerHTML = "All 4 modules validated perfectly.";
+    function toggleReview() {
+      const panel = document.getElementById('review-panel');
+      if (panel.style.display === 'block') {
+        panel.style.display = 'none';
+        return;
       }
+      let html = "<h3>Quiz Review</h3>";
+      userAnswers.forEach((ans, i) => {
+        html += `
+          <div class="review-box">
+            <p><strong>Q${i+1}: ${ans.q}</strong></p>
+            <p style="color: green;">✓ Correct Answer: ${ans.correctOpt}</p>
+            <p style="color: var(--text-muted); font-style: italic;">Why? ${ans.exp}</p>
+          </div>`;
+      });
+      panel.innerHTML = html;
+      panel.style.display = 'block';
     }
 
-    initStage();
-  </script></div>
+    loadQuestion();
+  </script>
