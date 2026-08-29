@@ -69,7 +69,6 @@
     </p>
 
     <div style="display: flex; flex-direction: column; gap: 16px;">
-        
         <div style="background: white; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden;">
             <details style="width: 100%;">
                 <summary style="display: flex; justify-content: space-between; align-items: center; padding: 16px; cursor: pointer; list-style: none; font-weight: 700; color: #0f172a; font-size: 14.5px;">
@@ -111,7 +110,6 @@
                         Transaction: Got Office Supplies worth $8,000; $3,000 paid in Cash and $5,000 on credit.
                     </div>
                     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-top: 12px;">
-                        
                         <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 10px;">
                             <div style="font-weight: 800; border-bottom: 2px solid #0f172a; padding-bottom: 4px; text-align: center; font-size: 11.5px;">Office Supplies T-Acc.</div>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; min-height: 40px; align-items: center; font-size: 11px;">
@@ -119,7 +117,6 @@
                                 <div style="text-align: center; color: #94a3b8; font-style: italic; border-left: 1px solid #e2e8f0;">Credit</div>
                             </div>
                         </div>
-
                         <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 10px;">
                             <div style="font-weight: 800; border-bottom: 2px solid #0f172a; padding-bottom: 4px; text-align: center; font-size: 11.5px;">Cash T-Account</div>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; min-height: 40px; align-items: center; font-size: 11px;">
@@ -127,7 +124,6 @@
                                 <div style="text-align: center; font-weight: 700; color: #dc2626; border-left: 1px solid #e2e8f0;">Credit $3,000</div>
                             </div>
                         </div>
-
                         <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 8px; padding: 10px;">
                             <div style="font-weight: 800; border-bottom: 2px solid #0f172a; padding-bottom: 4px; text-align: center; font-size: 11.5px;">Accounts Payable T-Acc.</div>
                             <div style="display: grid; grid-template-columns: 1fr 1fr; min-height: 40px; align-items: center; font-size: 11px;">
@@ -135,7 +131,6 @@
                                 <div style="text-align: center; font-weight: 700; color: #dc2626; border-left: 1px solid #e2e8f0;">Credit $5,000</div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </details>
@@ -170,7 +165,6 @@
                 </div>
             </details>
         </div>
-
     </div>
 </div>
 
@@ -187,12 +181,9 @@
 <input type="checkbox" id="l1_3_quiz_trigger" style="display: none; position: absolute;" />
 
 <style>
-    /* Display state trigger for Quiz Modal */
     #l1_3_quiz_trigger:checked ~ #pureQuizModal_l1_3 {
         display: flex !important;
     }
-    
-    /* Target dropdown styling */
     .target-slot {
         background: white;
         border: 1.5px solid #cbd5e1;
@@ -209,14 +200,11 @@
         font-weight: 600;
         cursor: pointer;
     }
-
     .target-slot:focus {
         border-color: #3b82f6;
         outline: none;
         box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
     }
-
-    /* Single Question Slide Display Controls */
     .slide-question {
         display: none;
     }
@@ -233,7 +221,7 @@
                 <span style="font-size: 18px;">📝</span>
                 <h3 style="margin: 0; font-size: 17px; font-weight: 800; color: #0f172a;">Lesson 1.3 Quiz</h3>
             </div>
-            <label for="l1_3_quiz_trigger" style="font-size: 24px; color: #94a3b8; cursor: pointer; font-weight: normal; padding: 4px; line-height: 1; transition: color 0.15s;" onmouseover="this.style.color='#64748b'" onmouseout="this.style.color='#94a3b8'">&times;</label>
+            <label for="l1_3_quiz_trigger" style="font-size: 24px; color: #94a3b8; cursor: pointer; font-weight: normal; padding: 4px; line-height: 1;" onclick="resetL13Quiz()">&times;</label>
         </div>
 
         <div style="background: #f1f5f9; height: 6px; width: 100%; position: relative;">
@@ -241,18 +229,16 @@
         </div>
 
         <div style="padding: 24px; overflow-y: auto; flex: 1; box-sizing: border-box; background: #fafafb;">
-            
             <p style="margin: 0 0 20px 0; font-size: 13.5px; color: #64748b; text-align: center; line-height: 1.5; font-weight: 500;">
                 Select the correct <strong>Account Title</strong> and <span>Amount</span> from the drop-down menus for each scenario!
             </p>
 
             <div id="quiz_scenarios">
-                
+                <!-- Slide 1 -->
                 <div class="slide-question active" id="slide_1">
                     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); margin-bottom: 20px;">
-                        <span style="font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em;">Scenario 1 of 6</span>
-                        <h4 style="margin: 6px 0 16px 0; font-size: 15px; font-weight: 800; color: #0f172a; line-height: 1.45;">An owner starts the company by putting $10,000 of personal cash into the business bank account.</h4>
-                        
+                        <span style="font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase;">Scenario 1 of 6</span>
+                        <h4 style="margin: 6px 0 16px 0; font-size: 15px; font-weight: 800; color: #0f172a;">An owner starts the company by putting $10,000 of personal cash into the business bank account.</h4>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                             <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px;">
                                 <div style="font-weight: 800; font-size: 11px; text-transform: uppercase; color: #059669; border-bottom: 2px solid #10b981; padding-bottom: 6px; text-align: center; margin-bottom: 12px;">DEBIT DEPOSIT</div>
@@ -310,11 +296,11 @@
                     </div>
                 </div>
 
+                <!-- Slide 2 -->
                 <div class="slide-question" id="slide_2">
                     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); margin-bottom: 20px;">
-                        <span style="font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em;">Scenario 2 of 6</span>
-                        <h4 style="margin: 6px 0 16px 0; font-size: 15px; font-weight: 800; color: #0f172a; line-height: 1.45;">The business buys computer machinery for $2,000 cash.</h4>
-                        
+                        <span style="font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase;">Scenario 2 of 6</span>
+                        <h4 style="margin: 6px 0 16px 0; font-size: 15px; font-weight: 800; color: #0f172a;">The business buys computer machinery for $2,000 cash.</h4>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                             <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px;">
                                 <div style="font-weight: 800; font-size: 11px; text-transform: uppercase; color: #059669; border-bottom: 2px solid #10b981; padding-bottom: 6px; text-align: center; margin-bottom: 12px;">DEBIT ASSET INC.</div>
@@ -372,11 +358,11 @@
                     </div>
                 </div>
 
+                <!-- Slide 3 -->
                 <div class="slide-question" id="slide_3">
                     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); margin-bottom: 20px;">
-                        <span style="font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em;">Scenario 3 of 6</span>
-                        <h4 style="margin: 6px 0 16px 0; font-size: 15px; font-weight: 800; color: #0f172a; line-height: 1.45;">The business buys $1,500 of inventory from a supplier but agrees to pay them next month.</h4>
-                        
+                        <span style="font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase;">Scenario 3 of 6</span>
+                        <h4 style="margin: 6px 0 16px 0; font-size: 15px; font-weight: 800; color: #0f172a;">The business buys $1,500 of inventory from a supplier but agrees to pay them next month.</h4>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                             <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px;">
                                 <div style="font-weight: 800; font-size: 11px; text-transform: uppercase; color: #059669; border-bottom: 2px solid #10b981; padding-bottom: 6px; text-align: center; margin-bottom: 12px;">DEBIT ASSET INC.</div>
@@ -434,11 +420,11 @@
                     </div>
                 </div>
 
+                <!-- Slide 4 -->
                 <div class="slide-question" id="slide_4">
                     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); margin-bottom: 20px;">
-                        <span style="font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em;">Scenario 4 of 6</span>
-                        <h4 style="margin: 6px 0 16px 0; font-size: 15px; font-weight: 800; color: #0f172a; line-height: 1.45;">The company performs services for a client and immediately collects $5,000 cash.</h4>
-                        
+                        <span style="font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase;">Scenario 4 of 6</span>
+                        <h4 style="margin: 6px 0 16px 0; font-size: 15px; font-weight: 800; color: #0f172a;">The company performs services for a client and immediately collects $5,000 cash.</h4>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                             <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px;">
                                 <div style="font-weight: 800; font-size: 11px; text-transform: uppercase; color: #059669; border-bottom: 2px solid #10b981; padding-bottom: 6px; text-align: center; margin-bottom: 12px;">DEBIT ASSET INC.</div>
@@ -496,11 +482,11 @@
                     </div>
                 </div>
 
+                <!-- Slide 5 -->
                 <div class="slide-question" id="slide_5">
                     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); margin-bottom: 20px;">
-                        <span style="font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em;">Scenario 5 of 6</span>
-                        <h4 style="margin: 6px 0 16px 0; font-size: 15px; font-weight: 800; color: #0f172a; line-height: 1.45;">The business pays $6,000 cash for the office rent.</h4>
-                        
+                        <span style="font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase;">Scenario 5 of 6</span>
+                        <h4 style="margin: 6px 0 16px 0; font-size: 15px; font-weight: 800; color: #0f172a;">The business pays $6,000 cash for the office rent.</h4>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                             <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px;">
                                 <div style="font-weight: 800; font-size: 11px; text-transform: uppercase; color: #059669; border-bottom: 2px solid #10b981; padding-bottom: 6px; text-align: center; margin-bottom: 12px;">DEBIT EXPENSE INC.</div>
@@ -558,11 +544,11 @@
                     </div>
                 </div>
 
+                <!-- Slide 6 -->
                 <div class="slide-question" id="slide_6">
                     <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 12px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); margin-bottom: 20px;">
-                        <span style="font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.05em;">Scenario 6 of 6</span>
-                        <h4 style="margin: 6px 0 16px 0; font-size: 15px; font-weight: 800; color: #0f172a; line-height: 1.45;">The business pays off $500 of the $1,500 owed to the supplier from Transaction #3.</h4>
-                        
+                        <span style="font-size: 11px; font-weight: 800; color: #3b82f6; text-transform: uppercase;">Scenario 6 of 6</span>
+                        <h4 style="margin: 6px 0 16px 0; font-size: 15px; font-weight: 800; color: #0f172a;">The business pays off $500 of the $1,500 owed to the supplier from Transaction #3.</h4>
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                             <div style="border: 1px solid #cbd5e1; border-radius: 8px; padding: 12px;">
                                 <div style="font-weight: 800; font-size: 11px; text-transform: uppercase; color: #059669; border-bottom: 2px solid #10b981; padding-bottom: 6px; text-align: center; margin-bottom: 12px;">DEBIT LIAB REDUCTION</div>
@@ -619,30 +605,29 @@
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <div id="quiz_result_panel" style="display: none; padding: 20px; border-radius: 12px; text-align: center; border: 2.5px dashed; margin-bottom: 12px;"></div>
-
         </div>
 
         <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px 28px; background: #f8fafc; border-top: 1px solid #e2e8f0;">
-            <button onclick="resetL13Quiz()" style="background: transparent; color: #64748b; border: 1.5px solid #cbd5e1; font-size: 13px; font-weight: 700; padding: 10px 18px; border-radius: 8px; cursor: pointer; transition: all 0.15s;">Reset Quiz</button>
+            <button onclick="resetL13Quiz()" style="background: transparent; color: #64748b; border: 1.5px solid #cbd5e1; font-size: 13px; font-weight: 700; padding: 10px 18px; border-radius: 8px; cursor: pointer;">Reset Quiz</button>
             <div style="display: flex; gap: 12px;">
-                <button id="btn_check_answer" onclick="checkCurrentSlide()" style="background: #3b82f6; color: white; border: none; font-size: 13px; font-weight: 800; padding: 10px 22px; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.2); transition: background-color 0.15s;" onmouseover="this.style.backgroundColor='#2563eb'" onmouseout="this.style.backgroundColor='#3b82f6'">Check Answer</button>
-                <button id="btn_next_question" onclick="nextSlide()" style="display: none; background: #10b981; color: white; border: none; font-size: 13px; font-weight: 800; padding: 10px 22px; border-radius: 8px; cursor: pointer; box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);" onmouseover="this.style.backgroundColor='#059669'" onmouseout="this.style.backgroundColor='#10b981'">Next Question ➡️</button>
-                <label for="l1_3_quiz_trigger" style="background: #0f172a; color: white; font-size: 13px; font-weight: 700; padding: 10px 18px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center;">Close</label>
+                <button id="btn_check_answer" onclick="checkCurrentSlide()" style="background: #3b82f6; color: white; border: none; font-size: 13px; font-weight: 800; padding: 10px 22px; border-radius: 8px; cursor: pointer;">Check Answer</button>
+                <button id="btn_next_question" onclick="nextSlide()" style="display: none; background: #10b981; color: white; border: none; font-size: 13px; font-weight: 800; padding: 10px 22px; border-radius: 8px; cursor: pointer;">Next Question ➡️</button>
+                <label for="l1_3_quiz_trigger" style="background: #0f172a; color: white; font-size: 13px; font-weight: 700; padding: 10px 18px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center;" onclick="resetL13Quiz()">Close</label>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    let currentSlideIndex = 1;
-    const totalSlides = 6;
+    window.currentSlideIndex = 1;
+    window.totalSlides = 6;
 
-    function checkCurrentSlide() {
-        const activeSlide = document.getElementById(`slide_${currentSlideIndex}`);
+    window.checkCurrentSlide = function() {
+        const activeSlide = document.getElementById(`slide_${window.currentSlideIndex}`);
+        if (!activeSlide) return;
         const slots = activeSlide.querySelectorAll('.target-slot');
         let slideCorrectCount = 0;
         const totalSlideSlots = slots.length;
@@ -675,7 +660,7 @@
             `;
             
             document.getElementById('btn_check_answer').style.display = 'none';
-            if (currentSlideIndex < totalSlides) {
+            if (window.currentSlideIndex < window.totalSlides) {
                 document.getElementById('btn_next_question').style.display = 'inline-block';
             } else {
                 resultPanel.innerHTML = `
@@ -694,34 +679,36 @@
                 <p style="margin: 0; font-size: 12.5px;">Verify where the accounts and balances go. Left/Debit must balance Right/Credit.</p>
             `;
         }
-    }
+    };
 
-    function nextSlide() {
-        if (currentSlideIndex < totalSlides) {
-            document.getElementById(`slide_${currentSlideIndex}`).classList.remove('active');
-            currentSlideIndex++;
-            document.getElementById(`slide_${currentSlideIndex}`).classList.add('active');
+    window.nextSlide = function() {
+        if (window.currentSlideIndex < window.totalSlides) {
+            document.getElementById(`slide_${window.currentSlideIndex}`).classList.remove('active');
+            window.currentSlideIndex++;
+            document.getElementById(`slide_${window.currentSlideIndex}`).classList.add('active');
             
             const progressBar = document.getElementById('quiz_progress_bar');
-            const progressPercent = (currentSlideIndex / totalSlides) * 100;
+            const progressPercent = (window.currentSlideIndex / window.totalSlides) * 100;
             progressBar.style.width = `${progressPercent}%`;
 
             document.getElementById('btn_check_answer').style.display = 'inline-block';
             document.getElementById('btn_next_question').style.display = 'none';
             document.getElementById('quiz_result_panel').style.display = 'none';
         }
-    }
+    };
 
-    function resetL13Quiz() {
+    window.resetL13Quiz = function() {
         document.querySelectorAll('.target-slot').forEach(slot => {
             slot.selectedIndex = 0;
             slot.style.borderColor = '#cbd5e1';
             slot.style.backgroundColor = 'white';
         });
 
-        document.getElementById(`slide_${currentSlideIndex}`).classList.remove('active');
-        currentSlideIndex = 1;
-        document.getElementById(`slide_${currentSlideIndex}`).classList.add('active');
+        if(document.getElementById(`slide_${window.currentSlideIndex}`)) {
+            document.getElementById(`slide_${window.currentSlideIndex}`).classList.remove('active');
+        }
+        window.currentSlideIndex = 1;
+        document.getElementById(`slide_1`).classList.add('active');
         document.getElementById('quiz_progress_bar').style.width = '16.66%';
 
         document.getElementById('btn_check_answer').style.display = 'inline-block';
@@ -730,5 +717,5 @@
         const resultPanel = document.getElementById('quiz_result_panel');
         resultPanel.style.display = 'none';
         resultPanel.innerHTML = '';
-    }
+    };
 </script>
