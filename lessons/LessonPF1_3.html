@@ -1,0 +1,95 @@
+
+<style>
+.scroll-reveal-card{
+  background:linear-gradient(145deg,#ffffff 0%,#fffaff 100%);
+  border:1px solid #eadff5 !important;
+  border-radius:22px !important;
+  box-shadow:0 8px 24px rgba(148,128,170,.10);
+  padding:24px !important;
+}
+.scroll-reveal-card button{
+  font-family:inherit;
+  transition:transform .15s,box-shadow .15s;
+}
+.scroll-reveal-card button:hover{
+  transform:translateY(-1px);
+  box-shadow:0 4px 12px rgba(120,100,140,.12);
+}
+.pastel-blue{background:#eaf4ff;border:1px solid #cfe5ff;border-radius:16px;padding:16px;}
+.pastel-pink{background:#fff0f5;border:1px solid #f7d2df;border-radius:16px;padding:16px;}
+.pastel-yellow{background:#fff9df;border:1px solid #f4e4a8;border-radius:16px;padding:16px;}
+.pastel-green{background:#ecfaf2;border:1px solid #c9ecd7;border-radius:16px;padding:16px;}
+.pastel-purple{background:#f4efff;border:1px solid #ded1fa;border-radius:16px;padding:16px;}
+</style>
+<div class="scroll-reveal-card" style="margin-top:0;">
+<span style="background:#dbeafe;color:#1e40af;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.05em;">Lesson 1.3</span>
+<h2 style="margin:12px 0 8px;font-size:26px;color:#0f172a;font-weight:800;">Earning Potential</h2>
+<p style="line-height:1.6;color:#475569;font-size:15px;margin:0;">Earning potential can be influenced by skills, experience, training, demand, location, and many other factors. No single career guarantees a particular income.</p>
+</div>
+<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:20px;color:#0f172a;font-weight:800;">📈 Skill-to-Opportunity Explorer</h3>
+<p style="color:#475569;">Choose a factor to see why it can matter to earning potential.</p><div id="factor13" style="display:none;background:#f5f3ff;border:1px solid #ddd6fe;border-radius:12px;padding:14px;margin:12px 0;"></div>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;"><button onclick="fac13('s')">Skills</button><button onclick="fac13('e')">Experience</button><button onclick="fac13('d')">Demand</button><button onclick="fac13('l')">Location</button></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:22px;color:#0f172a;font-weight:800;">🎮 Real-World Game: Career Builder</h3>
+<p style="color:#475569;line-height:1.6;">Compare fictional opportunities by goals and trade-offs. There is no universally best career.</p><div id="game13"></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:20px;color:#0f172a;font-weight:800;">🧭 Evaluate an Opportunity</h3>
+<div style="display:grid;gap:10px;margin-top:15px;"><div style="padding:15px;border-left:4px solid #6d28d9;background:#fafafa;"><b>1. What skills will I build?</b></div><div style="padding:15px;border-left:4px solid #2563eb;background:#fafafa;"><b>2. What will I learn?</b></div><div style="padding:15px;border-left:4px solid #16a34a;background:#fafafa;"><b>3. What are the trade-offs?</b></div></div></div>
+<div class="scroll-reveal-card" style="margin-top:24px;background:linear-gradient(145deg,#f4efff 0%,#fff0f5 55%,#eaf4ff 100%) !important;border-color:#ded1fa !important;">
+  <span style="background:#ffffffaa;color:#6d28d9;font-size:11px;font-weight:800;padding:5px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.05em;">Section Capstone Game</span>
+  <h3 style="margin:12px 0 8px;font-size:23px;color:#312e81;font-weight:800;">🎮 The First Paycheck Challenge</h3>
+  <p style="color:#475569;line-height:1.65;font-size:14px;">
+    You have finished the Income &amp; Taxes section. Now put everything together! You are helping a fictional student named Maya understand a new job offer, read her first paystub, recognize tax withholding, and decide how to think about the opportunity.
+  </p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:18px 0;">
+    <div class="pastel-purple"><strong>Step 1</strong><br><span style="font-size:13px;color:#475569;">Evaluate the earning opportunity.</span></div>
+    <div class="pastel-blue"><strong>Step 2</strong><br><span style="font-size:13px;color:#475569;">Read the paystub.</span></div>
+    <div class="pastel-yellow"><strong>Step 3</strong><br><span style="font-size:13px;color:#475569;">Identify taxes &amp; withholding.</span></div>
+    <div class="pastel-green"><strong>Step 4</strong><br><span style="font-size:13px;color:#475569;">Explain the take-home pay.</span></div>
+  </div>
+  <div id="capstone13" style="background:#ffffffcc;border-radius:16px;padding:20px;border:1px solid #e7dcf2;"></div>
+</div>
+
+<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:20px;color:#0f172a;font-weight:800;">🎯 Lesson 1.3 Quiz</h3><div id="q13"></div></div>
+<script>const fac={s:"Skills can expand the opportunities you can qualify for.",e:"Experience can help you demonstrate what you can do.",d:"Demand can affect the number of opportunities available, but does not guarantee an individual outcome.",l:"Pay and living costs can vary by location."};function fac13(k){let e=document.getElementById('factor13');e.textContent=fac[k];e.style.display='block'}
+const cg=[['You want to build a technical skill. Which is best?',['A role with no training','A role with supervised practice and training'],1],['How should you compare opportunities?',['Only starting pay','Pay plus training, schedule, location and other trade-offs'],1],['What does high demand mean?',['It guarantees a high income','It may create more opportunities, but outcomes vary'],1]];let c=0;
+function lc(){let x=cg[c];document.getElementById('game13').innerHTML='<p><b>Round '+(c+1)+' of 3</b></p><p>'+x[0]+'</p>'+x[1].map((v,i)=>'<button onclick="ac('+i+')" style="display:block;width:100%;margin:8px 0;padding:12px;text-align:left;border:1px solid #cbd5e1;border-radius:8px;background:white;">'+v+'</button>').join('')}function ac(i){if(i===cg[c][2]){c++;c<cg.length?lc():document.getElementById('game13').innerHTML='<h4 style="color:#166534;text-align:center;">🏆 Career Builder complete!</h4>'}else alert('Think about the goal and the trade-offs.')}lc();
+const q3=[['Which can influence earning potential?',['Skills and experience','The color of a paycheck'],0],['Why consider more than starting pay?',['Training, schedule, location and growth can matter','Starting pay never matters'],0],['What is a responsible way to think about earning potential?',['Skills and opportunities can influence outcomes, but results vary','One career guarantees a certain income'],0]];let p=0;
+function l3(){let x=q3[p];document.getElementById('q13').innerHTML='<p><b>Question '+(p+1)+' of 3</b></p><p>'+x[0]+'</p>'+x[1].map((v,i)=>'<button onclick="a3('+i+')" style="display:block;width:100%;margin:8px 0;padding:12px;text-align:left;border:1px solid #cbd5e1;border-radius:8px;background:white;">'+v+'</button>').join('')}function a3(i){if(i===q3[p][2]){p++;p<q3.length?l3():document.getElementById('q13').innerHTML='<h4 style="color:#166534;text-align:center;">🎉 Quiz complete!</h4>'}else alert('Try again!')}l3();
+
+const capstone13=[
+ {q:"STEP 1 — Maya can choose between two fictional jobs. Job A pays a little more now but offers no training. Job B pays a little less now but includes supervised training in a useful skill. Maya's goal is to build skills for future opportunities. Which better matches her goal?",
+  o:["Job A because starting pay is the only factor","Job B because the training may build useful experience and skills"],a:1},
+ {q:"STEP 2 — Maya's two-week paystub shows $1,600 gross pay and $1,300 net pay. What is the difference?",
+  o:["$300","$2,900"],a:0},
+ {q:"STEP 3 — Maya sees federal income tax withholding on her paystub. What does that line generally represent?",
+  o:["Money withheld from pay toward federal income tax","A reward from her employer"],a:0},
+ {q:"STEP 4 — Maya asks why her gross pay is higher than her take-home pay. What is the best explanation?",
+  o:["Taxes and other deductions can be taken from gross pay before net pay is received","Gross pay and net pay always have to be identical"],a:0},
+ {q:"FINAL DECISION — What is the strongest way for Maya to evaluate her new opportunity?",
+  o:["Look only at the biggest number on the job offer","Consider earnings, skills, experience, taxes, deductions, and other trade-offs together"],a:1}
+];
+let cap13=0, capScore13=0;
+function loadCap13(){
+  const q=capstone13[cap13];
+  document.getElementById('capstone13').innerHTML=
+    '<p style="margin-top:0;color:#6d28d9;font-weight:800;">Challenge '+(cap13+1)+' of '+capstone13.length+'</p>'+
+    '<p style="font-size:16px;line-height:1.6;color:#334155;"><strong>'+q.q+'</strong></p>'+
+    q.o.map((x,i)=>'<button onclick="answerCap13('+i+')" style="display:block;width:100%;margin:9px 0;padding:13px 15px;text-align:left;border:1px solid #d8cbea;border-radius:11px;background:#fff;cursor:pointer;color:#334155;">'+x+'</button>').join('');
+}
+function answerCap13(i){
+  if(i===capstone13[cap13].a){
+    capScore13++;
+    cap13++;
+    if(cap13<capstone13.length){
+      loadCap13();
+    }else{
+      document.getElementById('capstone13').innerHTML=
+       '<div style="text-align:center;padding:10px;"><div style="font-size:34px;">🏆</div>'+
+       '<h4 style="color:#6d28d9;font-size:20px;margin:8px 0;">Income &amp; Taxes complete!</h4>'+
+       '<p style="color:#475569;line-height:1.6;">You scored '+capScore13+' / '+capstone13.length+'. You practiced evaluating earning potential, reading a paystub, understanding withholding, and explaining net pay.</p>'+
+       '<p style="font-weight:700;color:#166534;">You are ready for the next section: Budget &amp; Banking.</p></div>';
+    }
+  }else{
+    alert("Not quite. Re-read the clue and use what you learned in the lessons.");
+  }
+}
+loadCap13();
+
+</script>
