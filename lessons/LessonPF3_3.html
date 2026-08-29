@@ -1,0 +1,34 @@
+
+<style>
+.scroll-reveal-card{background:linear-gradient(145deg,#fff 0%,#fbfffe 100%);border:1px solid #d7ebe5 !important;border-radius:22px !important;box-shadow:0 8px 24px rgba(80,110,100,.10);padding:24px !important;}
+.lesson-tag{font-size:11px;font-weight:800;padding:5px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.05em;display:inline-block}
+.game-panel{background:#f7fffc;border:1px solid #cfe9df;border-radius:16px;padding:20px}
+.choice{display:block;width:100%;margin:9px 0;padding:13px 15px;text-align:left;border:1px solid #cbded8;border-radius:11px;background:#fff;cursor:pointer;color:#334155}
+.choice:hover{box-shadow:0 4px 12px rgba(60,100,90,.12);transform:translateY(-1px)}
+.stat{padding:15px;border-radius:15px}
+</style>
+<div class="scroll-reveal-card" style="margin-top:0;">
+<span class="lesson-tag" style="background:#f0eafb;color:#66519a;">Lesson 3.3</span>
+<h2 style="margin:12px 0 8px;font-size:26px;color:#0f172a;font-weight:800;">Managing Loans</h2>
+<p style="line-height:1.65;color:#475569;font-size:15px;margin:0;">Loans create a repayment obligation. Comparing the rate, term, fees, payment, and total cost helps borrowers evaluate the full commitment.</p>
+</div>('<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🧾 Loan Decision Map</h3>\n<p style="color:#475569;line-height:1.6;">Loans can help finance large purchases, but they create an obligation to repay. Before borrowing, compare the amount borrowed, interest rate, term, payment, fees, and total cost.</p>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">\n<div class="stat" style="background:#eaf4ff;"><b>Principal</b><br><span style="font-size:13px;color:#475569;">The amount borrowed.</span></div>\n<div class="stat" style="background:#fff4df;"><b>Interest</b><br><span style="font-size:13px;color:#475569;">Cost of borrowing money.</span></div>\n<div class="stat" style="background:#f5efff;"><b>Term</b><br><span style="font-size:13px;color:#475569;">How long repayment is scheduled to take.</span></div>\n<div class="stat" style="background:#edf9f1;"><b>Total cost</b><br><span style="font-size:13px;color:#475569;">What the borrowing ultimately costs under the agreement.</span></div>\n</div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🔢 Compare Two Fictional Loans</h3>\n<p style="color:#475569;">Loan A: $5,000 at 7% for 3 years. Loan B: $5,000 at 9% for 5 years. Without calculating exact amortization, which statement is the safest conclusion?</p>\n<div id="loan33"></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Character Game: Taylor\'s Big Purchase</h3>\n<p style="color:#475569;line-height:1.6;"><b>Taylor</b> is considering a fictional loan. Help Taylor work through an everyday decision: need, affordability, loan terms, and repayment plan.</p>\n<div class="game-panel"><div id="game33"></div></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 3.3 Quiz</h3><div id="quiz33"></div></div>')<script>
+document.getElementById('loan33').innerHTML=
+'<button class="choice" onclick="loan33(0)">Loan A is likely to have a lower total borrowing cost because it has a lower rate and shorter term, all else equal.</button>'+
+'<button class="choice" onclick="loan33(1)">Loan B must cost less because the payment is spread over more years.</button>'+
+'<button class="choice" onclick="loan33(2)">The two loans must cost exactly the same.</button>'+
+'<button class="choice" onclick="loan33(3)">The interest rate never matters if the amount borrowed is the same.</button>';
+function loan33(i){document.getElementById('loan33').innerHTML=i===0?'<div class="stat" style="background:#edf9f1;color:#166534;"><b>Correct.</b> A lower rate and shorter term generally reduce borrowing cost, though exact cost depends on the full agreement and fees.</div>':'<div class="stat" style="background:#fff4f4;color:#9f1239;">Not quite. Compare rate, term, fees, and total cost—not just the monthly payment.</div>'}
+const g33=[
+["Taylor wants a loan payment that fits the monthly budget. What should Taylor check first?",["Whether the payment is affordable after considering existing expenses and goals","Only whether the lender approves the loan","Whether the loan has the biggest advertised amount","Nothing until after signing"],0],
+["Taylor sees two loans with different terms. What should Taylor compare?",["APR or interest rate, term, fees, payment, and total cost","Only the monthly payment","Only the loan's color","Only the lender's slogan"],0],
+["Taylor can afford the payment but would have almost no flexibility left each month. What is the best lesson?",["A payment can be technically affordable but still leave too little room for other goals or surprises","If a lender approves it, it is automatically ideal","Flexibility never matters","Borrowing more creates flexibility"],0]
+];
+let gi33=0;function lg33(){let q=g33[gi33];document.getElementById('game33').innerHTML="<p><b>Decision "+(gi33+1)+" of 3</b></p><p>"+q[0]+"</p>"+q[1].map((x,i)=>'<button class="choice" onclick="ag33('+i+')">'+x+'</button>').join("")}function ag33(i){if(i===g33[gi33][2]){gi33++;gi33<g33.length?lg33():document.getElementById('game33').innerHTML='<h4 style="color:#16705b;text-align:center;">🚗 Taylor finished the loan decision with a full checklist!</h4>'}else alert("Think beyond approval: affordability, terms, total cost, and flexibility all matter.")}lg33();
+const q33=[
+["What is principal?",["The amount originally borrowed","The interest rate","The monthly budget","The lender's fee only"],0],
+["Why compare total cost instead of only monthly payment?",["A longer term can lower a payment while increasing the time and potentially the cost of borrowing","Monthly payment is always the total cost","Total cost never matters","A longer term always costs less"],0],
+["What can a loan term describe?",["The scheduled length of repayment","The borrower's income","The credit score itself","The lender's address"],0],
+["Before taking a loan, what is strongest?",["Compare the full terms and check that repayment fits the overall budget","Choose the largest amount offered","Focus only on the smallest monthly payment","Skip reading the agreement"],0]
+];
+let qi33=0;function lq33(){let q=q33[qi33];document.getElementById('quiz33').innerHTML="<p><b>Question "+(qi33+1)+" of 4</b></p><p>"+q[0]+"</p>"+q[1].map((x,i)=>'<button class="choice" onclick="aq33('+i+')">'+x+'</button>').join("")}function aq33(i){if(i===q33[qi33][2]){qi33++;qi33<q33.length?lq33():document.getElementById('quiz33').innerHTML='<h4 style="color:#16705b;text-align:center;">🎉 Quiz complete!</h4>'}else alert("Not quite. Compare the full loan picture.")}lq33();
+</script>
