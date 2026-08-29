@@ -11,7 +11,33 @@
 <span class="lesson-tag" style="background:#dff6ef;color:#176b5d;">Lesson 2.1</span>
 <h2 style="margin:12px 0 8px;font-size:26px;color:#0f172a;font-weight:800;">Banking Fundamentals</h2>
 <p style="line-height:1.65;color:#475569;font-size:15px;margin:0;">Banking tools help people store, access, move, and monitor money. Understanding how accounts and transactions work makes everyday money decisions easier.</p>
-</div>('<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🏦 Meet Your Money Tools</h3>\n<p style="color:#475569;line-height:1.6;">A bank account can help you store money, receive income, pay for purchases, and move money safely. Click each tool.</p>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">\n<button class="choice" onclick="tool21(\'checking\')"><b>Checking</b><br><small>Everyday spending</small></button>\n<button class="choice" onclick="tool21(\'savings\')"><b>Savings</b><br><small>Money set aside</small></button>\n<button class="choice" onclick="tool21(\'debit\')"><b>Debit Card</b><br><small>Spends from an account</small></button>\n<button class="choice" onclick="tool21(\'transfer\')"><b>Transfer</b><br><small>Moves money between accounts</small></button>\n</div><div id="info21" style="display:none;margin-top:15px;padding:14px;border-radius:12px;background:#eafaf5;border:1px solid #c6e8dc;"></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Everyday Life Game: The Saturday Money Run</h3>\n<p style="color:#475569;line-height:1.6;">Meet <b>Jordan</b>, a student with $420 in checking and $180 in savings. Over one Saturday, Jordan needs to make several ordinary money decisions. Choose what makes the most sense at each stop.</p>\n<div class="game-panel"><div id="game21"></div></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🧠 Banking Decision Checklist</h3>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">\n<div class="stat" style="background:#eafaf5;"><b>Balance</b><br><span style="color:#475569;font-size:13px;">Know how much is available before spending.</span></div>\n<div class="stat" style="background:#eef7ff;"><b>Fees</b><br><span style="color:#475569;font-size:13px;">Understand account and transaction fees.</span></div>\n<div class="stat" style="background:#fff8df;"><b>Access</b><br><span style="color:#475569;font-size:13px;">Know how you can deposit, withdraw, and transfer money.</span></div>\n<div class="stat" style="background:#f7efff;"><b>Security</b><br><span style="color:#475569;font-size:13px;">Protect account information and review transactions.</span></div>\n</div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 2.1 Quiz</h3><div id="quiz21"></div></div>')<script>
+</div>
+<style>
+.lesson-shell{max-width:900px;margin:0 auto;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#243447;}
+.lesson-shell .scroll-reveal-card{box-sizing:border-box;}
+.budget-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px;}
+.budget-grid label{display:flex;flex-direction:column;gap:7px;font-weight:700;color:#334155;}
+.budget-grid input{width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff;}
+@media(max-width:620px){.budget-grid{grid-template-columns:1fr;}}
+</style>
+<div class="lesson-shell">
+<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🏦 Meet Your Money Tools</h3>
+<p style="color:#475569;line-height:1.6;">A bank account can help you store money, receive income, pay for purchases, and move money safely. Click each tool.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+<button class="choice" onclick="tool21('checking')"><b>Checking</b><br><small>Everyday spending</small></button>
+<button class="choice" onclick="tool21('savings')"><b>Savings</b><br><small>Money set aside</small></button>
+<button class="choice" onclick="tool21('debit')"><b>Debit Card</b><br><small>Spends from an account</small></button>
+<button class="choice" onclick="tool21('transfer')"><b>Transfer</b><br><small>Moves money between accounts</small></button>
+</div><div id="info21" style="display:none;margin-top:15px;padding:14px;border-radius:12px;background:#eafaf5;border:1px solid #c6e8dc;"></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Everyday Life Game: The Saturday Money Run</h3>
+<p style="color:#475569;line-height:1.6;">Meet <b>Jordan</b>, a student with $420 in checking and $180 in savings. Over one Saturday, Jordan needs to make several ordinary money decisions. Choose what makes the most sense at each stop.</p>
+<div class="game-panel"><div id="game21"></div></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🧠 Banking Decision Checklist</h3>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">
+<div class="stat" style="background:#eafaf5;"><b>Balance</b><br><span style="color:#475569;font-size:13px;">Know how much is available before spending.</span></div>
+<div class="stat" style="background:#eef7ff;"><b>Fees</b><br><span style="color:#475569;font-size:13px;">Understand account and transaction fees.</span></div>
+<div class="stat" style="background:#fff8df;"><b>Access</b><br><span style="color:#475569;font-size:13px;">Know how you can deposit, withdraw, and transfer money.</span></div>
+<div class="stat" style="background:#f7efff;"><b>Security</b><br><span style="color:#475569;font-size:13px;">Protect account information and review transactions.</span></div>
+</div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 2.1 Quiz</h3><div id="quiz21"></div></div>
+</div><script>
 const tools21={checking:"A checking account is commonly used for frequent deposits, purchases, bill payments, and transfers.",savings:"A savings account is generally designed for money you plan to set aside rather than spend frequently.",debit:"A debit card generally accesses money already in a linked account rather than creating a loan balance.",transfer:"A transfer moves money from one account to another, subject to the institution's rules."};
 function tool21(k){let e=document.getElementById('info21');e.textContent=tools21[k];e.style.display='block'}
 const g21=[
