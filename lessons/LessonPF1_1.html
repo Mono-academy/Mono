@@ -1,19 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lesson 1.1: Personal Finance</title>
-</head>
-<body style="margin: 0; padding: 20px; font-family: system-ui, -apple-system, sans-serif; background-color: #f8fafc;">
-
-  <div class="scroll-reveal-card" style="margin-bottom: 24px; padding: 32px 24px; border-radius: 12px; background: #ffffff; border: 1px solid #cbd5e1; box-sizing: border-box; text-align: center; box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);">
-    <span style="background: #eff6ff; color: #1e40af; font-size: 11px; font-weight: 700; padding: 4px 12px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.05em; display: inline-block; margin-bottom: 14px;">Notice</span>
-    <h1 style="margin: 0 0 10px 0; font-size: 26px; font-weight: 800; color: #1e3a8a; letter-spacing: -0.01em;">Personal Finance lessons coming soon!</h1>
-    <p style="margin: 0; color: #475569; font-size: 16px; line-height: 1.6; font-weight: 500;">
-      <a href="../index.html?lesson=accounting1_1" target="_top" style="color: #2563eb; text-decoration: underline; font-weight: 600;">Explore Accounting while you wait!</a>
-    </p>
-  </div>
-
-</body>
-</html>
+<div class="scroll-reveal-card" style="margin-top:0;">
+<span style="background:#dbeafe;color:#1e40af;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.05em;">Lesson 1.1</span>
+<h2 style="margin:12px 0 8px;font-size:26px;color:#0f172a;font-weight:800;">Reading a Paystub</h2>
+<p style="line-height:1.6;color:#475569;font-size:15px;margin:0;">A paystub explains how your paycheck was calculated, including gross pay, taxes, deductions, and net pay.</p>
+</div>
+<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:20px;color:#0f172a;font-weight:800;">🔎 Interactive Paystub Detective</h3>
+<p style="color:#475569;line-height:1.6;font-size:14px;">Click a highlighted item to reveal what it means.</p>
+<div id="info11" style="display:none;background:#eff6ff;border:1px solid #bfdbfe;border-radius:12px;padding:14px;margin:15px 0;"></div>
+<table style="width:100%;border-collapse:collapse;">
+<tr><th colspan="2" style="background:#2563eb;color:white;padding:14px;text-align:left;">Example Paystub — Two-Week Pay Period</th></tr>
+<tr><td style="padding:12px;border:1px solid #e5e7eb;"><button onclick="d11('gross')">Gross Pay</button></td><td style="padding:12px;text-align:right;">$1,600</td></tr>
+<tr><td style="padding:12px;border:1px solid #e5e7eb;">Federal Income Tax</td><td style="padding:12px;text-align:right;">-$120</td></tr>
+<tr><td style="padding:12px;border:1px solid #e5e7eb;">Social Security Tax</td><td style="padding:12px;text-align:right;">-$99.20</td></tr>
+<tr><td style="padding:12px;border:1px solid #e5e7eb;">Medicare Tax</td><td style="padding:12px;text-align:right;">-$23.20</td></tr>
+<tr><td style="padding:12px;border:1px solid #e5e7eb;"><button onclick="d11('ded')">Other Deductions</button></td><td style="padding:12px;text-align:right;">-$57.60</td></tr>
+<tr style="background:#f0fdf4;font-weight:800;"><td style="padding:12px;border:1px solid #e5e7eb;"><button onclick="d11('net')">Net Pay</button></td><td style="padding:12px;text-align:right;">$1,300</td></tr>
+</table></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:20px;color:#0f172a;font-weight:800;">🧮 Paycheck Challenge</h3>
+<p style="color:#475569;">How much was removed from the $1,600 gross pay?</p>
+<input id="a11" type="number" placeholder="Amount" style="padding:10px;border:1px solid #cbd5e1;border-radius:8px;">
+<button onclick="check11()" style="background:#2563eb;color:white;border:0;padding:10px 16px;border-radius:8px;font-weight:700;">Check</button>
+<p id="f11"></p></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:20px;color:#0f172a;font-weight:800;">🎯 Lesson 1.1 Quiz</h3><div id="q11"></div></div>
+<script>const defs={gross:"Gross pay is earnings before taxes and other deductions.",ded:"Other deductions may include eligible benefits or other payroll deductions.",net:"Net pay is what remains after applicable taxes and deductions."};
+function d11(k){let e=document.getElementById('info11');e.textContent=defs[k];e.style.display='block'}
+function check11(){let e=document.getElementById('f11');e.textContent=Number(document.getElementById('a11').value)===300?'Correct! $300 was removed.':'Try again: $1,600 − $1,300.'}
+const qs=[['What is gross pay?',['Pay before deductions','Pay after deductions'],0],['Which is usually take-home pay?',['Gross pay','Net pay'],1],['Why read a paystub?',['To understand your paycheck','To guarantee a refund'],0]];let n=0;
+function l11(){let q=qs[n];document.getElementById('q11').innerHTML='<p><b>Question '+(n+1)+' of 3</b></p><p>'+q[0]+'</p>'+q[1].map((x,i)=>'<button onclick="a11('+i+')" style="display:block;width:100%;margin:8px 0;padding:12px;text-align:left;border:1px solid #cbd5e1;border-radius:8px;background:white;">'+x+'</button>').join('')}
+function a11(i){if(i===qs[n][2]){n++;n<qs.length?l11():document.getElementById('q11').innerHTML='<h4 style="color:#166534;text-align:center;">🎉 Quiz complete!</h4>'}else alert('Try again!')}l11();</script>
