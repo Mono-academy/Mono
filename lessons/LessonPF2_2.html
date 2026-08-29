@@ -11,7 +11,37 @@
 <span class="lesson-tag" style="background:#fff0f5;color:#9b4965;">Lesson 2.2</span>
 <h2 style="margin:12px 0 8px;font-size:26px;color:#0f172a;font-weight:800;">Building a Budget</h2>
 <p style="line-height:1.65;color:#475569;font-size:15px;margin:0;">A budget is a forward-looking plan that connects income to expenses, savings, and priorities. It should be flexible enough to handle real life.</p>
-</div>('<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🧩 Build a Monthly Budget</h3>\n<p style="color:#475569;line-height:1.6;">A budget is a plan for how income will be used. The goal is not perfection—it is to make trade-offs visible before the money is spent.</p>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">\n<div class="stat" style="background:#fff0f5;"><b>Income</b><br><span style="font-size:13px;color:#475569;">Money coming in.</span></div>\n<div class="stat" style="background:#eef7ff;"><b>Needs</b><br><span style="font-size:13px;color:#475569;">Important expenses.</span></div>\n<div class="stat" style="background:#fff8df;"><b>Wants</b><br><span style="font-size:13px;color:#475569;">Optional spending.</span></div>\n<div class="stat" style="background:#eefbf2;"><b>Savings</b><br><span style="font-size:13px;color:#475569;">Money reserved for future needs or goals.</span></div>\n</div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🧮 Interactive Budget Builder</h3>\n<p style="color:#475569;">Alex brings home <b>$2,400</b> per month. Try a plan that leaves a positive amount unassigned for flexibility or future goals.</p>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;">\n<label>Housing <input id="b22a" type="number" value="900"></label>\n<label>Food <input id="b22b" type="number" value="350"></label>\n<label>Transport <input id="b22c" type="number" value="250"></label>\n<label>Savings <input id="b22d" type="number" value="300"></label>\n<label>Other <input id="b22e" type="number" value="250"></label>\n</div>\n<button onclick="budget22()" style="margin-top:15px;background:#2b7a78;color:white;border:0;padding:11px 17px;border-radius:9px;font-weight:700;">Calculate Plan</button>\n<div id="budres22" style="margin-top:14px;"></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Everyday Life Game: Alex\'s Month</h3>\n<p style="color:#475569;line-height:1.6;">Alex has a budget, but real life adds surprises. Make decisions without letting one unexpected expense destroy the entire plan.</p>\n<div class="game-panel"><div id="game22"></div></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 2.2 Quiz</h3><div id="quiz22"></div></div>')<script>
+</div>
+<style>
+.lesson-shell{max-width:900px;margin:0 auto;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#243447;}
+.lesson-shell .scroll-reveal-card{box-sizing:border-box;}
+.budget-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px;}
+.budget-grid label{display:flex;flex-direction:column;gap:7px;font-weight:700;color:#334155;}
+.budget-grid input{width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff;}
+@media(max-width:620px){.budget-grid{grid-template-columns:1fr;}}
+</style>
+<div class="lesson-shell">
+<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🧩 Build a Monthly Budget</h3>
+<p style="color:#475569;line-height:1.6;">A budget is a plan for how income will be used. The goal is not perfection—it is to make trade-offs visible before the money is spent.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+<div class="stat" style="background:#fff0f5;"><b>Income</b><br><span style="font-size:13px;color:#475569;">Money coming in.</span></div>
+<div class="stat" style="background:#eef7ff;"><b>Needs</b><br><span style="font-size:13px;color:#475569;">Important expenses.</span></div>
+<div class="stat" style="background:#fff8df;"><b>Wants</b><br><span style="font-size:13px;color:#475569;">Optional spending.</span></div>
+<div class="stat" style="background:#eefbf2;"><b>Savings</b><br><span style="font-size:13px;color:#475569;">Money reserved for future needs or goals.</span></div>
+</div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🧮 Interactive Budget Builder</h3>
+<p style="color:#475569;">Alex brings home <b>$2,400</b> per month. Try a plan that leaves a positive amount unassigned for flexibility or future goals.</p>
+<div class="budget-grid">
+<label>Housing <input id="b22a" type="number" value="900"></label>
+<label>Food <input id="b22b" type="number" value="350"></label>
+<label>Transport <input id="b22c" type="number" value="250"></label>
+<label>Savings <input id="b22d" type="number" value="300"></label>
+<label>Other <input id="b22e" type="number" value="250"></label>
+</div>
+<button onclick="budget22()" style="margin-top:15px;background:#2b7a78;color:white;border:0;padding:11px 17px;border-radius:9px;font-weight:700;">Calculate Plan</button>
+<div id="budres22" style="margin-top:14px;"></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Everyday Life Game: Alex's Month</h3>
+<p style="color:#475569;line-height:1.6;">Alex has a budget, but real life adds surprises. Make decisions without letting one unexpected expense destroy the entire plan.</p>
+<div class="game-panel"><div id="game22"></div></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 2.2 Quiz</h3><div id="quiz22"></div></div>
+</div><script>
 function budget22(){let vals=['b22a','b22b','b22c','b22d','b22e'].map(id=>Number(document.getElementById(id).value)||0);let left=2400-vals.reduce((a,b)=>a+b,0);let e=document.getElementById('budres22');e.innerHTML=left>=0?'<div class="stat" style="background:#eefbf2;color:#166534;"><b>$'+left.toFixed(2)+' remains unassigned.</b><br>That amount could provide flexibility or be directed toward another goal.</div>':'<div class="stat" style="background:#fff0f0;color:#9f1239;"><b>Your plan is $'+Math.abs(left).toFixed(2)+' over income.</b><br>Adjust one or more categories.</div>'}
 const g22=[
 ["A $90 surprise expense appears. Alex has $140 unassigned in the plan. What is the strongest move?",["Use part of the unassigned amount and keep the rest of the plan intact","Put the entire expense on a new loan immediately","Pretend the expense does not exist","Spend savings and then increase every other category"],0],
