@@ -11,7 +11,33 @@
 <span class="lesson-tag" style="background:#eee8fb;color:#6b4b91;">Lesson 2.3</span>
 <h2 style="margin:12px 0 8px;font-size:26px;color:#0f172a;font-weight:800;">Tracking & Mindset</h2>
 <p style="line-height:1.65;color:#475569;font-size:15px;margin:0;">Tracking turns spending into information. The goal is to notice patterns, make intentional adjustments, and build a practical relationship with money.</p>
-</div>('<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🔍 Needs, Wants & Patterns</h3>\n<p style="color:#475569;line-height:1.6;">Tracking spending can reveal patterns that are hard to notice from memory alone. A useful system records enough detail to support decisions without turning money into a source of shame.</p>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">\n<div class="stat" style="background:#eef7ff;"><b>Record</b><br><span style="font-size:13px;color:#475569;">What was spent?</span></div>\n<div class="stat" style="background:#fff8df;"><b>Review</b><br><span style="font-size:13px;color:#475569;">Where did patterns appear?</span></div>\n<div class="stat" style="background:#f7efff;"><b>Reflect</b><br><span style="font-size:13px;color:#475569;">What was intentional?</span></div>\n<div class="stat" style="background:#eefbf2;"><b>Adjust</b><br><span style="font-size:13px;color:#475569;">What change fits your goals?</span></div>\n</div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">📊 Spending Pattern Scanner</h3>\n<p style="color:#475569;">Enter three recent spending amounts in one category. The tool shows the average so you can spot a pattern.</p>\n<input id="s23a" type="number" placeholder="Week 1" style="padding:10px;width:100px;">\n<input id="s23b" type="number" placeholder="Week 2" style="padding:10px;width:100px;">\n<input id="s23c" type="number" placeholder="Week 3" style="padding:10px;width:100px;">\n<button onclick="scan23()" style="background:#7c5c9e;color:white;border:0;padding:11px 16px;border-radius:8px;font-weight:700;">Scan</button>\n<div id="scan23" style="margin-top:14px;"></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Everyday Life Game: Mia\'s Week</h3>\n<p style="color:#475569;line-height:1.6;">Meet <b>Mia</b>. She is tracking spending because she wants more control over where her money goes. Each day brings a choice about how to respond to what she notices.</p>\n<div class="game-panel"><div id="game23"></div></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 2.3 Quiz</h3><div id="quiz23"></div></div>')<script>
+</div>
+<style>
+.lesson-shell{max-width:900px;margin:0 auto;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#243447;}
+.lesson-shell .scroll-reveal-card{box-sizing:border-box;}
+.budget-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px;}
+.budget-grid label{display:flex;flex-direction:column;gap:7px;font-weight:700;color:#334155;}
+.budget-grid input{width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff;}
+@media(max-width:620px){.budget-grid{grid-template-columns:1fr;}}
+</style>
+<div class="lesson-shell">
+<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🔍 Needs, Wants & Patterns</h3>
+<p style="color:#475569;line-height:1.6;">Tracking spending can reveal patterns that are hard to notice from memory alone. A useful system records enough detail to support decisions without turning money into a source of shame.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">
+<div class="stat" style="background:#eef7ff;"><b>Record</b><br><span style="font-size:13px;color:#475569;">What was spent?</span></div>
+<div class="stat" style="background:#fff8df;"><b>Review</b><br><span style="font-size:13px;color:#475569;">Where did patterns appear?</span></div>
+<div class="stat" style="background:#f7efff;"><b>Reflect</b><br><span style="font-size:13px;color:#475569;">What was intentional?</span></div>
+<div class="stat" style="background:#eefbf2;"><b>Adjust</b><br><span style="font-size:13px;color:#475569;">What change fits your goals?</span></div>
+</div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">📊 Spending Pattern Scanner</h3>
+<p style="color:#475569;">Enter three recent spending amounts in one category. The tool shows the average so you can spot a pattern.</p>
+<input id="s23a" type="number" placeholder="Week 1" style="padding:10px;width:100px;">
+<input id="s23b" type="number" placeholder="Week 2" style="padding:10px;width:100px;">
+<input id="s23c" type="number" placeholder="Week 3" style="padding:10px;width:100px;">
+<button onclick="scan23()" style="background:#7c5c9e;color:white;border:0;padding:11px 16px;border-radius:8px;font-weight:700;">Scan</button>
+<div id="scan23" style="margin-top:14px;"></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Everyday Life Game: Mia's Week</h3>
+<p style="color:#475569;line-height:1.6;">Meet <b>Mia</b>. She is tracking spending because she wants more control over where her money goes. Each day brings a choice about how to respond to what she notices.</p>
+<div class="game-panel"><div id="game23"></div></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 2.3 Quiz</h3><div id="quiz23"></div></div>
+</div><script>
 function scan23(){let v=['s23a','s23b','s23c'].map(x=>Number(document.getElementById(x).value));if(v.some(x=>!Number.isFinite(x))){document.getElementById('scan23').textContent='Enter all three amounts.';return}let a=v.reduce((x,y)=>x+y,0)/3;document.getElementById('scan23').innerHTML='<div class="stat" style="background:#f7efff;"><b>Three-week average: $'+a.toFixed(2)+'</b><br><span style="color:#475569;">Use this as a clue, not a judgment. Compare it with your goals and budget.</span></div>'}
 const g23=[
 ["Mia notices she spent more than planned on food twice. What is the most useful response?",["Look at the specific purchases and decide whether the budget or spending plan needs adjustment","Call herself bad with money","Stop tracking food","Delete the category"],0],
