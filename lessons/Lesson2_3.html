@@ -1,484 +1,248 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lesson 2.3: The Balance Sheet</title>
-  <style>
-    :root {
-      --asset-bg: #e3f2fd;
-      --asset-border: #90caf9;
-      --asset-text: #1565c0;
-      --liab-bg: #fff3e0;
-      --liab-border: #ffcc80;
-      --liab-text: #e65100;
-      --equity-bg: #f3e5f5;
-      --equity-border: #ce93d8;
-      --equity-text: #7b1fa2;
-      --neutral-pastel: #f1f5f9;
-      --card-bg: #ffffff;
-      --text-main: #1e293b;
-      --accent: #334155;
-    }
-
-    body {
-      margin: 0;
-      padding: 20px;
-      background-color: #fafaf9;
-      color: var(--text-main);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      line-height: 1.6;
-    }
-
-    .lesson-container {
-      max-width: 800px;
-      margin: 0 auto;
-    }
-
-    .header-banner {
-      background: linear-gradient(135deg, #e2e8f0 0%, #cbd5e1 100%);
-      padding: 30px;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      border-left: 8px solid var(--accent);
-    }
-
-    .header-banner h1 {
-      margin: 0 0 10px 0;
-      font-size: 28px;
-      color: #1e293b;
-    }
-
-    .header-banner p {
-      margin: 0;
-      color: #475569;
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
-    }
-
-    .interactive-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      background: white;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .interactive-table th {
-      background-color: var(--accent);
-      color: white;
-      padding: 12px 15px;
-      text-align: left;
-    }
-
-    .interactive-table td {
-      padding: 12px 15px;
-      border: 1px solid #f1f5f9;
-    }
-
-    .term-hl {
-      cursor: pointer;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: bold;
-      transition: all 0.2s;
-      border-bottom: 2px solid transparent;
-    }
-
-    .term-hl:hover {
-      filter: brightness(0.92);
-      border-bottom-color: currentColor;
-    }
-
-    .asset-hl { background: var(--asset-bg); color: var(--asset-text); }
-    .liab-hl { background: var(--liab-bg); color: var(--liab-text); }
-    .equity-hl { background: var(--equity-bg); color: var(--equity-text); }
-
-    #def-display {
-      min-height: 60px;
-      padding: 15px;
-      margin: 20px 0;
-      background: #fef8e7;
-      border: 1px solid #fde047;
-      border-radius: 8px;
-      display: none;
-      animation: fadeIn 0.3s;
-    }
-
-    .step-box {
-      border-left: 4px solid var(--accent);
-      padding-left: 20px;
-      margin: 20px 0;
-      display: none;
-    }
-
-    .step-box.active {
-      display: block;
-      animation: slideIn 0.4s ease-out;
-    }
-
-    .btn-next {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 15px;
-      transition: opacity 0.2s;
-    }
-
-    .btn-next:hover {
-      opacity: 0.9;
-    }
-
-    .quiz-area {
-      background: #fefefe;
-      border: 2px solid #cbd5e1;
-      border-radius: 12px;
-      padding: 25px;
-      margin-top: 40px;
-    }
-
-    .option-btn {
-      display: block;
-      width: 100%;
-      text-align: left;
-      padding: 12px;
-      margin: 8px 0;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      background: white;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .option-btn:hover {
-      background: var(--neutral-pastel);
-    }
-
-    .bank-item {
-      display: inline-block;
-      padding: 8px 16px;
-      margin: 5px;
-      background: var(--neutral-pastel);
-      border: 2px solid #cbd5e1;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.1s;
-    }
-
-    .bank-item.selected {
-      transform: scale(0.95);
-      opacity: 0.6;
-      border-style: dashed;
-    }
-
-    .drop-zone {
-      display: inline-block;
-      width: 120px;
-      height: 35px;
-      border: 2px dashed #cbd5e1;
-      border-radius: 6px;
-      vertical-align: middle;
-      text-align: center;
-      line-height: 35px;
-      background: #fff;
-      cursor: pointer;
-      font-weight: bold;
-      color: #3b82f6;
-    }
-
-    .review-box {
-      margin-top: 20px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 15px;
-    }
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-  </style>
-</head>
-<body>
-
-  <div class="lesson-container">
-    <div class="header-banner">
-      <p>LESSON 2.3</p>
-      <h1>The Balance Sheet</h1>
-    </div>
-
-    <div class="card">
-      <p>
+<div class="scroll-reveal-card" style="margin-top: 0;">
+    <span style="background: #e2e8f0; color: #334155; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.05em;">Lesson 2.3</span>
+    <h2 style="margin: 12px 0 8px 0; font-size: 26px; color: #0f172a; font-weight: 800;">The Balance Sheet</h2>
+    <p style="line-height: 1.6; color: #475569; font-size: 15px; margin: 0;">
         The Balance Sheet acts as an instant snapshot of what your business owns, what it owes, and how much is remaining for the investors. This structural layout always satisfies the legendary Accounting Equation: Assets = Liabilities + Equity.
-      </p>
+    </p>
+</div>
+
+<div class="scroll-reveal-card" style="background: #fff; border: 1px solid #f1f5f9; border-radius: 20px; padding: 28px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.02); margin-top: 24px; position: relative; overflow: hidden;">
+    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:2px dashed #f1f5f9; padding-bottom:16px; margin-bottom:24px; flex-wrap:wrap; gap:10px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:24px;">⚖️</span>
+            <h3 style="margin:0; font-size:18px; color:#0f172a; font-weight:800;">Interactive Balance Sheet Snapshot</h3>
+        </div>
+        <div style="background:#e2e8f0; color:#334155; font-weight:700; font-size:12px; padding:6px 14px; border-radius:99px;">Click highlighted terms</div>
     </div>
 
-    <h3>1. Interactive Balance Sheet Snapshot</h3>
-    <p><i>Click the <strong>colored highlighted terms</strong> below to discover what they mean.</i></p>
+    <p style="line-height:1.6; color:#475569; font-size:14px; margin:0 0 16px 0;">
+        <i>Click the <strong>colored highlighted terms</strong> below to discover what they mean.</i>
+    </p>
 
-    <div id="def-display"></div>
+    <div id="def-display-23" style="min-height:24px; padding:14px; margin:0 0 20px 0; background:#fefce8; border:1px solid #fde047; border-radius:12px; display:none; color:#475569;"></div>
 
-    <div class="card">
-      <table class="interactive-table">
-        <thead>
-          <tr><th colspan="2">Snapshot Corp | Balance Sheet | As of Dec 31, 2026</th></tr>
-        </thead>
-        <tbody>
-          <tr style="background: #f8fafc;"><td colspan="2"><strong><span class="term-hl asset-hl" onclick="showDef('assets')">Assets (What you own)</span></strong></td></tr>
-          <tr>
-            <td style="padding-left: 30px;"><span class="term-hl asset-hl" onclick="showDef('currentAssets')">Current Assets</span></td>
-            <td style="text-align: right;">$45,000</td>
-          </tr>
-          <tr>
-            <td style="padding-left: 30px;"><span class="term-hl asset-hl" onclick="showDef('nonCurrentAssets')">Non-Current (Fixed) Assets</span></td>
-            <td style="text-align: right;">$105,000</td>
-          </tr>
-          <tr style="font-weight: bold;"><td>Total Assets</td><td style="text-align: right; border-top: 2px solid #333; border-bottom: 4px double #333;">$150,000</td></tr>
-          
-          <tr style="background: #fdfaf6;"><td colspan="2"><strong><span class="term-hl liab-hl" onclick="showDef('liabilities')">Liabilities (What you owe)</span></strong></td></tr>
-          <tr>
-            <td style="padding-left: 30px;"><span class="term-hl liab-hl" onclick="showDef('currentLiabilities')">Current Liabilities</span></td>
-            <td style="text-align: right;">$20,000</td>
-          </tr>
-          <tr>
-            <td style="padding-left: 30px;"><span class="term-hl liab-hl" onclick="showDef('longTermLiabilities')">Long-Term Liabilities</span></td>
-            <td style="text-align: right;">$50,000</td>
-          </tr>
-          <tr style="font-weight: bold;"><td>Total Liabilities</td><td style="text-align: right; border-top: 1px solid #333;">$70,000</td></tr>
+    <div style="overflow-x:auto;">
+        <table style="width:100%; border-collapse:collapse; background:white; border-radius:12px; overflow:hidden;">
+            <thead><tr><th colspan="2" style="background:#334155; color:white; padding:14px 15px; text-align:left;">Snapshot Corp | Balance Sheet | As of Dec 31, 2026</th></tr></thead>
+            <tbody>
+                <tr style="background:#f8fafc;"><td colspan="2" style="padding:12px 15px; border:1px solid #f1f5f9;"><strong><span onclick="showDef23('assets')" style="cursor:pointer; padding:3px 7px; border-radius:6px; font-weight:700; background:#e3f2fd; color:#1565c0;">Assets (What you own)</span></strong></td></tr>
+                <tr><td style="padding:12px 15px 12px 30px; border:1px solid #f1f5f9;"><span onclick="showDef23('currentAssets')" style="cursor:pointer; padding:3px 7px; border-radius:6px; font-weight:700; background:#e3f2fd; color:#1565c0;">Current Assets</span></td><td style="padding:12px 15px; border:1px solid #f1f5f9; text-align:right;">$45,000</td></tr>
+                <tr><td style="padding:12px 15px 12px 30px; border:1px solid #f1f5f9;"><span onclick="showDef23('nonCurrentAssets')" style="cursor:pointer; padding:3px 7px; border-radius:6px; font-weight:700; background:#e3f2fd; color:#1565c0;">Non-Current (Fixed) Assets</span></td><td style="padding:12px 15px; border:1px solid #f1f5f9; text-align:right;">$105,000</td></tr>
+                <tr style="font-weight:bold;"><td style="padding:12px 15px; border:1px solid #f1f5f9;">Total Assets</td><td style="padding:12px 15px; border:1px solid #f1f5f9; text-align:right; border-top:2px solid #333; border-bottom:4px double #333;">$150,000</td></tr>
 
-          <tr style="background: #faf5ff;"><td colspan="2"><strong><span class="term-hl equity-hl" onclick="showDef('equity')">Shareholders' Equity (Net Worth)</span></strong></td></tr>
-          <tr>
-            <td style="padding-left: 30px;">Common Stock & Retained Earnings</td>
-            <td style="text-align: right;">$80,000</td>
-          </tr>
-          <tr style="font-weight: bold; background: #eee;">
-            <td>Total Liabilities & Equity</td>
-            <td style="text-align: right; border-top: 2px solid #333; border-bottom: 4px double #333;">$150,000</td>
-          </tr>
-        </tbody>
-      </table>
+                <tr style="background:#fdfaf6;"><td colspan="2" style="padding:12px 15px; border:1px solid #f1f5f9;"><strong><span onclick="showDef23('liabilities')" style="cursor:pointer; padding:3px 7px; border-radius:6px; font-weight:700; background:#fff3e0; color:#e65100;">Liabilities (What you owe)</span></strong></td></tr>
+                <tr><td style="padding:12px 15px 12px 30px; border:1px solid #f1f5f9;"><span onclick="showDef23('currentLiabilities')" style="cursor:pointer; padding:3px 7px; border-radius:6px; font-weight:700; background:#fff3e0; color:#e65100;">Current Liabilities</span></td><td style="padding:12px 15px; border:1px solid #f1f5f9; text-align:right;">$20,000</td></tr>
+                <tr><td style="padding:12px 15px 12px 30px; border:1px solid #f1f5f9;"><span onclick="showDef23('longTermLiabilities')" style="cursor:pointer; padding:3px 7px; border-radius:6px; font-weight:700; background:#fff3e0; color:#e65100;">Long-Term Liabilities</span></td><td style="padding:12px 15px; border:1px solid #f1f5f9; text-align:right;">$50,000</td></tr>
+                <tr style="font-weight:bold;"><td style="padding:12px 15px; border:1px solid #f1f5f9;">Total Liabilities</td><td style="padding:12px 15px; border:1px solid #f1f5f9; text-align:right; border-top:1px solid #333;">$70,000</td></tr>
+
+                <tr style="background:#faf5ff;"><td colspan="2" style="padding:12px 15px; border:1px solid #f1f5f9;"><strong><span onclick="showDef23('equity')" style="cursor:pointer; padding:3px 7px; border-radius:6px; font-weight:700; background:#f3e5f5; color:#7b1fa2;">Shareholders' Equity (Net Worth)</span></strong></td></tr>
+                <tr><td style="padding:12px 15px 12px 30px; border:1px solid #f1f5f9;">Common Stock & Retained Earnings</td><td style="padding:12px 15px; border:1px solid #f1f5f9; text-align:right;">$80,000</td></tr>
+                <tr style="font-weight:bold; background:#eee;"><td style="padding:12px 15px; border:1px solid #f1f5f9;">Total Liabilities & Equity</td><td style="padding:12px 15px; border:1px solid #f1f5f9; text-align:right; border-top:2px solid #333; border-bottom:4px double #333;">$150,000</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="scroll-reveal-card" style="margin-top:32px;">
+    <h3 style="font-size:22px; color:#0f172a; font-weight:800; margin-bottom:12px;">How to Make a Balance Sheet (Step-by-Step)</h3>
+
+    <div id="step23-1" style="border-left:4px solid #334155; padding-left:20px; margin:20px 0;">
+        <h4 style="color:#0f172a; margin:0 0 8px 0;">Step 1: Choose Date & Format</h4>
+        <p style="line-height:1.6; color:#475569; font-size:14px;">Set up an exact date. It must display financial accounts at that single point in time.</p>
+        <button onclick="nextStep23(2)" style="background:#334155; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:700;">Next: Categorize Assets →</button>
     </div>
 
-    <div class="card">
-      <h3>2. How to Make a Balance Sheet (Step-by-Step)</h3>
-      <div id="step1" class="step-box active">
-        <h4>Step 1: Choose Date & Format</h4>
-        <p>Set up an exact date. It must display financial accounts at that single point in time.</p>
-        <button class="btn-next" onclick="nextStep(2)">Next: Categorize Assets →</button>
-      </div>
-      <div id="step2" class="step-box">
-        <h4>Step 2: List and Categorize Assets</h4>
-        <p>List current assets (cash, A/R, inventory) followed by non-current fixed physical items (property, equipment).</p>
-        <button class="btn-next" onclick="nextStep(3)">Next: Record Liabilities →</button>
-      </div>
-      <div id="step3" class="step-box">
-        <h4>Step 3: Organize Liabilities</h4>
-        <p>Group debts by due date: current liabilities and long-term liabilities.</p>
-        <button class="btn-next" onclick="nextStep(4)">Next: Balance the Equation →</button>
-      </div>
-      <div id="step4" class="step-box">
-        <h4>Step 4: Review and Match Equation</h4>
-        <p>Apply the calculation: Equity = Assets - Liabilities. Ensure Total Assets matches Total Liabilities + Total Equity perfectly!</p>
-        <button class="btn-next" onclick="nextStep(1)">Restart Guide ↺</button>
-      </div>
+    <div id="step23-2" style="border-left:4px solid #334155; padding-left:20px; margin:20px 0; display:none;">
+        <h4 style="color:#0f172a; margin:0 0 8px 0;">Step 2: List and Categorize Assets</h4>
+        <p style="line-height:1.6; color:#475569; font-size:14px;">List current assets (cash, A/R, inventory) followed by non-current fixed physical items (property, equipment).</p>
+        <button onclick="nextStep23(3)" style="background:#334155; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:700;">Next: Record Liabilities →</button>
     </div>
 
-    <div class="quiz-area">
-      <h2 style="text-align: center;">🏁 Knowledge Check: Lesson 2.3</h2>
-      <div id="quiz-container"></div>
-      
-      <div id="build-area" style="display:none; border-top: 2px dashed #cbd5e1; padding-top: 25px; margin-top: 20px;">
-        <h3>Practical: Build and Balance</h3>
-        <p>Construct the Balance Sheet equation. Select a card from the bank below, then click its corresponding <b>"?"</b> target slot.</p>
-        
-        <div style="margin-bottom: 20px; text-align: center;">
-          <div class="bank-item" onclick="selectValue('$150,000', this)">$150,000</div>
-          <div class="bank-item" onclick="selectValue('$70,000', this)">$70,000</div>
-          <div class="bank-item" onclick="selectValue('$80,000', this)">$80,000</div>
+    <div id="step23-3" style="border-left:4px solid #334155; padding-left:20px; margin:20px 0; display:none;">
+        <h4 style="color:#0f172a; margin:0 0 8px 0;">Step 3: Organize Liabilities</h4>
+        <p style="line-height:1.6; color:#475569; font-size:14px;">Group debts by due date: current liabilities and long-term liabilities.</p>
+        <button onclick="nextStep23(4)" style="background:#334155; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:700;">Next: Balance the Equation →</button>
+    </div>
+
+    <div id="step23-4" style="border-left:4px solid #334155; padding-left:20px; margin:20px 0; display:none;">
+        <h4 style="color:#0f172a; margin:0 0 8px 0;">Step 4: Review and Match Equation</h4>
+        <p style="line-height:1.6; color:#475569; font-size:14px;">Apply the calculation: Equity = Assets - Liabilities. Ensure Total Assets matches Total Liabilities + Total Equity perfectly!</p>
+        <button onclick="nextStep23(1)" style="background:#334155; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:700;">Restart Guide ↺</button>
+    </div>
+</div>
+
+<div class="scroll-reveal-card" style="background:#fff; border:1px solid #cbd5e1; border-radius:20px; padding:28px; box-shadow:0 10px 25px -5px rgba(0,0,0,0.02); margin-top:32px;">
+    <div style="display:flex; align-items:center; gap:8px; border-bottom:2px dashed #f1f5f9; padding-bottom:16px; margin-bottom:20px;">
+        <span style="font-size:24px;">🏁</span>
+        <h3 style="margin:0; font-size:20px; color:#0f172a; font-weight:800;">Knowledge Check: Lesson 2.3</h3>
+    </div>
+
+    <div id="quiz-container23"></div>
+
+    <div id="build-area23" style="display:none; border-top:2px dashed #cbd5e1; padding-top:25px; margin-top:20px;">
+        <h3 style="color:#0f172a;">Practical: Build and Balance</h3>
+        <p style="line-height:1.6; color:#475569; font-size:14px;">Construct the Balance Sheet equation. Select a card from the bank below, then click its corresponding <b>"?"</b> target slot.</p>
+
+        <div style="background:#f8fafc; border:2px dashed #cbd5e1; border-radius:12px; padding:15px; margin-bottom:20px; text-align:center;">
+            <div onclick="selectValue23('$150,000', this)" style="display:inline-block; padding:8px 16px; margin:5px; background:#f1f5f9; border:2px solid #cbd5e1; border-radius:8px; cursor:pointer; font-weight:700;">$150,000</div>
+            <div onclick="selectValue23('$70,000', this)" style="display:inline-block; padding:8px 16px; margin:5px; background:#f1f5f9; border:2px solid #cbd5e1; border-radius:8px; cursor:pointer; font-weight:700;">$70,000</div>
+            <div onclick="selectValue23('$80,000', this)" style="display:inline-block; padding:8px 16px; margin:5px; background:#f1f5f9; border:2px solid #cbd5e1; border-radius:8px; cursor:pointer; font-weight:700;">$80,000</div>
         </div>
 
-        <table class="interactive-table" style="max-width: 500px; margin: 0 auto 20px auto;">
-          <tr style="background: var(--asset-bg);">
-            <td><strong>Total Assets:</strong></td>
-            <td><div class="drop-zone" id="assets-slot" onclick="placeValue('assets-slot')">?</div></td>
-          </tr>
-          <tr style="background: var(--liab-bg);">
-            <td><strong>Total Liabilities:</strong></td>
-            <td><div class="drop-zone" id="liab-slot" onclick="placeValue('liab-slot')">?</div></td>
-          </tr>
-          <tr style="background: var(--equity-bg);">
-            <td><strong>Total Shareholders' Equity:</strong></td>
-            <td><div class="drop-zone" id="eq-slot" onclick="placeValue('eq-slot')">?</div></td>
-          </tr>
+        <table style="width:100%; max-width:500px; margin:0 auto 20px auto; border-collapse:collapse; background:white;">
+            <tr style="background:#e3f2fd;"><td style="padding:12px; border:1px solid #f1f5f9;"><strong>Total Assets:</strong></td><td style="padding:12px; border:1px solid #f1f5f9;"><div id="assets-slot23" onclick="placeValue23('assets-slot23')" style="display:inline-block; width:120px; height:35px; border:2px dashed #cbd5e1; border-radius:6px; text-align:center; line-height:35px; background:#fff; cursor:pointer; font-weight:700; color:#334155;">?</div></td></tr>
+            <tr style="background:#fff3e0;"><td style="padding:12px; border:1px solid #f1f5f9;"><strong>Total Liabilities:</strong></td><td style="padding:12px; border:1px solid #f1f5f9;"><div id="liab-slot23" onclick="placeValue23('liab-slot23')" style="display:inline-block; width:120px; height:35px; border:2px dashed #cbd5e1; border-radius:6px; text-align:center; line-height:35px; background:#fff; cursor:pointer; font-weight:700; color:#334155;">?</div></td></tr>
+            <tr style="background:#f3e5f5;"><td style="padding:12px; border:1px solid #f1f5f9;"><strong>Total Shareholders' Equity:</strong></td><td style="padding:12px; border:1px solid #f1f5f9;"><div id="eq-slot23" onclick="placeValue23('eq-slot23')" style="display:inline-block; width:120px; height:35px; border:2px dashed #cbd5e1; border-radius:6px; text-align:center; line-height:35px; background:#fff; cursor:pointer; font-weight:700; color:#334155;">?</div></td></tr>
         </table>
-        
-        <button class="btn-next" style="background: #27ae60; display: block; margin: 25px auto 0 auto;" onclick="checkPractical()">Verify Balance Sheet</button>
-        <p id="practical-feedback" style="text-align: center; font-weight: bold; margin-top: 15px;"></p>
-      </div>
 
-      <div id="post-quiz-options" style="display:none; text-align:center; margin-top: 20px;">
-        <button class="btn-next" style="background: #475569;" onclick="toggleReview()">Review Quiz Answers</button>
-        <div id="review-panel" style="display:none; text-align:left; margin-top: 20px;"></div>
-      </div>
+        <button onclick="checkPractical23()" style="background:#334155; color:white; border:none; padding:12px 24px; border-radius:8px; cursor:pointer; font-weight:700; display:block; margin:25px auto 0 auto;">Verify Balance Sheet</button>
+        <p id="practical-feedback23" style="text-align:center; font-weight:bold; margin-top:15px;"></p>
     </div>
-  </div>
 
-  <script>
-    const definitions = {
-      assets: "<strong>Assets:</strong> Resources the company owns that hold value, listed in order of liquidity.",
-      currentAssets: "<strong>Current Assets:</strong> Resources expected to be converted into cash, sold, or consumed within one year.",
-      nonCurrentAssets: "<strong>Non-Current Assets:</strong> Assets with a useful life of more than one year.",
-      liabilities: "<strong>Liabilities:</strong> Debts and financial obligations the business owes to outside parties.",
-      currentLiabilities: "<strong>Current Liabilities:</strong> Debts and obligations due within one year.",
-      longTermLiabilities: "<strong>Long-Term Liabilities:</strong> Obligations due after one year.",
-      equity: "<strong>Shareholders' Equity:</strong> The net worth of the owners after deducting liabilities from total assets."
-    };
+    <div id="post-quiz-options23" style="display:none; text-align:center; margin-top:20px;">
+        <button onclick="toggleReview23()" style="background:#475569; color:white; border:none; padding:10px 20px; border-radius:8px; cursor:pointer; font-weight:700;">Review Quiz Answers</button>
+        <div id="review-panel23" style="display:none; text-align:left; margin-top:20px;"></div>
+    </div>
+</div>
 
-    function showDef(term) {
-      const display = document.getElementById('def-display');
-      display.innerHTML = definitions[term];
-      display.style.display = 'block';
-    }
+<script>
+const definitions23 = {
+    assets: "<strong>Assets:</strong> Resources the company owns that hold value, listed in order of liquidity.",
+    currentAssets: "<strong>Current Assets:</strong> Resources expected to be converted into cash, sold, or consumed within one year.",
+    nonCurrentAssets: "<strong>Non-Current Assets:</strong> Assets with a useful life of more than one year.",
+    liabilities: "<strong>Liabilities:</strong> Debts and financial obligations the business owes to outside parties.",
+    currentLiabilities: "<strong>Current Liabilities:</strong> Debts and obligations due within one year.",
+    longTermLiabilities: "<strong>Long-Term Liabilities:</strong> Obligations due after one year.",
+    equity: "<strong>Shareholders' Equity:</strong> The net worth of the owners after deducting liabilities from total assets."
+};
 
-    function nextStep(num) {
-      document.querySelectorAll('.step-box').forEach(sb => sb.classList.remove('active'));
-      document.getElementById('step' + num).classList.add('active');
-    }
+function showDef23(term) {
+    const display = document.getElementById('def-display-23');
+    display.innerHTML = definitions23[term];
+    display.style.display = 'block';
+}
 
-    const mcqs = [
-      {
+function nextStep23(num) {
+    document.querySelectorAll('[id^="step23-"]').forEach(sb => sb.style.display = 'none');
+    document.getElementById('step23-' + num).style.display = 'block';
+}
+
+const mcqs23 = [
+    {
         q: "If a company has $150,000 in Total Assets and $70,000 in Total Liabilities, what is the Shareholders' Equity?",
         options: ["$220,000", "$80,000", "$70,000", "$150,000"],
         correct: 1,
         explanation: "Equity = Assets ($150,000) - Liabilities ($70,000). Thus, Equity is $80,000."
-      },
-      {
+    },
+    {
         q: "In what order are Assets typically listed on a Balance Sheet?",
         options: ["Highest value first", "Alphabetical order", "Order of liquidity", "Chronological order of purchase"],
         correct: 2,
         explanation: "Assets are organized by how quickly they can be converted into cash (liquidity)."
-      },
-      {
+    },
+    {
         q: "Which of the following is considered a Current Asset?",
         options: ["Wages Payable", "Cash and Inventory", "Long-Term Patents", "Retained Earnings"],
         correct: 1,
         explanation: "Cash and inventory are expected to be converted or consumed within one calendar year."
-      },
-      {
+    },
+    {
         q: "The Accounting Equation states:",
         options: ["Assets = Liabilities - Equity", "Assets + Liabilities = Equity", "Assets = Liabilities + Equity", "Equity = Liabilities - Assets"],
         correct: 2,
         explanation: "The structural balance of corporate wealth requires total assets to equal the combined stake of creditors and owners."
-      },
-      {
+    },
+    {
         q: "A Balance Sheet provides financial data representing:",
         options: ["A full year of progress", "A single, specific point in time", "Monthly cash inflows only", "Future budget predictions"],
         correct: 1,
         explanation: "Unlike performance statements, a balance sheet serves as a temporary point-in-time snapshot."
-      }
-    ];
-
-    let currentQIdx = 0;
-    let selectedVal = "";
-    let selectedEl = null;
-    let userAnswers = [];
-
-    function loadQuestion() {
-      const data = mcqs[currentQIdx];
-      let html = `<h4>Question ${currentQIdx + 1} of 5</h4><p style="font-weight: 500;">${data.q}</p>`;
-      
-      let mapped = data.options.map((opt, idx) => ({ text: opt, originalIndex: idx }));
-      mapped.sort(() => Math.random() - 0.5);
-
-      mapped.forEach(opt => {
-        html += `<button class="option-btn" onclick="checkAnswer(${opt.originalIndex}, '${opt.text.replace(/'/g, "\\'")}')">${opt.text}</button>`;
-      });
-      document.getElementById('quiz-container').innerHTML = html;
     }
+];
 
-    function checkAnswer(idx, text) {
-      userAnswers.push({ q: mcqs[currentQIdx].q, selected: text, correctOpt: mcqs[currentQIdx].options[mcqs[currentQIdx].correct], exp: mcqs[currentQIdx].explanation });
-      if (idx === mcqs[currentQIdx].correct) {
-        currentQIdx++;
-        if (currentQIdx < mcqs.length) {
-          loadQuestion();
+let currentQIdx23 = 0;
+let selectedVal23 = "";
+let selectedEl23 = null;
+let userAnswers23 = [];
+
+function loadQuestion23() {
+    const data = mcqs23[currentQIdx23];
+    let html = `<h4 style="color:#0f172a;">Question ${currentQIdx23 + 1} of 5</h4><p style="font-weight:500; color:#475569;">${data.q}</p>`;
+    let mapped = data.options.map((opt, idx) => ({ text: opt, originalIndex: idx }));
+    mapped.sort(() => Math.random() - 0.5);
+    mapped.forEach(opt => {
+        html += `<button onclick="checkAnswer23(${opt.originalIndex}, '${opt.text.replace(/'/g, "\\'")}')" style="display:block; width:100%; text-align:left; padding:12px; margin:8px 0; border:1px solid #cbd5e1; border-radius:8px; background:white; cursor:pointer;">${opt.text}</button>`;
+    });
+    document.getElementById('quiz-container23').innerHTML = html;
+}
+
+function checkAnswer23(idx, text) {
+    userAnswers23.push({ q: mcqs23[currentQIdx23].q, selected: text, correctOpt: mcqs23[currentQIdx23].options[mcqs23[currentQIdx23].correct], exp: mcqs23[currentQIdx23].explanation });
+    if (idx === mcqs23[currentQIdx23].correct) {
+        currentQIdx23++;
+        if (currentQIdx23 < mcqs23.length) {
+            loadQuestion23();
         } else {
-          document.getElementById('quiz-container').innerHTML = "<h3 style='color: green; text-align:center;'>🎉 Multiple Choice Questions Passed!</h3>";
-          document.getElementById('build-area').style.display = 'block';
+            document.getElementById('quiz-container23').innerHTML = "<h3 style='color:#334155; text-align:center;'>🎉 Multiple Choice Questions Passed!</h3>";
+            document.getElementById('build-area23').style.display = 'block';
         }
-      } else {
+    } else {
         alert("Incorrect answer. Let's try this question again!");
-        userAnswers.pop();
-      }
+        userAnswers23.pop();
     }
+}
 
-    function selectValue(val, el) {
-      if (selectedEl) selectedEl.classList.remove('selected');
-      selectedVal = val;
-      selectedEl = el;
-      el.classList.add('selected');
-    }
+function selectValue23(val, el) {
+    if (selectedEl23) selectedEl23.style.opacity = '1';
+    selectedVal23 = val;
+    selectedEl23 = el;
+    el.style.opacity = '0.6';
+}
 
-    function placeValue(targetId) {
-      if (!selectedVal) {
+function placeValue23(targetId) {
+    if (!selectedVal23) {
         alert("Please click a value from the bank first!");
         return;
-      }
-      const target = document.getElementById(targetId);
-      target.innerText = selectedVal;
-      target.style.borderColor = "var(--accent)";
     }
+    const target = document.getElementById(targetId);
+    target.innerText = selectedVal23;
+    target.style.borderColor = "#334155";
+    target.style.color = "#334155";
+}
 
-    function checkPractical() {
-      const assets = document.getElementById('assets-slot').innerText;
-      const liab = document.getElementById('liab-slot').innerText;
-      const eq = document.getElementById('eq-slot').innerText;
-      const feedback = document.getElementById('practical-feedback');
-      
-      if (assets === "$150,000" && liab === "$70,000" && eq === "$80,000") {
-        feedback.style.color = "green";
+function checkPractical23() {
+    const assets = document.getElementById('assets-slot23').innerText;
+    const liab = document.getElementById('liab-slot23').innerText;
+    const eq = document.getElementById('eq-slot23').innerText;
+    const feedback = document.getElementById('practical-feedback23');
+
+    if (assets === "$150,000" && liab === "$70,000" && eq === "$80,000") {
+        feedback.style.color = "#334155";
         feedback.innerHTML = "Perfect! The Balance Sheet balances! Assets ($150k) = Liabilities ($70k) + Equity ($80k).";
-        document.getElementById('post-quiz-options').style.display = 'block';
-      } else {
+        document.getElementById('post-quiz-options23').style.display = 'block';
+    } else {
         feedback.style.color = "red";
         feedback.innerHTML = "The equation does not balance. Make sure Assets = Liabilities + Equity.";
-      }
     }
+}
 
-    function toggleReview() {
-      const panel = document.getElementById('review-panel');
-      if (panel.style.display === 'block') {
+function toggleReview23() {
+    const panel = document.getElementById('review-panel23');
+    if (panel.style.display === 'block') {
         panel.style.display = 'none';
         return;
-      }
-      let html = "<h3>Quiz Review</h3>";
-      userAnswers.forEach((ans, i) => {
-        html += `
-          <div class="review-box">
-            <p><strong>Q${i+1}: ${ans.q}</strong></p>
-            <p style="color: green;">✓ Correct Answer: ${ans.correctOpt}</p>
-            <p style="color: var(--text-main); font-style: italic;">Why? ${ans.exp}</p>
-          </div>`;
-      });
-      panel.innerHTML = html;
-      panel.style.display = 'block';
     }
+    let html = "<h3>Quiz Review</h3>";
+    userAnswers23.forEach((ans, i) => {
+        html += `<div style="margin-top:20px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:15px;">
+            <p><strong>Q${i+1}: ${ans.q}</strong></p>
+            <p style="color:green;">✓ Correct Answer: ${ans.correctOpt}</p>
+            <p style="color:#64748b; font-style:italic;">Why? ${ans.exp}</p>
+        </div>`;
+    });
+    panel.innerHTML = html;
+    panel.style.display = 'block';
+}
 
-    loadQuestion();
-  </script>
-</body>
-</html>
+loadQuestion23();
+</script>
