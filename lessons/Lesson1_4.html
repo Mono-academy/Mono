@@ -595,11 +595,11 @@
 
 <script>
     (function() {
-        window.currentSlideIndexL14 = 1;
-        window.totalSlidesL14 = 4;
+        let currentSlideIndexL14 = 1;
+        const totalSlidesL14 = 4;
 
-        window.checkCurrentSlideL14 = function() {
-            const activeSlide = document.getElementById(`l14_slide_${window.currentSlideIndexL14}`);
+        function checkCurrentSlideL14() {
+            const activeSlide = document.getElementById(`l14_slide_${currentSlideIndexL14}`);
             if (!activeSlide) return;
             const dropdowns = activeSlide.querySelectorAll('.quiz-dropdown-l14');
             let slideCorrectCount = 0;
@@ -632,7 +632,7 @@
                 `;
                 
                 document.getElementById('btn_check_answer_l14').style.display = 'none';
-                if (window.currentSlideIndexL14 < window.totalSlidesL14) {
+                if (currentSlideIndexL14 < totalSlidesL14) {
                     document.getElementById('btn_next_question_l14').style.display = 'inline-block';
                 } else {
                     resultPanel.innerHTML = `
@@ -651,28 +651,28 @@
                     <p style="margin: 0; font-size: 13px;">Make sure your debit and credit accounts match up correctly!</p>
                 `;
             }
-        };
+        }
 
-        window.nextSlideL14 = function() {
-            if (window.currentSlideIndexL14 < window.totalSlidesL14) {
-                document.getElementById(`l14_slide_${window.currentSlideIndexL14}`).classList.remove('active');
-                window.currentSlideIndexL14++;
-                document.getElementById(`l14_slide_${window.currentSlideIndexL14}`).classList.add('active');
+        function nextSlideL14() {
+            if (currentSlideIndexL14 < totalSlidesL14) {
+                document.getElementById(`l14_slide_${currentSlideIndexL14}`).classList.remove('active');
+                currentSlideIndexL14++;
+                document.getElementById(`l14_slide_${currentSlideIndexL14}`).classList.add('active');
                 
                 const progressBar = document.getElementById('quiz_progress_bar_l14');
-                progressBar.style.width = `${(window.currentSlideIndexL14 / window.totalSlidesL14) * 100}%`;
+                progressBar.style.width = `${(currentSlideIndexL14 / totalSlidesL14) * 100}%`;
 
                 document.getElementById('btn_check_answer_l14').style.display = 'inline-block';
                 document.getElementById('btn_next_question_l14').style.display = 'none';
                 document.getElementById('quiz_result_panel_l14').style.display = 'none';
             }
-        };
+        }
 
-        window.resetL14Quiz = function() {
-            if(document.getElementById(`l14_slide_${window.currentSlideIndexL14}`)) {
-                document.getElementById(`l14_slide_${window.currentSlideIndexL14}`).classList.remove('active');
+        function resetL14Quiz() {
+            if(document.getElementById(`l14_slide_${currentSlideIndexL14}`)) {
+                document.getElementById(`l14_slide_${currentSlideIndexL14}`).classList.remove('active');
             }
-            window.currentSlideIndexL14 = 1;
+            currentSlideIndexL14 = 1;
             document.getElementById(`l14_slide_1`).classList.add('active');
             document.getElementById('quiz_progress_bar_l14').style.width = '25%';
 
@@ -685,14 +685,13 @@
             document.getElementById('btn_check_answer_l14').style.display = 'inline-block';
             document.getElementById('btn_next_question_l14').style.display = 'none';
             document.getElementById('quiz_result_panel_l14').style.display = 'none';
-        };
+        }
 
-        window.closeL14Modal = function() {
+        function closeL14Modal() {
             document.getElementById('pureQuizModal_l1_4').style.display = 'none';
-            window.resetL14Quiz();
-        };
+            resetL14Quiz();
+        }
 
-        // Bind events reliably via addEventListener to fix non-responsive buttons
         function initBindings() {
             const startBtn = document.getElementById('btn_start_quiz_l14');
             if (startBtn) {
@@ -703,27 +702,27 @@
 
             const closeCrossBtn = document.getElementById('btn_close_cross_l14');
             if (closeCrossBtn) {
-                closeCrossBtn.addEventListener('click', window.closeL14Modal);
+                closeCrossBtn.addEventListener('click', closeL14Modal);
             }
 
             const closeBtn = document.getElementById('btn_close_l14');
             if (closeBtn) {
-                closeBtn.addEventListener('click', window.closeL14Modal);
+                closeBtn.addEventListener('click', closeL14Modal);
             }
 
             const resetBtn = document.getElementById('btn_reset_l14');
             if (resetBtn) {
-                resetBtn.addEventListener('click', window.resetL14Quiz);
+                resetBtn.addEventListener('click', resetL14Quiz);
             }
 
             const checkBtn = document.getElementById('btn_check_answer_l14');
             if (checkBtn) {
-                checkBtn.addEventListener('click', window.checkCurrentSlideL14);
+                checkBtn.addEventListener('click', checkCurrentSlideL14);
             }
 
             const nextBtn = document.getElementById('btn_next_question_l14');
             if (nextBtn) {
-                nextBtn.addEventListener('click', window.nextSlideL14);
+                nextBtn.addEventListener('click', nextSlideL14);
             }
         }
 
