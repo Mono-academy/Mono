@@ -11,7 +11,29 @@
 <span class="lesson-tag" style="background:#f0eafb;color:#66519a;">Lesson 3.3</span>
 <h2 style="margin:12px 0 8px;font-size:26px;color:#0f172a;font-weight:800;">Managing Loans</h2>
 <p style="line-height:1.65;color:#475569;font-size:15px;margin:0;">Loans create a repayment obligation. Comparing the rate, term, fees, payment, and total cost helps borrowers evaluate the full commitment.</p>
-</div>('<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🧾 Loan Decision Map</h3>\n<p style="color:#475569;line-height:1.6;">Loans can help finance large purchases, but they create an obligation to repay. Before borrowing, compare the amount borrowed, interest rate, term, payment, fees, and total cost.</p>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">\n<div class="stat" style="background:#eaf4ff;"><b>Principal</b><br><span style="font-size:13px;color:#475569;">The amount borrowed.</span></div>\n<div class="stat" style="background:#fff4df;"><b>Interest</b><br><span style="font-size:13px;color:#475569;">Cost of borrowing money.</span></div>\n<div class="stat" style="background:#f5efff;"><b>Term</b><br><span style="font-size:13px;color:#475569;">How long repayment is scheduled to take.</span></div>\n<div class="stat" style="background:#edf9f1;"><b>Total cost</b><br><span style="font-size:13px;color:#475569;">What the borrowing ultimately costs under the agreement.</span></div>\n</div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🔢 Compare Two Fictional Loans</h3>\n<p style="color:#475569;">Loan A: $5,000 at 7% for 3 years. Loan B: $5,000 at 9% for 5 years. Without calculating exact amortization, which statement is the safest conclusion?</p>\n<div id="loan33"></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Character Game: Taylor\'s Big Purchase</h3>\n<p style="color:#475569;line-height:1.6;"><b>Taylor</b> is considering a fictional loan. Help Taylor work through an everyday decision: need, affordability, loan terms, and repayment plan.</p>\n<div class="game-panel"><div id="game33"></div></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 3.3 Quiz</h3><div id="quiz33"></div></div>')<script>
+</div>
+<style>
+.lesson-shell{max-width:900px;margin:0 auto;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#243447;}
+.lesson-shell .scroll-reveal-card{box-sizing:border-box;}
+.budget-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px;}
+.budget-grid label{display:flex;flex-direction:column;gap:7px;font-weight:700;color:#334155;}
+.budget-grid input{width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff;}
+@media(max-width:620px){.budget-grid{grid-template-columns:1fr;}}
+</style>
+<div class="lesson-shell">
+<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🧾 Loan Decision Map</h3>
+<p style="color:#475569;line-height:1.6;">Loans can help finance large purchases, but they create an obligation to repay. Before borrowing, compare the amount borrowed, interest rate, term, payment, fees, and total cost.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">
+<div class="stat" style="background:#eaf4ff;"><b>Principal</b><br><span style="font-size:13px;color:#475569;">The amount borrowed.</span></div>
+<div class="stat" style="background:#fff4df;"><b>Interest</b><br><span style="font-size:13px;color:#475569;">Cost of borrowing money.</span></div>
+<div class="stat" style="background:#f5efff;"><b>Term</b><br><span style="font-size:13px;color:#475569;">How long repayment is scheduled to take.</span></div>
+<div class="stat" style="background:#edf9f1;"><b>Total cost</b><br><span style="font-size:13px;color:#475569;">What the borrowing ultimately costs under the agreement.</span></div>
+</div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🔢 Compare Two Fictional Loans</h3>
+<p style="color:#475569;">Loan A: $5,000 at 7% for 3 years. Loan B: $5,000 at 9% for 5 years. Without calculating exact amortization, which statement is the safest conclusion?</p>
+<div id="loan33"></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Character Game: Taylor's Big Purchase</h3>
+<p style="color:#475569;line-height:1.6;"><b>Taylor</b> is considering a fictional loan. Help Taylor work through an everyday decision: need, affordability, loan terms, and repayment plan.</p>
+<div class="game-panel"><div id="game33"></div></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 3.3 Quiz</h3><div id="quiz33"></div></div>
+</div><script>
 document.getElementById('loan33').innerHTML=
 '<button class="choice" onclick="loan33(0)">Loan A is likely to have a lower total borrowing cost because it has a lower rate and shorter term, all else equal.</button>'+
 '<button class="choice" onclick="loan33(1)">Loan B must cost less because the payment is spread over more years.</button>'+
