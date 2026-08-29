@@ -11,7 +11,29 @@
 <span class="lesson-tag" style="background:#e6f2ff;color:#376d9d;">Lesson 3.1</span>
 <h2 style="margin:12px 0 8px;font-size:26px;color:#0f172a;font-weight:800;">Credit Scores 101</h2>
 <p style="line-height:1.65;color:#475569;font-size:15px;margin:0;">Credit scores summarize information from credit reports using scoring models. Understanding the underlying behaviors is more useful than memorizing one number.</p>
-</div>('<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">📊 Credit Score Signal Lab</h3>\n<p style="color:#475569;line-height:1.6;">Credit scores are calculated from information in credit reports. Different scoring models can weigh factors differently, so treat the examples as learning scenarios rather than a promise of a particular score.</p>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">\n<div class="stat" style="background:#eaf4ff;"><b>Payment history</b><br><span style="font-size:13px;color:#475569;">Whether payments were made as agreed.</span></div>\n<div class="stat" style="background:#fff4df;"><b>Amounts owed</b><br><span style="font-size:13px;color:#475569;">Balances can matter to scoring models.</span></div>\n<div class="stat" style="background:#f5efff;"><b>Credit history</b><br><span style="font-size:13px;color:#475569;">Length and experience can matter.</span></div>\n<div class="stat" style="background:#edf9f1;"><b>New credit</b><br><span style="font-size:13px;color:#475569;">Recent applications can be relevant.</span></div>\n</div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Character Game: Sam\'s Credit Journey</h3>\n<p style="color:#475569;line-height:1.6;"><b>Sam</b> is starting to learn about credit. Across several everyday situations, choose the action that is most likely to support healthy credit habits.</p>\n<div class="game-panel"><div id="game31"></div></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🛠️ Credit Report Checkup</h3>\n<p style="color:#475569;">A credit report is different from a credit score. A report contains the underlying information that scoring models may use.</p>\n<div class="stat" style="background:#f5efff;"><b>Key habit:</b> review your credit information for accuracy and understand which behaviors affect your borrowing profile.</div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 3.1 Quiz</h3><div id="quiz31"></div></div>')<script>
+</div>
+<style>
+.lesson-shell{max-width:900px;margin:0 auto;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#243447;}
+.lesson-shell .scroll-reveal-card{box-sizing:border-box;}
+.budget-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px;}
+.budget-grid label{display:flex;flex-direction:column;gap:7px;font-weight:700;color:#334155;}
+.budget-grid input{width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff;}
+@media(max-width:620px){.budget-grid{grid-template-columns:1fr;}}
+</style>
+<div class="lesson-shell">
+<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">📊 Credit Score Signal Lab</h3>
+<p style="color:#475569;line-height:1.6;">Credit scores are calculated from information in credit reports. Different scoring models can weigh factors differently, so treat the examples as learning scenarios rather than a promise of a particular score.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">
+<div class="stat" style="background:#eaf4ff;"><b>Payment history</b><br><span style="font-size:13px;color:#475569;">Whether payments were made as agreed.</span></div>
+<div class="stat" style="background:#fff4df;"><b>Amounts owed</b><br><span style="font-size:13px;color:#475569;">Balances can matter to scoring models.</span></div>
+<div class="stat" style="background:#f5efff;"><b>Credit history</b><br><span style="font-size:13px;color:#475569;">Length and experience can matter.</span></div>
+<div class="stat" style="background:#edf9f1;"><b>New credit</b><br><span style="font-size:13px;color:#475569;">Recent applications can be relevant.</span></div>
+</div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Character Game: Sam's Credit Journey</h3>
+<p style="color:#475569;line-height:1.6;"><b>Sam</b> is starting to learn about credit. Across several everyday situations, choose the action that is most likely to support healthy credit habits.</p>
+<div class="game-panel"><div id="game31"></div></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🛠️ Credit Report Checkup</h3>
+<p style="color:#475569;">A credit report is different from a credit score. A report contains the underlying information that scoring models may use.</p>
+<div class="stat" style="background:#f5efff;"><b>Key habit:</b> review your credit information for accuracy and understand which behaviors affect your borrowing profile.</div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 3.1 Quiz</h3><div id="quiz31"></div></div>
+</div><script>
 const g31=[
 ["Sam has a payment due under the terms of a credit account. Which habit is generally strongest?",["Make the payment on time as agreed","Wait until several payments are missed","Open another account instead","Ignore the statement"],0],
 ["Sam sees an unfamiliar item on a credit report. What should Sam do?",["Review the report details and follow the appropriate dispute or investigation process","Post personal information publicly","Assume every unfamiliar item is correct","Delete all accounts"],0],
