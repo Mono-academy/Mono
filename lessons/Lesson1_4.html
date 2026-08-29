@@ -45,7 +45,7 @@
             <h4 style="margin: 0 0 4px 0; font-size: 15px; font-weight: 850; color: #0f172a;">Ready to record Journals and post Ledgers?</h4>
             <p style="margin: 0; font-size: 13px; color: #64748b; line-height: 1.4;">Practice placing your accounts, values, and ledger balances across active general accounts!</p>
         </div>
-        <button onclick="document.getElementById('pureQuizModal_l1_4').style.display = 'flex'" style="display: inline-flex; align-items: center; justify-content: center; background: #3b82f6; color: white; font-size: 13.5px; font-weight: 700; padding: 12px 22px; border: none; border-radius: 10px; box-shadow: 0 4px 6px rgba(59, 130, 246, 0.15); cursor: pointer; user-select: none;">
+        <button onclick="openL14Modal()" style="display: inline-flex; align-items: center; justify-content: center; background: #3b82f6; color: white; font-size: 13.5px; font-weight: 700; padding: 12px 22px; border: none; border-radius: 10px; box-shadow: 0 4px 6px rgba(59, 130, 246, 0.15); cursor: pointer; user-select: none;">
             ⚡ Start Practice Quiz
         </button>
     </div>
@@ -497,6 +497,15 @@
 <script>
     window.currentSlideIndexL14 = 1;
     window.totalSlidesL14 = 4;
+
+    window.openL14Modal = function() {
+        document.getElementById('pureQuizModal_l1_4').style.display = 'flex';
+    };
+
+    window.closeL14Modal = function() {
+        document.getElementById('pureQuizModal_l1_4').style.display = 'none';
+        window.resetL14Quiz();
+    };
 
     window.checkCurrentSlideL14 = function() {
         const activeSlide = document.getElementById(`l14_slide_${window.currentSlideIndexL14}`);
