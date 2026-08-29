@@ -1,485 +1,269 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lesson 2.2: The Income Statement</title>
-  <style>
-    :root {
-      --is-bg: #f0fdf4;
-      --is-border: #bbf7d0;
-      --is-text: #166534;
-      --card-bg: #ffffff;
-      --text-main: #1e293b;
-      --text-muted: #64748b;
-      --accent: #15803d;
-      --light-gray: #f8fafc;
-    }
-
-    body {
-      margin: 0;
-      padding: 20px;
-      background-color: #fafaf9;
-      color: var(--text-main);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-
-    .lesson-container {
-      max-width: 800px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
-
-    .header-banner {
-      background: linear-gradient(135deg, #dcfce7 0%, #bbf7d0 100%);
-      padding: 30px;
-      border-radius: 12px;
-      margin-bottom: 25px;
-      border-left: 8px solid var(--accent);
-    }
-
-    .header-banner h1 {
-      margin: 0 0 10px 0;
-      font-size: 28px;
-      color: var(--is-text);
-    }
-
-    .header-banner p {
-      margin: 0;
-      color: var(--is-text);
-      font-weight: 600;
-      font-size: 14px;
-    }
-
-    .card {
-      background: var(--card-bg);
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 24px;
-      margin-bottom: 25px;
-      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
-    }
-
-    h2, h3 {
-      margin-top: 0;
-      color: var(--text-main);
-    }
-
-    h2 {
-      border-bottom: 2px solid #f1f5f9;
-      padding-bottom: 8px;
-    }
-
-    .interactive-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      background: white;
-      border-radius: 8px;
-      overflow: hidden;
-    }
-
-    .interactive-table th {
-      background-color: var(--accent);
-      color: white;
-      padding: 12px 15px;
-      text-align: left;
-    }
-
-    .interactive-table td {
-      padding: 12px 15px;
-      border: 1px solid #f1f5f9;
-    }
-
-    .term-hl {
-      cursor: pointer;
-      padding: 2px 6px;
-      border-radius: 4px;
-      font-weight: bold;
-      transition: all 0.2s;
-      background: var(--is-bg);
-      color: var(--is-text);
-    }
-
-    .term-hl:hover {
-      background: #bbf7d0;
-    }
-
-    #def-display {
-      min-height: 60px;
-      padding: 15px;
-      margin: 20px 0;
-      background: #fef8e7;
-      border: 1px solid #fde047;
-      border-radius: 8px;
-      display: none;
-      animation: fadeIn 0.3s;
-    }
-
-    .step-box {
-      border-left: 4px solid var(--accent);
-      padding-left: 20px;
-      margin: 20px 0;
-      display: none;
-    }
-
-    .step-box.active {
-      display: block;
-      animation: slideIn 0.4s ease-out;
-    }
-
-    .btn-next {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      margin-top: 15px;
-      transition: opacity 0.2s;
-    }
-
-    .btn-next:hover {
-      opacity: 0.9;
-    }
-
-    .quiz-area {
-      background: #fdfdfd;
-      border: 2px solid var(--is-border);
-      border-radius: 12px;
-      padding: 25px;
-      margin-top: 40px;
-    }
-
-    .option-btn {
-      display: block;
-      width: 100%;
-      text-align: left;
-      padding: 12px;
-      margin: 8px 0;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      background: white;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .option-btn:hover {
-      background: var(--light-gray);
-    }
-
-    /* Practical Board Placement */
-    .bank-item {
-      display: inline-block;
-      padding: 8px 16px;
-      margin: 5px;
-      background: var(--is-bg);
-      border: 2px solid var(--is-border);
-      color: var(--is-text);
-      border-radius: 6px;
-      cursor: pointer;
-      font-weight: bold;
-      transition: transform 0.1s;
-    }
-
-    .bank-item.selected {
-      transform: scale(0.95);
-      opacity: 0.6;
-      border-style: dashed;
-    }
-
-    .drop-zone {
-      display: inline-block;
-      width: 120px;
-      height: 35px;
-      border: 2px dashed #cbd5e1;
-      border-radius: 6px;
-      vertical-align: middle;
-      text-align: center;
-      line-height: 35px;
-      background: #fff;
-      cursor: pointer;
-      font-weight: bold;
-      color: var(--accent);
-    }
-
-    .review-box {
-      margin-top: 20px;
-      background: #f8fafc;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      padding: 15px;
-    }
-
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes slideIn { from { transform: translateX(20px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
-  </style>
-</head>
-<body>
-
-  <div class="lesson-container">
-    <div class="header-banner">
-      <p>LESSON 2.2</p>
-      <h1>The Income Statement</h1>
-    </div>
-
-    <div class="card">
-      <p>
+<div class="scroll-reveal-card" style="margin-top: 0;">
+    <span style="background: #dcfce7; color: #166534; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 99px; text-transform: uppercase; letter-spacing: 0.05em;">Lesson 2.2</span>
+    <h2 style="margin: 12px 0 8px 0; font-size: 26px; color: #0f172a; font-weight: 800;">The Income Statement</h2>
+    <p style="line-height: 1.6; color: #475569; font-size: 15px; margin: 0;">
         An income statement summarizes a company’s revenues, expenses, gains, and losses over a specific period. It begins with total revenue (the "top line") and ends with net income (the "bottom line").
-      </p>
+    </p>
+</div>
+
+<div class="scroll-reveal-card" style="background: #fff; border: 1px solid #f1f5f9; border-radius: 20px; padding: 28px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.02); margin-top: 24px; position: relative; overflow: hidden;">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 2px dashed #f1f5f9; padding-bottom: 16px; margin-bottom: 24px; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-size: 24px;">📊</span>
+            <h3 style="margin: 0; font-size: 18px; color: #0f172a; font-weight: 800;">Interactive Statement View</h3>
+        </div>
+        <div style="background: #dcfce7; color: #166534; font-weight: 700; font-size: 12px; padding: 6px 14px; border-radius: 99px;">
+            Click highlighted items
+        </div>
     </div>
 
-    <h3>1. Interactive Statement View</h3>
-    <p><i>Click the <strong>highlighted items</strong> below to see their definitions.</i></p>
+    <p style="line-height: 1.6; color: #475569; font-size: 14px; margin: 0 0 16px 0;">
+        <i>Click the <strong>highlighted items</strong> below to see their definitions.</i>
+    </p>
 
-    <div id="def-display"></div>
+    <div id="def-display-22" style="min-height: 24px; padding: 14px; margin: 0 0 20px 0; background: #fefce8; border: 1px solid #fde047; border-radius: 12px; display: none; color: #475569;"></div>
 
-    <div class="card">
-      <table class="interactive-table">
-        <thead>
-          <tr><th colspan="2">Snapshot Corp | Income Statement | For the Year Ended Dec 31, 2026</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><span class="term-hl" onclick="showDef('rev')">Revenue / Sales</span></td>
-            <td style="text-align: right;">$250,000</td>
-          </tr>
-          <tr>
-            <td><span class="term-hl" onclick="showDef('cogs')">Cost of Goods Sold (COGS)</span></td>
-            <td style="text-align: right;">($100,000)</td>
-          </tr>
-          <tr style="background: var(--light-gray); font-weight: bold;">
-            <td><span class="term-hl" onclick="showDef('gp')">Gross Profit</span></td>
-            <td style="text-align: right;">$150,000</td>
-          </tr>
-          <tr>
-            <td><span class="term-hl" onclick="showDef('opex')">Operating Expenses (OpEx)</span></td>
-            <td style="text-align: right;">($80,000)</td>
-          </tr>
-          <tr style="background: var(--light-gray); font-weight: bold;">
-            <td><span class="term-hl" onclick="showDef('opi')">Operating Income</span></td>
-            <td style="text-align: right;">$70,000</td>
-          </tr>
-          <tr>
-            <td><span class="term-hl" onclick="showDef('nonOp')">Non-Operating Items</span></td>
-            <td style="text-align: right;">($20,000)</td>
-          </tr>
-          <tr style="background: var(--is-bg); font-weight: bold; color: var(--is-text);">
-            <td><span class="term-hl" onclick="showDef('ni')">Net Income</span></td>
-            <td style="text-align: right; border-bottom: 4px double var(--accent);">$50,000</td>
-          </tr>
-        </tbody>
-      </table>
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden;">
+            <thead>
+                <tr>
+                    <th colspan="2" style="background: #15803d; color: white; padding: 14px 15px; text-align: left;">Snapshot Corp | Income Statement | For the Year Ended Dec 31, 2026</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9;"><span onclick="showDef22('rev')" style="cursor: pointer; padding: 3px 7px; border-radius: 6px; font-weight: 700; background: #f0fdf4; color: #166534;">Revenue / Sales</span></td>
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9; text-align: right;">$250,000</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9;"><span onclick="showDef22('cogs')" style="cursor: pointer; padding: 3px 7px; border-radius: 6px; font-weight: 700; background: #f0fdf4; color: #166534;">Cost of Goods Sold (COGS)</span></td>
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9; text-align: right;">($100,000)</td>
+                </tr>
+                <tr style="background: #f8fafc; font-weight: bold;">
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9;"><span onclick="showDef22('gp')" style="cursor: pointer; padding: 3px 7px; border-radius: 6px; font-weight: 700; background: #f0fdf4; color: #166534;">Gross Profit</span></td>
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9; text-align: right;">$150,000</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9;"><span onclick="showDef22('opex')" style="cursor: pointer; padding: 3px 7px; border-radius: 6px; font-weight: 700; background: #f0fdf4; color: #166534;">Operating Expenses (OpEx)</span></td>
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9; text-align: right;">($80,000)</td>
+                </tr>
+                <tr style="background: #f8fafc; font-weight: bold;">
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9;"><span onclick="showDef22('opi')" style="cursor: pointer; padding: 3px 7px; border-radius: 6px; font-weight: 700; background: #f0fdf4; color: #166534;">Operating Income</span></td>
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9; text-align: right;">$70,000</td>
+                </tr>
+                <tr>
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9;"><span onclick="showDef22('nonOp')" style="cursor: pointer; padding: 3px 7px; border-radius: 6px; font-weight: 700; background: #f0fdf4; color: #166534;">Non-Operating Items</span></td>
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9; text-align: right;">($20,000)</td>
+                </tr>
+                <tr style="background: #ecfdf5; font-weight: bold; color: #166534;">
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9;"><span onclick="showDef22('ni')" style="cursor: pointer; padding: 3px 7px; border-radius: 6px; font-weight: 700; background: #dcfce7; color: #166534;">Net Income</span></td>
+                    <td style="padding: 12px 15px; border: 1px solid #f1f5f9; text-align: right; border-bottom: 4px double #15803d;">$50,000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="scroll-reveal-card" style="margin-top: 32px;">
+    <h3 style="font-size: 22px; color: #0f172a; font-weight: 800; margin-bottom: 12px;">How to Make an Income Statement (Step-by-Step)</h3>
+
+    <div id="step22-1" style="border-left: 4px solid #15803d; padding-left: 20px; margin: 20px 0;">
+        <h4 style="color: #0f172a; margin: 0 0 8px 0;">Step 1: Choose Header Info & Total Revenue</h4>
+        <p style="line-height: 1.6; color: #475569; font-size: 14px;">Set a standard three-line header. Record Gross Revenue and subtract returns to get your Top Line.</p>
+        <button onclick="nextStep22(2)" style="background: #15803d; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 700;">Next: Calculate Gross Profit →</button>
     </div>
 
-    <div class="card">
-      <h3>2. How to Make an Income Statement (Step-by-Step)</h3>
-      <div id="step1" class="step-box active">
-        <h4>Step 1: Choose Header Info & Total Revenue</h4>
-        <p>Set a standard three-line header. Record Gross Revenue and subtract returns to get your Top Line.</p>
-        <button class="btn-next" onclick="nextStep(2)">Next: Calculate Gross Profit →</button>
-      </div>
-      <div id="step2" class="step-box">
-        <h4>Step 2: Subtract Production Expenses (COGS)</h4>
-        <p>Take your total revenue and subtract direct manufacturing costs. <br><strong>Formula: Gross Profit = Total Revenue - COGS</strong></p>
-        <button class="btn-next" onclick="nextStep(3)">Next: Deduct Operating Expenses →</button>
-      </div>
-      <div id="step3" class="step-box">
-        <h4>Step 3: Account for Day-to-Day Operations</h4>
-        <p>Deduct overhead costs like office rent, marketing, and wages. <br><strong>Formula: Operating Income = Gross Profit - Operating Expenses</strong></p>
-        <button class="btn-next" onclick="nextStep(4)">Next: Factor Interest and Taxes →</button>
-      </div>
-      <div id="step4" class="step-box">
-        <h4>Step 4: The Bottom Line</h4>
-        <p>Subtract non-operating charges to yield the final net earnings. <br><strong>Formula: Net Income = Operating Income - Interest and Taxes</strong></p>
-        <button class="btn-next" onclick="nextStep(1)">Restart Guide ↺</button>
-      </div>
+    <div id="step22-2" style="border-left: 4px solid #15803d; padding-left: 20px; margin: 20px 0; display: none;">
+        <h4 style="color: #0f172a; margin: 0 0 8px 0;">Step 2: Subtract Production Expenses (COGS)</h4>
+        <p style="line-height: 1.6; color: #475569; font-size: 14px;">Take your total revenue and subtract direct manufacturing costs. <br><strong>Formula: Gross Profit = Total Revenue - COGS</strong></p>
+        <button onclick="nextStep22(3)" style="background: #15803d; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 700;">Next: Deduct Operating Expenses →</button>
     </div>
 
-    <div class="quiz-area">
-      <h2 style="text-align: center;">🏁 Lesson 2.2 Quiz Challenge</h2>
-      <div id="quiz-container"></div>
-      
-      <div id="build-area" style="display:none; border-top: 2px dashed #cbd5e1; padding-top: 25px; margin-top: 20px;">
-        <h3>Practical: Build the Statement</h3>
-        <p>Fill out the primary structure of the Income Statement. Click a value from the bank below, then click its matching <b>"?"</b> target box.</p>
-        
-        <div style="margin-bottom: 20px; text-align: center;">
-          <div class="bank-item" onclick="selectValue('$250,000', this)">$250,000</div>
-          <div class="bank-item" onclick="selectValue('$100,000', this)">$100,000</div>
-          <div class="bank-item" onclick="selectValue('$150,000', this)">$150,000</div>
+    <div id="step22-3" style="border-left: 4px solid #15803d; padding-left: 20px; margin: 20px 0; display: none;">
+        <h4 style="color: #0f172a; margin: 0 0 8px 0;">Step 3: Account for Day-to-Day Operations</h4>
+        <p style="line-height: 1.6; color: #475569; font-size: 14px;">Deduct overhead costs like office rent, marketing, and wages. <br><strong>Formula: Operating Income = Gross Profit - Operating Expenses</strong></p>
+        <button onclick="nextStep22(4)" style="background: #15803d; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 700;">Next: Factor Interest and Taxes →</button>
+    </div>
+
+    <div id="step22-4" style="border-left: 4px solid #15803d; padding-left: 20px; margin: 20px 0; display: none;">
+        <h4 style="color: #0f172a; margin: 0 0 8px 0;">Step 4: The Bottom Line</h4>
+        <p style="line-height: 1.6; color: #475569; font-size: 14px;">Subtract non-operating charges to yield the final net earnings. <br><strong>Formula: Net Income = Operating Income - Interest and Taxes</strong></p>
+        <button onclick="nextStep22(1)" style="background: #15803d; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 700;">Restart Guide ↺</button>
+    </div>
+</div>
+
+<div class="scroll-reveal-card" style="background: #fff; border: 1px solid #bbf7d0; border-radius: 20px; padding: 28px; box-shadow: 0 10px 25px -5px rgba(0,0,0,0.02); margin-top: 32px;">
+    <div style="display: flex; align-items: center; gap: 8px; border-bottom: 2px dashed #f1f5f9; padding-bottom: 16px; margin-bottom: 20px;">
+        <span style="font-size: 24px;">🏁</span>
+        <h3 style="margin: 0; font-size: 20px; color: #0f172a; font-weight: 800;">Lesson 2.2 Quiz Challenge</h3>
+    </div>
+
+    <div id="quiz-container22"></div>
+
+    <div id="build-area22" style="display:none; border-top: 2px dashed #cbd5e1; padding-top: 25px; margin-top: 20px;">
+        <h3 style="color: #0f172a;">Practical: Build the Statement</h3>
+        <p style="line-height: 1.6; color: #475569; font-size: 14px;">Fill out the primary structure of the Income Statement. Click a value from the bank below, then click its matching <b>"?"</b> target box.</p>
+
+        <div style="background: #f8fafc; border: 2px dashed #cbd5e1; border-radius: 12px; padding: 15px; margin-bottom: 20px; text-align: center;">
+            <div onclick="selectValue22('$250,000', this)" style="display: inline-block; padding: 8px 16px; margin: 5px; background: #f0fdf4; border: 2px solid #bbf7d0; color: #166534; border-radius: 8px; cursor: pointer; font-weight: 700;">$250,000</div>
+            <div onclick="selectValue22('$100,000', this)" style="display: inline-block; padding: 8px 16px; margin: 5px; background: #f0fdf4; border: 2px solid #bbf7d0; color: #166534; border-radius: 8px; cursor: pointer; font-weight: 700;">$100,000</div>
+            <div onclick="selectValue22('$150,000', this)" style="display: inline-block; padding: 8px 16px; margin: 5px; background: #f0fdf4; border: 2px solid #bbf7d0; color: #166534; border-radius: 8px; cursor: pointer; font-weight: 700;">$150,000</div>
         </div>
 
-        <table class="interactive-table" style="max-width: 500px; margin: 0 auto 20px auto;">
-          <tr>
-            <td><strong>Revenue:</strong></td>
-            <td><div class="drop-zone" id="rev-slot" onclick="placeValue('rev-slot')">?</div></td>
-          </tr>
-          <tr>
-            <td><strong>Less: COGS:</strong></td>
-            <td><div class="drop-zone" id="cogs-slot" onclick="placeValue('cogs-slot')">?</div></td>
-          </tr>
-          <tr style="background: var(--light-gray); font-weight: bold;">
-            <td><strong>Gross Profit:</strong></td>
-            <td><div class="drop-zone" id="gp-slot" onclick="placeValue('gp-slot')">?</div></td>
-          </tr>
+        <table style="width: 100%; max-width: 500px; margin: 0 auto 20px auto; border-collapse: collapse; background: white;">
+            <tr><td style="padding: 12px; border: 1px solid #f1f5f9;"><strong>Revenue:</strong></td><td style="padding: 12px; border: 1px solid #f1f5f9;"><div id="rev-slot22" onclick="placeValue22('rev-slot22')" style="display: inline-block; width: 120px; height: 35px; border: 2px dashed #cbd5e1; border-radius: 6px; text-align: center; line-height: 35px; background: #fff; cursor: pointer; font-weight: 700; color: #15803d;">?</div></td></tr>
+            <tr><td style="padding: 12px; border: 1px solid #f1f5f9;"><strong>Less: COGS:</strong></td><td style="padding: 12px; border: 1px solid #f1f5f9;"><div id="cogs-slot22" onclick="placeValue22('cogs-slot22')" style="display: inline-block; width: 120px; height: 35px; border: 2px dashed #cbd5e1; border-radius: 6px; text-align: center; line-height: 35px; background: #fff; cursor: pointer; font-weight: 700; color: #15803d;">?</div></td></tr>
+            <tr style="background: #f8fafc; font-weight: bold;"><td style="padding: 12px; border: 1px solid #f1f5f9;"><strong>Gross Profit:</strong></td><td style="padding: 12px; border: 1px solid #f1f5f9;"><div id="gp-slot22" onclick="placeValue22('gp-slot22')" style="display: inline-block; width: 120px; height: 35px; border: 2px dashed #cbd5e1; border-radius: 6px; text-align: center; line-height: 35px; background: #fff; cursor: pointer; font-weight: 700; color: #15803d;">?</div></td></tr>
         </table>
-        
-        <button class="btn-next" style="background: var(--accent); display:block; margin: 20px auto 0 auto;" onclick="checkPractical()">Verify Statement</button>
-        <p id="practical-feedback" style="font-weight: bold; margin-top: 15px; text-align:center;"></p>
-      </div>
 
-      <div id="post-quiz-options" style="display:none; text-align:center; margin-top: 20px;">
-        <button class="btn-next" style="background: #475569;" onclick="toggleReview()">Review Quiz Answers</button>
-        <div id="review-panel" style="display:none; text-align:left; margin-top: 20px;"></div>
-      </div>
+        <button onclick="checkPractical22()" style="background: #15803d; color: white; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-weight: 700; display: block; margin: 20px auto 0 auto;">Verify Statement</button>
+        <p id="practical-feedback22" style="font-weight: bold; margin-top: 15px; text-align:center;"></p>
     </div>
-  </div>
 
-  <script>
-    const definitions = {
-      rev: "<strong>Revenue / Sales:</strong> The top line. Represents total income from selling goods or services.",
-      cogs: "<strong>Cost of Goods Sold (COGS):</strong> Direct production costs associated with creating the physical product.",
-      gp: "<strong>Gross Profit:</strong> Revenue minus COGS. Measures asset creation efficiency.",
-      opex: "<strong>Operating Expenses (OpEx):</strong> Day-to-day overhead costs to run the business (e.g. rent, payroll).",
-      opi: "<strong>Operating Income:</strong> Gross profit minus operating expenses.",
-      nonOp: "<strong>Non-Operating Items:</strong> Outside costs or gains like interest paid or taxes.",
-      ni: "<strong>Net Income:</strong> The absolute final profit or loss after subtracting all expenses."
-    };
+    <div id="post-quiz-options22" style="display:none; text-align:center; margin-top: 20px;">
+        <button onclick="toggleReview22()" style="background: #475569; color: white; border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: 700;">Review Quiz Answers</button>
+        <div id="review-panel22" style="display:none; text-align:left; margin-top: 20px;"></div>
+    </div>
+</div>
 
-    function showDef(term) {
-      const display = document.getElementById('def-display');
-      display.innerHTML = definitions[term];
-      display.style.display = 'block';
-    }
+<script>
+const definitions22 = {
+    rev: "<strong>Revenue / Sales:</strong> The top line. Represents total income from selling goods or services.",
+    cogs: "<strong>Cost of Goods Sold (COGS):</strong> Direct production costs associated with creating the physical product.",
+    gp: "<strong>Gross Profit:</strong> Revenue minus COGS. Measures asset creation efficiency.",
+    opex: "<strong>Operating Expenses (OpEx):</strong> Day-to-day overhead costs to run the business (e.g. rent, payroll).",
+    opi: "<strong>Operating Income:</strong> Gross profit minus operating expenses.",
+    nonOp: "<strong>Non-Operating Items:</strong> Outside costs or gains like interest paid or taxes.",
+    ni: "<strong>Net Income:</strong> The absolute final profit or loss after subtracting all expenses."
+};
 
-    function nextStep(num) {
-      document.querySelectorAll('.step-box').forEach(sb => sb.classList.remove('active'));
-      document.getElementById('step' + num).classList.add('active');
-    }
+function showDef22(term) {
+    const display = document.getElementById('def-display-22');
+    display.innerHTML = definitions22[term];
+    display.style.display = 'block';
+}
 
-    const mcqs = [
-      {
+function nextStep22(num) {
+    document.querySelectorAll('[id^="step22-"]').forEach(sb => sb.style.display = 'none');
+    document.getElementById('step22-' + num).style.display = 'block';
+}
+
+const mcqs22 = [
+    {
         q: "What is often referred to as the 'top line' of an Income Statement?",
         options: ["Net Income", "Operating Income", "Gross Revenue / Sales", "Gross Profit"],
         correct: 2,
         explanation: "Revenue/Sales represents the absolute first line item from which all subsequent business costs are deducted."
-      },
-      {
+    },
+    {
         q: "Which calculation represents Operating Income?",
         options: ["Gross Profit - Operating Expenses", "Total Revenue - COGS", "Operating Income - Taxes", "Revenue + Cash"],
         correct: 0,
         explanation: "Operating Income measures profit from regular operations by deducting day-to-day OpEx from Gross Profit."
-      },
-      {
+    },
+    {
         q: "What type of expense are items like office rent, marketing, and standard executive salaries?",
         options: ["Cost of Goods Sold", "Non-Operating Expenses", "Operating Expenses (OpEx)", "Equity Dividends"],
         correct: 2,
         explanation: "Operating Expenses (OpEx) consist of the general administrative overhead needed to run operations daily."
-      },
-      {
+    },
+    {
         q: "If Revenue is $200,000 and COGS is $80,000, what is the Gross Profit?",
         options: ["$280,000", "$120,000", "$80,000", "$200,000"],
         correct: 1,
         explanation: "Gross Profit = Revenue ($200,000) minus COGS ($80,000) which leaves $120,000."
-      },
-      {
+    },
+    {
         q: "Where do taxes and interest on business loans get factored on the Income Statement?",
         options: ["They are added to revenue", "Just before calculating Net Income", "They are ignored", "Within Operating Expenses"],
         correct: 1,
         explanation: "Interest and taxes are non-operating costs that are deducted near the end, right before concluding with Net Income."
-      }
-    ];
-
-    let currentQIdx = 0;
-    let selectedVal = "";
-    let selectedEl = null;
-    let userAnswers = [];
-
-    function loadQuestion() {
-      const data = mcqs[currentQIdx];
-      let html = `<h4>Question ${currentQIdx + 1} of 5</h4><p style="font-weight: 500;">${data.q}</p>`;
-      
-      let mapped = data.options.map((opt, idx) => ({ text: opt, originalIndex: idx }));
-      mapped.sort(() => Math.random() - 0.5);
-
-      mapped.forEach(opt => {
-        html += `<button class="option-btn" onclick="checkAnswer(${opt.originalIndex}, '${opt.text.replace(/'/g, "\\'")}')">${opt.text}</button>`;
-      });
-      document.getElementById('quiz-container').innerHTML = html;
     }
+];
 
-    function checkAnswer(idx, text) {
-      userAnswers.push({ q: mcqs[currentQIdx].q, selected: text, correctOpt: mcqs[currentQIdx].options[mcqs[currentQIdx].correct], exp: mcqs[currentQIdx].explanation });
-      if (idx === mcqs[currentQIdx].correct) {
-        currentQIdx++;
-        if (currentQIdx < mcqs.length) {
-          loadQuestion();
+let currentQIdx22 = 0;
+let selectedVal22 = "";
+let selectedEl22 = null;
+let userAnswers22 = [];
+
+function loadQuestion22() {
+    const data = mcqs22[currentQIdx22];
+    let html = `<h4 style="color:#0f172a;">Question ${currentQIdx22 + 1} of 5</h4><p style="font-weight:500; color:#475569;">${data.q}</p>`;
+    let mapped = data.options.map((opt, idx) => ({ text: opt, originalIndex: idx }));
+    mapped.sort(() => Math.random() - 0.5);
+    mapped.forEach(opt => {
+        html += `<button onclick="checkAnswer22(${opt.originalIndex}, '${opt.text.replace(/'/g, "\\'")}')" style="display:block; width:100%; text-align:left; padding:12px; margin:8px 0; border:1px solid #cbd5e1; border-radius:8px; background:white; cursor:pointer;">${opt.text}</button>`;
+    });
+    document.getElementById('quiz-container22').innerHTML = html;
+}
+
+function checkAnswer22(idx, text) {
+    userAnswers22.push({ q: mcqs22[currentQIdx22].q, selected: text, correctOpt: mcqs22[currentQIdx22].options[mcqs22[currentQIdx22].correct], exp: mcqs22[currentQIdx22].explanation });
+    if (idx === mcqs22[currentQIdx22].correct) {
+        currentQIdx22++;
+        if (currentQIdx22 < mcqs22.length) {
+            loadQuestion22();
         } else {
-          document.getElementById('quiz-container').innerHTML = "<h3 style='color: var(--accent); text-align:center;'>🎉 Multiple Choice Questions Passed!</h3>";
-          document.getElementById('build-area').style.display = 'block';
+            document.getElementById('quiz-container22').innerHTML = "<h3 style='color:#15803d; text-align:center;'>🎉 Multiple Choice Questions Passed!</h3>";
+            document.getElementById('build-area22').style.display = 'block';
         }
-      } else {
+    } else {
         alert("Incorrect answer. Let's try this question again!");
-        userAnswers.pop(); // Remove the wrong try and let them answer again
-      }
+        userAnswers22.pop();
     }
+}
 
-    function selectValue(val, el) {
-      if (selectedEl) selectedEl.classList.remove('selected');
-      selectedVal = val;
-      selectedEl = el;
-      el.classList.add('selected');
-    }
+function selectValue22(val, el) {
+    if (selectedEl22) selectedEl22.style.opacity = '1';
+    selectedVal22 = val;
+    selectedEl22 = el;
+    el.style.opacity = '0.6';
+}
 
-    function placeValue(targetId) {
-      if (!selectedVal) {
+function placeValue22(targetId) {
+    if (!selectedVal22) {
         alert("Please click a value from the bank first!");
         return;
-      }
-      const target = document.getElementById(targetId);
-      target.innerText = selectedVal;
-      target.style.borderColor = "var(--accent)";
-      target.style.color = "var(--accent)";
     }
+    const target = document.getElementById(targetId);
+    target.innerText = selectedVal22;
+    target.style.borderColor = "#15803d";
+    target.style.color = "#15803d";
+}
 
-    function checkPractical() {
-      const r = document.getElementById('rev-slot').innerText;
-      const c = document.getElementById('cogs-slot').innerText;
-      const gp = document.getElementById('gp-slot').innerText;
-      const feedback = document.getElementById('practical-feedback');
-      
-      if (r === "$250,000" && c === "$100,000" && gp === "$150,000") {
-        feedback.style.color = "var(--accent)";
+function checkPractical22() {
+    const r = document.getElementById('rev-slot22').innerText;
+    const c = document.getElementById('cogs-slot22').innerText;
+    const gp = document.getElementById('gp-slot22').innerText;
+    const feedback = document.getElementById('practical-feedback22');
+
+    if (r === "$250,000" && c === "$100,000" && gp === "$150,000") {
+        feedback.style.color = "#15803d";
         feedback.innerHTML = "Awesome! You have built the statement perfectly. Revenue ($250k) - COGS ($100k) = Gross Profit ($150k).";
-        document.getElementById('post-quiz-options').style.display = 'block';
-      } else {
+        document.getElementById('post-quiz-options22').style.display = 'block';
+    } else {
         feedback.style.color = "red";
         feedback.innerHTML = "Incorrect layout. Make sure Revenue is highest, direct costs are COGS, and the difference is Gross Profit.";
-      }
     }
+}
 
-    function toggleReview() {
-      const panel = document.getElementById('review-panel');
-      if (panel.style.display === 'block') {
+function toggleReview22() {
+    const panel = document.getElementById('review-panel22');
+    if (panel.style.display === 'block') {
         panel.style.display = 'none';
         return;
-      }
-      let html = "<h3>Quiz Review</h3>";
-      userAnswers.forEach((ans, i) => {
-        html += `
-          <div class="review-box">
-            <p><strong>Q${i+1}: ${ans.q}</strong></p>
-            <p style="color: green;">✓ Correct Answer: ${ans.correctOpt}</p>
-            <p style="color: var(--text-muted); font-style: italic;">Why? ${ans.exp}</p>
-          </div>`;
-      });
-      panel.innerHTML = html;
-      panel.style.display = 'block';
     }
+    let html = "<h3>Quiz Review</h3>";
+    userAnswers22.forEach((ans, i) => {
+        html += `<div style="margin-top:20px; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:15px;">
+            <p><strong>Q${i+1}: ${ans.q}</strong></p>
+            <p style="color:green;">✓ Correct Answer: ${ans.correctOpt}</p>
+            <p style="color:#64748b; font-style:italic;">Why? ${ans.exp}</p>
+        </div>`;
+    });
+    panel.innerHTML = html;
+    panel.style.display = 'block';
+}
 
-    loadQuestion();
-  </script>
-</body>
-</html>
+loadQuestion22();
+</script>
