@@ -53,56 +53,26 @@
 </div>
 
 <style>
-    .drag-chip-l14 {
-        display: inline-flex;
-        align-items: center;
-        background: white;
+    .dropdown-select-l14 {
+        width: 100%;
+        background: #f8fafc;
         border: 1.5px solid #cbd5e1;
         color: #1e293b;
         font-weight: 700;
         font-size: 12px;
-        padding: 8px 14px;
+        padding: 8px 10px;
         border-radius: 8px;
-        cursor: grab;
-        user-select: none;
-        transition: all 0.2s;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.03);
-    }
-    
-    .drag-chip-l14.selected-chip {
-        border-color: #3b82f6 !important;
-        background-color: #eff6ff !important;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
-    }
-
-    .target-slot-l14 {
-        background: #f8fafc;
-        border: 1.5px dashed #cbd5e1;
-        border-radius: 8px;
-        min-height: 42px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 4px;
         box-sizing: border-box;
+        outline: none;
         transition: all 0.2s;
-        font-size: 12px;
-        color: #94a3b8;
-        text-align: center;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
         cursor: pointer;
     }
-
-    .target-slot-l14.dragover {
-        background: #eff6ff;
-        border-color: #3b82f6;
-        border-style: solid;
-    }
-
-    .target-slot-l14.filled {
-        background: white;
-        border-style: solid;
-        border-color: #e2e8f0;
-        box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    
+    .dropdown-select-l14:focus {
+        border-color: #3b82f6 !important;
+        background-color: #ffffff !important;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
     }
 
     .slide-question-l14 {
@@ -131,7 +101,7 @@
         <div style="padding: 24px; overflow-y: auto; flex: 1; box-sizing: border-box; background: #fafafb;">
             
             <p style="margin: 0 0 20px 0; font-size: 13.5px; color: #64748b; text-align: center; line-height: 1.5;">
-                <strong>Tap</strong> or <strong>drag</strong> accounts and values into the correct slots below. (Tap a chip to select it, then tap a slot to place it).
+                <strong>Select</strong> the correct account titles and values from each drop-down menu below.
             </p>
 
             <div id="quiz_scenarios_l14">
@@ -146,12 +116,44 @@
                                 <div style="font-weight: 800; font-size: 11px; text-transform: uppercase; color: #0f172a; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 12px;">General Journal Entry</div>
                                 <div style="display: flex; flex-direction: column; gap: 10px;">
                                     <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; align-items: center;">
-                                        <div class="target-slot-l14" data-expected="chip14_ar" data-placeholder="Debit Account">Debit Account</div>
-                                        <div class="target-slot-l14" data-expected="val14_500" data-placeholder="Debit ($)">Debit ($)</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="chip14_ar">
+                                            <option value="">Select Account...</option>
+                                            <option value="chip14_cash">Cash</option>
+                                            <option value="chip14_ap">Accounts Payable</option>
+                                            <option value="chip14_ar">Accounts Receivable</option>
+                                            <option value="chip14_eq">Equipment</option>
+                                            <option value="chip14_sr">Sales Revenue</option>
+                                            <option value="chip14_cap">Capital</option>
+                                        </select>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_500">
+                                            <option value="">Select Value...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                     <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; align-items: center; padding-left: 16px;">
-                                        <div class="target-slot-l14" data-expected="chip14_sr" data-placeholder="Credit Account">Credit Account</div>
-                                        <div class="target-slot-l14" data-expected="val14_500" data-placeholder="Credit ($)">Credit ($)</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="chip14_sr">
+                                            <option value="">Select Account...</option>
+                                            <option value="chip14_cash">Cash</option>
+                                            <option value="chip14_ap">Accounts Payable</option>
+                                            <option value="chip14_ar">Accounts Receivable</option>
+                                            <option value="chip14_eq">Equipment</option>
+                                            <option value="chip14_sr">Sales Revenue</option>
+                                            <option value="chip14_cap">Capital</option>
+                                        </select>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_500">
+                                            <option value="">Select Value...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -160,13 +162,29 @@
                                 <div style="display: flex; flex-direction: column; gap: 10px;">
                                     <div style="font-size: 11px; font-weight: 800; color: #475569;">Accounts Receivable Ledger Account</div>
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                                        <div class="target-slot-l14" data-expected="val14_500" data-placeholder="Debit Entry">Debit Entry</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_500">
+                                            <option value="">Select Entry...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                         <div style="background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #94a3b8; font-style: italic;">No Credit</div>
                                     </div>
                                     <div style="font-size: 11px; font-weight: 800; color: #475569; margin-top: 6px;">Sales Revenue Ledger Account</div>
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                                         <div style="background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #94a3b8; font-style: italic;">No Debit</div>
-                                        <div class="target-slot-l14" data-expected="val14_500" data-placeholder="Credit Entry">Credit Entry</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_500">
+                                            <option value="">Select Entry...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -184,16 +202,64 @@
                                 <div style="font-weight: 800; font-size: 11px; text-transform: uppercase; color: #0f172a; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 12px;">General Journal Entry</div>
                                 <div style="display: flex; flex-direction: column; gap: 10px;">
                                     <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; align-items: center;">
-                                        <div class="target-slot-l14" data-expected="chip14_eq" data-placeholder="Debit Account">Debit Account</div>
-                                        <div class="target-slot-l14" data-expected="val14_80k" data-placeholder="Debit ($)">Debit ($)</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="chip14_eq">
+                                            <option value="">Select Account...</option>
+                                            <option value="chip14_cash">Cash</option>
+                                            <option value="chip14_ap">Accounts Payable</option>
+                                            <option value="chip14_ar">Accounts Receivable</option>
+                                            <option value="chip14_eq">Equipment</option>
+                                            <option value="chip14_sr">Sales Revenue</option>
+                                            <option value="chip14_cap">Capital</option>
+                                        </select>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_80k">
+                                            <option value="">Select Value...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                     <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; align-items: center; padding-left: 16px;">
-                                        <div class="target-slot-l14" data-expected="chip14_cash" data-placeholder="Credit Account 1">Credit Account 1</div>
-                                        <div class="target-slot-l14" data-expected="val14_25k" data-placeholder="Credit ($)">Credit ($)</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="chip14_cash">
+                                            <option value="">Select Account...</option>
+                                            <option value="chip14_cash">Cash</option>
+                                            <option value="chip14_ap">Accounts Payable</option>
+                                            <option value="chip14_ar">Accounts Receivable</option>
+                                            <option value="chip14_eq">Equipment</option>
+                                            <option value="chip14_sr">Sales Revenue</option>
+                                            <option value="chip14_cap">Capital</option>
+                                        </select>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_25k">
+                                            <option value="">Select Value...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                     <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; align-items: center; padding-left: 16px;">
-                                        <div class="target-slot-l14" data-expected="chip14_ap" data-placeholder="Credit Account 2">Credit Account 2</div>
-                                        <div class="target-slot-l14" data-expected="val14_55k" data-placeholder="Credit ($)">Credit ($)</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="chip14_ap">
+                                            <option value="">Select Account...</option>
+                                            <option value="chip14_cash">Cash</option>
+                                            <option value="chip14_ap">Accounts Payable</option>
+                                            <option value="chip14_ar">Accounts Receivable</option>
+                                            <option value="chip14_eq">Equipment</option>
+                                            <option value="chip14_sr">Sales Revenue</option>
+                                            <option value="chip14_cap">Capital</option>
+                                        </select>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_55k">
+                                            <option value="">Select Value...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -202,18 +268,42 @@
                                 <div style="display: flex; flex-direction: column; gap: 8px;">
                                     <div style="font-size: 11px; font-weight: 800; color: #475569;">Equipment Account Ledger</div>
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                                        <div class="target-slot-l14" data-expected="val14_80k" data-placeholder="Debit Entry">Debit Entry</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_80k">
+                                            <option value="">Select Entry...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                         <div style="background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8; font-style: italic;">No Credit</div>
                                     </div>
                                     <div style="font-size: 11px; font-weight: 800; color: #475569; margin-top: 4px;">Cash Account Ledger</div>
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                                         <div style="background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8; font-style: italic;">No Debit</div>
-                                        <div class="target-slot-l14" data-expected="val14_25k" data-placeholder="Credit Entry">Credit Entry</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_25k">
+                                            <option value="">Select Entry...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                     <div style="font-size: 11px; font-weight: 800; color: #475569; margin-top: 4px;">Accounts Payable Account Ledger</div>
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                                         <div style="background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #94a3b8; font-style: italic;">No Debit</div>
-                                        <div class="target-slot-l14" data-expected="val14_55k" data-placeholder="Credit Entry">Credit Entry</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_55k">
+                                            <option value="">Select Entry...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -231,12 +321,44 @@
                                 <div style="font-weight: 800; font-size: 11px; text-transform: uppercase; color: #0f172a; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 12px;">General Journal Entry</div>
                                 <div style="display: flex; flex-direction: column; gap: 10px;">
                                     <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; align-items: center;">
-                                        <div class="target-slot-l14" data-expected="chip14_cash" data-placeholder="Debit Account">Debit Account</div>
-                                        <div class="target-slot-l14" data-expected="val14_50k" data-placeholder="Debit ($)">Debit ($)</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="chip14_cash">
+                                            <option value="">Select Account...</option>
+                                            <option value="chip14_cash">Cash</option>
+                                            <option value="chip14_ap">Accounts Payable</option>
+                                            <option value="chip14_ar">Accounts Receivable</option>
+                                            <option value="chip14_eq">Equipment</option>
+                                            <option value="chip14_sr">Sales Revenue</option>
+                                            <option value="chip14_cap">Capital</option>
+                                        </select>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_50k">
+                                            <option value="">Select Value...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                     <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; align-items: center; padding-left: 16px;">
-                                        <div class="target-slot-l14" data-expected="chip14_cap" data-placeholder="Credit Account">Credit Account</div>
-                                        <div class="target-slot-l14" data-expected="val14_50k" data-placeholder="Credit ($)">Credit ($)</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="chip14_cap">
+                                            <option value="">Select Account...</option>
+                                            <option value="chip14_cash">Cash</option>
+                                            <option value="chip14_ap">Accounts Payable</option>
+                                            <option value="chip14_ar">Accounts Receivable</option>
+                                            <option value="chip14_eq">Equipment</option>
+                                            <option value="chip14_sr">Sales Revenue</option>
+                                            <option value="chip14_cap">Capital</option>
+                                        </select>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_50k">
+                                            <option value="">Select Value...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -245,13 +367,29 @@
                                 <div style="display: flex; flex-direction: column; gap: 10px;">
                                     <div style="font-size: 11px; font-weight: 800; color: #475569;">Cash Account Ledger</div>
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                                        <div class="target-slot-l14" data-expected="val14_50k" data-placeholder="Debit Entry">Debit Entry</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_50k">
+                                            <option value="">Select Entry...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                         <div style="background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #94a3b8; font-style: italic;">No Credit</div>
                                     </div>
                                     <div style="font-size: 11px; font-weight: 800; color: #475569; margin-top: 6px;">Capital Account Ledger</div>
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                                         <div style="background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #94a3b8; font-style: italic;">No Debit</div>
-                                        <div class="target-slot-l14" data-expected="val14_50k" data-placeholder="Credit Entry">Credit Entry</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_50k">
+                                            <option value="">Select Entry...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -269,12 +407,44 @@
                                 <div style="font-weight: 800; font-size: 11px; text-transform: uppercase; color: #0f172a; border-bottom: 2px solid #0f172a; padding-bottom: 6px; margin-bottom: 12px;">General Journal Entry</div>
                                 <div style="display: flex; flex-direction: column; gap: 10px;">
                                     <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; align-items: center;">
-                                        <div class="target-slot-l14" data-expected="chip14_ar" data-placeholder="Debit Account">Debit Account</div>
-                                        <div class="target-slot-l14" data-expected="val14_400" data-placeholder="Debit ($)">Debit ($)</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="chip14_ar">
+                                            <option value="">Select Account...</option>
+                                            <option value="chip14_cash">Cash</option>
+                                            <option value="chip14_ap">Accounts Payable</option>
+                                            <option value="chip14_ar">Accounts Receivable</option>
+                                            <option value="chip14_eq">Equipment</option>
+                                            <option value="chip14_sr">Sales Revenue</option>
+                                            <option value="chip14_cap">Capital</option>
+                                        </select>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_400">
+                                            <option value="">Select Value...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                     <div style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 8px; align-items: center; padding-left: 16px;">
-                                        <div class="target-slot-l14" data-expected="chip14_sr" data-placeholder="Credit Account">Credit Account</div>
-                                        <div class="target-slot-l14" data-expected="val14_400" data-placeholder="Credit ($)">Credit ($)</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="chip14_sr">
+                                            <option value="">Select Account...</option>
+                                            <option value="chip14_cash">Cash</option>
+                                            <option value="chip14_ap">Accounts Payable</option>
+                                            <option value="chip14_ar">Accounts Receivable</option>
+                                            <option value="chip14_eq">Equipment</option>
+                                            <option value="chip14_sr">Sales Revenue</option>
+                                            <option value="chip14_cap">Capital</option>
+                                        </select>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_400">
+                                            <option value="">Select Value...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -283,13 +453,29 @@
                                 <div style="display: flex; flex-direction: column; gap: 10px;">
                                     <div style="font-size: 11px; font-weight: 800; color: #475569;">Accounts Receivable Ledger Account</div>
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
-                                        <div class="target-slot-l14" data-expected="val14_400" data-placeholder="Debit Entry">Debit Entry</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_400">
+                                            <option value="">Select Entry...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                         <div style="background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #94a3b8; font-style: italic;">No Credit</div>
                                     </div>
                                     <div style="font-size: 11px; font-weight: 800; color: #475569; margin-top: 6px;">Sales Revenue Ledger Account</div>
                                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px;">
                                         <div style="background: #f1f5f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #94a3b8; font-style: italic;">No Debit</div>
-                                        <div class="target-slot-l14" data-expected="val14_400" data-placeholder="Credit Entry">Credit Entry</div>
+                                        <select class="dropdown-select-l14 quiz-dropdown-l14" data-expected="val14_400">
+                                            <option value="">Select Entry...</option>
+                                            <option value="val14_400">$400</option>
+                                            <option value="val14_500">$500</option>
+                                            <option value="val14_25k">$25,000</option>
+                                            <option value="val14_50k">$50,000</option>
+                                            <option value="val14_55k">$55,000</option>
+                                            <option value="val14_80k">$80,000</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
@@ -297,32 +483,6 @@
                     </div>
                 </div>
 
-            </div>
-
-            <div style="background: white; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 20px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);">
-                <div style="margin-bottom: 16px;">
-                    <span style="font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 10px;">🏷️ Drag or Tap Account Titles</span>
-                    <div style="display: flex; flex-wrap: wrap; gap: 10px;" id="titles_tray_l14">
-                        <div class="drag-chip-l14" draggable="true" id="chip14_cash">Cash</div>
-                        <div class="drag-chip-l14" draggable="true" id="chip14_ap">Accounts Payable</div>
-                        <div class="drag-chip-l14" draggable="true" id="chip14_ar">Accounts Receivable</div>
-                        <div class="drag-chip-l14" draggable="true" id="chip14_eq">Equipment</div>
-                        <div class="drag-chip-l14" draggable="true" id="chip14_sr">Sales Revenue</div>
-                        <div class="drag-chip-l14" draggable="true" id="chip14_cap">Capital</div>
-                    </div>
-                </div>
-
-                <div style="border-top: 1px dashed #e2e8f0; padding-top: 16px; margin-top: 16px;">
-                    <span style="font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; display: block; margin-bottom: 10px;">💵 Drag or Tap Values & Amounts</span>
-                    <div style="display: flex; flex-wrap: wrap; gap: 10px;" id="amounts_tray_l14">
-                        <div class="drag-chip-l14" draggable="true" id="val14_400" style="background: #f0fdf4; color: #166534; border-color: #bbf7d0;">$400</div>
-                        <div class="drag-chip-l14" draggable="true" id="val14_500" style="background: #f0fdf4; color: #166534; border-color: #bbf7d0;">$500</div>
-                        <div class="drag-chip-l14" draggable="true" id="val14_25k" style="background: #f0fdf4; color: #166534; border-color: #bbf7d0;">$25,000</div>
-                        <div class="drag-chip-l14" draggable="true" id="val14_50k" style="background: #f0fdf4; color: #166534; border-color: #bbf7d0;">$50,000</div>
-                        <div class="drag-chip-l14" draggable="true" id="val14_55k" style="background: #f0fdf4; color: #166534; border-color: #bbf7d0;">$55,000</div>
-                        <div class="drag-chip-l14" draggable="true" id="val14_80k" style="background: #f0fdf4; color: #166534; border-color: #bbf7d0;">$80,000</div>
-                    </div>
-                </div>
             </div>
 
             <div id="quiz_result_panel_l14" style="display: none; padding: 20px; border-radius: 14px; text-align: center; border: 2px dashed; margin-top: 18px; line-height: 1.5;">
@@ -344,119 +504,30 @@
 <script>
     let currentSlideIndexL14 = 1;
     const totalSlidesL14 = 4;
-    let draggedElementL14 = null;
-    let selectedChipL14 = null;
-
-    function placeChipIntoSlot(slot, chip) {
-        const existingChip = slot.querySelector('.drag-chip-l14');
-        if (existingChip) {
-            existingChip.remove();
-        }
-
-        slot.innerHTML = '';
-        const clone = chip.cloneNode(true);
-        clone.classList.remove('selected-chip');
-        
-        clone.addEventListener('click', (e) => {
-            e.stopPropagation();
-            clone.remove();
-            slot.classList.remove('filled');
-            slot.innerHTML = slot.getAttribute('data-placeholder');
-            slot.style.borderColor = '#cbd5e1';
-            slot.style.backgroundColor = '#f8fafc';
-            slot.style.borderStyle = 'dashed';
-        });
-
-        slot.appendChild(clone);
-        slot.classList.add('filled');
-        slot.style.borderStyle = 'solid';
-        slot.style.borderColor = '#e2e8f0';
-        slot.style.backgroundColor = 'white';
-    }
-
-    (function initDragAndDropL14() {
-        document.querySelectorAll('.drag-chip-l14').forEach(chip => {
-            // Desktop Drag Events
-            chip.addEventListener('dragstart', (e) => {
-                draggedElementL14 = chip;
-                e.dataTransfer.setData('text/plain', chip.id);
-                e.dataTransfer.effectAllowed = 'move';
-                chip.style.opacity = '0.5';
-            });
-
-            chip.addEventListener('dragend', () => {
-                chip.style.opacity = '1';
-                draggedElementL14 = null;
-            });
-
-            // Mobile Tap-to-Select Event
-            chip.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if (selectedChipL14 === chip) {
-                    chip.classList.remove('selected-chip');
-                    selectedChipL14 = null;
-                } else {
-                    document.querySelectorAll('.drag-chip-l14').forEach(c => c.classList.remove('selected-chip'));
-                    selectedChipL14 = chip;
-                    chip.classList.add('selected-chip');
-                }
-            });
-        });
-
-        document.querySelectorAll('.target-slot-l14').forEach(slot => {
-            slot.addEventListener('dragover', (e) => {
-                e.preventDefault();
-                slot.classList.add('dragover');
-            });
-
-            slot.addEventListener('dragleave', () => {
-                slot.classList.remove('dragover');
-            });
-
-            slot.addEventListener('drop', (e) => {
-                e.preventDefault();
-                slot.classList.remove('dragover');
-
-                if (draggedElementL14) {
-                    placeChipIntoSlot(slot, draggedElementL14);
-                }
-            });
-
-            // Mobile Tap-to-Place Event
-            slot.addEventListener('click', () => {
-                if (selectedChipL14) {
-                    placeChipIntoSlot(slot, selectedChipL14);
-                    selectedChipL14.classList.remove('selected-chip');
-                    selectedChipL14 = null;
-                }
-            });
-        });
-    })();
 
     function checkCurrentSlideL14() {
         const activeSlide = document.getElementById(`l14_slide_${currentSlideIndexL14}`);
-        const slots = activeSlide.querySelectorAll('.target-slot-l14');
+        const dropdowns = activeSlide.querySelectorAll('.quiz-dropdown-l14');
         let slideCorrectCount = 0;
-        const totalSlideSlots = slots.length;
+        const totalSlideDropdowns = dropdowns.length;
 
-        slots.forEach(slot => {
-            const childChip = slot.querySelector('.drag-chip-l14');
-            const expectedId = slot.getAttribute('data-expected');
+        dropdowns.forEach(select => {
+            const expectedVal = select.getAttribute('data-expected');
 
-            if (childChip && childChip.id === expectedId) {
+            if (select.value === expectedVal) {
                 slideCorrectCount++;
-                slot.style.borderColor = '#10b981';
-                slot.style.backgroundColor = '#f0fdf4';
+                select.style.borderColor = '#10b981';
+                select.style.backgroundColor = '#f0fdf4';
             } else {
-                slot.style.borderColor = '#ef4444';
-                slot.style.backgroundColor = '#fef2f2';
+                select.style.borderColor = '#ef4444';
+                select.style.backgroundColor = '#fef2f2';
             }
         });
 
         const resultPanel = document.getElementById('quiz_result_panel_l14');
         resultPanel.style.display = 'block';
 
-        if (slideCorrectCount === totalSlideSlots) {
+        if (slideCorrectCount === totalSlideDropdowns) {
             resultPanel.style.backgroundColor = '#ecfdf5';
             resultPanel.style.borderColor = '#10b981';
             resultPanel.style.color = '#065f46';
@@ -505,20 +576,16 @@
 
     function resetL14Quiz() {
         const activeSlide = document.getElementById(`l14_slide_${currentSlideIndexL14}`);
-        const slots = activeSlide.querySelectorAll('.target-slot-l14');
+        const dropdowns = activeSlide.querySelectorAll('.quiz-dropdown-l14');
         
-        slots.forEach(slot => {
-            slot.classList.remove('filled');
-            slot.innerHTML = slot.getAttribute('data-placeholder');
-            slot.style.borderStyle = 'dashed';
-            slot.style.borderColor = '#cbd5e1';
-            slot.style.backgroundColor = '#f8fafc';
+        dropdowns.forEach(select => {
+            select.value = "";
+            select.style.borderColor = '#cbd5e1';
+            select.style.backgroundColor = '#f8fafc';
         });
 
         document.getElementById('btn_check_answer_l14').style.display = 'inline-block';
         document.getElementById('btn_next_question_l14').style.display = 'none';
         document.getElementById('quiz_result_panel_l14').style.display = 'none';
-        selectedChipL14 = null;
-        document.querySelectorAll('.drag-chip-l14').forEach(c => c.classList.remove('selected-chip'));
     }
 </script>
