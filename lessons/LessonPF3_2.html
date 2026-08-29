@@ -8,21 +8,46 @@
 .stat{padding:15px;border-radius:15px}
 </style>
 <div class="scroll-reveal-card" style="margin-top:0;">
-<span class="lesson-tag" style="background:#e6f2ff;color:#376d9d;">Lesson 3.1</span>
-<h2 style="margin:12px 0 8px;font-size:26px;color:#0f172a;font-weight:800;">Credit Scores 101</h2>
-<p style="line-height:1.65;color:#475569;font-size:15px;margin:0;">Credit scores summarize information from credit reports using scoring models. Understanding the underlying behaviors is more useful than memorizing one number.</p>
-</div>('<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">📊 Credit Score Signal Lab</h3>\n<p style="color:#475569;line-height:1.6;">Credit scores are calculated from information in credit reports. Different scoring models can weigh factors differently, so treat the examples as learning scenarios rather than a promise of a particular score.</p>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">\n<div class="stat" style="background:#eaf4ff;"><b>Payment history</b><br><span style="font-size:13px;color:#475569;">Whether payments were made as agreed.</span></div>\n<div class="stat" style="background:#fff4df;"><b>Amounts owed</b><br><span style="font-size:13px;color:#475569;">Balances can matter to scoring models.</span></div>\n<div class="stat" style="background:#f5efff;"><b>Credit history</b><br><span style="font-size:13px;color:#475569;">Length and experience can matter.</span></div>\n<div class="stat" style="background:#edf9f1;"><b>New credit</b><br><span style="font-size:13px;color:#475569;">Recent applications can be relevant.</span></div>\n</div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Character Game: Sam\'s Credit Journey</h3>\n<p style="color:#475569;line-height:1.6;"><b>Sam</b> is starting to learn about credit. Across several everyday situations, choose the action that is most likely to support healthy credit habits.</p>\n<div class="game-panel"><div id="game31"></div></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🛠️ Credit Report Checkup</h3>\n<p style="color:#475569;">A credit report is different from a credit score. A report contains the underlying information that scoring models may use.</p>\n<div class="stat" style="background:#f5efff;"><b>Key habit:</b> review your credit information for accuracy and understand which behaviors affect your borrowing profile.</div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 3.1 Quiz</h3><div id="quiz31"></div></div>')<script>
-const g31=[
-["Sam has a payment due under the terms of a credit account. Which habit is generally strongest?",["Make the payment on time as agreed","Wait until several payments are missed","Open another account instead","Ignore the statement"],0],
-["Sam sees an unfamiliar item on a credit report. What should Sam do?",["Review the report details and follow the appropriate dispute or investigation process","Post personal information publicly","Assume every unfamiliar item is correct","Delete all accounts"],0],
-["Sam wants to learn why a score changed. What is the best approach?",["Review the relevant credit-report information and the scoring factors that may apply","Assume one rumor explains every score","Focus only on income","Assume scores never change"],0]
+<span class="lesson-tag" style="background:#fff0e8;color:#a9574f;">Lesson 3.2</span>
+<h2 style="margin:12px 0 8px;font-size:26px;color:#0f172a;font-weight:800;">Credit Cards</h2>
+<p style="line-height:1.65;color:#475569;font-size:15px;margin:0;">Credit cards are a form of borrowing. Understanding balances, minimum payments, APR, and repayment can help students make informed decisions.</p>
+</div>
+<style>
+.lesson-shell{max-width:900px;margin:0 auto;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#243447;}
+.lesson-shell .scroll-reveal-card{box-sizing:border-box;}
+.budget-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:16px;}
+.budget-grid label{display:flex;flex-direction:column;gap:7px;font-weight:700;color:#334155;}
+.budget-grid input{width:100%;box-sizing:border-box;padding:11px 12px;border:1px solid #cbd5e1;border-radius:10px;font:inherit;background:#fff;}
+@media(max-width:620px){.budget-grid{grid-template-columns:1fr;}}
+</style>
+<div class="lesson-shell">
+<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">💳 Credit Card Anatomy</h3>
+<p style="color:#475569;line-height:1.6;">A credit card lets you borrow up to a credit limit and repay what you owe under the card agreement. Important terms include balance, minimum payment, interest, APR, and credit limit.</p>
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">
+<div class="stat" style="background:#eaf4ff;"><b>Credit limit</b><br><span style="font-size:13px;color:#475569;">Maximum amount available under the account.</span></div>
+<div class="stat" style="background:#fff4df;"><b>Balance</b><br><span style="font-size:13px;color:#475569;">Amount currently owed.</span></div>
+<div class="stat" style="background:#f5efff;"><b>APR</b><br><span style="font-size:13px;color:#475569;">Annual percentage rate for borrowing costs, subject to the agreement.</span></div>
+<div class="stat" style="background:#edf9f1;"><b>Minimum payment</b><br><span style="font-size:13px;color:#475569;">The smallest payment required by the agreement for that billing cycle.</span></div>
+</div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🧮 Interest & Payment Challenge</h3>
+<p style="color:#475569;">A fictional card has a $600 balance. The student makes a $100 payment and no new purchases. Ignoring interest and fees for this simple exercise, what balance remains?</p>
+<input id="cc32" type="number" placeholder="Remaining balance" style="padding:10px;border:1px solid #cbd5e1;border-radius:8px;">
+<button onclick="cc32()" style="background:#b56b83;color:white;border:0;padding:11px 16px;border-radius:8px;font-weight:700;">Check</button>
+<div id="ccr32" style="margin-top:12px;"></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Character Game: Riley's Card Choices</h3>
+<p style="color:#475569;line-height:1.6;"><b>Riley</b> uses a fictional credit card while handling everyday choices. Your job is to help Riley understand the consequences before clicking "buy."</p>
+<div class="game-panel"><div id="game32"></div></div></div><div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 3.2 Quiz</h3><div id="quiz32"></div></div>
+</div><script>
+function cc32(){let v=Number(document.getElementById('cc32').value);document.getElementById('ccr32').innerHTML=v===500?'<div class="stat" style="background:#edf9f1;color:#166534;"><b>Correct.</b> $600 − $100 = $500 in this simplified example.</div>':'<div class="stat" style="background:#fff4f4;color:#9f1239;">Try again. Subtract the payment from the starting balance.</div>'}
+const g32=[
+["Riley can buy a $240 item today but cannot fit the purchase into the monthly plan. What should Riley consider first?",["Whether the purchase is affordable under the card agreement and the total cost of borrowing","Only whether the card has room","Whether a friend would also buy it","Whether the purchase has a fun name"],0],
+["Riley receives a statement showing a minimum payment and a larger statement balance. What is important to understand?",["The minimum payment is the required minimum, while paying more can affect how quickly the balance is repaid and interest costs may apply","The minimum payment makes the rest disappear","The statement balance is optional","Interest can never apply"],0],
+["Riley wants to use a card responsibly. Which habit is strongest?",["Track purchases, understand the agreement, and make payments on time","Use the entire credit limit each month","Ignore statements","Open multiple cards for every purchase"],0]
 ];
-let gi31=0;function lg31(){let q=g31[gi31];document.getElementById('game31').innerHTML="<p><b>Scenario "+(gi31+1)+" of 3</b></p><p>"+q[0]+"</p>"+q[1].map((x,i)=>'<button class="choice" onclick="ag31('+i+')">'+x+'</button>').join("")}function ag31(i){if(i===g31[gi31][2]){gi31++;gi31<g31.length?lg31():document.getElementById('game31').innerHTML='<h4 style="color:#16705b;text-align:center;">⭐ Sam built three strong credit habits!</h4>'}else alert("Think about accurate information, on-time behavior, and responsible credit use.")}lg31();
-const q31=[
-["Which statement is most accurate?",["A credit score is the same thing as a credit report","A credit score is a number calculated from information in a credit report","A credit score is your bank balance","A credit score is your salary"],1],
-["Why does payment history matter?",["Scoring models can consider whether payments were made as agreed","It guarantees approval for every loan","It replaces income","It has no relationship to credit"],0],
-["Why can high balances matter?",["Some scoring models consider amounts owed relative to available credit","High balances always increase a score","Balances are never reported","Balances determine your income"],0],
-["What is a good reason to review a credit report?",["To check for accuracy and unfamiliar information","To guarantee a specific score","To erase legitimate history","To increase your paycheck"],0]
+let gi32=0;function lg32(){let q=g32[gi32];document.getElementById('game32').innerHTML="<p><b>Choice "+(gi32+1)+" of 3</b></p><p>"+q[0]+"</p>"+q[1].map((x,i)=>'<button class="choice" onclick="ag32('+i+')">'+x+'</button>').join("")}function ag32(i){if(i===g32[gi32][2]){gi32++;gi32<g32.length?lg32():document.getElementById('game32').innerHTML='<h4 style="color:#16705b;text-align:center;">💳 Riley made three informed card decisions!</h4>'}else alert("Think about affordability, the card agreement, and the cost of borrowing.")}lg32();
+const q32=[
+["What does APR help describe?",["The annual rate associated with borrowing costs","Your bank balance","Your credit limit only","Your tax refund"],0],
+["What is the minimum payment?",["The smallest payment required by the card agreement for a billing cycle","The amount that must always equal the full balance","A fee paid to open a bank account","A guaranteed interest-free amount"],0],
+["Why can paying only the minimum take longer?",["A balance can remain and interest may apply under the agreement","Minimum payments erase interest","Minimum payments increase income","Credit cards stop charging once a minimum is paid"],0],
+["Which behavior is most responsible?",["Borrow only with a plan for repayment and understand the terms","Spend to the credit limit because it is available","Ignore the APR","Treat a credit limit as income"],0]
 ];
-let qi31=0;function lq31(){let q=q31[qi31];document.getElementById('quiz31').innerHTML="<p><b>Question "+(qi31+1)+" of 4</b></p><p>"+q[0]+"</p>"+q[1].map((x,i)=>'<button class="choice" onclick="aq31('+i+')">'+x+'</button>').join("")}function aq31(i){if(i===q31[qi31][2]){qi31++;qi31<q31.length?lq31():document.getElementById('quiz31').innerHTML='<h4 style="color:#16705b;text-align:center;">🎉 Quiz complete!</h4>'}else alert("Not quite. Re-read the question carefully.")}lq31();
+let qi32=0;function lq32(){let q=q32[qi32];document.getElementById('quiz32').innerHTML="<p><b>Question "+(qi32+1)+" of 4</b></p><p>"+q[0]+"</p>"+q[1].map((x,i)=>'<button class="choice" onclick="aq32('+i+')">'+x+'</button>').join("")}function aq32(i){if(i===q32[qi32][2]){qi32++;qi32<q32.length?lq32():document.getElementById('quiz32').innerHTML='<h4 style="color:#16705b;text-align:center;">🎉 Quiz complete!</h4>'}else alert("Not quite. Think carefully about the terms.")}lq32();
 </script>
