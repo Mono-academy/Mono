@@ -1,0 +1,36 @@
+
+<style>
+.scroll-reveal-card{background:linear-gradient(145deg,#fff 0%,#fbfffe 100%);border:1px solid #d7ebe5 !important;border-radius:22px !important;box-shadow:0 8px 24px rgba(80,110,100,.10);padding:24px !important;}
+.lesson-tag{font-size:11px;font-weight:800;padding:5px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.05em;display:inline-block}
+.game-panel{background:#f7fffc;border:1px solid #cfe9df;border-radius:16px;padding:20px}
+.choice{display:block;width:100%;margin:9px 0;padding:13px 15px;text-align:left;border:1px solid #cbded8;border-radius:11px;background:#fff;cursor:pointer;color:#334155}
+.choice:hover{box-shadow:0 4px 12px rgba(60,100,90,.12);transform:translateY(-1px)}
+.stat{padding:15px;border-radius:15px}
+</style>
+<div class="scroll-reveal-card" style="margin-top:0;">
+<span class="lesson-tag" style="background:#dff6ef;color:#176b5d;">Lesson 2.1</span>
+<h2 style="margin:12px 0 8px;font-size:26px;color:#0f172a;font-weight:800;">Banking Fundamentals</h2>
+<p style="line-height:1.65;color:#475569;font-size:15px;margin:0;">Banking tools help people store, access, move, and monitor money. Understanding how accounts and transactions work makes everyday money decisions easier.</p>
+</div>('<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🏦 Meet Your Money Tools</h3>\n<p style="color:#475569;line-height:1.6;">A bank account can help you store money, receive income, pay for purchases, and move money safely. Click each tool.</p>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;">\n<button class="choice" onclick="tool21(\'checking\')"><b>Checking</b><br><small>Everyday spending</small></button>\n<button class="choice" onclick="tool21(\'savings\')"><b>Savings</b><br><small>Money set aside</small></button>\n<button class="choice" onclick="tool21(\'debit\')"><b>Debit Card</b><br><small>Spends from an account</small></button>\n<button class="choice" onclick="tool21(\'transfer\')"><b>Transfer</b><br><small>Moves money between accounts</small></button>\n</div><div id="info21" style="display:none;margin-top:15px;padding:14px;border-radius:12px;background:#eafaf5;border:1px solid #c6e8dc;"></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎮 Everyday Life Game: The Saturday Money Run</h3>\n<p style="color:#475569;line-height:1.6;">Meet <b>Jordan</b>, a student with $420 in checking and $180 in savings. Over one Saturday, Jordan needs to make several ordinary money decisions. Choose what makes the most sense at each stop.</p>\n<div class="game-panel"><div id="game21"></div></div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🧠 Banking Decision Checklist</h3>\n<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px;">\n<div class="stat" style="background:#eafaf5;"><b>Balance</b><br><span style="color:#475569;font-size:13px;">Know how much is available before spending.</span></div>\n<div class="stat" style="background:#eef7ff;"><b>Fees</b><br><span style="color:#475569;font-size:13px;">Understand account and transaction fees.</span></div>\n<div class="stat" style="background:#fff8df;"><b>Access</b><br><span style="color:#475569;font-size:13px;">Know how you can deposit, withdraw, and transfer money.</span></div>\n<div class="stat" style="background:#f7efff;"><b>Security</b><br><span style="color:#475569;font-size:13px;">Protect account information and review transactions.</span></div>\n</div></div>', '<div class="scroll-reveal-card" style="margin-top:24px;"><h3 style="font-size:21px;color:#0f172a;">🎯 Lesson 2.1 Quiz</h3><div id="quiz21"></div></div>')<script>
+const tools21={checking:"A checking account is commonly used for frequent deposits, purchases, bill payments, and transfers.",savings:"A savings account is generally designed for money you plan to set aside rather than spend frequently.",debit:"A debit card generally accesses money already in a linked account rather than creating a loan balance.",transfer:"A transfer moves money from one account to another, subject to the institution's rules."};
+function tool21(k){let e=document.getElementById('info21');e.textContent=tools21[k];e.style.display='block'}
+const g21=[
+["Jordan needs to pay a $38 bill today. Which is the most appropriate starting point?",["Use available checking funds if the bill is legitimate and affordable","Move the bill to a credit card automatically","Withdraw all savings first","Ignore the bill because checking accounts are only for deposits"],0],
+["Jordan wants to move $50 from savings to checking for a planned purchase. What is this?",["A transfer","A tax deduction","A loan","A refund"],0],
+["Jordan notices a purchase they do not recognize. What is the best first step?",["Review the transaction details and contact the financial institution through its official channel if needed","Post the account number online","Ignore it unless the balance reaches zero","Give the card to a friend"],0]
+];
+let gidx21=0;
+function loadG21(){let q=g21[gidx21];document.getElementById('game21').innerHTML="<p><b>Stop "+(gidx21+1)+" of 3</b></p><p>"+q[0]+"</p>"+q[1].map((x,i)=>'<button class="choice" onclick="ansG21('+i+')">'+x+'</button>').join("")}
+function ansG21(i){if(i===g21[gidx21][2]){gidx21++;gidx21<g21.length?loadG21():document.getElementById('game21').innerHTML='<h4 style="color:#16705b;text-align:center;">🌿 Saturday complete! Jordan made three thoughtful banking decisions.</h4>'}else alert("Think about the purpose of the account and the safest next step.")}
+loadG21();
+const q21=[
+["Which account is generally intended for frequent everyday transactions?",["Checking","Savings","A certificate of deposit only","A loan account"],0],
+["What does a debit card generally do?",["Accesses money in a linked account","Creates a guaranteed loan","Eliminates taxes","Adds money automatically"],0],
+["Why is checking your account activity useful?",["It can help you notice errors or unauthorized transactions","It guarantees interest","It prevents every possible fee","It increases your income"],0],
+["What should you understand before choosing a bank account?",["Fees, access, features, and how the account works","Only the logo","Only the ATM color","Nothing, because all accounts are identical"],0]
+];
+let qi21=0;
+function loadQ21(){let q=q21[qi21];document.getElementById('quiz21').innerHTML="<p><b>Question "+(qi21+1)+" of "+q21.length+"</b></p><p>"+q[0]+"</p>"+q[1].map((x,i)=>'<button class="choice" onclick="ansQ21('+i+')">'+x+'</button>').join("")}
+function ansQ21(i){if(i===q21[qi21][2]){qi21++;qi21<q21.length?loadQ21():document.getElementById('quiz21').innerHTML='<h4 style="color:#16705b;text-align:center;">🎉 Quiz complete!</h4>'}else alert("Not quite. Reconsider the purpose of the banking tool.")}
+loadQ21();
+</script>
