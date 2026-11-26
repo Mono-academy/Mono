@@ -150,7 +150,7 @@
             min-height: 420px; position: relative; border: 1px solid var(--border-subtle);
             font-family: 'Inter', sans-serif;
             color: var(--text-main); line-height: 1.6;
-            box-sizing: border-box; /* Prevent padding overflow */
+            box-sizing: border-box;
         }
         
         .workbook-viewport h1, .workbook-viewport h2, .workbook-viewport h3 {
@@ -204,7 +204,7 @@
         .top-utility-bar {
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
         }
-        .utility-group-left, .utility-group-right { display: flex; align-items: center; gap: 10px; }
+        .utility-group-left, .utility-group-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
         .theme-toggle-btn, .timer-trigger-btn {
             background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);
@@ -236,6 +236,7 @@
         .modal-card {
             background: var(--bg-card); width: 90%; max-width: 480px; border-radius: 24px;
             padding: 32px; box-shadow: var(--shadow-lg); border: 1px solid var(--border-subtle); position: relative;
+            max-height: 90vh; overflow-y: auto;
         }
         .welcome-title { margin: 0 0 10px 0; font-size: 24px; font-weight: 800; color: var(--text-main); }
         .welcome-desc { font-size: 14px; color: var(--text-muted); line-height: 1.5; margin-bottom: 24px; }
@@ -252,6 +253,18 @@
             font-size: 16px; cursor: pointer; color: var(--text-muted); transition: all 0.2s;
         }
         .modal-close-icon:hover { background: var(--border-subtle); color: var(--text-main); }
+
+        /* Form Inputs inside Modal */
+        .form-group { margin-bottom: 14px; text-align: left; }
+        .form-label { display: block; font-size: 12px; font-weight: 700; color: var(--text-main); margin-bottom: 6px; }
+        .form-input {
+            width: 100%; background: var(--bg-card-subtle); border: 1px solid var(--border-color);
+            color: var(--text-main); padding: 10px 12px; border-radius: 10px;
+            font-size: 13px; box-sizing: border-box; outline: none; transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        .form-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-light); background: var(--bg-card); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 
         /* Focus Timer Controls */
         .timer-display {
@@ -334,6 +347,53 @@
             <div class="timer-controls">
                 <button class="timer-btn timer-btn-primary" id="timer-toggle-btn" onclick="toggleTimer()">Start Focus Session</button>
                 <button class="timer-btn timer-btn-secondary" onclick="resetTimer()">Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mono Academy Ambassador Modal with Sign-Up Form -->
+    <div id="ambassador-modal" class="modal-overlay" role="dialog" aria-labelledby="ambassador-modal-title">
+        <div class="modal-card">
+            <button class="modal-close-icon" onclick="closeAmbassadorModal()" aria-label="Close Ambassador Modal">✕</button>
+            <h2 id="ambassador-modal-title" style="margin: 0 0 6px 0; font-size: 20px; font-weight: 800; text-align: center;">🌟 Mono Academy Ambassador</h2>
+            <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Sign up below to receive our Ambassador Program Guide (PDF) and next steps via email.</p>
+            
+            <!-- Replace YOUR_FORM_ENDPOINT_HERE with your Formspree / Web3Forms URL -->
+            <form id="ambassador-form" action="YOUR_FORM_ENDPOINT_HERE" method="POST" onsubmit="handleAmbassadorSubmit(event)">
+                <div class="form-group">
+                    <label class="form-label" for="amb-name">Full Name</label>
+                    <input type="text" id="amb-name" name="name" class="form-input" placeholder="Jane Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="amb-email">Email Address</label>
+                    <input type="email" id="amb-email" name="email" class="form-input" placeholder="jane@example.com" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="amb-city">City</label>
+                        <input type="text" id="amb-city" name="city" class="form-input" placeholder="Omaha" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="amb-state">State / Province</label>
+                        <input type="text" id="amb-state" name="state" class="form-input" placeholder="NE" required>
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label class="form-label" for="amb-country">Country</label>
+                    <input type="text" id="amb-country" name="country" class="form-input" placeholder="United States" required>
+                </div>
+
+                <button type="submit" id="amb-submit-btn" class="welcome-btn">Submit & Receive Info PDF</button>
+            </form>
+
+            <div id="ambassador-success" style="display: none; text-align: center; padding: 16px 0;">
+                <div style="font-size: 36px; margin-bottom: 10px;">🎉</div>
+                <h3 style="margin: 0 0 8px 0; font-size: 18px; font-weight: 800;">Application Received!</h3>
+                <p style="font-size: 13px; color: var(--text-muted); margin: 0 0 20px 0;">Check your inbox shortly for the Mono Academy Ambassador information packet and PDF.</p>
+                <button class="welcome-btn" onclick="closeAmbassadorModal()">Done</button>
             </div>
         </div>
     </div>
@@ -672,11 +732,14 @@
                 </div>
 
                 <div class="utility-group-right gamification-bar">
+                    <button class="timer-trigger-btn" onclick="openAmbassadorModal()" aria-label="Mono Academy Ambassador">
+                        🌟 <span>Mono Academy Ambassador</span>
+                    </button>
                     <div class="stat-badge" title="Daily Learning Streak">
                         <span>🔥</span> <span id="streak-count">1 Day Streak</span>
                     </div>
                     <div class="stat-badge" title="Daily Target Progress">
-                        <span>🎯</span> <span id="daily-target">0/1 Completed Today</span>
+                        <span>🎯</span> <span id="daily-target">0/5 Completed Today</span>
                     </div>
                 </div>
             </div>
@@ -814,8 +877,13 @@
             localStorage.setItem('mono_streak', streak);
 
             document.getElementById('streak-count').textContent = `${streak} Day Streak`;
-            const dailyCompleted = completedLessons.length > 0 ? 1 : 0;
-            document.getElementById('daily-target').textContent = `${dailyCompleted}/1 Target Completed Today`;
+
+            let dailyRecord = JSON.parse(localStorage.getItem('mono_daily_record')) || { date: today, count: 0 };
+            if (dailyRecord.date !== today) {
+                dailyRecord = { date: today, count: 0 };
+                localStorage.setItem('mono_daily_record', JSON.stringify(dailyRecord));
+            }
+            document.getElementById('daily-target').textContent = `${dailyRecord.count}/5 Completed Today`;
         }
 
         function checkWelcomeModal() {
@@ -831,6 +899,45 @@
 
         function openTimerModal() { document.getElementById('timer-modal').classList.add('active'); }
         function closeTimerModal() { document.getElementById('timer-modal').classList.remove('active'); }
+
+        function openAmbassadorModal() { 
+            document.getElementById('ambassador-form').style.display = 'block';
+            document.getElementById('ambassador-success').style.display = 'none';
+            document.getElementById('ambassador-modal').classList.add('active'); 
+        }
+        function closeAmbassadorModal() { document.getElementById('ambassador-modal').classList.remove('active'); }
+
+        async function handleAmbassadorSubmit(event) {
+            event.preventDefault();
+            const form = event.target;
+            const submitBtn = document.getElementById('amb-submit-btn');
+            const actionUrl = form.getAttribute('action');
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = "Submitting...";
+
+            if (actionUrl && actionUrl !== "YOUR_FORM_ENDPOINT_HERE") {
+                try {
+                    const response = await fetch(actionUrl, {
+                        method: 'POST',
+                        body: new FormData(form),
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    if (!response.ok) throw new Error('Submission failed');
+                } catch (error) {
+                    alert("There was an issue submitting your form. Please try again.");
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = "Submit & Receive Info PDF";
+                    return;
+                }
+            }
+
+            form.reset();
+            submitBtn.disabled = false;
+            submitBtn.textContent = "Submit & Receive Info PDF";
+            form.style.display = 'none';
+            document.getElementById('ambassador-success').style.display = 'block';
+        }
 
         function setTimerPreset(minutes) {
             pauseTimer();
@@ -1186,16 +1293,12 @@
 
                     container.innerHTML = lessonHeaderBar + html + completeFooterHtml;
 
-                    // Execute scripts from dynamically loaded lesson files.
-                    // innerHTML inserts <script> elements without executing them.
                     const lessonScripts = Array.from(container.querySelectorAll('script'));
                     lessonScripts.forEach((oldScript) => {
                         const newScript = document.createElement('script');
-
                         Array.from(oldScript.attributes).forEach((attr) => {
                             newScript.setAttribute(attr.name, attr.value);
                         });
-
                         newScript.textContent = oldScript.textContent;
                         oldScript.parentNode.replaceChild(newScript, oldScript);
                     });
@@ -1208,10 +1311,22 @@
         }
 
         function toggleLessonCompletion(lessonId) {
-            if (!completedLessons.includes(lessonId)) { completedLessons.push(lessonId); }
-            else { completedLessons = completedLessons.filter(id => id !== lessonId); }
+            const today = new Date().toDateString();
+            let dailyRecord = JSON.parse(localStorage.getItem('mono_daily_record')) || { date: today, count: 0 };
+            if (dailyRecord.date !== today) {
+                dailyRecord = { date: today, count: 0 };
+            }
+
+            if (!completedLessons.includes(lessonId)) { 
+                completedLessons.push(lessonId);
+                dailyRecord.count = Math.min(5, dailyRecord.count + 1);
+            } else { 
+                completedLessons = completedLessons.filter(id => id !== lessonId); 
+            }
             
             localStorage.setItem('mono_completed_lessons', JSON.stringify(completedLessons));
+            localStorage.setItem('mono_daily_record', JSON.stringify(dailyRecord));
+
             updateSidebarVisuals();
             updateGamificationStats();
 
