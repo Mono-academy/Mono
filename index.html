@@ -230,6 +230,7 @@
             display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 12px;
         }
         .utility-group-left, .utility-group-right { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+        .utility-group-right { margin-left: auto; justify-content: flex-end; }
 
         .theme-toggle-btn, .timer-trigger-btn {
             background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main);
@@ -381,10 +382,10 @@
         <div class="modal-card" style="max-width: 700px;">
             <button class="modal-close-icon" onclick="closeGamesModal()" aria-label="Close Games Modal">✕</button>
             <h2 id="games-modal-title" style="margin: 0 0 6px 0; font-size: 20px; font-weight: 800; text-align: center;">🎮 Interactive Finance Games</h2>
-            <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Test your real-world money skills through interactive scenarios and simulations.</p>
+            <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Test your real-world money skills through interactive scenarios and simulations (+10 XP per completed game).</p>
             
             <div class="games-grid">
-                <a href="games/day-in-the-life-16.html" class="game-box active-game">
+                <a href="games/day-in-the-life-16.html" onclick="recordGameCompletion('day-in-the-life-16')" class="game-box active-game">
                     <div style="font-size: 32px; margin-bottom: 8px;">🎒</div>
                     <div style="font-size: 14px; font-weight: 800; line-height: 1.3; margin-bottom: 12px;">Day in the Life of a 16 year old</div>
                     <span style="font-size: 11px; font-weight: 700; background: var(--primary); color: white; padding: 6px 14px; border-radius: 99px;">Play Now →</span>
@@ -423,12 +424,12 @@
         </div>
     </div>
 
-    <!-- Mono Academy Ambassador Modal with Age Validation -->
+    <!-- Mono Academy Ambassador Modal with Age Validation (14-22) -->
     <div id="ambassador-modal" class="modal-overlay" role="dialog" aria-labelledby="ambassador-modal-title">
         <div class="modal-card">
             <button class="modal-close-icon" onclick="closeAmbassadorModal()" aria-label="Close Ambassador Modal">✕</button>
             <h2 id="ambassador-modal-title" style="margin: 0 0 6px 0; font-size: 20px; font-weight: 800; text-align: center;">🌟 Mono Academy Ambassador</h2>
-            <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Sign up below (must be 14 or older) to receive our Ambassador Program Guide (PDF) and next steps via email.</p>
+            <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Sign up below (ages 14–22) to receive our Ambassador Program Guide (PDF) and next steps via email.</p>
             
             <!-- Replace the action URL below with your active Make.com webhook URL if the current one has expired -->
             <form id="ambassador-form" action="https://hook.us2.make.com/9f85wgxmjg2heuv3saytrqy7ddaq3okw" method="POST" onsubmit="handleAmbassadorSubmit(event)">
@@ -443,8 +444,8 @@
                         <input type="email" id="amb-email" name="email" class="form-input" placeholder="jane@example.com" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="amb-age">Age</label>
-                        <input type="number" id="amb-age" name="age" class="form-input" placeholder="16" min="1" max="120" required>
+                        <label class="form-label" for="amb-age">Age (14–22)</label>
+                        <input type="number" id="amb-age" name="age" class="form-input" placeholder="16" min="14" max="22" required>
                     </div>
                 </div>
 
@@ -821,8 +822,8 @@
                     <button class="timer-trigger-btn" onclick="openAmbassadorModal()" aria-label="Mono Academy Ambassador">
                         🌟 <span>Mono Academy Ambassador</span>
                     </button>
-                    <div class="stat-badge" title="Daily Learning Streak">
-                        <span>🔥</span> <span id="streak-count">1 Day Streak</span>
+                    <div class="stat-badge" title="Total Experience Points (+10 XP per lesson & +10 XP per game)">
+                        <span>⚡</span> <span id="xp-count">0 XP</span>
                     </div>
                     <div class="stat-badge" title="Daily Target Progress">
                         <span>🎯</span> <span id="daily-target">0/5 Completed Today</span>
@@ -847,6 +848,7 @@
 
     <script>
         let completedLessons = JSON.parse(localStorage.getItem('mono_completed_lessons')) || [];
+        let completedGames = JSON.parse(localStorage.getItem('mono_completed_games')) || [];
         let bookmarkedLessons = JSON.parse(localStorage.getItem('mono_bookmarked_lessons')) || [];
         let studyNotes = JSON.parse(localStorage.getItem('mono_study_notes')) || [];
         let lastActiveLesson = localStorage.getItem('mono_last_active') || 'pf1.1';
@@ -928,6 +930,14 @@
             updateGamificationStats();
         });
 
+        window.addEventListener('storage', (e) => {
+            if (e.key === 'mono_completed_games' || e.key === 'mono_completed_lessons') {
+                completedGames = JSON.parse(localStorage.getItem('mono_completed_games')) || [];
+                completedLessons = JSON.parse(localStorage.getItem('mono_completed_lessons')) || [];
+                updateGamificationStats();
+            }
+        });
+
         function initTheme() {
             const savedTheme = localStorage.getItem('mono_theme') || 'light';
             document.documentElement.setAttribute('data-theme', savedTheme);
@@ -949,20 +959,8 @@
 
         function updateGamificationStats() {
             const today = new Date().toDateString();
-            const lastActiveDate = localStorage.getItem('mono_last_active_date');
-            let streak = parseInt(localStorage.getItem('mono_streak') || '1', 10);
-
-            if (lastActiveDate && lastActiveDate !== today) {
-                const yesterday = new Date();
-                yesterday.setDate(yesterday.getDate() - 1);
-                if (lastActiveDate !== yesterday.toDateString()) {
-                    streak = 1;
-                }
-            }
-            localStorage.setItem('mono_last_active_date', today);
-            localStorage.setItem('mono_streak', streak);
-
-            document.getElementById('streak-count').textContent = `${streak} Day Streak`;
+            const totalXP = (completedLessons.length * 10) + (completedGames.length * 10);
+            document.getElementById('xp-count').textContent = `${totalXP} XP`;
 
             let dailyRecord = JSON.parse(localStorage.getItem('mono_daily_record')) || { date: today, count: 0 };
             if (dailyRecord.date !== today) {
@@ -970,6 +968,14 @@
                 localStorage.setItem('mono_daily_record', JSON.stringify(dailyRecord));
             }
             document.getElementById('daily-target').textContent = `${dailyRecord.count}/5 Completed Today`;
+        }
+
+        function recordGameCompletion(gameId) {
+            if (!completedGames.includes(gameId)) {
+                completedGames.push(gameId);
+                localStorage.setItem('mono_completed_games', JSON.stringify(completedGames));
+                updateGamificationStats();
+            }
         }
 
         function checkWelcomeModal() {
@@ -1006,8 +1012,8 @@
     const emailConfirm = document.getElementById('amb-email-confirm').value;
     const age = parseInt(document.getElementById('amb-age').value, 10);
 
-    if (age < 14) {
-        alert("You must be at least 14 years old to apply as a Mono Academy Ambassador.");
+    if (age < 14 || age > 22) {
+        alert("Applicants must be between 14 and 22 years old to apply as a Mono Academy Ambassador.");
         return;
     }
 
@@ -1388,7 +1394,7 @@
                     const completeFooterHtml = `
                         <div class="lesson-footer-bar">
                             <span style="font-size: 13px; color: var(--text-muted); font-weight: 500;">
-                                ${isCompleted ? '✓ Lesson Completed' : 'Finished reading? Mark this lesson as complete:'}
+                                ${isCompleted ? '✓ Lesson Completed (+10 XP)' : 'Finished reading? Mark this lesson as complete (+10 XP):'}
                             </span>
                             <button id="complete-btn" onclick="toggleLessonCompletion('${lessonId}')" style="background: ${isCompleted ? 'var(--status-success-bg)' : 'var(--text-main)'}; color: ${isCompleted ? 'var(--status-success-text)' : 'var(--bg-card)'}; border: 1px solid ${isCompleted ? 'var(--status-success-text)' : 'var(--text-main)'}; padding: 12px 24px; font-size: 13px; font-weight: 700; border-radius: 10px; cursor: pointer; transition: opacity 0.2s;">
                                 ${isCompleted ? '✓ Completed' : 'Complete & Continue →'}
