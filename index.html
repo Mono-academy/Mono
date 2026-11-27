@@ -919,46 +919,53 @@
         }
         function closeAmbassadorModal() { document.getElementById('ambassador-modal').classList.remove('active'); }
 
-        async function handleAmbassadorSubmit(event) {
-            event.preventDefault();
-            const form = event.target;
-            const submitBtn = document.getElementById('amb-submit-btn');
-            const actionUrl = form.getAttribute('action');
+       async function handleAmbassadorSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const submitBtn = document.getElementById('amb-submit-btn');
+    const actionUrl = form.getAttribute('action');
 
-            const email = document.getElementById('amb-email').value;
-            const emailConfirm = document.getElementById('amb-email-confirm').value;
-            const age = parseInt(document.getElementById('amb-age').value, 10);
+    const email = document.getElementById('amb-email').value;
+    const emailConfirm = document.getElementById('amb-email-confirm').value;
+    const age = parseInt(document.getElementById('amb-age').value, 10);
 
-            if (age < 14) {
-                alert("You must be at least 14 years old to apply as a Mono Academy Ambassador.");
-                return;
-            }
+    if (age < 14) {
+        alert("You must be at least 14 years old to apply as a Mono Academy Ambassador.");
+        return;
+    }
 
-            if (email !== emailConfirm) {
-                alert("Email addresses do not match. Please check and try again.");
-                return;
-            }
+    if (email !== emailConfirm) {
+        alert("Email addresses do not match. Please check and try again.");
+        return;
+    }
 
-            submitBtn.disabled = true;
-            submitBtn.textContent = "Submitting...";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Submitting...";
 
-            try {
-                await fetch(actionUrl, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    body: new FormData(form)
-                });
-                
-                form.reset();
-                form.style.display = 'none';
-                document.getElementById('ambassador-success').style.display = 'block';
-            } catch (error) {
-                alert("There was an issue submitting your form. Please try again.");
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = "Submit & Receive Info PDF";
-            }
-        }
+    // Create a timeout controller so it never hangs indefinitely
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000);
+
+    try {
+        await fetch(actionUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: new FormData(form),
+            signal: controller.signal
+        });
+        
+        clearTimeout(timeoutId);
+        form.reset();
+        form.style.display = 'none';
+        document.getElementById('ambassador-success').style.display = 'block';
+    } catch (error) {
+        clearTimeout(timeoutId);
+        alert("The request timed out or failed. Please check your network connection and try again.");
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit & Receive Info PDF";
+    }
+}
 
         function setTimerPreset(minutes) {
             pauseTimer();
