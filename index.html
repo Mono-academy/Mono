@@ -351,15 +351,14 @@
         </div>
     </div>
 
-    <!-- Mono Academy Ambassador Modal with Sign-Up Form -->
+    <!-- Mono Academy Ambassador Modal with Updated Sign-Up Form -->
     <div id="ambassador-modal" class="modal-overlay" role="dialog" aria-labelledby="ambassador-modal-title">
         <div class="modal-card">
             <button class="modal-close-icon" onclick="closeAmbassadorModal()" aria-label="Close Ambassador Modal">✕</button>
             <h2 id="ambassador-modal-title" style="margin: 0 0 6px 0; font-size: 20px; font-weight: 800; text-align: center;">🌟 Mono Academy Ambassador</h2>
             <p style="text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 0; margin-bottom: 20px;">Sign up below to receive our Ambassador Program Guide (PDF) and next steps via email.</p>
             
-            <!-- Replace YOUR_FORM_ENDPOINT_HERE with your Formspree / Web3Forms URL -->
-            <form id="ambassador-form" action="https://hook.us2.make.com/9f85wgxmjg2heuv3saytrqy7ddaq3okw" method="POST" onsubmit="handleAmbassadorSubmit(event)">
+            <form id="ambassador-form" action="https://hook.us2.make.com/9f85wgxmjg2heuv3saytrqy7fky2l9w3" method="POST" onsubmit="handleAmbassadorSubmit(event)">
                 <div class="form-group">
                     <label class="form-label" for="amb-name">Full Name</label>
                     <input type="text" id="amb-name" name="name" class="form-input" placeholder="Jane Doe" required>
@@ -368,6 +367,11 @@
                 <div class="form-group">
                     <label class="form-label" for="amb-email">Email Address</label>
                     <input type="email" id="amb-email" name="email" class="form-input" placeholder="jane@example.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="amb-email-confirm">Confirm Email Address</label>
+                    <input type="email" id="amb-email-confirm" name="email_confirm" class="form-input" placeholder="jane@example.com" required>
                 </div>
 
                 <div class="form-row">
@@ -913,10 +917,18 @@
             const submitBtn = document.getElementById('amb-submit-btn');
             const actionUrl = form.getAttribute('action');
 
+            const email = document.getElementById('amb-email').value;
+            const emailConfirm = document.getElementById('amb-email-confirm').value;
+
+            if (email !== emailConfirm) {
+                alert("Email addresses do not match. Please check and try again.");
+                return;
+            }
+
             submitBtn.disabled = true;
             submitBtn.textContent = "Submitting...";
 
-            if (actionUrl && actionUrl !== "YOUR_FORM_ENDPOINT_HERE") {
+            if (actionUrl) {
                 try {
                     const response = await fetch(actionUrl, {
                         method: 'POST',
